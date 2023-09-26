@@ -7,6 +7,7 @@ const Home = ({navigation}) => {
 
             <Text>Email: {app_auth.currentUser.email}</Text>
             <Button onPress={() => app_auth.signOut()} title = "Sair"/>
+            <Button onPress={() => navigation.navigate('Fetch')} title = "Trilhas"/>
 
         </View>
     )

@@ -18,8 +18,6 @@ const Cadastro = () => {
       try{
         const response = await signInWithEmailAndPassword(auth, email, senha)
         console.log(response)
-        
-
       } catch (error) {
         console.log(error)
         alert('deu erro dog')
