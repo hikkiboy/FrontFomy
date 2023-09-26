@@ -3,7 +3,8 @@ import React, {useState} from 'react'
 import { app_auth } from '../../../firebaseConfig'
 import { Logo } from '../../components/logo';
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+
 
 
 const Cadastro = () => {

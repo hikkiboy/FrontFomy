@@ -1,10 +1,13 @@
-import {View, Text} from 'react-native'
+import {View, Text, Button} from 'react-native'
+import { app_auth } from '../../../firebaseConfig'
 
-
-const Home = () => {
+const Home = ({navigation}) => {
     return (
         <View>
-            <Text>Lista</Text>
+
+            <Text>Email: {app_auth.currentUser.email}</Text>
+            <Button onPress={() => app_auth.signOut()} title = "Sair"/>
+
         </View>
     )
 }

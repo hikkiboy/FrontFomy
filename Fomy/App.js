@@ -18,7 +18,6 @@ function HomeLayout(){
   return (
       <HomeStack.Navigator >
         <HomeStack.Screen name='Home' component={Home} options={{headerShown: false}}/>
-        <HomeStack.Screen name='Details' component={Details} options={{headerShown: false}}/>
       </HomeStack.Navigator>
 
   );
@@ -27,12 +26,21 @@ function HomeLayout(){
 
 
 export default function App() {
-  const [user, SetUser] = useState<User | null> (null);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    onAuthStateChanged(app_auth, (user) => {
+      setUser(user)
+    })
+  }, [])
  
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Login'>
-        <Stack.Screen name='Login' component={Login} options={{headerShown: false}}/>
+        {user ? (
+          <Stack.Screen name = 'logged' component={HomeLayout}/>
+        ) : (<Stack.Screen name='Login' component={Login} options={{headerShown: false}}/>) }
+        
         <Stack.Screen name='Cadastro' component={Cadastro} options={{headerShown: false}}/>
         
       </Stack.Navigator>
