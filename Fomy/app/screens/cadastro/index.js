@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Alert, TextInput, ActivityIndicator,Button, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Alert, TextInput, ActivityIndicator, KeyboardAvoidingView } from 'react-native';
 import React, {useState} from 'react'
 import { app_auth } from '../../../firebaseConfig'
 import { Logo } from '../../components/logo';
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import {Button} from 'react-native-elements'
 
 
 
@@ -46,17 +47,22 @@ const Cadastro = () => {
       <Logo/>
       <KeyboardAvoidingView behavior='padding'>
       <View>
-        <TextInput value={email} style = {styles.input} placeholder='Email' autoCapitalize='none'
+        <TouchableOpacity style = {styles.topoPao}>
+        </TouchableOpacity>
+        <TextInput value={email} style = {styles.inputEmail} placeholder='Email' autoCapitalize='none'
         onChangeText={(text) => setEmail(text)}></TextInput>
-         <TextInput value={senha} style = {styles.input} placeholder='Senha' autoCapitalize='none'
+         <TextInput value={senha} style = {styles.inputConfirmarSenha} placeholder='Confirmar Senha' autoCapitalize='none'
+        onChangeText={(text) => setSenha(text)} secureTextEntry={true}></TextInput>
+         <TextInput value={senha} style = {styles.inputSenha} placeholder='Senha' autoCapitalize='none'
         onChangeText={(text) => setSenha(text)} secureTextEntry={true}></TextInput>
 
         {loading ?(
            <ActivityIndicator size="large" color="#0000ff"/>  
         ): (
           <>
-          <Button title='Entrar' onPress = {SignIn}/>
-          <Button title = 'Registrar' onPress={SignUp}/>
+          <TouchableOpacity style = {styles.buttonRegistro} title = 'Registrar' onPress={SignUp}>
+          <Text style={styles.text}>Registrar</Text>
+          </TouchableOpacity>
 
           </>
         )} 
@@ -69,22 +75,89 @@ const Cadastro = () => {
 }
 export default Cadastro
 
-
-
-
-
 const styles = StyleSheet.create({
- input: {
-    marginVertical: 4,
-    height: 50,
-    borderWidth: 1,
-    borderRadius: 4,
+  topoPao:{
+    backgroundColor:'#c58749',
+  alignSelf: 'center',
+  fontSize: 20,
+  fontWeight: 'bold',
+  padding: 25,
+  paddingLeft: 42,
+  paddingRight: 42,
+  borderRadius: 20,
+  borderBottomWidth: 5,
+  borderWidth: 3,
+  marginBottom:5,
+  marginTop: -20,
+  width: 250,
+  borderBottomStartRadius: 0,
+  borderBottomEndRadius: 0,
+  },
+ inputSenha: {
+  backgroundColor: '#974E46',
+  marginTop: 0,
+    margin: 10,
+    borderWidth: 2,
+    borderRadius: 10,
+    width: 300,
+    alignSelf: 'center',
     padding: 10,
-    backgroundColor: '#FFF'
+    fontWeight: 'bold'
  },
- container:{
-  marginHorizontal: 20,
-  flex: 1,
-  justifyContent:'center'
+ inputConfirmarSenha: {
+  backgroundColor: '#ff6347',
+  marginTop: 0,
+    margin: 10,
+    borderWidth: 2,
+    borderRadius: 10,
+    width: 300,
+    alignSelf: 'center',
+    padding: 10,
+    fontWeight: 'bold'
+ },
+ inputEmail: {
+  backgroundColor: '#7EB77F',
+  marginTop: 0,
+    margin: 10,
+    marginTop: 5,
+    borderWidth: 2,
+    borderRadius: 10,
+    width: 300,
+    alignSelf: 'center',
+    padding: 10,
+    fontWeight: 'bold'
+ },
+ input: {
+  marginTop: 0,
+    margin: 10,
+    borderWidth: 2,
+    borderRadius: 10,
+    width: 300,
+    alignSelf: 'center',
+    padding: 15
+ },
+ buttonRegistro:{
+  backgroundColor:'#c58749',
+  alignSelf: 'center',
+  fontSize: 20,
+  fontWeight: 'bold',
+  padding: 13,
+  paddingLeft: 42,
+  paddingRight: 42,
+  borderRadius: 20,
+  borderColor: 'black',
+  borderBottomWidth: 7,
+  borderWidth: 3,
+  margin: 3,
+  width: 250,
+  borderTopStartRadius: 0,
+  borderTopEndRadius: 0,
+ },
+ text:{
+  fontWeight: 'bold',
+  fontSize: 18,
+  textAlign: 'center'
  }
+
+ 
 });

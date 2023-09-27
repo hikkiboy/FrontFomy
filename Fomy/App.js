@@ -3,12 +3,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import {User, onAuthStateChanged} from 'firebase/auth'
-import Login from './app/screens/login/index'
+import Login from './app/screens/initial';
 import Cadastro from './app/screens/cadastro/index';
 import Home from './app/screens/home/index'
 import { useEffect, useState } from 'react';
 import { app_auth } from './firebaseConfig';
 import Fetch from './app/components/fetch/index';
+import LoginPage from './app/screens/login/index';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,11 +28,11 @@ function HomeLayout(){
 
 
 export default function App() {
-  const [user, setUser] = useState()
+  const [user, SetUser] = useState()
 
   useEffect(() => { 
     onAuthStateChanged(app_auth, (user) => {
-      setUser(user)
+      SetUser(user)
     })
   }, [])
  
@@ -43,6 +44,8 @@ export default function App() {
         ) : (<Stack.Screen name='Login' component={Login} options={{headerShown: false}}/>) }
         
         <Stack.Screen name='Cadastro' component={Cadastro} options={{headerShown: false}}/>
+        <Stack.Screen name='Loginpage' component={LoginPage} options={{headerShown: false}}/>
+        
         
       </Stack.Navigator>
     </NavigationContainer>

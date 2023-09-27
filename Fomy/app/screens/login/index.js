@@ -1,140 +1,108 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Alert } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Alert, TextInput, ActivityIndicator, KeyboardAvoidingView } from 'react-native';
 import React, {useState} from 'react'
 import { app_auth } from '../../../firebaseConfig'
 import { Logo } from '../../components/logo';
 import Ionicons from '@expo/vector-icons/Ionicons'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import {Button} from 'react-native-elements'
 
 
 
+const LoginPage = () => {
+    const [email, setEmail] = useState('')
+    const [senha, setSenha] = useState('')
+    const [loading, setLoading] = useState(false)
+    const auth = app_auth;
 
-const Login = ({navigation}) => {
-
+    const SignIn = async () => {
+      setLoading(true)
+      try{
+        const response = await signInWithEmailAndPassword(auth, email, senha)
+        console.log(response)
+      } catch (error) {
+        console.log(error)
+        alert('deu erro dog')
+      } finally{
+        setLoading(false)
+      }
+    }
+  
     return (
-        <SafeAreaView>
-        <Logo/>
-  
-        <TouchableOpacity style={styles.bottonCadastro} onPress={() => navigation.navigate('Cadastro')}>
-        <Text style={styles.loginCadastro}>Cadastro</Text>
-        </TouchableOpacity>
-  
-        <TouchableOpacity style={styles.bottonLogin} onPress={ () => promptAsync()}>
-        <Text style={styles.login}>Login</Text>
-        </TouchableOpacity>
-  
-        <Text style={styles.otherOptions}>-- ou entre com --</Text>
-        
-        <View style={styles.loginsDiff}>
-        <TouchableOpacity style={styles.bottonCadastroGoogle}
-        onPress={() => promptAsync()}>
-        <Image source={require('../../assets/logoGoogle.png')}  resizeMode='center' style={styles.loginGoogle}/>
-        </TouchableOpacity>
-  
-        <TouchableOpacity>
-        <Ionicons name='logo-facebook' size={70} color='blue' style={styles.loginFacebook} onPress={ () => {Alert.alert('Cadastro com Facebook feito com sucesso')}}/>
-        </TouchableOpacity>
-  
-        </View>
-  
-        
-      </SafeAreaView>
+      <SafeAreaView>
+      <Logo/>
+      <KeyboardAvoidingView behavior='padding'>
+      <View>
+        <TextInput value={email} style = {styles.input} placeholder='Email' autoCapitalize='none'
+        onChangeText={(text) => setEmail(text)}></TextInput>
+         <TextInput value={senha} style = {styles.input} placeholder='Senha' autoCapitalize='none'
+        onChangeText={(text) => setSenha(text)} secureTextEntry={true}></TextInput>
+
+        {loading ?(
+           <ActivityIndicator size="large" color="#0000ff"/>  
+        ): (
+          <>
+          <TouchableOpacity title='Entrar' style={styles.buttonLogin} onPress={SignIn}>
+          <Text style={styles.text}>Entrar</Text>
+          </TouchableOpacity>
+          </>
+        )} 
+       
+      </View>
+
+      </KeyboardAvoidingView>
+    </SafeAreaView>
     )
 }
-export default Login
-
-
-
-
+export default LoginPage
 
 const styles = StyleSheet.create({
-  bottonCadastro: {
+ input: {
+  marginTop: 0,
+    margin: 10,
+    borderWidth: 2,
+    borderRadius: 10,
+    width: 300,
     alignSelf: 'center',
-    backgroundColor: '#7EB77F',
-    fontSize: 20,
-    fontWeight: 'bold',
-    padding: 12,
-    paddingLeft: 42,
-    paddingRight: 42,
-    borderRadius: 20,
-    borderColor: 'black',
-    borderBottomWidth: 7,
-    borderBottomStartRadius: 0,
-    borderBottomEndRadius: 0,
-    borderWidth: 3,
-    margin: 3,
-  },
-  loginCadastro:{
-    alignSelf: 'center',
-    fontSize: 20,
-    fontWeight: 'bold',
-    padding: 12,
-    paddingLeft: 40,
-    paddingRight: 40,
-  },
-  bottonLogin: {
-    alignSelf: 'center',
-    fontSize: 20,
-    fontWeight: 'bold',
-    padding: 12,
-    paddingLeft: 40,
-    paddingRight: 40,
-    borderColor: 'black',
-    borderWidth: 3,
-    marginTop: 5,
-    marginBottom: 5,
-    borderRadius: 10
-    
-  },
-  login:{
-    alignSelf: 'center',
-    fontSize: 20,
-    fontWeight: 'bold',
-    padding: 12,
-    paddingLeft: 57,
-    paddingRight: 57,
-  },
-  loginGoogle:{
-    alignSelf: 'center',
-    width: 60,
-    height: 60,
-    padding: 10,
-    paddingLeft: 1,
-    paddingRight: 1,
-    marginTop: 15,
-    marginLeft: 20
-  },
-  bottonCadastroGoogle: {
-    alignSelf: 'center',
-    fontSize: 20,
-    fontWeight: 'bold',
-    paddingLeft: 42,
-    paddingRight: 42,
-    marginBottom: 15
-  },
-  loginsDiff:{
-    display: 'flex',
-    flexDirection: 'row',
-    alignSelf: 'center',
-    gap: 30
-  },
-  loginFacebook:{
-    textAlign:'center',
-    width: 100,
-    paddingTop: 10,
-    paddingBottom: 10,
-    marginRight: 20
-  },
-  otherOptions:{
-    top: 30,
-    textAlign: 'center',
-    fontSize: 20,
-    opacity: 0.3,
-    width:'100%',
-    marginBottom: 50
-    },
-  
+    padding: 15
+ },
+ buttonRegistro:{
+  alignSelf: 'center',
+  fontSize: 20,
+  fontWeight: 'bold',
+  padding: 13,
+  paddingLeft: 42,
+  paddingRight: 42,
+  borderRadius: 20,
+  borderColor: 'black',
+  borderBottomWidth: 7,
+  borderWidth: 3,
+  margin: 3,
+  width: 250,
+  borderTopStartRadius: 0,
+  borderTopEndRadius: 0,
+ },
+ buttonLogin:{
+  backgroundColor: '#7EB77F',
+  alignSelf: 'center',
+  fontSize: 20,
+  fontWeight: 'bold',
+  padding: 13,
+  paddingLeft: 40,
+  paddingRight: 40,
+  borderBottomStartRadius: 0,
+  borderBottomEndRadius: 0,
+  borderColor: 'black',
+  borderWidth: 3,
+  marginTop: 20,
+  marginBottom: 5,
+  borderRadius: 10,
+  width: 250
+ },
+ text:{
+  fontWeight: 'bold',
+  fontSize: 18,
+  textAlign: 'center'
+ }
+
+ 
 });
-
-
-
-
-
