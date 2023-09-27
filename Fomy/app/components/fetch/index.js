@@ -1,33 +1,58 @@
 import React, { useEffect, useState } from 'react'
 import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import { app } from '../../../firebaseConfig'
+import { app, app_DB } from '../../../firebaseConfig'
+import { collection, onSnapshot } from '@firebase/firestore'
 
-export default function HomeScreen(props) {
+const List = ({navigation}) =>{
 
-    const [entityText, setEntityText] = useState('')
-    const [entities, setEntities] = useState([])
 
-    const entityRef = firebase.firestore().collection('entities')
-    const userID = props.extraData.id
+    const [Receitas, setReceitas] = useState([]);
 
-    useEffect(() => {
-        entityRef
-            .where("authorID", "==", userID)
-            .orderBy('createdAt', 'desc')
-            .onSnapshot(
-                querySnapshot => {
-                    const newEntities = []
-                    querySnapshot.forEach(doc => {
-                        const entity = doc.data()
-                        entity.id = doc.id
-                        newEntities.push(entity)
-                    });
-                    setEntities(newEntities)
-                },
-                error => {
-                    console.log(error)
-                }
-            )
-    }, [])
     
+
+useEffect(()=>{
+    const receitaRef = collection(app_DB, 'Receitas')
+
+    const subscriver = onSnapshot(receitaRef, {
+        next : (snapshot) => {
+            const receitas = []
+            snapshot.docs.forEach(doc =>{
+                console.log(doc.data())
+                receitas.push({
+                    key : doc.id,
+                    ...doc.data()
+                })
+            })
+            setReceitas(receitas)
+            console.log(receitas)
+            console.log(Receitas)
+
+        }
+    })
+
+    return() => subscriver()
+
+},[])
+
+
+return(
+  <FlatList
+  data={Receitas}
+  renderItem={({item}) => (
+    <View>
+        <Text>Receita: {item.Nome}</Text>
+        <Text>Descrição: {item.Descricao}</Text>
+
+
+    </View>
+  )}
+  />
+)
+
 }
+
+    
+
+export default List
+
+

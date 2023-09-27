@@ -4,7 +4,7 @@ import { app_auth } from '../../../firebaseConfig'
 import { Logo } from '../../components/logo';
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import {Button} from 'react-native-elements'
+import {Button} from 'react-native'
 
 
 
