@@ -1,58 +1,33 @@
-import React, { Component, useState, useEffect } from 'react';
-import { View, Text, FlatList, StyleSheet, Pressable } from 'react-native';
-import {firebase} from '../../../firebaseConfig'
-import { QuerySnapshot } from '@firebase/firestore';
+import React, { useEffect, useState } from 'react'
+import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { app } from '../../../firebaseConfig'
 
+export default function HomeScreen(props) {
 
-const Fetch = () =>{
+    const [entityText, setEntityText] = useState('')
+    const [entities, setEntities] = useState([])
 
-    const [user, setUser] = useState([])
-    const todoRef = firebase.firestore().collection('Trilhas')
+    const entityRef = firebase.firestore().collection('entities')
+    const userID = props.extraData.id
 
-
-    const teste = async () => {
-        todoRef.onSnapshot(
-            QuerySnapshot => {
-                const user = []
-                QuerySnapshot.forEach((doc) => {
-                    const {heading, text} = doc.data()
-                    user.push({
-                        id: doc.id,
-                        array,
-                        string,
-                        number
-
-                    })
-                })
-                setUser(user)
-            }
-        )
-    }
-
-    useEffect(() =>{
-        teste();
-    }
-, [])
+    useEffect(() => {
+        entityRef
+            .where("authorID", "==", userID)
+            .orderBy('createdAt', 'desc')
+            .onSnapshot(
+                querySnapshot => {
+                    const newEntities = []
+                    querySnapshot.forEach(doc => {
+                        const entity = doc.data()
+                        entity.id = doc.id
+                        newEntities.push(entity)
+                    });
+                    setEntities(newEntities)
+                },
+                error => {
+                    console.log(error)
+                }
+            )
+    }, [])
     
-
-
-    return(
-        <View>
-            <FlatList
-            data = {user}
-            numColumns={1}
-            renderItem={({item}) => (
-                <Pressable>
-                    <View>
-
-                        <Text></Text>
-                    </View>
-                </Pressable>
-            )}
-            />
-
-        </View>
-    )
 }
-
-export default Fetch

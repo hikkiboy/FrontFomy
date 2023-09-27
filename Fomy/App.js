@@ -28,11 +28,11 @@ function HomeLayout(){
 
 
 export default function App() {
-  const [user, SetUser] = useState()
+  const [user, setUser] = useState()
 
   useEffect(() => { 
     onAuthStateChanged(app_auth, (user) => {
-      SetUser(user)
+      setUser(user)
     })
   }, [])
  
