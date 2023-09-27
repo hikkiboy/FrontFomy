@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Alert, TextInput, ActivityIndicator, KeyboardAvoidingView } from 'react-native';
 import React, {useState} from 'react'
-import { app_auth } from '../../../firebaseConfig'
+import { app, app_DB, app_auth } from '../../../firebaseConfig'
 import { Logo } from '../../components/logo';
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc } from "firebase/firestore"; 
 import {Button} from 'react-native'
 
 
@@ -18,6 +19,7 @@ const Cadastro = () => {
       setLoading(true)
       try{
         const response = await signInWithEmailAndPassword(auth, email, senha)
+        
         console.log(response)
       } catch (error) {
         console.log(error)
@@ -32,6 +34,22 @@ const Cadastro = () => {
         try{
           const response = await createUserWithEmailAndPassword(auth, email, senha)
           console.log(response)
+          const docRef = await setDoc(doc(app_DB, "Usuarios", response.user.uid), {
+            Alergias:[],
+            Exp : 0,
+            Foto : "user/tdakjjD.gif",
+            Itens: [],
+            Moedas: 0,
+            Nivel: 1,
+            Nome : response.user.email,
+            Premium: false,
+            ProgressoTrilhas: [],
+            ReceitasFeitas: []
+
+          })
+
+          
+   
           alert('Olha o email')
   
         } catch (error) {
