@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import { app, app_DB } from '../../../firebaseConfig'
-import { collection, onSnapshot } from '@firebase/firestore'
+import { app, app_DB } from '../../../../firebaseConfig'
+import { collection, onSnapshot, query, where } from '@firebase/firestore'
 
-const List = ({navigation}) =>{
+const Basico = ({navigation}) =>{
 
 
     const [Receitas, setReceitas] = useState([]);
@@ -11,21 +11,27 @@ const List = ({navigation}) =>{
     
 
 useEffect(()=>{
-    const receitaRef = collection(app_DB, 'Trilhas')
+    
+    const receitaRef = collection(app_DB, 'Receitas')
 
-    const subscriver = onSnapshot(receitaRef, {
+    const q = query(
+        receitaRef,
+        where('Trilha', '==', 'Basico')
+    )
+
+    
+
+    const subscriver = onSnapshot(q, {
         next : (snapshot) => {
             const receitas = []
             snapshot.docs.forEach(doc =>{
-                console.log(doc.data())
                 receitas.push({
                     key : doc.id,
-                    ...doc.data()
+                    ...doc.data(),
+                   
                 })
             })
             setReceitas(receitas)
-            console.log(receitas)
-            console.log(Receitas)
 
         }
     })
@@ -40,9 +46,7 @@ return(
   data={Receitas}
   renderItem={({item}) => (
     <View>
-        <TouchableOpacity onPress={() => navigation.navigate(item.NomeTrilha)}>
-        <Text>Trilha: {item.NomeTrilha}</Text>
-        </TouchableOpacity>
+        <Text>Receita: {item.Nome}</Text>
     </View>
   )}
   />
@@ -52,6 +56,6 @@ return(
 
     
 
-export default List
+export default Basico
 
 

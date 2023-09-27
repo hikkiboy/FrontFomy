@@ -9,7 +9,9 @@ import Home from './app/screens/home/index'
 import { useEffect, useState } from 'react';
 import { app_auth } from './firebaseConfig';
 import Fetch from './app/components/fetch/index';
+import Doces from './app/screens/Trilhas/Doces';
 import LoginPage from './app/screens/login/index';
+import Basico from './app/screens/Trilhas/Basico';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +22,8 @@ function HomeLayout(){
       <HomeStack.Navigator >
         <HomeStack.Screen name='Home' component={Home} options={{headerShown: false}}/>
         <HomeStack.Screen name='Fetch' component={Fetch} options={{headerShown: false}}/>
+        <HomeStack.Screen name='Doces' component={Doces} options={{headerShown: false}}/>
+        <HomeStack.Screen name='Basico' component={Basico} options={{headerShown: false}}/>
       </HomeStack.Navigator>
 
   );
