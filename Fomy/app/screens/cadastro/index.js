@@ -9,9 +9,12 @@ import {Button} from 'react-native'
 
 
 
+
+
 const Cadastro = () => {
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
+    const [nome, setNome] = useState('')
     const [loading, setLoading] = useState(false)
     const auth = app_auth;
 
@@ -32,8 +35,10 @@ const Cadastro = () => {
       const SignUp = async () => {
         setLoading(true)
         try{
+          
           const response = await createUserWithEmailAndPassword(auth, email, senha)
           console.log(response)
+          const Other = setNome(nome)
           const docRef = await setDoc(doc(app_DB, "Usuarios", response.user.uid), {
             Alergias:[],
             Exp : 0,
@@ -41,7 +46,7 @@ const Cadastro = () => {
             Itens: [],
             Moedas: 0,
             Nivel: 1,
-            Nome : response.user.email,
+            Nome : nome,
             Premium: false,
             ProgressoTrilhas: [],
             ReceitasFeitas: []
@@ -67,12 +72,14 @@ const Cadastro = () => {
       <View>
         <TouchableOpacity style = {styles.topoPao}>
         </TouchableOpacity>
+        <TextInput value= {nome} style={styles.inputEmail} placeholder='Nome' autoCapitalize='none' onChangeText={(text) => setNome(text)}></TextInput>
         <TextInput value={email} style = {styles.inputEmail} placeholder='Email' autoCapitalize='none'
         onChangeText={(text) => setEmail(text)}></TextInput>
          <TextInput value={senha} style = {styles.inputConfirmarSenha} placeholder='Confirmar Senha' autoCapitalize='none'
         onChangeText={(text) => setSenha(text)} secureTextEntry={true}></TextInput>
          <TextInput value={senha} style = {styles.inputSenha} placeholder='Senha' autoCapitalize='none'
         onChangeText={(text) => setSenha(text)} secureTextEntry={true}></TextInput>
+        
 
         {loading ?(
            <ActivityIndicator size="large" color="#0000ff"/>  

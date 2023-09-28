@@ -3,12 +3,19 @@ import React, {useState} from 'react'
 import { app_auth } from '../../../firebaseConfig'
 import { Logo } from '../../components/logo';
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithRedirect } from 'firebase/auth';
 import {Button} from 'react-native'
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Home from '../home';
+import Login from '../initial';
 
 
 
 const LoginPage = () => {
+  const Stack = createNativeStackNavigator();
+
+
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
     const [loading, setLoading] = useState(false)
@@ -28,6 +35,9 @@ const LoginPage = () => {
     }
   
     return (
+
+
+      
       <SafeAreaView>
       <Logo/>
       <KeyboardAvoidingView behavior='padding'>
@@ -41,6 +51,7 @@ const LoginPage = () => {
            <ActivityIndicator size="large" color="#0000ff"/>  
         ): (
           <>
+          
           <TouchableOpacity title='Entrar' style={styles.buttonLogin} onPress={SignIn}>
           <Text style={styles.text}>Entrar</Text>
           </TouchableOpacity>
@@ -48,9 +59,10 @@ const LoginPage = () => {
         )} 
        
       </View>
-
+      
       </KeyboardAvoidingView>
     </SafeAreaView>
+
     )
 }
 export default LoginPage
