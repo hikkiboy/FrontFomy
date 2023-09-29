@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Alert, TextInput, ActivityIndicator, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Alert, TextInput, ActivityIndicator, KeyboardAvoidingView, ImageBackground } from 'react-native';
 import React, {useState} from 'react'
 import { app, app_DB, app_auth } from '../../../firebaseConfig'
 import { Logo } from '../../components/logo';
@@ -6,6 +6,8 @@ import Ionicons from '@expo/vector-icons/Ionicons'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from "firebase/firestore"; 
 import {Button} from 'react-native'
+import fundo from '../../assets/fundinho.png'
+
 
 
 
@@ -17,6 +19,7 @@ const Cadastro = () => {
     const [nome, setNome] = useState('')
     const [loading, setLoading] = useState(false)
     const auth = app_auth;
+
 
     const SignIn = async () => {
       setLoading(true)
@@ -66,18 +69,22 @@ const Cadastro = () => {
     }
   
     return (
+      
       <SafeAreaView>
-      <Logo/>
+      
       <KeyboardAvoidingView behavior='padding'>
-      <View>
-        <TouchableOpacity style = {styles.topoPao}>
-        </TouchableOpacity>
-        <TextInput value= {nome} style={styles.inputEmail} placeholder='Nome' autoCapitalize='none' onChangeText={(text) => setNome(text)}></TextInput>
-        <TextInput value={email} style = {styles.inputEmail} placeholder='Email' autoCapitalize='none'
+      <ImageBackground 
+       source={fundo}
+       >
+      <View style = {styles.container}>
+      
+
+        <TextInput value= {nome} style={styles.input} placeholder='Nome' autoCapitalize='none' onChangeText={(text) => setNome(text)}></TextInput>
+        <TextInput value={email} style = {styles.input} placeholder='Email' autoCapitalize='none'
         onChangeText={(text) => setEmail(text)}></TextInput>
-         <TextInput value={senha} style = {styles.inputConfirmarSenha} placeholder='Confirmar Senha' autoCapitalize='none'
+         <TextInput value={senha} style = {styles.input} placeholder='Confirmar Senha' autoCapitalize='none'
         onChangeText={(text) => setSenha(text)} secureTextEntry={true}></TextInput>
-         <TextInput value={senha} style = {styles.inputSenha} placeholder='Senha' autoCapitalize='none'
+         <TextInput value={senha} style = {styles.input} placeholder='Senha' autoCapitalize='none'
         onChangeText={(text) => setSenha(text)} secureTextEntry={true}></TextInput>
         
 
@@ -86,102 +93,64 @@ const Cadastro = () => {
         ): (
           <>
           <TouchableOpacity style = {styles.buttonRegistro} title = 'Registrar' onPress={SignUp}>
-          <Text style={styles.text}>Registrar</Text>
+          <Text style={styles.text}>Começar jornada!</Text>
           </TouchableOpacity>
 
           </>
         )} 
-       
-      </View>
 
+        
+      
+      </View>
+      </ImageBackground>
       </KeyboardAvoidingView>
+      
+     
     </SafeAreaView>
     )
 }
 export default Cadastro
 
 const styles = StyleSheet.create({
-  topoPao:{
-    backgroundColor:'#c58749',
-  alignSelf: 'center',
-  fontSize: 20,
-  fontWeight: 'bold',
-  padding: 25,
-  paddingLeft: 42,
-  paddingRight: 42,
-  borderRadius: 20,
-  borderBottomWidth: 5,
-  borderWidth: 3,
-  marginBottom:5,
-  marginTop: -20,
-  width: 250,
-  borderBottomStartRadius: 0,
-  borderBottomEndRadius: 0,
+  container:{
+    marginTop: 250,
+    marginBottom: 250,
+
+    
   },
- inputSenha: {
-  backgroundColor: '#974E46',
-  marginTop: 0,
-    margin: 10,
-    borderWidth: 2,
-    borderRadius: 10,
-    width: 300,
-    alignSelf: 'center',
-    padding: 10,
-    fontWeight: 'bold'
- },
- inputConfirmarSenha: {
-  backgroundColor: '#ff6347',
-  marginTop: 0,
-    margin: 10,
-    borderWidth: 2,
-    borderRadius: 10,
-    width: 300,
-    alignSelf: 'center',
-    padding: 10,
-    fontWeight: 'bold'
- },
- inputEmail: {
-  backgroundColor: '#7EB77F',
-  marginTop: 0,
-    margin: 10,
-    marginTop: 5,
-    borderWidth: 2,
-    borderRadius: 10,
-    width: 300,
-    alignSelf: 'center',
-    padding: 10,
-    fontWeight: 'bold'
- },
  input: {
+  backgroundColor: '#FFFFFF',
   marginTop: 0,
     margin: 10,
     borderWidth: 2,
     borderRadius: 10,
+    borderColor:'#A6A6A6',
     width: 300,
     alignSelf: 'center',
     padding: 15
  },
  buttonRegistro:{
-  backgroundColor:'#c58749',
-  alignSelf: 'center',
+  backgroundColor: "#7EB77F",
+  alignSelf: "center",
   fontSize: 20,
-  fontWeight: 'bold',
+  fontWeight: "bold",
   padding: 13,
-  paddingLeft: 42,
-  paddingRight: 42,
-  borderRadius: 20,
-  borderColor: 'black',
-  borderBottomWidth: 7,
+  paddingLeft: 40,
+  paddingRight: 40,
+  borderColor: "black",
   borderWidth: 3,
-  margin: 3,
+  marginTop: 20,
+  marginBottom: 5,
+  borderRadius: 10,
   width: 250,
-  borderTopStartRadius: 0,
-  borderTopEndRadius: 0,
  },
  text:{
   fontWeight: 'bold',
   fontSize: 18,
   textAlign: 'center'
+ },
+ fundo:{
+  opacity: 0.5
  }
 
  

@@ -2,6 +2,9 @@ import {View, Text, Button, FlatList} from 'react-native'
 import { app_auth, app_DB } from '../../../firebaseConfig'
 import { doc , collection, query, where, onSnapshot, Firestore, documentId} from 'firebase/firestore'
 import { useEffect, useState} from 'react'
+import auth from '@react-native-firebase/auth'
+
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Home = ({navigation}) => {
 
@@ -45,18 +48,22 @@ const Home = ({navigation}) => {
     
 
     return (
+        
         <View>
 
 <FlatList
   data={Receitas}
   renderItem={({item}) => (
-    <View>
+    <SafeAreaView>
+
         <Text>Nome: {item.Nome}</Text>
-    </View>
+    </SafeAreaView>
   )}
-  />
-            <Button onPress={() => app_auth.signOut()} title = "Sair"/>
+  />        
+            <SafeAreaView>
+            <Button onPress={() =>{app_auth.signOut()}} title = "Sair"/>
             <Button onPress={() => navigation.navigate('Fetch')} title = "Trilhas"/>
+            </SafeAreaView>
 
         </View>
     )

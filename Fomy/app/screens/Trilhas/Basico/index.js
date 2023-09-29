@@ -45,9 +45,9 @@ return(
   <FlatList
   data={Receitas}
   renderItem={({item}) => (
-    <View>
+    <SafeAreaView>
         <Text>Receita: {item.Nome}</Text>
-    </View>
+        </SafeAreaView>
   )}
   />
 )

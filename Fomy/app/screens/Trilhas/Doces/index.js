@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { app, app_DB } from '../../../../firebaseConfig'
 import { collection, onSnapshot, query, where } from '@firebase/firestore'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Doces = ({navigation}) =>{
 
@@ -45,9 +46,9 @@ return(
   <FlatList
   data={Receitas}
   renderItem={({item}) => (
-    <View>
+    <SafeAreaView>
         <Text>Receita: {item.Nome}</Text>
-    </View>
+        </SafeAreaView>
   )}
   />
 )
