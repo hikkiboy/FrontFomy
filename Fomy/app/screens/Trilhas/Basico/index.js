@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View,  } from 'react-native'
 import { app, app_DB } from '../../../../firebaseConfig'
 import { collection, onSnapshot, query, where } from '@firebase/firestore'
 
@@ -54,7 +54,6 @@ return(
 
 }
 
-    
 
 export default Basico
 

@@ -42,6 +42,8 @@ useEffect(()=>{
 },[])
 
 
+//adicionar icones das trilhas usando svg, aparentemente tem como exportar eles do figma 
+
 return(
   <FlatList
   data={Receitas}
