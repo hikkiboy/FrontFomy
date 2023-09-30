@@ -3,6 +3,8 @@ import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'rea
 import { app, app_DB } from '../../../../firebaseConfig'
 import { collection, onSnapshot, query, where } from '@firebase/firestore'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import BotaoTrilha from '../../../components/trilha/botaoPrincipal'
+import { Logo } from '../../../components/logo'
 
 const Doces = ({navigation}) =>{
 
@@ -49,7 +51,7 @@ return(
   data={Receitas}
   renderItem={({item}) => (
     <SafeAreaView>
-        <Text>Receita: {item.Nome}</Text>
+        <BotaoTrilha></BotaoTrilha>
         </SafeAreaView>
   )}
   />
