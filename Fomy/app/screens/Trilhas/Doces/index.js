@@ -51,7 +51,7 @@ return(
   data={Receitas}
   renderItem={({item}) => (
     <SafeAreaView>
-        <BotaoTrilha></BotaoTrilha>
+        <Text>AAAA</Text>
         </SafeAreaView>
   )}
   />

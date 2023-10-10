@@ -1,5 +1,8 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+//import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+//import Ioicons from 'react-native-vector-icons/Ionicons'
 
 import Home from "../screens/home";
 import Doces from "../screens/Trilhas/Doces";
@@ -16,7 +19,7 @@ export default function Routes() {
     <Stack.Navigator initialRouteName="Login">
       <Stack.Screen
         name="Home"
-        component={Home}
+        component={TabNavigatior}
         options={{ headerShown: false }}
       />
       {<Stack.Screen
@@ -51,4 +54,15 @@ export default function Routes() {
       />
     </Stack.Navigator>
   );
+}
+
+const Tab = createBottomTabNavigator();
+
+export function TabNavigatior() {
+  return(
+   <Tab.Navigator>
+    <Tab.Screen name = "Home" component={Home} options={{headerShown: false}}/>
+    <Tab.Screen name = "Doces" component={Doces}options={{headerShown: false}}/>
+   </Tab.Navigator>
+  )
 }
