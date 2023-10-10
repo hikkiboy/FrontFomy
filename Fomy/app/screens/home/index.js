@@ -64,6 +64,7 @@ const Home = ({navigation}) => {
             <Button onPress={() =>{app_auth.signOut()}} title = "Sair"/>
             <Button onPress={() => navigation.navigate('Fetch')} title = "Trilhas"/>
             </SafeAreaView>
+            
 
         </View>
     )

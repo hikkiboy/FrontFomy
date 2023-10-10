@@ -7,7 +7,7 @@ import { User, onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { app_auth } from "./firebaseConfig";
 
-import Routes from "./app/routes/stackRouter";
+import Routes, { TabNavigatior } from "./app/routes/stackRouter";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,7 +25,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Routes />
+      <Routes/>
     </NavigationContainer>
   );
 }
