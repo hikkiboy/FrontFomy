@@ -1,13 +1,12 @@
-import {View, Text, Button, FlatList, TouchableOpacity} from 'react-native'
+import { View, Text, Image, useWindowDimensions, FlatList, SafeAreaView, TouchableOpacity } from 'react-native'
+import React from 'react'
 import { app_auth, app_DB } from '../../../firebaseConfig'
 import { doc , collection, query, where, onSnapshot, Firestore, documentId} from 'firebase/firestore'
-import { useEffect, useState} from 'react'
-import auth from '@react-native-firebase/auth'
+import { useState, useEffect } from 'react';
 
-import { SafeAreaView } from 'react-native-safe-area-context'
+export default Onboarding = ({item}) => {
 
-const Home = ({navigation}) => {
-
+    
  
 
     const [Receitas, setReceitas] = useState([]);
@@ -38,22 +37,17 @@ useEffect(()=>{
 
 },[])
 
-
-return(
-  <FlatList
+    const {width} = useWindowDimensions();
+  return (
+     <FlatList
   data={Receitas}
   renderItem={({item}) => (
     <SafeAreaView>
-        <TouchableOpacity onPress={() => navigation.navigate(item.NomeTrilha)}>
         <Text>Trilha: {item.NomeTrilha}</Text>
-        </TouchableOpacity>
         </SafeAreaView>
   )}
   />
-)
-
+  )
 }
 
-    
 
-export default Home

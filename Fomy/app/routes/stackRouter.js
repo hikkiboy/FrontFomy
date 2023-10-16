@@ -4,13 +4,14 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 //import Ioicons from 'react-native-vector-icons/Ionicons'
 
-import Home from "../screens/home";
+import Profile from "../screens/profile";
 import Doces from "../screens/Trilhas/Doces";
 import Basico from "../screens/Trilhas/Basico";
 import Login from "../screens/initial";
 import LoginPage from "../screens/login";
 import Cadastro from "../screens/cadastro";
 import Fetch from "../components/fetch/index"
+import Home from "../screens/home";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,7 +19,7 @@ export default function Routes() {
   return (
     <Stack.Navigator initialRouteName="Login">
       <Stack.Screen
-        name="Home"
+        name="Profile"
         component={TabNavigatior}
         options={{ headerShown: false }}
       />
@@ -52,6 +53,11 @@ export default function Routes() {
         component={Login}
         options={{ headerShown: false }}
       />
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 }
@@ -62,7 +68,8 @@ export function TabNavigatior() {
   return(
    <Tab.Navigator>
     <Tab.Screen name = "Home" component={Home} options={{headerShown: false}}/>
-    <Tab.Screen name = "Doces" component={Doces}options={{headerShown: false}}/>
+    <Tab.Screen name = "Perfil" component={Profile} options={{headerShown: false}}/>
+    {/*<Tab.Screen name = "Trilhas" component={Fetch}options={{headerShown: false}}/>*/}
    </Tab.Navigator>
   )
 }

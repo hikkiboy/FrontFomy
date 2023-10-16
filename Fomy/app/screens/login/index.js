@@ -22,7 +22,7 @@ import {
 } from "firebase/auth";
 import { Button } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import Home from "../home";
+import Home from "../profile";
 import Login from "../initial";
 import fundo from '../../assets/fundinho.png'
 
@@ -41,7 +41,7 @@ const LoginPage = () => {
     try {
       const response = await signInWithEmailAndPassword(auth, email, senha);
       console.log(response);
-      navigation.navigate("Home");
+      navigation.navigate("Profile");
     } catch (error) {
       console.log(error);
       alert("deu erro dog");
@@ -52,11 +52,8 @@ const LoginPage = () => {
 
   return (
     <SafeAreaView>
-        <ImageBackground 
-       source={fundo}
-       >
+
       <Logo />
-      <KeyboardAvoidingView behavior="padding">
         <View style={styles.container}>
           <TextInput
             value={email}
@@ -89,8 +86,7 @@ const LoginPage = () => {
           )}
         </View>
         
-      </KeyboardAvoidingView>
-      </ImageBackground>
+
     </SafeAreaView>
     
   );
@@ -135,8 +131,8 @@ const styles = StyleSheet.create({
     padding: 13,
     paddingLeft: 40,
     paddingRight: 40,
-    borderBottomStartRadius: 0,
-    borderBottomEndRadius: 0,
+    //borderBottomStartRadius: 0,
+    //borderBottomEndRadius: 0,
     borderColor: "black",
     borderWidth: 3,
     marginTop: 20,

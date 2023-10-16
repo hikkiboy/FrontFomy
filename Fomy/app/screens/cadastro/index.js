@@ -71,20 +71,22 @@ const Cadastro = () => {
     return (
       
       <SafeAreaView>
-      
-      <KeyboardAvoidingView behavior='padding'>
-      <ImageBackground 
+      {/*<ImageBackground 
        source={fundo}
-       >
+       style={styles.fundo}
+    >*/}
+
       <View style = {styles.container}>
+        
       
+    
 
         <TextInput value= {nome} style={styles.input} placeholder='Nome' autoCapitalize='none' onChangeText={(text) => setNome(text)}></TextInput>
         <TextInput value={email} style = {styles.input} placeholder='Email' autoCapitalize='none'
         onChangeText={(text) => setEmail(text)}></TextInput>
-         <TextInput value={senha} style = {styles.input} placeholder='Confirmar Senha' autoCapitalize='none'
-        onChangeText={(text) => setSenha(text)} secureTextEntry={true}></TextInput>
          <TextInput value={senha} style = {styles.input} placeholder='Senha' autoCapitalize='none'
+        onChangeText={(text) => setSenha(text)} secureTextEntry={true}></TextInput>
+        <TextInput value={senha} style = {styles.input} placeholder='Confirmar Senha' autoCapitalize='none'
         onChangeText={(text) => setSenha(text)} secureTextEntry={true}></TextInput>
         
 
@@ -100,13 +102,16 @@ const Cadastro = () => {
         )} 
 
         
-      
+
       </View>
-      </ImageBackground>
-      </KeyboardAvoidingView>
+      {/*</ImageBackground>*/}
+     
+    
+      
+
       
      
-    </SafeAreaView>
+    </SafeAreaView  >
     )
 }
 export default Cadastro
@@ -114,13 +119,12 @@ export default Cadastro
 const styles = StyleSheet.create({
   container:{
     marginTop: 250,
-    marginBottom: 250,
-
-    
+    //marginBottom: 250,
+  
   },
  input: {
   backgroundColor: '#FFFFFF',
-  marginTop: 0,
+
     margin: 10,
     borderWidth: 2,
     borderRadius: 10,
@@ -150,7 +154,7 @@ const styles = StyleSheet.create({
   textAlign: 'center'
  },
  fundo:{
-  opacity: 0.5
+  backgroundColor: 'White'
  }
 
  
