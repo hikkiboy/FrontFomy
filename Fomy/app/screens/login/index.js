@@ -71,7 +71,7 @@ const LoginPage = () => {
             onChangeText={(text) => setSenha(text)}
             secureTextEntry={true}
           ></TextInput>
-          <TouchableOpacity onPress={ () => navigation.navigate('PasswordResets')}>
+          <TouchableOpacity style={styles.forgotPassword} onPress={ () => navigation.navigate('PasswordResets')}>
             <Text>Esqueci minha senha</Text>
           </TouchableOpacity>
 
@@ -149,4 +149,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "center",
   },
+  forgotPassword:{
+    alignSelf: "center",
+    opacity: 0.4
+  }
 });
