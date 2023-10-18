@@ -70,7 +70,7 @@ return (
   viewabilityConfig={viewConfig}
   ref ={slidesRef}
   />
-  <Paginator data = {Receitas.length}/>
+  <Paginator data = {Receitas} scrollX={scrollX} />
   </View>
   )
 }
@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
   fontSize: 18,
   textAlign: 'center'
     }
+
 })
 
 export default Home
