@@ -13,6 +13,7 @@ import Cadastro from "../screens/cadastro";
 import Fetch from "../components/fetch/index"
 import Home from "../screens/home";
 import OnboardingItem from "../components/Onboarding/index";
+import PasswordResets from "../utils/forgotPassword";
 
 const Stack = createNativeStackNavigator();
 
@@ -62,6 +63,10 @@ export default function Routes() {
        <Stack.Screen
         name="Onboarding"
         component={OnboardingItem}
+        />
+      <Stack.Screen
+        name="PasswordResets"
+        component={PasswordResets}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
