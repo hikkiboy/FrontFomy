@@ -1,4 +1,4 @@
-import {View, FlatList,StyleSheet, Animated} from 'react-native'
+import {View, FlatList,StyleSheet, Animated, Button} from 'react-native'
 import { app_auth, app_DB } from '../../../firebaseConfig'
 import { doc , collection, query, where, onSnapshot, Firestore, documentId} from 'firebase/firestore'
 import { useEffect, useState,useRef} from 'react'
@@ -56,7 +56,7 @@ return (
   <View style ={{flex: 3}}>
   <FlatList
   data={Receitas}
-  renderItem={({item}) => <OnboardingItem item={item}/>}
+  renderItem={({item}) => <OnboardingItem item={item} navigation={navigation}/>}
   horizontal
   showsHorizontalScrollIndicator = {false}
   pagingEnabled
@@ -69,8 +69,10 @@ return (
   onViewableItemsChanged={viewableItemsChanged}
   viewabilityConfig={viewConfig}
   ref ={slidesRef}
+ 
   />
   <Paginator data = {Receitas} scrollX={scrollX} />
+
   </View>
   )
 }

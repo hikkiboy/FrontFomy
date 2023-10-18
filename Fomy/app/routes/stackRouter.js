@@ -12,6 +12,7 @@ import LoginPage from "../screens/login";
 import Cadastro from "../screens/cadastro";
 import Fetch from "../components/fetch/index"
 import Home from "../screens/home";
+import OnboardingItem from "../components/Onboarding/index";
 
 const Stack = createNativeStackNavigator();
 
@@ -56,6 +57,11 @@ export default function Routes() {
       <Stack.Screen
         name="Home"
         component={Home}
+        options={{ headerShown: false }}
+      />
+       <Stack.Screen
+        name="Onboarding"
+        component={OnboardingItem}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
