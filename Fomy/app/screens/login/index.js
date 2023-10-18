@@ -27,6 +27,7 @@ import Login from "../initial";
 import fundo from '../../assets/fundinho.png'
 
 import { useNavigation } from "@react-navigation/native";
+import PasswordResets from "../../utils/forgotPassword";
 
 const LoginPage = () => {
   const navigation = useNavigation();
@@ -70,6 +71,9 @@ const LoginPage = () => {
             onChangeText={(text) => setSenha(text)}
             secureTextEntry={true}
           ></TextInput>
+          <TouchableOpacity style={styles.forgotPassword} onPress={ () => navigation.navigate('PasswordResets')}>
+            <Text>Esqueci minha senha</Text>
+          </TouchableOpacity>
 
           {loading ? (
             <ActivityIndicator size="large" color="#0000ff" />
@@ -145,4 +149,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "center",
   },
+  forgotPassword:{
+    alignSelf: "center",
+    opacity: 0.4
+  }
 });
