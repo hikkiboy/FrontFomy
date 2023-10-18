@@ -1,53 +1,50 @@
-import { View, Text, Image, useWindowDimensions, FlatList, SafeAreaView, TouchableOpacity } from 'react-native'
+import { View, Text, Image, useWindowDimensions, StyleSheet} from 'react-native'
 import React from 'react'
 import { app_auth, app_DB } from '../../../firebaseConfig'
 import { doc , collection, query, where, onSnapshot, Firestore, documentId} from 'firebase/firestore'
 import { useState, useEffect } from 'react';
 
-export default Onboarding = ({item}) => {
+export default OnboardingItem = ({item}) => {
 
-    
- 
+    const {width} = useWindowDimensions()
 
-    const [Receitas, setReceitas] = useState([]);
-
-    
-
-useEffect(()=>{
-    const receitaRef = collection(app_DB, 'Trilhas')
-
-    const subscriver = onSnapshot(receitaRef, {
-        next : (snapshot) => {
-            const receitas = []
-            snapshot.docs.forEach(doc =>{
-                console.log(doc.data())
-                receitas.push({
-                    key : doc.id,
-                    ...doc.data()
-                })
-            })
-            setReceitas(receitas)
-            console.log(receitas)
-            console.log(Receitas)
-
-        }
-    })
-
-    return() => subscriver()
-
-},[])
-
-    const {width} = useWindowDimensions();
   return (
-     <FlatList
-  data={Receitas}
-  renderItem={({item}) => (
-    <SafeAreaView>
-        <Text>Trilha: {item.NomeTrilha}</Text>
-        </SafeAreaView>
-  )}
-  />
-  )
+    <View style={[styles.container, {width}]}>
+     <Image source={{uri: item.Imagem}}
+    style = {[styles.image, {width, resizeMode: 'contain'}]}/>
+    <View style = {{flex: 0.3}}> 
+        <Text style={styles.title}>{item.NomeTrilha}</Text>
+        <Text>{item.Descricao}</Text>
+    </View>
+    </View>
+
+  ) 
 }
+
+const styles = StyleSheet.create({
+    container:{
+        flex:1,
+        justifyContents: 'center',
+        alignItems: 'center'
+    },
+    image:{
+        flex:0.7,
+        width: 400,
+        height: 400,
+        justifyContent:'center'
+    },
+    title:{
+        fontWeight: '800',
+        fontSize: 28,
+        marginBottom:10,
+        textAlign:'center'
+    },
+    description:{
+        fontWeight: '300',
+        fontSize: 28,
+        paddingHorizontal:64,
+        textAlign:'center'
+    }
+})
 
 
