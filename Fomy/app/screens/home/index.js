@@ -1,8 +1,8 @@
-import {View,StyleSheet} from 'react-native'
+import {View,StyleSheet,FlatList} from 'react-native'
 import {  app_DB } from '../../../firebaseConfig'
 import { collection, onSnapshot} from 'firebase/firestore'
 import { useEffect, useState,useRef} from 'react'
-import Animated from 'react-native-reanimated'
+import Animated, { useAnimatedScrollHandler, useAnimatedRef, useSharedValue } from 'react-native-reanimated'
 import auth from '@react-native-firebase/auth'
 import OnboardingItem from '../../components/Onboarding'
 import paginator from '../../components/paginator'
@@ -40,13 +40,34 @@ useEffect(()=>{
 },[])
 
 
+const flatListRef = useAnimatedRef();
+const x = useSharedValue(0)
 
+
+
+const onScroll = useAnimatedScrollHandler({
+    onScroll: event => {
+        x.value = event.contentOffset.x;
+    },
+})
 
 return (
     <View style={styles.container}>
-      <Animated.FlatList data={Receitas} renderItem={({item, index}) => {
-        return <OnboardingItem/>
-      }}/>
+      <Animated.FlatList 
+      ref={flatListRef}
+      onScroll={onScroll}
+      data={Receitas} 
+      renderItem={({item, index}) => {
+        return <OnboardingItem item = {item} index = {index} x = {x} navigation={navigation}/>
+      }}
+      keyExtractor={item => item.key}
+      scrollEventThrottle={16}
+      horizontal = {true} 
+      bounces = {false}
+      showsHorizontalScrollIndicator ={false}
+    pagingEnabled = {true}
+
+      />
   </View>
   )
 }

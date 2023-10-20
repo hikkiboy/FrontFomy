@@ -2,7 +2,7 @@ import React from 'react'
 
 import {View, StyleSheet, Animated, useWindowDimensions} from 'react-native'
 
-export default paginator = ({data, scrollX}) =>{
+export default Paginator = ({data, scrollX}) =>{
     const {width} = useWindowDimensions();
     return (
         <View style={{flexDirection: 'row', height: 64, alignSelf: 'center'}}>
