@@ -53,26 +53,7 @@ const OnboardingItem = ({item, navigation}) => {
     const {width} = useWindowDimensions()
 
   return (
-    <View style={[styles.container, {width}]}>
-    <View style={styles.block}>
-      
-      <Image source={require('../../assets/alberto.png')} style={styles.mascote}/>
-      
-        <Text style={styles.title}>{item.NomeTrilha}</Text>
-        <Text style={styles.description}>{item.Descricao}</Text>
-        
-        <View style={{paddingTop: 10, paddingBottom:20}}>
-        {/*<Progress.Bar style={{alignSelf:'center'}} progress={Usuarios[0].ProgressoTrilhas[item.indexTrilha]} width={250} height={20} color='#32a852'><Text style={{position:'absolute', flex:0, alignSelf: 'center'}}>{Usuarios[0].ProgressoTrilhas[item.indexTrilha] * 10}/10</Text></Progress.Bar>*/}
-        </View>
-        <View>
-        {/*<Button title='Entrar' onPress={navigation.navigate(item.NomeTrilha)}/>*/}
-        </View>
-   
-    </View>
-
-    </View>
-   
-
+        <Text style={{textAlign:'center'}}>WIP</Text>
   ) 
 }
 export default OnboardingItem

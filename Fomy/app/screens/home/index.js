@@ -1,12 +1,11 @@
-import {View, FlatList,StyleSheet, Animated, Button} from 'react-native'
-import { app_auth, app_DB } from '../../../firebaseConfig'
-import { doc , collection, query, where, onSnapshot, Firestore, documentId} from 'firebase/firestore'
+import {View,StyleSheet} from 'react-native'
+import {  app_DB } from '../../../firebaseConfig'
+import { collection, onSnapshot} from 'firebase/firestore'
 import { useEffect, useState,useRef} from 'react'
+import Animated from 'react-native-reanimated'
 import auth from '@react-native-firebase/auth'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import OnboardingItem from '../../components/Onboarding'
 import paginator from '../../components/paginator'
-import Paginator from '../../components/paginator'
 const Home = ({navigation}) => {
 
  
@@ -40,39 +39,14 @@ useEffect(()=>{
 
 },[])
 
-const [currentIndex, setCurrentIndex] = useState(0)
 
 
-const scrollX = useRef(new Animated.Value(0)).current
-const slidesRef = useRef(null)
-
-const viewableItemsChanged = useRef(({viewableItems})=> {
-  setCurrentIndex(viewableItems[0].index)
-}).current
-
-const viewConfig = useRef({viewAreaCoveragePercentThreshold: 50}).current
 
 return (
-  <View style ={{flex: 3}}>
-  <FlatList
-  data={Receitas}
-  renderItem={({item}) => <OnboardingItem item={item} navigation={navigation}/>}
-  horizontal
-  showsHorizontalScrollIndicator = {false}
-  pagingEnabled
-  bounces={false}
-  keyExtractor={item => item.key}
-  onScroll={Animated.event([{nativeEvent: {contentOffset: {x : scrollX}}}],{
-    useNativeDriver:false,
-  })}
-  scrollEventThrottle={32}
-  onViewableItemsChanged={viewableItemsChanged}
-  viewabilityConfig={viewConfig}
-  ref ={slidesRef}
- 
-  />
-  <Paginator data = {Receitas} scrollX={scrollX} />
-
+    <View style={styles.container}>
+      <Animated.FlatList data={Receitas} renderItem={({item, index}) => {
+        return <OnboardingItem/>
+      }}/>
   </View>
   )
 }
