@@ -29,7 +29,7 @@ const Cadastro = () => {
         console.log(response)
       } catch (error) {
         console.log(error)
-        alert('bolas')
+        alert('algum erro ocorreu')
       } finally{
         setLoading(false)
       }
