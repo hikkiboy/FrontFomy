@@ -29,7 +29,7 @@ const Cadastro = () => {
         console.log(response)
       } catch (error) {
         console.log(error)
-        alert('deu erro dog')
+        alert('bolas')
       } finally{
         setLoading(false)
       }
