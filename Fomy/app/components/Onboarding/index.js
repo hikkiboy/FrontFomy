@@ -1,4 +1,4 @@
-import { View, Text, Image, useWindowDimensions, StyleSheet, Button, FlatList} from 'react-native'
+import { View, Text, Image, useWindowDimensions, StyleSheet, Button, FlatList, TouchableOpacity} from 'react-native'
 import * as Progress from 'react-native-progress' 
 import {useEffect, useState} from 'react'
 import { doc , collection, query, where, onSnapshot, Firestore, documentId} from 'firebase/firestore'
@@ -88,7 +88,11 @@ const OnboardingItem = ({item, navigation, index, x}) => {
         <View style={{flex: 0.3}}>
         <Text style = {styles.title}>{item.NomeTrilha}</Text>
         <Text style = {styles.description}>{item.Descricao}</Text>
-        <Button title='Entrar' onPress={ () => navigation.navigate(item.NomeTrilha)}/>
+        {/* <Progress.Bar style={styles.barra} unfilledColor='white' borderColor='black'   progress={Usuarios[0].ProgressoTrilhas[item.indexTrilha]}  width={250} height={20} color='#32a852'><Text style={{position:'absolute', flex:0, alignSelf: 'center'}}>{Usuarios[0].ProgressoTrilhas[item.indexTrilha] * 10} / {item.NumeroReceitas}</Text></Progress.Bar> */}
+        <TouchableOpacity style = {styles.buttonRegistro} title = 'Registrar' onPress={ () => navigation.navigate('Trilha')} >
+          <Text style={[styles.botaoTexto]}>Entrar</Text>
+          </TouchableOpacity>
+        {/* <Button title='Entrar'  onPress={ () => navigation.navigate(item.NomeTrilha)}/> */}
         </View>
     </View>
     
@@ -128,6 +132,31 @@ const styles = StyleSheet.create({
         ...StyleSheet.absoluteFillObject,
         alignItems: 'center',
         justifyContent:'flex-end',
+
+    },
+    buttonRegistro:{
+            backgroundColor: "#7EB77F",
+            alignSelf: "center",
+            fontSize: 20,
+            fontWeight: "bold",
+            padding: 13,
+            paddingLeft: 40,
+            paddingRight: 40,
+            borderColor: "black",
+            borderWidth: 3,
+            marginTop: 20,
+            marginBottom: 5,
+            borderRadius: 10,
+            width: 250,
+    },
+    botaoTexto:{
+        fontWeight: 'bold',
+        fontSize: 18,
+        textAlign: 'center'
+    },
+    barra:{
+        alignSelf: 'center',
+        marginBottom:10
 
     }
 

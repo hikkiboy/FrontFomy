@@ -45,7 +45,7 @@ const LoginPage = () => {
       navigation.navigate("Profile");
     } catch (error) {
       console.log(error);
-      alert("deu erro dog");
+      alert("deu erro");
     } finally {
       setLoading(false);
     }

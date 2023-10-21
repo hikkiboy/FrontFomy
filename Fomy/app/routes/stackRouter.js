@@ -14,6 +14,7 @@ import Fetch from "../components/fetch/index"
 import Home from "../screens/home";
 import OnboardingItem from "../components/Onboarding/index";
 import PasswordResets from "../utils/forgotPassword";
+import Trilha from "../components/trilha";
 
 const Stack = createNativeStackNavigator();
 
@@ -30,16 +31,6 @@ export default function Routes() {
         component={Fetch}
         options={{ headerShown: false }}
       /> }
-      <Stack.Screen
-        name="Doces"
-        component={Doces}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Basico"
-        component={Basico}
-        options={{ headerShown: false }}
-      />
       <Stack.Screen
         name="Cadastro"
         component={Cadastro}
@@ -67,6 +58,11 @@ export default function Routes() {
       <Stack.Screen
         name="PasswordResets"
         component={PasswordResets}
+        options={{ headerShown: false }}
+      />
+       <Stack.Screen
+        name="Trilha"
+        component={Trilha}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
