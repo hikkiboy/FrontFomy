@@ -20,6 +20,7 @@ export function LoadProfile({ data }){
                     />
                     <Text style={styles.lvl} >Lv. {data.Nivel}</Text>
                     <Text style={styles.name} >{data.Nome}</Text>
+                    <Text style={styles.title} >{data.Titulo}</Text>
                 </View>
             </View>
             
@@ -29,42 +30,49 @@ export function LoadProfile({ data }){
 
 const styles = StyleSheet.create({
     pfp:{
-        width: 200,
-        height: 200,
+        width: 175,
+        height: 175,
         borderRadius: 100,
     },
     bgpfp:{
-        height: '75%',
+        height: '71.5%',
         backgroundColor: "#7EB77F",
         alignItems: 'center',
         paddingBottom: 40
     },
     brdrpfp:{
-        width: 220,
-        height: 220,
+        width: 195,
+        height: 195,
         borderRadius: 150,
         borderWidth: 10,
         marginBottom:-100,
-        borderColor: 'white',
-        backgroundColor: "#D9D9D9",
-        marginTop: 60,
+        borderColor: "#EFEFEF",
+        backgroundColor: 'white',
+        marginTop: 35
     },
     name:{
         alignSelf: 'center',
-        fontSize: 50,
-        marginTop:-15
+        fontSize: 29,
+        marginTop:10,
+        fontWeight: 'bold'
+    },
+    title:{
+        alignSelf: 'center',
+        fontSize: 24,
+        fontWeight: '600',
+        color: "rgba(0,0,0,0.5)"
     },
     flag:{
         alignSelf: 'center',
-        width: 255,
-        height: 60,
-        marginTop: 55
+        width: 208,
+        height: 48,
+        marginTop: 60
     },
     lvl:{
         alignSelf: 'center',
-        fontSize: 40,
+        fontSize: 27,
         position:"absolute",
-        marginTop: 50,
+        marginTop: 60,
         fontWeight: '700'
 
     }

@@ -51,11 +51,10 @@ const Profile = ({navigation}) => {
 
     return (
         
-        <SafeAreaView>
+        <SafeAreaView style={styles.container} >
             
             <View>
                 <FlatList
-                style={styles.container}
                 data={Receitas}
                 renderItem={({item}) => (
                     <LoadProfile data={item} />
@@ -75,7 +74,8 @@ const Profile = ({navigation}) => {
 const styles = StyleSheet.create({
 
     container:{
-
+        flex: 1,
+        backgroundColor: "#EFEFEF"
     },
     backgroundPfp:{
         height: '60%',
