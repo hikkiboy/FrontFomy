@@ -1,11 +1,27 @@
 import { center } from "@shopify/react-native-skia"
-import { View, StyleSheet, Image, Text } from "react-native"
+import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native"
+import { Ionicons } from '@expo/vector-icons'
+import { Overlay } from "react-native-elements"
+import { useState } from "react"
 
 export function LoadProfile({ data }){
+
+    const [visible, setVisible] = useState(false)
+
+    function toggleOverlay(){
+        setVisible(true);
+    };
+    function closeOverlay(){
+        setVisible(false);
+    }
+
 
     return(
         <View>
             <View style={styles.bgpfp} >
+            <TouchableOpacity onPress={toggleOverlay} >
+                <Ionicons style={styles.gear} name="settings-sharp" size={35} color="#000"/>
+            </TouchableOpacity>
                 <View style={styles.brdrpfp} >
                     <Image
                         source={{ uri: data.Foto }}
@@ -23,6 +39,10 @@ export function LoadProfile({ data }){
                     <Text style={styles.title} >{data.Titulo}</Text>
                 </View>
             </View>
+
+            <Overlay isVisible={visible} onBackdropPress={closeOverlay} >
+                <Text>oiiiii</Text>
+            </Overlay>
             
         </View>
     )
@@ -74,6 +94,12 @@ const styles = StyleSheet.create({
         position:"absolute",
         marginTop: 60,
         fontWeight: '700'
+
+    },
+    gear:{
+        position: "absolute",
+        paddingStart: 130,
+        paddingTop: 10
 
     }
 
