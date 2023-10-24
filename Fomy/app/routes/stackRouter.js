@@ -2,7 +2,8 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 //import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-//import Ioicons from 'react-native-vector-icons/Ionicons'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import { Entypo } from '@expo/vector-icons';
 
 import Profile from "../screens/profile";
 import Doces from "../screens/Trilhas/Doces";
@@ -74,8 +75,12 @@ const Tab = createBottomTabNavigator();
 export function TabNavigatior() {
   return(
    <Tab.Navigator>
-    <Tab.Screen name = "Home" component={Home} options={{headerShown: false}}/>
-    <Tab.Screen name = "Perfil" component={Profile} options={{headerShown: false}}/>
+    <Tab.Screen name = "Home" component={Home}  options={{headerShown: false, tabBarIcon: ({color, size})=>(
+      <Ionicons name="home" size={24} color="black" />
+    )}}/>
+    <Tab.Screen name = "Perfil" component={Profile} options={{headerShown: false, tabBarIcon: ({color, size})=>(
+      <Ionicons name="person-sharp" size={24} color="black" />
+    )}}/>
     {/*<Tab.Screen name = "Trilhas" component={Fetch}options={{headerShown: false}}/>*/}
    </Tab.Navigator>
   )

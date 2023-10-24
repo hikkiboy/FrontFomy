@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, FlatList } from 'react-native';
 import { app, app_DB } from '../../../firebaseConfig'
-import { collection, onSnapshot, query, where } from '@firebase/firestore'
+import { collection, onSnapshot, query, where, orderBy } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
 
-export default function Trilha() {
+export default function Trilha({item}) {
   const [Receitas, setReceitas] = useState([]);
 
     
@@ -15,7 +15,8 @@ export default function Trilha() {
   
       const q = query(
           receitaRef,
-          where('NomeTrilha', '==', 'Doces')
+          where('NomeTrilha', '==', 'Doces'),
+          orderBy('Posicao', 'asc')
       )
   
       
@@ -59,19 +60,20 @@ export default function Trilha() {
       
       <FlatList
 
-      data={Receitas}
+      data={Receitas.sort()}
+      
       scrollEnabled = {true}
       showsVerticalScrollIndicator ={false}
       renderItem={({item}) => (
-      <View style={styles.fase}>
+        <View style={styles.fase}>
         <Text style={styles.textoFase}>{item.Posicao}</Text>
         <View style={styles.linha}></View>
       </View>
       )}
       />
        </SafeAreaView>
-      
   );
+  console.log(Receitas);
 }
 
 const styles = StyleSheet.create({

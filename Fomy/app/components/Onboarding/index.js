@@ -1,10 +1,10 @@
 import { View, Text, Image, useWindowDimensions, StyleSheet, Button, FlatList, TouchableOpacity} from 'react-native'
 import * as Progress from 'react-native-progress' 
 import {useEffect, useState} from 'react'
-import { doc , collection, query, where, onSnapshot, Firestore, documentId} from 'firebase/firestore'
+import { doc , collection, query, where, onSnapshot, Firestore, documentId, orderBy} from 'firebase/firestore'
 import { app_auth, app_DB } from '../../../firebaseConfig'
 import Animated, { Extrapolate, interpolate, useAnimatedRef, useAnimatedStyle, useSharedValue } from 'react-native-reanimated'
-
+import Trilha from '../trilha'
 
 
 
@@ -22,6 +22,7 @@ const OnboardingItem = ({item, navigation, index, x}) => {
         const q = query(
             receitaRef,
             where(documentId(), '==', app_auth.currentUser.uid)
+            
         )
     
         
@@ -89,10 +90,9 @@ const OnboardingItem = ({item, navigation, index, x}) => {
         <Text style = {styles.title}>{item.NomeTrilha}</Text>
         <Text style = {styles.description}>{item.Descricao}</Text>
         {/* <Progress.Bar style={styles.barra} unfilledColor='white' borderColor='black'   progress={Usuarios[0].ProgressoTrilhas[item.indexTrilha]}  width={250} height={20} color='#32a852'><Text style={{position:'absolute', flex:0, alignSelf: 'center'}}>{Usuarios[0].ProgressoTrilhas[item.indexTrilha] * 10} / {item.NumeroReceitas}</Text></Progress.Bar> */}
-        <TouchableOpacity style = {styles.buttonRegistro} title = 'Registrar' onPress={ () => navigation.navigate('Trilha')} >
+        <TouchableOpacity style = {styles.buttonRegistro} title = 'Registrar' onPress={ () => navigation.navigate("Trilha")} >
           <Text style={[styles.botaoTexto]}>Entrar</Text>
           </TouchableOpacity>
-        {/* <Button title='Entrar'  onPress={ () => navigation.navigate(item.NomeTrilha)}/> */}
         </View>
     </View>
     
