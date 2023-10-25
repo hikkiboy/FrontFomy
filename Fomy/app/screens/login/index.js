@@ -41,7 +41,6 @@ const LoginPage = () => {
     setLoading(true);
     try {
       const response = await signInWithEmailAndPassword(auth, email, senha);
-      console.log(response);
       navigation.navigate("Profile");
     } catch (error) {
       console.log(error);

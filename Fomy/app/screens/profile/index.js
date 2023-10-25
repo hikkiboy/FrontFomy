@@ -35,8 +35,7 @@ const Profile = ({navigation}) => {
                     })
                 })
                 setReceitas(receitas)
-                console.log(receitas)
-                console.log(receitaRef)
+
 
     
             }

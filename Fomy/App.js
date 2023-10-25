@@ -19,7 +19,7 @@ export default function App() {
   useEffect(() => {
     onAuthStateChanged(app_auth, (user) => {
       SetUser(user);
-      console.log(user);
+     
     });
   }, []);
 

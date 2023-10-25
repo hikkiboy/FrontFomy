@@ -89,8 +89,9 @@ const OnboardingItem = ({item, navigation, index, x}) => {
         <View style={{flex: 0.3}}>
         <Text style = {styles.title}>{item.NomeTrilha}</Text>
         <Text style = {styles.description}>{item.Descricao}</Text>
+        
         {/* <Progress.Bar style={styles.barra} unfilledColor='white' borderColor='black'   progress={Usuarios[0].ProgressoTrilhas[item.indexTrilha]}  width={250} height={20} color='#32a852'><Text style={{position:'absolute', flex:0, alignSelf: 'center'}}>{Usuarios[0].ProgressoTrilhas[item.indexTrilha] * 10} / {item.NumeroReceitas}</Text></Progress.Bar> */}
-        <TouchableOpacity style = {styles.buttonRegistro} title = 'Registrar' onPress={ () => navigation.navigate("Trilha")} >
+        <TouchableOpacity style = {styles.buttonRegistro} title = 'Registrar' onPress={ () => navigation.navigate("Trilha", {paramKey:[item.NomeTrilha, item.Descricao]})} >
           <Text style={[styles.botaoTexto]}>Entrar</Text>
           </TouchableOpacity>
         </View>
