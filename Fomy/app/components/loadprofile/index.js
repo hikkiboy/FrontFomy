@@ -15,10 +15,10 @@ export function LoadProfile({ data }){
 
     return(
         <View>
-            <View style={styles.bgpfp} >
-            <TouchableOpacity onPress={handleModal} >
+            <TouchableOpacity style={{ zIndex: 99 }} onPress={handleModal} >
                 <Ionicons style={styles.gear} name="settings-sharp" size={35} color="#000"/>
             </TouchableOpacity>
+            <View style={styles.bgpfp} >
                 <View style={styles.brdrpfp} >
                     <Image
                         source={{ uri: data.Foto }}
@@ -103,8 +103,8 @@ const styles = StyleSheet.create({
     },
     gear:{
         position: "absolute",
-        paddingStart: 130,
-        paddingTop: 10
+        alignSelf: 'flex-end',
+        padding: 10
 
     }
 
