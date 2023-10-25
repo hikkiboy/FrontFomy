@@ -1,25 +1,22 @@
-import { center } from "@shopify/react-native-skia"
-import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native"
+import { View, StyleSheet, Image, Text, TouchableOpacity, Modal } from "react-native"
 import { Ionicons } from '@expo/vector-icons'
-import { Overlay } from "react-native-elements"
 import { useState } from "react"
+import { Button } from "react-native-elements"
+import { ActionModal } from "../actionmodal"
 
 export function LoadProfile({ data }){
 
     const [visible, setVisible] = useState(false)
 
-    function toggleOverlay(){
-        setVisible(true);
-    };
-    function closeOverlay(){
-        setVisible(false);
+    const handleModal = () => {
+        setVisible(!visible);
     }
 
 
     return(
         <View>
             <View style={styles.bgpfp} >
-            <TouchableOpacity onPress={toggleOverlay} >
+            <TouchableOpacity onPress={handleModal} >
                 <Ionicons style={styles.gear} name="settings-sharp" size={35} color="#000"/>
             </TouchableOpacity>
                 <View style={styles.brdrpfp} >
@@ -40,9 +37,17 @@ export function LoadProfile({ data }){
                 </View>
             </View>
 
-            <Overlay isVisible={visible} onBackdropPress={closeOverlay} >
-                <Text>oiiiii</Text>
-            </Overlay>
+            <Modal visible={visible}
+            onRequestClose={handleModal} 
+            animationType="slide"
+            presentationStyle="pageSheet"
+            transparent={true}
+            >
+                <ActionModal
+                    handleAction={handleModal}
+                
+                />
+            </Modal>
             
         </View>
     )
