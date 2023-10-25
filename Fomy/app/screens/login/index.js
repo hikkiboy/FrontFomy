@@ -31,9 +31,9 @@ import PasswordResets from "../../utils/forgotPassword";
 
 const LoginPage = () => {
   const navigation = useNavigation();
+  const [email, setEmail] = useState("3264.343@educacao.org.br");
+  const [senha, setSenha] = useState("senha123");
 
-  const [email, setEmail] = useState("teste@teste.com");
-  const [senha, setSenha] = useState("senhasenha");
   const [loading, setLoading] = useState(false);
   const auth = app_auth;
 
