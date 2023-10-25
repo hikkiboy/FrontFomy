@@ -26,10 +26,10 @@ const Cadastro = () => {
       try{
         const response = await signInWithEmailAndPassword(auth, email, senha)
         
-        console.log(response)
+
       } catch (error) {
-        console.log(error)
-        alert('deu erro dog')
+
+        alert('deu erro')
       } finally{
         setLoading(false)
       }
@@ -40,7 +40,7 @@ const Cadastro = () => {
         try{
           
           const response = await createUserWithEmailAndPassword(auth, email, senha)
-          console.log(response)
+ 
           const Other = setNome(nome)
           const docRef = await setDoc(doc(app_DB, "Usuarios", response.user.uid), {
             Alergias:[],

@@ -31,9 +31,9 @@ import PasswordResets from "../../utils/forgotPassword";
 
 const LoginPage = () => {
   const navigation = useNavigation();
-
   const [email, setEmail] = useState("3264.343@educacao.org.br");
   const [senha, setSenha] = useState("senha123");
+
   const [loading, setLoading] = useState(false);
   const auth = app_auth;
 
@@ -41,11 +41,10 @@ const LoginPage = () => {
     setLoading(true);
     try {
       const response = await signInWithEmailAndPassword(auth, email, senha);
-      console.log(response);
       navigation.navigate("Profile");
     } catch (error) {
       console.log(error);
-      alert("deu erro dog");
+      alert("deu erro");
     } finally {
       setLoading(false);
     }
