@@ -24,8 +24,8 @@ const Login = ({navigation}) => {
         <Text style={styles.otherOptions}>-- ou entre com --</Text>
         
         <View style={styles.loginsDiff}>
-        <TouchableOpacity style={styles.bottonCadastroGoogle}
-        onPress={() => promptAsync()}>
+        <TouchableOpacity style={styles.bottonCadastroGoogle}>
+        
         <Image source={require('../../assets/logoGoogle.png')}  resizeMode='center' style={styles.loginGoogle}/>
         </TouchableOpacity>
   

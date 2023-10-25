@@ -9,7 +9,7 @@ export default function Trilha({route}) {
   const [Receitas, setReceitas] = useState([]);
 
   
-
+  const NomeTrilha = route.params.paramKey
     console.log(route.params.paramKey)
   useEffect(()=>{
     
@@ -17,11 +17,11 @@ export default function Trilha({route}) {
     
     const q = query(
       receitaRef,
-      where('NomeTrilha', '==', route.params.paramKey),
+      where('NomeTrilha', '==', route.params.paramKey[0]),
       
       orderBy('Posicao', 'asc')
       )
-      
+      console.log(NomeTrilha)     
       const subscriver = onSnapshot(q, {
         next : (snapshot) => {
           const receitas = []
@@ -47,9 +47,9 @@ export default function Trilha({route}) {
 
 
   return (
-    <SafeAreaView >
+    <SafeAreaView style={styles.container} >
       
-      <View style={{backgroundColor: "#7eb77f",marginTop: 14, width: 378, height: 219, borderRadius:15 }}>
+      <View style={{backgroundColor: route.params.paramKey[2],marginTop: 14, width: 378, height: 219, borderRadius:15 }}>
       <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
         <Image style={{width:109, height:109, marginTop: 18}} source={require('../../assets/fogao.png')}/>
         <Image  style={{width:108, height:139}} source={require('../../assets/alberto.png')}/>
@@ -64,28 +64,39 @@ export default function Trilha({route}) {
 {/* fazer um flat list pra gerar as fases  */}
       
       <FlatList
-
       data={Receitas}
-      
+
       scrollEnabled = {true}
       showsVerticalScrollIndicator ={false}
       renderItem={({item}) => (
-        <View style={styles.fase}>
+        <View style={styles.container}>
+        <View style={[{
+          backgroundColor:route.params.paramKey[2],
+          width: 112,
+          height: 88,
+          borderRadius: 15,
+          textAlign: "center",
+          marginTop: 50,
+          marginLeft: 15,
+        }]}>
         <Text style={styles.textoFase}>{item.Posicao}</Text>
-        <Text>{item.Descricao}</Text>
+        
         <View style={styles.linha}></View>
+        </View>
+  
       </View>
       )}
       />
        </SafeAreaView>
   );
+  
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: 'flex',
+    
   },
   //fazer fonte depois
   trilhaTit:{
@@ -93,25 +104,26 @@ const styles = StyleSheet.create({
     height: 70,
     fontSize: 42,
     fontWeight: "700",
-    color: "#365336",
+    color: "black",
     //fontFamily: FontFamily.leagueSpartanBold
   },
   textoTrilha:{
     alignSelf: 'center',
     marginTop: -20,
     marginBottom: 15,
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "700",
-    color: "#365336",
+    color: "black",
   },
   linha:{
     height: 77,
     width: 2,
     borderRightWidth: 2,
-    color: "red"
+    color: "red",
+    alignSelf: 'center'
   },
   fase:{
-    backgroundColor: "#7eb77f",
+    
     width: 112,
     height: 88,
     borderRadius: 15,
@@ -122,8 +134,14 @@ const styles = StyleSheet.create({
   textoFase:{
     alignSelf: 'center',
     fontSize: 70,
-    fontWeight: "700",
+    fontWeight: '700',
     color: "#365336",
+  },
+  descricaoReceita:{
+    alignSelf :'center',
+    position: 'absolute',
+    flex: 1,
+    paddingLeft: 100
   }
 
 });
