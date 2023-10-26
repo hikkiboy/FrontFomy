@@ -2,7 +2,8 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 //import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-//import Ioicons from 'react-native-vector-icons/Ionicons'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import { Entypo } from '@expo/vector-icons';
 
 import Profile from "../screens/profile";
 import Doces from "../screens/Trilhas/Doces";
@@ -12,7 +13,9 @@ import LoginPage from "../screens/login";
 import Cadastro from "../screens/cadastro";
 import Fetch from "../components/fetch/index"
 import Home from "../screens/home";
+import OnboardingItem from "../components/Onboarding/index";
 import PasswordResets from "../utils/forgotPassword";
+import Trilha from "../components/trilha";
 
 const Stack = createNativeStackNavigator();
 
@@ -29,16 +32,6 @@ export default function Routes() {
         component={Fetch}
         options={{ headerShown: false }}
       /> }
-      <Stack.Screen
-        name="Doces"
-        component={Doces}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Basico"
-        component={Basico}
-        options={{ headerShown: false }}
-      />
       <Stack.Screen
         name="Cadastro"
         component={Cadastro}
@@ -59,9 +52,18 @@ export default function Routes() {
         component={Home}
         options={{ headerShown: false }}
       />
+       <Stack.Screen
+        name="Onboarding"
+        component={OnboardingItem}
+        />
       <Stack.Screen
         name="PasswordResets"
         component={PasswordResets}
+        options={{ headerShown: false }}
+      />
+       <Stack.Screen
+        name="Trilha"
+        component={Trilha}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
@@ -73,8 +75,12 @@ const Tab = createBottomTabNavigator();
 export function TabNavigatior() {
   return(
    <Tab.Navigator>
-    <Tab.Screen name = "Home" component={Home} options={{headerShown: false}}/>
-    <Tab.Screen name = "Perfil" component={Profile} options={{headerShown: false}}/>
+    <Tab.Screen name = "Home" component={Home}  options={{headerShown: false, tabBarIcon: ({color, size})=>(
+      <Ionicons name="home" size={24} color="black" />
+    )}}/>
+    <Tab.Screen name = "Perfil" component={Profile} options={{headerShown: false, tabBarIcon: ({color, size})=>(
+      <Ionicons name="person-sharp" size={24} color="black" />
+    )}}/>
     {/*<Tab.Screen name = "Trilhas" component={Fetch}options={{headerShown: false}}/>*/}
    </Tab.Navigator>
   )

@@ -41,11 +41,10 @@ const LoginPage = () => {
     setLoading(true);
     try {
       const response = await signInWithEmailAndPassword(auth, email, senha);
-      console.log(response);
       navigation.navigate("Profile");
     } catch (error) {
       console.log(error);
-      alert("deu erro dog");
+      alert("deu erro");
     } finally {
       setLoading(false);
     }

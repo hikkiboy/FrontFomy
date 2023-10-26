@@ -26,7 +26,7 @@ const Cadastro = () => {
       try{
         const response = await signInWithEmailAndPassword(auth, email, senha)
         
-        console.log(response)
+
       } catch (error) {
         console.log(error)
         alert('algum erro ocorreu')
@@ -40,12 +40,12 @@ const Cadastro = () => {
         try{
           
           const response = await createUserWithEmailAndPassword(auth, email, senha)
-          console.log(response)
+ 
           const Other = setNome(nome)
           const docRef = await setDoc(doc(app_DB, "Usuarios", response.user.uid), {
             Alergias:[],
             Exp : 0,
-            Foto : "user/tdakjjD.gif",
+            Foto : "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Default-Profile-Picture-PNG-Photo-3895174684.png?alt=media&token=f70e36af-2857-405f-b307-5e7abe35f347",
             Itens: [],
             Moedas: 0,
             Nivel: 1,
@@ -58,7 +58,7 @@ const Cadastro = () => {
 
           
    
-          alert('Olha o email')
+          alert('Usuário Criado com sucesso !')
   
         } catch (error) {
           console.log(error)
