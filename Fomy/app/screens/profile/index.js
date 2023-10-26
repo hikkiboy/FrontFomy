@@ -64,6 +64,7 @@ const Profile = ({navigation}) => {
            {/*<View>
                  <Button onPress={() =>{app_auth.signOut()}} title = "Sair"/>
                   /*<Button onPress={() => navigation.navigate('Fetch')} title = "Trilhas"/>*/
+                  //botão para sair da conta, tem que fazer mandar para pagina inicial
             }
             
 
