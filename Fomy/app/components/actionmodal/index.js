@@ -1,7 +1,7 @@
 import { View, SafeAreaView, Text, TouchableOpacity, StyleSheet } from "react-native"
-import { Button } from "react-native-elements"
+import { app_auth } from '../../../firebaseConfig'
 
-export function ActionModal({ handleAction }){
+export function ActionModal({ handleAction, navigation }){
     return(
         <SafeAreaView style={styles.container} >
             <TouchableOpacity style={{ flex: 1, zIndex: 9 }} onPress={handleAction} ></TouchableOpacity>
@@ -12,11 +12,15 @@ export function ActionModal({ handleAction }){
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.button} activeOpacity={0.9} >
-                    <Text style={styles.action} >Mudar Fundo</Text>
+                    <Text style={styles.action} >Mudar Nome</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.button} activeOpacity={0.9} >
                     <Text style={styles.action} >Configurações</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.leave} activeOpacity={0.9} onPress={() => {app_auth.signOut(); navigation.navigate('Login')}} >
+                    <Text style={styles.action} >Sair</Text>
                 </TouchableOpacity>
 
             </View>
@@ -53,6 +57,17 @@ const styles = StyleSheet.create({
     action:{
         fontSize: 18,
         fontWeight: '600'
+    },
+    leave:{
+        zIndex: 99,
+        backgroundColor: "#DC6A87",
+        borderRadius: 15,
+        marginTop: 15,
+        padding: 10,
+        alignItems: 'center',
+        borderWidth: 3,
+        borderBottomWidth: 6,
+        borderColor: "#95233F"
     }
 
 })
