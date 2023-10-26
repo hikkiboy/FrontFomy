@@ -45,7 +45,7 @@ const Cadastro = () => {
           const docRef = await setDoc(doc(app_DB, "Usuarios", response.user.uid), {
             Alergias:[],
             Exp : 0,
-            Foto : "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/trilhaRefeicoes.png?alt=media&token=2a1c328c-99f4-45e9-89ce-b8793e404e78",
+            Foto : "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Default-Profile-Picture-PNG-Photo-3895174684.png?alt=media&token=f70e36af-2857-405f-b307-5e7abe35f347",
             Itens: [],
             Moedas: 0,
             Nivel: 1,
