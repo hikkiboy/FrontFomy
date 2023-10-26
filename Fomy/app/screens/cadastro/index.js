@@ -58,7 +58,7 @@ const Cadastro = () => {
 
           
    
-          alert('Olha o email')
+          alert('Usuário Criado com sucesso !')
   
         } catch (error) {
           console.log(error)
