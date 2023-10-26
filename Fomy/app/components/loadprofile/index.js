@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Button } from "react-native-elements"
 import { ActionModal } from "../actionmodal"
 
-export function LoadProfile({ data }){
+export function LoadProfile({ data, navigation }){
 
     const [visible, setVisible] = useState(false)
 
@@ -40,11 +40,11 @@ export function LoadProfile({ data }){
             <Modal visible={visible}
             onRequestClose={handleModal} 
             animationType="slide"
-            presentationStyle="pageSheet"
             transparent={true}
             >
                 <ActionModal
                     handleAction={handleModal}
+                    navigation={navigation}
                 
                 />
             </Modal>
