@@ -1,17 +1,26 @@
 import { View, StyleSheet, Image, Text, TouchableOpacity, Modal } from "react-native"
 import { Ionicons } from '@expo/vector-icons'
 import { useState } from "react"
-import { Button } from "react-native-elements"
 import { ActionModal } from "../actionmodal"
+import { Input } from "react-native-elements"
 
 export function LoadProfile({ data, navigation }){
 
     const [visible, setVisible] = useState(false)
+    const [inputOn, setInputOn] = useState(true)
 
     const handleModal = () => {
         setVisible(!visible);
     }
 
+    const handleInput = () => {
+        setInputOn(!visible);
+    }
+
+    var visibleInput = null
+    if(inputOn){
+            visibleInput = (<Input placeholder="Digite o nome" style={styles.nameinput} ></Input>);
+    }
 
     return(
         <View>
@@ -33,6 +42,7 @@ export function LoadProfile({ data, navigation }){
                     />
                     <Text style={styles.lvl} >Lv. {data.Nivel}</Text>
                     <Text style={styles.name} >{data.Nome}</Text>
+                    {visibleInput}
                     <Text style={styles.title} >{data.Titulo}</Text>
                 </View>
             </View>
@@ -45,6 +55,7 @@ export function LoadProfile({ data, navigation }){
                 <ActionModal
                     handleAction={handleModal}
                     navigation={navigation}
+                    handleName={handleInput}
                 
                 />
             </Modal>
@@ -80,6 +91,14 @@ const styles = StyleSheet.create({
         fontSize: 29,
         marginTop:10,
         fontWeight: 'bold'
+    },
+    nameinput:{
+        backgroundColor: "#7EB77F",
+        width: 200,
+        position: "absolute",
+        borderRadius: 15,
+        textAlign: 'center',
+        alignSelf: 'flex-end'
     },
     title:{
         alignSelf: 'center',
