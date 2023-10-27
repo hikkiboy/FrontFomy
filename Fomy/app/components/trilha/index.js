@@ -80,10 +80,11 @@ export default function Trilha({route}) {
           marginLeft: 15,
         }]}>
         <Text style={styles.textoFase}>{item.Posicao}</Text>
-        
         <View style={styles.linha}></View>
+        </View> 
+        <View>
+          <Text style={styles.descricaoReceita}>{item.Descricao}</Text>
         </View>
-  
       </View>
       )}
       />
@@ -140,8 +141,12 @@ const styles = StyleSheet.create({
   descricaoReceita:{
     alignSelf :'center',
     position: 'absolute',
+    justifyContent: 'space-around',
     flex: 1,
-    paddingLeft: 100
+    marginLeft:200,
+    marginTop: -65,
+    marginRight: -34,
+    paddingLeft: 50
   }
 
 });

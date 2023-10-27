@@ -19,7 +19,7 @@ import Trilha from "../components/trilha";
 
 const Stack = createNativeStackNavigator();
 
-export default function Routes() {
+export default function Routes({promptAsync}) {
   return (
     <Stack.Navigator initialRouteName="Login">
       <Stack.Screen
@@ -46,6 +46,7 @@ export default function Routes() {
         name="Login"
         component={Login}
         options={{ headerShown: false }}
+        initialParams={{promptAsync}}
       />
       <Stack.Screen
         name="Home"

@@ -1,13 +1,11 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Alert } from 'react-native';
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { app_auth } from '../../../firebaseConfig'
 import { Logo } from '../../components/logo';
 import Ionicons from '@expo/vector-icons/Ionicons'
 
 
-
-
-const Login = ({navigation}) => {
+const Login = ({navigation, route}) => {
 
     return (
         <SafeAreaView>
@@ -24,8 +22,7 @@ const Login = ({navigation}) => {
         <Text style={styles.otherOptions}>-- ou entre com --</Text>
         
         <View style={styles.loginsDiff}>
-        <TouchableOpacity style={styles.bottonCadastroGoogle}>
-        
+        <TouchableOpacity style={styles.bottonCadastroGoogle} onPress={()=> route.params.promptAsync()}>
         <Image source={require('../../assets/logoGoogle.png')}  resizeMode='center' style={styles.loginGoogle}/>
         </TouchableOpacity>
   
