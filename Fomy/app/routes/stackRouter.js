@@ -13,6 +13,7 @@ import Cadastro from "../screens/cadastro";
 import Fetch from "../components/fetch/index"
 import Home from "../screens/home";
 import PasswordResets from "../utils/forgotPassword";
+import UploadMediaFile from "../components/uploadfile"
 
 const Stack = createNativeStackNavigator();
 
@@ -62,6 +63,11 @@ export default function Routes() {
       <Stack.Screen
         name="PasswordResets"
         component={PasswordResets}
+        options={{ headerShown: false }}
+      />
+            <Stack.Screen
+        name="UploadMediaFile"
+        component={UploadMediaFile}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

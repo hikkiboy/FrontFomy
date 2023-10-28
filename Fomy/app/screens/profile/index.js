@@ -57,7 +57,7 @@ const Profile = ({navigation}) => {
                 <FlatList
                 data={Receitas}
                 renderItem={({item}) => (
-                    <LoadProfile data={item} />
+                    <LoadProfile data={item} navigation={navigation} />
                 )}
                 />
             </View>       
