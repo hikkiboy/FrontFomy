@@ -49,7 +49,7 @@ export default function Trilha({route}) {
   return (
     <SafeAreaView style={styles.container} >
       
-      <View style={{backgroundColor: route.params.paramKey[2],marginTop: 14, width: 378, height: 219, borderRadius:15 }}>
+      <View style={{backgroundColor: route.params.paramKey[2],marginTop: 25, width: 340, height: 219, borderRadius:15, alignSelf: "center" }}>
       <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
         <Image style={{width:109, height:109, marginTop: 18}} source={require('../../assets/fogao.png')}/>
         <Image  style={{width:108, height:139}} source={require('../../assets/alberto.png')}/>
@@ -104,23 +104,27 @@ const styles = StyleSheet.create({
     height: 70,
     fontSize: 42,
     fontWeight: "700",
-    color: "black",
+    color: "black"
+  
+    
     //fontFamily: FontFamily.leagueSpartanBold
   },
   textoTrilha:{
     alignSelf: 'center',
-    marginTop: -20,
+     marginTop: -40,
     marginBottom: 15,
     fontSize: 18,
     fontWeight: "700",
     color: "black",
   },
   linha:{
-    height: 77,
+    height: 40,
     width: 2,
     borderRightWidth: 2,
     color: "red",
-    alignSelf: 'center'
+    alignSelf: 'center',
+    margin: 5,
+    borderRadius: 25
   },
   fase:{
     
