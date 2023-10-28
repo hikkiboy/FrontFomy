@@ -6,26 +6,24 @@ export function ActionModal({ handleAction, navigation, handleName }){
         <SafeAreaView style={styles.container} >
             <TouchableOpacity style={{ flex: 1, zIndex: 9 }} onPress={handleAction} ></TouchableOpacity>
 
-            <View style={styles.contentbg} >
-                <View style={styles.content} >
-                    <TouchableOpacity style={styles.button} activeOpacity={0.9} >
-                        <Text style={styles.action} >Mudar Foto</Text>
-                    </TouchableOpacity>
+            <View style={styles.content} >
+                <TouchableOpacity style={styles.button} activeOpacity={0.9} >
+                    <Text style={styles.action} >Mudar Foto</Text>
+                </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={handleName} >
-                        <Text style={styles.action} >Mudar Nome</Text>
-                    </TouchableOpacity>
+                <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={handleName} >
+                    <Text style={styles.action} >Mudar Nome</Text>
+                </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.button} activeOpacity={0.9} >
-                        <Text style={styles.action} >Configurações</Text>
-                    </TouchableOpacity>
+                <TouchableOpacity style={styles.button} activeOpacity={0.9} >
+                    <Text style={styles.action} >Configurações</Text>
+                </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.leave} activeOpacity={0.9} onPress={() => {app_auth.signOut(); navigation.navigate('Login')}} >
-                        <Text style={styles.action} >Sair</Text>
-                    </TouchableOpacity>
+                <TouchableOpacity style={styles.leave} activeOpacity={0.9} onPress={() => {app_auth.signOut(); navigation.navigate('Login')}} >
+                    <Text style={styles.action} >Sair</Text>
+                </TouchableOpacity>
 
                 </View>
-            </View>
 
         </SafeAreaView>
     )
@@ -43,24 +41,20 @@ const styles = StyleSheet.create({
         paddingBottom: 35,
         backgroundColor: "#FFF",
         borderTopLeftRadius: 15,
-        borderTopRightRadius: 15
-    },
-    contentbg:{
-        backgroundColor: "#427643",
-        borderTopLeftRadius: 9,
-        borderTopRightRadius: 9,
-        paddingTop: 7
+        borderTopRightRadius: 15,
+        elevation: 10,
+        shadowColor: "#000",
     },
     button:{
         zIndex: 99,
-        backgroundColor: "#7EB77F",
+        backgroundColor: "#FFF",
         borderRadius: 15,
         marginTop: 15,
         padding: 10,
         alignItems: 'center',
-        borderWidth: 3,
-        borderBottomWidth: 6,
-        borderColor: "#427643"
+        borderWidth: 5,
+        borderBottomWidth: 10,
+        borderColor: "#7EB77F"
     },
     action:{
         fontSize: 18,
@@ -73,8 +67,8 @@ const styles = StyleSheet.create({
         marginTop: 15,
         padding: 10,
         alignItems: 'center',
-        borderWidth: 3,
-        borderBottomWidth: 6,
+        borderWidth: 5,
+        borderBottomWidth: 10,
         borderColor: "#95233F"
     }
 
