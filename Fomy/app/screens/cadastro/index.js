@@ -1,5 +1,6 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Alert, TextInput, ActivityIndicator, KeyboardAvoidingView, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Alert, TextInput, ActivityIndicator, KeyboardAvoidingView, ImageBackground } from 'react-native';
 import React, {useState} from 'react'
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { app, app_DB, app_auth } from '../../../firebaseConfig'
 import { Logo } from '../../components/logo';
 import Ionicons from '@expo/vector-icons/Ionicons'
@@ -7,6 +8,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'fire
 import { doc, setDoc } from "firebase/firestore"; 
 import {Button} from 'react-native'
 import fundo from '../../assets/fundinho.png'
+import { StatusBar } from 'expo-status-bar';
 
 
 
@@ -69,18 +71,12 @@ const Cadastro = () => {
     }
   
     return (
-      
-      <SafeAreaView>
-      {/*<ImageBackground 
-       source={fundo}
-       style={styles.fundo}
-    >*/}
 
-      <View style = {styles.container}>
+
+      <KeyboardAvoidingView style = {styles.container} behavior='padding'>
         
-      
-    
-
+        <SafeAreaView >
+        
         <TextInput value= {nome} style={styles.input} placeholder='Nome' autoCapitalize='none' onChangeText={(text) => setNome(text)}></TextInput>
         <TextInput value={email} style = {styles.input} placeholder='Email' autoCapitalize='none'
         onChangeText={(text) => setEmail(text)}></TextInput>
@@ -100,39 +96,35 @@ const Cadastro = () => {
 
           </>
         )} 
+        </SafeAreaView>
+      </KeyboardAvoidingView>
 
-        
-
-      </View>
-      {/*</ImageBackground>*/}
      
     
       
 
       
      
-    </SafeAreaView  >
+
     )
 }
 export default Cadastro
 
 const styles = StyleSheet.create({
   container:{
-    marginTop: 250,
-    //marginBottom: 250,
-  
-  },
- input: {
-  backgroundColor: '#FFFFFF',
+   flex:1,
 
+  },
+  input: {
+    marginTop: 0,
+    backgroundColor: "#FFFFFF",
     margin: 10,
-    borderWidth: 2,
+    borderWidth: 1,
     borderRadius: 10,
-    borderColor:'#A6A6A6',
-    width: 300,
-    alignSelf: 'center',
-    padding: 15
- },
+    width: '90%',
+    alignSelf: "center",
+    padding: 15,
+  },
  buttonRegistro:{
   backgroundColor: "#7EB77F",
   alignSelf: "center",
@@ -142,11 +134,9 @@ const styles = StyleSheet.create({
   paddingLeft: 40,
   paddingRight: 40,
   borderColor: "black",
-  borderWidth: 3,
+  borderWidth: 2,
   marginTop: 20,
-  marginBottom: 5,
   borderRadius: 10,
-  width: 250,
  },
  text:{
   fontWeight: 'bold',

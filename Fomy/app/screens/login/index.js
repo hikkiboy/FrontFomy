@@ -51,10 +51,13 @@ const LoginPage = () => {
   };
 
   return (
-    <SafeAreaView>
+    
+    
+<>
 
-      <Logo />
-        <View style={styles.container}>
+      
+        <KeyboardAvoidingView style={styles.container} behavior="padding">
+        <Logo/>
           <TextInput
             value={email}
             style={styles.input}
@@ -87,18 +90,18 @@ const LoginPage = () => {
               </TouchableOpacity>
             </>
           )}
-        </View>
+        </KeyboardAvoidingView>
         
 
-    </SafeAreaView>
-    
+        </>
+
   );
 };
 export default LoginPage;
 
 const styles = StyleSheet.create({
   container:{
-    marginBottom: 450
+    flex: 1
   },
   input: {
     marginTop: 0,
