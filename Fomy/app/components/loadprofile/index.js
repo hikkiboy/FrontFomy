@@ -5,12 +5,15 @@ import { ActionModal } from "../actionmodal"
 import { useEffect } from "react"
 import { app_auth, app_DB} from '../../../firebaseConfig'
 import { doc, updateDoc } from "firebase/firestore"
+import * as Progress from 'react-native-progress'
 
 export function LoadProfile({ data, navigation }){
 
     const [visible, setVisible] = useState(false)
     const [inputOn, setInputOn] = useState(false)
     const [newName, setNewName] = useState('')
+    var totalXp = 200 + (((data.Nivel - 1) * data.Nivel) * 10)
+    var progressToBar = (data.Exp / totalXp)
 
     const handleModal = () => {
         setVisible(!visible);
@@ -48,9 +51,26 @@ export function LoadProfile({ data, navigation }){
     var visibleSend = null
     var nome = data.Nome
     var titulo = data.Titulo
+    var progressMyBar = (
+    <Progress.Bar style={{ position: 'absolute' }} 
+        progress={progressToBar} 
+        width={325} 
+        height={35} 
+        borderRadius={9}
+        color="#F68F92"
+        borderWidth={0}
+        unfilledColor="#D9D9D9"
+    />
+    )
+    var progressExp = (
+        <Text style={styles.exp} >EXP: {data.Exp} / {totalXp}</Text>
+    )
+
     if(inputOn){
             nome = null
             titulo = null
+            progressMyBar = null
+            progressExp = null
             visibleInput = (<TextInput enterKeyHint={"done"} value={newName} onChangeText={(text) => setNewName(text)} autoFocus={true} maxLength={35} placeholder="Digite o nome" style={styles.nameinput} />)
             visibleSend = (<TouchableOpacity onPress={handleUpdate} ><Ionicons name="checkmark-circle" size={50} color="#7EB77F" /></TouchableOpacity>)
             visibleClose = (<TouchableOpacity onPress={closeThisBitchUp} ><Ionicons name="close-circle" size={50} color="#DC6A87" /></TouchableOpacity>);
@@ -87,6 +107,11 @@ export function LoadProfile({ data, navigation }){
                             {visibleClose}
                         </View>
                     </View>
+                </View>
+                <View style={styles.progressbar} >
+                    {progressMyBar}
+                    {progressExp}
+                    
                 </View>
             </View>
 
@@ -179,7 +204,7 @@ const styles = StyleSheet.create({
     },
     inputarea:{
         position: 'absolute',
-        marginTop: 10,
+        marginTop: 15,
         alignItems: 'center',
         alignSelf: 'center'
 
@@ -189,6 +214,18 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         marginTop: -10
 
+    },
+    exp:{
+        position: 'absolute',
+        alignSelf: 'center',
+        color: "rgba(0,0,0,0.25)",
+        fontWeight: 'bold',
+        fontSize: 27
+    },
+    progressbar:{
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 43
     }
 
 })
