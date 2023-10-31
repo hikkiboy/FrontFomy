@@ -1,4 +1,4 @@
-import { View, StyleSheet, Image, Text, TouchableOpacity, Modal, TextInput } from "react-native"
+import { View, StyleSheet, Image, Text, TouchableOpacity, Modal, TextInput, Alert } from "react-native"
 import { Ionicons } from '@expo/vector-icons'
 import { useState } from "react"
 import { ActionModal } from "../actionmodal"
@@ -27,12 +27,21 @@ export function LoadProfile({ data, navigation }){
     }
 
     const handleUpdate = async () => {
-        const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
-        await updateDoc(userRef, {
-            Nome: newName
-        });
-        setInputOn(false);
-        setNewName('')
+        if(newName != ''){
+            try{
+                const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
+                await updateDoc(userRef, {
+                    Nome: newName
+                });
+                setInputOn(false);
+                setNewName('')
+            } catch(error){
+                console.log(error)
+                alert("Ocorreu um erro "+error)
+            }
+        } else{
+            setInputOn(false);
+        }
     };
     var visibleInput = null
     var visibleClose = null
