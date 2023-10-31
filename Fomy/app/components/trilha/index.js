@@ -104,10 +104,11 @@ export default function Trilha({route, props}) {
 
 
 export function CustomModal(selectedItem) {
+  selectedItem =  [selectedItem.selectedItem.NomeTrilha]
   return(
     <View>
-    <Button onPress={() => console.log(selectedItem.Posicao)}></Button>
-    <Text>selectedItem: {selectedItem.Ingrediente} </Text>
+    <Button onPress={() => console.log(selectedItem)}></Button>
+    <Text>Teste: {selectedItem} </Text>
     </View>
   )
   
