@@ -52,15 +52,15 @@ export function LoadProfile({ data, navigation }){
     var nome = data.Nome
     var titulo = data.Titulo
     var progressMyBar = (
-    <Progress.Bar style={{ position: 'absolute' }} 
-        progress={progressToBar} 
-        width={325} 
-        height={35} 
-        borderRadius={9}
-        color="#F68F92"
-        borderWidth={0}
-        unfilledColor="#D9D9D9"
-    />
+        <Progress.Bar style={{ position: 'absolute' }} 
+            progress={progressToBar} 
+            width={325} 
+            height={35} 
+            borderRadius={9}
+            color="#F68F92"
+            borderWidth={0}
+            unfilledColor="#D9D9D9"
+        />
     )
     var progressExp = (
         <Text style={styles.exp} >EXP: {data.Exp} / {totalXp}</Text>
