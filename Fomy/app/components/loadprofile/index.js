@@ -2,6 +2,7 @@ import { View, StyleSheet, Image, Text, TouchableOpacity, Modal, TextInput, Aler
 import { Ionicons } from '@expo/vector-icons'
 import { useState } from "react"
 import { ActionModal } from "../actionmodal"
+import { Badges } from "../badges"
 import { useEffect } from "react"
 import { app_auth, app_DB} from '../../../firebaseConfig'
 import { doc, updateDoc } from "firebase/firestore"
@@ -72,7 +73,7 @@ export function LoadProfile({ data, navigation }){
             progressMyBar = null
             progressExp = null
             visibleInput = (<TextInput enterKeyHint={"done"} value={newName} onChangeText={(text) => setNewName(text)} autoFocus={true} maxLength={35} placeholder="Digite o nome" style={styles.nameinput} />)
-            visibleSend = (<TouchableOpacity onPress={handleUpdate} ><Ionicons name="checkmark-circle" size={50} color="#7EB77F" /></TouchableOpacity>)
+            visibleSend = (<TouchableOpacity style={{ marginRight: 30 }} onPress={handleUpdate} ><Ionicons name="checkmark-circle" size={50} color="#7EB77F" /></TouchableOpacity>)
             visibleClose = (<TouchableOpacity onPress={closeThisBitchUp} ><Ionicons name="close-circle" size={50} color="#DC6A87" /></TouchableOpacity>);
     }
 
@@ -113,6 +114,15 @@ export function LoadProfile({ data, navigation }){
                     {progressExp}
                     
                 </View>
+                <View style={styles.badgearea} >
+                    <View style={styles.badgetitlearea} >
+                        <Text style={styles.badgetitle} >Insígnias</Text>
+                    </View>
+                    <View style={styles.badges} >
+                        <Badges data={data} />
+                    </View>
+
+                </View>
             </View>
 
             <Modal visible={visible}
@@ -142,8 +152,7 @@ const styles = StyleSheet.create({
         borderRadius: 100,
     },
     pfpstuff:{
-        alignItems: 'center',
-        paddingBottom: 40
+        alignItems: 'center'
     },
     bgpfp:{
         backgroundColor: "#7EB77F", 
@@ -164,7 +173,7 @@ const styles = StyleSheet.create({
     name:{
         alignSelf: 'center',
         fontSize: 29,
-        marginTop:10,
+        marginTop: 12,
         fontWeight: 'bold'
     },
     nameinput:{
@@ -211,8 +220,10 @@ const styles = StyleSheet.create({
     },
     buttonarea:{ 
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        marginTop: -10
+        justifyContent: 'space-around',
+        marginTop: 70,
+        position: 'absolute',
+        alignSelf: 'center',
 
     },
     exp:{
@@ -225,7 +236,35 @@ const styles = StyleSheet.create({
     progressbar:{
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 43
+        marginTop: 45
+    },
+    badgearea:{
+        backgroundColor: "#D9D9D9",
+        width: '100%',
+        height: 350,
+        marginTop: 100,
+        borderTopLeftRadius: 15,
+        borderTopRightRadius: 15
+
+    },
+    badgetitlearea:{
+        alignSelf: 'center',
+        marginTop: 15,
+        backgroundColor: "#7EB77F",
+        borderRadius: 22,
+        padding: 5,
+        paddingHorizontal: 20
+
+
+    },
+    badgetitle:{
+        fontSize: 27,
+        fontWeight: '500'
+
+    },
+    badges:{
+        width: '100%',
+        height: 60
     }
 
 })
