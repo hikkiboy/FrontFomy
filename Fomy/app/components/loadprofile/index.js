@@ -3,6 +3,8 @@ import { Ionicons } from '@expo/vector-icons'
 import { useState } from "react"
 import { ActionModal } from "../actionmodal"
 import { useEffect } from "react"
+import { app_auth, app_DB} from '../../../firebaseConfig'
+import { doc, updateDoc } from "firebase/firestore"
 
 export function LoadProfile({ data, navigation }){
 
@@ -19,11 +21,19 @@ export function LoadProfile({ data, navigation }){
         setInputOn(true);
     }
 
-    const closeThisBitchUp= () => {
+    const closeThisBitchUp = () => {
         setNewName('')
         setInputOn(false);
     }
 
+    const handleUpdate = async () => {
+        const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
+        await updateDoc(userRef, {
+            Nome: newName
+        });
+        setInputOn(false);
+        setNewName('')
+    };
     var visibleInput = null
     var visibleClose = null
     var visibleSend = null
@@ -33,7 +43,7 @@ export function LoadProfile({ data, navigation }){
             nome = null
             titulo = null
             visibleInput = (<TextInput enterKeyHint={"done"} value={newName} onChangeText={(text) => setNewName(text)} autoFocus={true} maxLength={35} placeholder="Digite o nome" style={styles.nameinput} />)
-            visibleSend = (<TouchableOpacity><Ionicons name="checkmark-circle" size={50} color="#7EB77F" /></TouchableOpacity>)
+            visibleSend = (<TouchableOpacity onPress={handleUpdate} ><Ionicons name="checkmark-circle" size={50} color="#7EB77F" /></TouchableOpacity>)
             visibleClose = (<TouchableOpacity onPress={closeThisBitchUp} ><Ionicons name="close-circle" size={50} color="#DC6A87" /></TouchableOpacity>);
     }
 
