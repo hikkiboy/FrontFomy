@@ -236,13 +236,13 @@ const styles = StyleSheet.create({
     progressbar:{
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 45
+        marginTop: 45,
+        marginBottom: 100
     },
     badgearea:{
         backgroundColor: "#D9D9D9",
         width: '100%',
-        height: 350,
-        marginTop: 100,
+        height: 280,
         borderTopLeftRadius: 15,
         borderTopRightRadius: 15
 
@@ -264,7 +264,8 @@ const styles = StyleSheet.create({
     },
     badges:{
         width: '100%',
-        height: 60
+        height: '20%',
+        marginTop: 10
     }
 
 })

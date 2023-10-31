@@ -8,7 +8,7 @@ export function Badges({ data }) {
 
     useEffect(()=>{
 
-        
+        if(data.Insignias[0] != "" ){
     
         const insigniasRef = collection(app_DB, 'Insignias')
     
@@ -39,12 +39,14 @@ export function Badges({ data }) {
         })
     
         return() => subscriver()
+    }
     
     },[])
 
     return(
-        <View>
+        <View style={styles.container} >
             <FlatList
+                style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
                 data={Insignias}
                 renderItem={({item}) => {
                     return( <Image source={{ uri: item.Imagem }} style={styles.image} />)
@@ -62,11 +64,13 @@ export function Badges({ data }) {
 
 const styles = StyleSheet.create({
     container:{
-
+        flex: 1,
+        alignItems: 'center',
     },
     image:{
-        width: 40,
-        height: 40
+        width: 85,
+        height: 85,
+        margin: 12
     }
 
 })
