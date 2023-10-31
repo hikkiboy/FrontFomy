@@ -8,16 +8,17 @@ import { Button } from 'react-native-elements';
 export default function Trilha({route, props}) {
 
   const [Receitas, setReceitas] = useState([]);
-  const [selectedItem, setSelectedItem] = useState([]);
   const [visible, setVisible] = useState(false)
+
+  const [selectedItem, setSelectedItem] = useState(null);
 
   const handleOnSelectItem = (item) => {
     setSelectedItem(item);
   };
+
   const handleOnCloseModal = () => {
     setSelectedItem(null);
   };
-
 
   
   const NomeTrilha = route.params.paramKey
@@ -66,6 +67,7 @@ export default function Trilha({route, props}) {
           <Text style={styles.trilhaTit}>{route.params.paramKey[0]}</Text>
           <Text style={styles.textoTrilha}>{route.params.paramKey[1]}</Text>
         </View>
+        
 
    
       {/* <View style={styles.linha}></View> */}
@@ -76,9 +78,8 @@ export default function Trilha({route, props}) {
       scrollEnabled = {true}
       showsVerticalScrollIndicator ={false}
       renderItem={({item}) => (
-        
         <View style={styles.container}>
-        <TouchableWithoutFeedback onPress={() => setSelectedItem(Receitas)}>
+        <TouchableWithoutFeedback onPress={() => handleOnSelectItem(item)}>
         <View style={[{
           backgroundColor:route.params.paramKey[2],
           width: 112,
@@ -92,28 +93,25 @@ export default function Trilha({route, props}) {
         <View style={styles.linha}></View>
         </View>
         </TouchableWithoutFeedback>
-       <Button onPress={() => setVisible(true)}></Button>
       </View>
       )}
       />
       
-     <MyModal selectedItem = {selectedItem} visible={selectedItem} onClose={handleOnCloseModal}>
-       </MyModal>
+      <CustomModal selectedItem={selectedItem}/> 
        </SafeAreaView>
   );
 }
 
-function MyModal({selectedItem, visible, onClose}){
-  console.log(selectedItem)
+
+export function CustomModal(selectedItem) {
   return(
-    <Modal isVisible={visible} coverScreen={false}>
-    <View style={{ flex: 1 }}>
-      <Text>{selectedItem.NomeTrilha}</Text>
-      <Button onPress={onClose}></Button>
+    <View>
+    <Button onPress={() => console.log(selectedItem.Posicao)}></Button>
+    <Text>selectedItem: {selectedItem.Ingrediente} </Text>
     </View>
-    </Modal>
   )
   
+  // Render things inside the data
 }
 
 
