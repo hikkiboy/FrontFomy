@@ -14,25 +14,18 @@ import {
 import React, { useState } from "react";
 import { app_auth } from "../../../firebaseConfig";
 import { Logo } from "../../components/logo";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithRedirect,
 } from "firebase/auth";
-import { Button } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import Home from "../profile";
-import Login from "../initial";
-import fundo from '../../assets/fundinho.png'
 
 import { useNavigation } from "@react-navigation/native";
-import PasswordResets from "../../utils/forgotPassword";
 
 const LoginPage = () => {
   const navigation = useNavigation();
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
+  const [email, setEmail] = useState("teste@teste.com");
+  const [senha, setSenha] = useState("senhasenha");
 
   const [loading, setLoading] = useState(false);
   const auth = app_auth;

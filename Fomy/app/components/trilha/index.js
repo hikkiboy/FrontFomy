@@ -1,12 +1,23 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, FlatList } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Image,FlatList,TouchableWithoutFeedback } from 'react-native';
+import Modal from "react-native-modal";
 import { app, app_DB } from '../../../firebaseConfig'
 import { collection, onSnapshot, query, where, orderBy,documentId } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
-import { Route } from '@react-navigation/native';
+import { Button } from 'react-native-elements';
+export default function Trilha({route, props}) {
 
-export default function Trilha({route}) {
   const [Receitas, setReceitas] = useState([]);
+  const [selectedItem, setSelectedItem] = useState([]);
+  const [visible, setVisible] = useState(false)
+
+  const handleOnSelectItem = (item) => {
+    setSelectedItem(item);
+  };
+  const handleOnCloseModal = () => {
+    setSelectedItem(null);
+  };
+
 
   
   const NomeTrilha = route.params.paramKey
@@ -33,9 +44,6 @@ export default function Trilha({route}) {
             })
           })
           setReceitas(receitas)
-          
-
-          
         }
       })
       
@@ -44,7 +52,7 @@ export default function Trilha({route}) {
   
   },[])
   
-
+ 
 
   return (
     <SafeAreaView style={styles.container} >
@@ -65,11 +73,12 @@ export default function Trilha({route}) {
       
       <FlatList
       data={Receitas}
-
       scrollEnabled = {true}
       showsVerticalScrollIndicator ={false}
       renderItem={({item}) => (
+        
         <View style={styles.container}>
+        <TouchableWithoutFeedback onPress={() => setSelectedItem(Receitas)}>
         <View style={[{
           backgroundColor:route.params.paramKey[2],
           width: 112,
@@ -80,17 +89,33 @@ export default function Trilha({route}) {
           marginLeft: 15,
         }]}>
         <Text style={styles.textoFase}>{item.Posicao}</Text>
-        
         <View style={styles.linha}></View>
         </View>
-  
+        </TouchableWithoutFeedback>
+       <Button onPress={() => setVisible(true)}></Button>
       </View>
       )}
       />
+      
+     <MyModal selectedItem = {selectedItem} visible={selectedItem} onClose={handleOnCloseModal}>
+       </MyModal>
        </SafeAreaView>
   );
+}
+
+function MyModal({selectedItem, visible, onClose}){
+  console.log(selectedItem)
+  return(
+    <Modal isVisible={visible} coverScreen={false}>
+    <View style={{ flex: 1 }}>
+      <Text>{selectedItem.NomeTrilha}</Text>
+      <Button onPress={onClose}></Button>
+    </View>
+    </Modal>
+  )
   
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -142,6 +167,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     flex: 1,
     paddingLeft: 100
+  },
+  modalContain: {
+    width: "80%",
+    height: "20%",
+    backgroundColor: 'black',
+    justifyContent: 'center',
+    alignSelf: 'center'
   }
 
 });
