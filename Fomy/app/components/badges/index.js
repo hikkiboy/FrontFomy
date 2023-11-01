@@ -74,16 +74,21 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     image:{
-        width: 85,
-        height: 85,
-        margin: 12
+        width: 100,
+        height: 100,
+        margin: 12,
+        marginHorizontal: 15
     },
     thebadge:{
         alignItems: 'center'
     },
     text:{
-        fontSize: 15,
-        fontWeight: '500'
+        fontSize: 16,
+        fontWeight: '500',
+        width: 110,
+        textAlign: 'center',
+        position: 'absolute',
+        marginTop: 125
     }
 
 })

@@ -59,12 +59,7 @@ const Profile = ({navigation}) => {
                     <LoadProfile data={item} navigation={navigation} />
                 )}
                 />
-            </View>       
-           {/*<View>
-                 <Button onPress={() =>{app_auth.signOut()}} title = "Sair"/>
-                  /*<Button onPress={() => navigation.navigate('Fetch')} title = "Trilhas"/>*/
-            }
-            
+            </View>     
 
         </SafeAreaView>
     )

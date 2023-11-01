@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
     badgearea:{
         backgroundColor: "#D9D9D9",
         width: '100%',
-        height: 280,
+        height: 350,
         borderTopLeftRadius: 15,
         borderTopRightRadius: 15
 
