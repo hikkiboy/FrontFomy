@@ -4,7 +4,7 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "dev": "npx json-server --watch -d 180 --host 192.168.56.217 db.json",
-    "start": "expo start",
+    "banana": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web"

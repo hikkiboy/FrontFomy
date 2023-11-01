@@ -49,15 +49,16 @@ export default function Trilha({route}) {
   return (
     <SafeAreaView style={styles.container} >
       
-      <View style={{backgroundColor: route.params.paramKey[2],marginTop: 25, width: 340, height: 219, borderRadius:15, alignSelf: "center" }}>
+      <View style={{backgroundColor: route.params.paramKey[2],marginTop: '10%', width: 360, height: 270, borderRadius:15, alignSelf: "center" }}>
       <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
-        <Image style={{width:109, height:109, marginTop: 18}} source={require('../../assets/fogao.png')}/>
-        <Image  style={{width:108, height:139}} source={require('../../assets/alberto.png')}/>
+        <Image style={{width:109, height:109, marginTop: 30}} source={require('../../assets/fogao.png')}/>
+        <Image  style={{width:108, height:139, marginTop:10}} source={require('../../assets/alberto.png')}/>
         <StatusBar style="auto" />
         </View>
           <Text style={styles.trilhaTit}>{route.params.paramKey[0]}</Text>
-          <Text style={styles.textoTrilha}>{route.params.paramKey[1]}</Text>
+          
         </View>
+        <Text style={styles.textoTrilha}>{route.params.paramKey[1]}</Text>
 
    
       {/* <View style={styles.linha}></View> */}
@@ -104,18 +105,30 @@ const styles = StyleSheet.create({
     height: 70,
     fontSize: 42,
     fontWeight: "700",
-    color: "black"
+    color: "black",
+    marginBottom: 50
+
+
   
     
     //fontFamily: FontFamily.leagueSpartanBold
   },
   textoTrilha:{
     alignSelf: 'center',
-     marginTop: -40,
-    marginBottom: 15,
-    fontSize: 18,
-    fontWeight: "700",
+     marginTop: -70,
+    fontSize: 22.5,
+    fontWeight: "400",
     color: "black",
+    textAlign: 'center',
+    marginLeft: 30,
+    marginRight: 30,
+    opacity: 0.6,
+    marginLeft: 50,
+    marginRight: 50,
+    alignSelf: 'center',
+
+    
+
   },
   linha:{
     height: 40,
