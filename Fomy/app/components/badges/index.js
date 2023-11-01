@@ -49,7 +49,13 @@ export function Badges({ data }) {
                 style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
                 data={Insignias}
                 renderItem={({item}) => {
-                    return( <Image source={{ uri: item.Imagem }} style={styles.image} />)
+                    return(
+                        <View style={styles.thebadge}>
+                            <Image source={{ uri: item.Imagem }} style={styles.image} />
+                            <Text style={styles.text} >{item.Titulo}</Text>
+                        </View>
+                   )
+                    
                 }}
                 keyExtractor={item => item.key}
             />
@@ -71,6 +77,13 @@ const styles = StyleSheet.create({
         width: 85,
         height: 85,
         margin: 12
+    },
+    thebadge:{
+        alignItems: 'center'
+    },
+    text:{
+        fontSize: 15,
+        fontWeight: '500'
     }
 
 })
