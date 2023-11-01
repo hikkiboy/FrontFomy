@@ -53,7 +53,8 @@ const Cadastro = () => {
             Premium: false,
             ProgressoTrilhas: [],
             ReceitasFeitas: [],
-            Insignias: ["Beta"]
+            Insignias: ["Beta"],
+            Titulo: "Iniciante"
 
           })
 
