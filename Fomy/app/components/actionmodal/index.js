@@ -1,7 +1,7 @@
 import { View, SafeAreaView, Text, TouchableOpacity, StyleSheet } from "react-native"
 import { app_auth } from '../../../firebaseConfig'
 
-export function ActionModal({ handleAction, navigation }){
+export function ActionModal({ handleAction, navigation, handleName }){
     return(
         <SafeAreaView style={styles.container} >
             <TouchableOpacity style={{ flex: 1, zIndex: 9 }} onPress={handleAction} ></TouchableOpacity>
@@ -11,7 +11,7 @@ export function ActionModal({ handleAction, navigation }){
                     <Text style={styles.action} >Mudar Foto</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.button} activeOpacity={0.9} >
+                <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={handleName} >
                     <Text style={styles.action} >Mudar Nome</Text>
                 </TouchableOpacity>
 
@@ -23,7 +23,7 @@ export function ActionModal({ handleAction, navigation }){
                     <Text style={styles.action} >Sair</Text>
                 </TouchableOpacity>
 
-            </View>
+                </View>
 
         </SafeAreaView>
     )
@@ -41,18 +41,20 @@ const styles = StyleSheet.create({
         paddingBottom: 35,
         backgroundColor: "#FFF",
         borderTopLeftRadius: 15,
-        borderTopRightRadius: 15
+        borderTopRightRadius: 15,
+        elevation: 10,
+        shadowColor: "#000",
     },
     button:{
         zIndex: 99,
-        backgroundColor: "#7EB77F",
+        backgroundColor: "#FFF",
         borderRadius: 15,
         marginTop: 15,
         padding: 10,
         alignItems: 'center',
-        borderWidth: 3,
-        borderBottomWidth: 6,
-        borderColor: "#427643"
+        borderWidth: 5,
+        borderBottomWidth: 10,
+        borderColor: "#7EB77F"
     },
     action:{
         fontSize: 18,
@@ -65,8 +67,8 @@ const styles = StyleSheet.create({
         marginTop: 15,
         padding: 10,
         alignItems: 'center',
-        borderWidth: 3,
-        borderBottomWidth: 6,
+        borderWidth: 5,
+        borderBottomWidth: 10,
         borderColor: "#95233F"
     }
 

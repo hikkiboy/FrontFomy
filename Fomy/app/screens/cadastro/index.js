@@ -52,7 +52,9 @@ const Cadastro = () => {
             Nome : nome,
             Premium: false,
             ProgressoTrilhas: [],
-            ReceitasFeitas: []
+            ReceitasFeitas: [],
+            Insignias: ["Beta"],
+            Titulo: "Iniciante"
 
           })
 
