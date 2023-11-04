@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, FlatList } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, FlatList, useWindowDimensions } from 'react-native';
 import { app, app_DB } from '../../../firebaseConfig'
 import { collection, onSnapshot, query, where, orderBy,documentId } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
@@ -43,13 +43,14 @@ export default function Trilha({route}) {
       return() => subscriver()
   
   },[])
-  
+
+  const {width} = useWindowDimensions()
 
 
   return (
     <SafeAreaView style={styles.container} >
-      
-      <View style={{backgroundColor: route.params.paramKey[2],marginTop: '10%', width: 360, height: 270, borderRadius:15, alignSelf: "center" }}>
+      <ScrollView style ={{ flexGrow: 1, paddingBottom: 300 }}>
+      <View style={{backgroundColor: route.params.paramKey[2],marginTop: '10%', width: width - 20, height: 270, borderRadius:15, alignSelf: "center" }}>
       <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
         <Image style={{width:109, height:109, marginTop: 30}} source={require('../../assets/fogao.png')}/>
         <Image  style={{width:108, height:139, marginTop:10}} source={require('../../assets/alberto.png')}/>
@@ -66,8 +67,7 @@ export default function Trilha({route}) {
       
       <FlatList
       data={Receitas}
-
-      scrollEnabled = {true}
+      scrollEnabled = {false}
       showsVerticalScrollIndicator ={false}
       renderItem={({item}) => (
         <View style={styles.container}>
@@ -79,15 +79,21 @@ export default function Trilha({route}) {
           textAlign: "center",
           marginTop: 50,
           marginLeft: 15,
-        }]}>
-        <Text style={styles.textoFase}>{item.Posicao}</Text>
+          marginBottom: 35,
+
         
+        }]}>
+        <View >
+        <Text style={styles.textoFase}>{item.Posicao}</Text>
+        <Text style={styles.descricaoFase}>{item.Descricao}</Text>
+        </View>
         <View style={styles.linha}></View>
         </View>
   
       </View>
       )}
       />
+        </ScrollView>
        </SafeAreaView>
   );
   
@@ -126,18 +132,19 @@ const styles = StyleSheet.create({
     marginLeft: 50,
     marginRight: 50,
     alignSelf: 'center',
+    
 
     
 
   },
   linha:{
-    height: 40,
+    height: 75,
     width: 2,
     borderRightWidth: 2,
-    color: "red",
     alignSelf: 'center',
     margin: 5,
-    borderRadius: 25
+    borderRadius: 100,
+    
   },
   fase:{
     
@@ -148,11 +155,18 @@ const styles = StyleSheet.create({
     marginTop: 50,
     marginLeft: 15,
   },
+
+  descricaoFase:{
+    alignSelf: 'right',
+    fontSize: 15,
+    fontWeight: '700',
+    color: "rgba(0,0,0,0.5)",
+  },
   textoFase:{
     alignSelf: 'center',
     fontSize: 70,
     fontWeight: '700',
-    color: "#365336",
+    color: "rgba(0,0,0,0.5)",
   },
   descricaoReceita:{
     alignSelf :'center',
