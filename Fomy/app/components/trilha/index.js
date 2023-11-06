@@ -82,7 +82,7 @@ export default function Trilha({route}) {
               >
                   <Text style={styles.textoFase}>{item.Posicao}</Text>
               </View>
-              <View style={styles.leftRow} >
+              <View style={styles.rightRow} >
                 <Text style={styles.descricaoFase}>{item.Nome}</Text>
               </View>
             </View>
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     borderRadius: 15
 
   },
-  leftRow:{
+  rightRow:{
     width: '70%',
     height: '100%',
     borderTopRightRadius: 15,
