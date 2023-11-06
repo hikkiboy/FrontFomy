@@ -50,51 +50,47 @@ export default function Trilha({route}) {
   return (
     <SafeAreaView style={styles.container} >
       <ScrollView style ={{ flexGrow: 1, paddingBottom: 300 }}>
-      <View style={{backgroundColor: route.params.paramKey[2],marginTop: '10%', width: width - 20, height: 270, borderRadius:15, alignSelf: "center" }}>
-      <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
-        <Image style={{width:109, height:109, marginTop: 30}} source={require('../../assets/fogao.png')}/>
-        <Image  style={{width:108, height:139, marginTop:10}} source={require('../../assets/alberto.png')}/>
-        <StatusBar style="auto" />
+        <View style={{backgroundColor: route.params.paramKey[2],marginTop: '10%', width: width - 20, height: 270, borderRadius:15, alignSelf: "center", marginBottom: 50 }}>
+          <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
+            <Image style={{width:109, height:109, marginTop: 30}} source={require('../../assets/fogao.png')}/>
+            <Image  style={{width:108, height:139, marginTop:10}} source={require('../../assets/alberto.png')}/>
+            <StatusBar style="auto" />
+          </View>
+            <Text style={styles.trilhaTit}>{route.params.paramKey[0]}</Text>
+            <Text style={styles.textoTrilha}>{route.params.paramKey[1]}</Text>
+            
         </View>
-          <Text style={styles.trilhaTit}>{route.params.paramKey[0]}</Text>
-          
-        </View>
-        <Text style={styles.textoTrilha}>{route.params.paramKey[1]}</Text>
 
    
       {/* <View style={styles.linha}></View> */}
 {/* fazer um flat list pra gerar as fases  */}
       
-      <FlatList
-      data={Receitas}
-      scrollEnabled = {false}
-      showsVerticalScrollIndicator ={false}
-      renderItem={({item}) => (
-        <View style={styles.container}>
-        <View style={[{
-          backgroundColor:route.params.paramKey[2],
-          width: 112,
-          height: 88,
-          borderRadius: 15,
-          textAlign: "center",
-          marginTop: 50,
-          marginLeft: 15,
-          marginBottom: 35,
-
-        
-        }]}>
-        <View >
-        <Text style={styles.textoFase}>{item.Posicao}</Text>
-        <Text style={styles.descricaoFase}>{item.Descricao}</Text>
-        </View>
-        <View style={styles.linha}></View>
-        </View>
-  
-      </View>
-      )}
-      />
-        </ScrollView>
-       </SafeAreaView>
+        <FlatList
+        data={Receitas}
+        scrollEnabled = {false}
+        showsVerticalScrollIndicator ={false}
+        renderItem={({item}) => (
+          <View>
+            <View style={styles.row} >
+              <View style={[{
+                backgroundColor:route.params.paramKey[2],
+                width: "30%",
+                height: 98,
+                borderRadius: 15
+                }]}
+              >
+                  <Text style={styles.textoFase}>{item.Posicao}</Text>
+              </View>
+              <View style={styles.leftRow} >
+                <Text style={styles.descricaoFase}>{item.Nome}</Text>
+              </View>
+            </View>
+            <View style={styles.linha}></View>
+          </View>
+        )}
+        />
+      </ScrollView>
+    </SafeAreaView>
   );
   
 }
@@ -103,7 +99,25 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     display: 'flex',
-    
+    backgroundColor: "#EFEFEF"
+  },
+  row:{
+    flexDirection: 'row', 
+    alignContent: 'center', 
+    alignItems: 'center',
+    marginStart: 10,
+    marginEnd: 10,
+    backgroundColor: 'white',
+    borderRadius: 15
+
+  },
+  leftRow:{
+    width: '70%',
+    height: '100%',
+    borderTopRightRadius: 15,
+    borderBottomRightRadius: 15,
+    alignItems: 'center'
+
   },
   //fazer fonte depois
   trilhaTit:{
@@ -126,12 +140,11 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     color: "black",
     textAlign: 'center',
-    marginLeft: 30,
-    marginRight: 30,
     opacity: 0.6,
     marginLeft: 50,
     marginRight: 50,
     alignSelf: 'center',
+    marginBottom: 15
     
 
     
@@ -141,7 +154,7 @@ const styles = StyleSheet.create({
     height: 75,
     width: 2,
     borderRightWidth: 2,
-    alignSelf: 'center',
+    marginStart: 67,
     margin: 5,
     borderRadius: 100,
     
@@ -157,16 +170,16 @@ const styles = StyleSheet.create({
   },
 
   descricaoFase:{
-    alignSelf: 'right',
-    fontSize: 15,
-    fontWeight: '700',
-    color: "rgba(0,0,0,0.5)",
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: "#365336",
+    marginTop: 8
   },
   textoFase:{
     alignSelf: 'center',
     fontSize: 70,
     fontWeight: '700',
-    color: "rgba(0,0,0,0.5)",
+    color: "rgba(0,0,0,0.5)"
   },
   descricaoReceita:{
     alignSelf :'center',
