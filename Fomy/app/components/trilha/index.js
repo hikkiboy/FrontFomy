@@ -76,7 +76,8 @@ export default function Trilha({route}) {
                 backgroundColor:route.params.paramKey[2],
                 width: "30%",
                 height: 98,
-                borderRadius: 15
+                borderTopLeftRadius: 15,
+                borderBottomLeftRadius: 15
                 }]}
               >
                   <Text style={styles.textoFase}>{item.Posicao}</Text>
@@ -151,11 +152,11 @@ const styles = StyleSheet.create({
 
   },
   linha:{
+    alignSelf: 'center',
     height: 75,
     width: 2,
     borderRightWidth: 2,
-    marginStart: 67,
-    margin: 5,
+    marginVertical: 10,
     borderRadius: 100,
     
   },
