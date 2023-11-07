@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, FlatList, useWindowDimensions } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, FlatList, useWindowDimensions, TouchableOpacity } from 'react-native';
 import { app, app_DB } from '../../../firebaseConfig'
 import { collection, onSnapshot, query, where, orderBy,documentId } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
@@ -50,7 +50,7 @@ export default function Trilha({route}) {
   return (
     <SafeAreaView style={styles.container} >
       <ScrollView style ={{ flexGrow: 1, paddingBottom: 300 }}>
-        <View style={{backgroundColor: route.params.paramKey[2],marginTop: '10%', width: width - 20, height: 270, borderRadius:15, alignSelf: "center", marginBottom: 50 }}>
+        <View style={{backgroundColor: route.params.paramKey[2],marginTop: '10%', width: width - 20, height: 270, borderRadius:15, alignSelf: "center", marginBottom: 40 }}>
           <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
             <Image style={{width:109, height:109, marginTop: 30}} source={require('../../assets/fogao.png')}/>
             <Image  style={{width:108, height:139, marginTop:10}} source={require('../../assets/alberto.png')}/>
@@ -62,28 +62,46 @@ export default function Trilha({route}) {
         </View>
 
    
-      {/* <View style={styles.linha}></View> */}
-{/* fazer um flat list pra gerar as fases  */}
+        {/* <View style={styles.linha}></View> */}
+        {/* fazer um flat list pra gerar as fases  */}
       
         <FlatList
         data={Receitas}
         scrollEnabled = {false}
         showsVerticalScrollIndicator ={false}
         renderItem={({item}) => (
-          <View>
+          <View style={styles.container} >
             <View style={styles.row} >
               <View style={[{
                 backgroundColor:route.params.paramKey[2],
                 width: "30%",
-                height: 98,
+                height: "100%",
                 borderTopLeftRadius: 15,
-                borderBottomLeftRadius: 15
+                borderBottomLeftRadius: 15,
+                justifyContent: 'center',
+                shadowOffset: { width: 0, height: 5 },
+                shadowColor: '#427643',
+                shadowOpacity: 1,
+                elevation: 3,
                 }]}
               >
                   <Text style={styles.textoFase}>{item.Posicao}</Text>
               </View>
               <View style={styles.rightRow} >
                 <Text style={styles.descricaoFase}>{item.Nome}</Text>
+                <Image style={styles.detail} source={require("../../assets/lines-detail.png")} />
+                <TouchableOpacity><Text style={[{
+                  backgroundColor:route.params.paramKey[2],
+                  paddingHorizontal: '27%',
+                  paddingVertical: '1%',
+                  marginTop: 20,
+                  marginBottom: 15,
+                  color: "rgba(0,0,0,0.6)",
+                  fontSize: 17,
+                  fontWeight: 'bold',
+                  borderRadius: 15,
+                  }]} 
+                >Ver receita</Text></TouchableOpacity>
               </View>
             </View>
             <View style={styles.linha}></View>
@@ -108,8 +126,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginStart: 10,
     marginEnd: 10,
-    backgroundColor: 'white',
-    borderRadius: 15
+    backgroundColor: '#FFF',
+    borderRadius: 15,
+    marginTop: 10,
+    shadowOffset: { width: 5, height: 5 },
+    shadowColor: 'black',
+    shadowOpacity: 1,
+    elevation: 3,
 
   },
   rightRow:{
@@ -119,6 +142,11 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 15,
     alignItems: 'center'
 
+  },
+  detail:{
+    width: '50%',
+    height: '4.3%',
+    marginTop: 8
   },
   //fazer fonte depois
   trilhaTit:{
@@ -173,14 +201,16 @@ const styles = StyleSheet.create({
   descricaoFase:{
     fontSize: 18,
     fontWeight: 'bold',
-    color: "#365336",
-    marginTop: 8
+    color: "#000",
+    marginTop: 8,
+    textAlign: 'center'
   },
   textoFase:{
     alignSelf: 'center',
     fontSize: 70,
     fontWeight: '700',
-    color: "rgba(0,0,0,0.5)"
+    color: "rgba(0,0,0,0.6)",
+    position: 'absolute'
   },
   descricaoReceita:{
     alignSelf :'center',
