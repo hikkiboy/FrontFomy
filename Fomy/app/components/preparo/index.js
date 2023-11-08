@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView, Image,FlatList,TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Image,FlatList,TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 import Modal from "react-native-modal";
 import { app, app_DB } from '../../../firebaseConfig'
 import { collection, onSnapshot, query, where, orderBy,documentId } from '@firebase/firestore'
@@ -32,8 +32,7 @@ export default function Preparo({route, props, navigation}) {
     
     const q = query(
       receitaRef,
-      or (where("Nome", "==", route.params.paramKey[0]), 
-      where("Passos", "==", "1"))
+      where("Nome", "==", route.params.paramKey[0]), 
     )
       const subscriver = onSnapshot(q, {
         next : (snapshot) => {
@@ -56,6 +55,7 @@ export default function Preparo({route, props, navigation}) {
 let arrayIng = []
 let arrayBon = []
 let arrayUtil = []
+let arrayprep = []
   return (
     <SafeAreaView style={styles.container} >
       
@@ -94,7 +94,8 @@ let arrayUtil = []
             <Text style={{opacity: 0, position: 'absolute'}}>{arrayIng.push(item.Ingredientes)}</Text>
             <Text style={{opacity: 0, position: 'absolute'}}>{arrayBon.push(item.Bonus)}</Text>
             <Text style={{opacity: 0, position: 'absolute'}}>{arrayUtil.push(item.Utensilios)}</Text>
-            <Button onPress={() => console.log(item)}></Button>
+            <Text style={{opacity: 0, position: 'absolute'}}>{arrayprep.push(item.PassosSimp)}</Text>
+            
         <View style={styles.IngredientesContain}>
             <FlatList
             data={arrayIng[0]}
@@ -127,7 +128,7 @@ let arrayUtil = []
             showsVerticalScrollIndicator = {false}
             renderItem={({item}) => (
                 <View style={styles.BonusNumContain}>
-                    <Text style={styles.NumeroIngrediente}>{arrayBon[0].indexOf(item) + 1}°</Text>
+                    <Text style={styles.NumeroIngrediente}>{arrayBon[0].indexOf(item) + 1}-</Text>
                     <Text style = {styles.Ingredientes}> {item}</Text>
                 </View>
             )}
@@ -144,25 +145,32 @@ let arrayUtil = []
             showsVerticalScrollIndicator = {false}
             renderItem={({item}) => (
                 <View style={styles.BonusNumContain}>
-                    <Text style={styles.NumeroIngrediente}>{arrayUtil[0].indexOf(item) + 1}°</Text>
+                    <Text style={styles.NumeroIngrediente}>{arrayUtil[0].indexOf(item) + 1}-</Text>
                     <Text style = {styles.Ingredientes}> {item}</Text>
                 </View>
             )}
             />
         </View>
         <View>
+        <View>
         <Image style={styles.Pote} source={require('../../assets/Pote_preparo.png')}/>
+        <View style={{display: 'flex', flexDirection: 'row', alignContent:'center'}}>
           <View style={styles.ModoPreparoBG}>
-          <Text style={styles.ModoPreparo}>MODO DE PREPARO</Text>
+          <Text style={styles.ModoPreparo}>MODO DE FAZER</Text>
           </View>
+          <TouchableOpacity>
+          <Image style={styles.ButtonPlay} source={require('../../assets/playbutt.png')}/>
+          </TouchableOpacity>
+        </View>
+        </View>
           <FlatList
-            data={arrayUtil[0]}
+            data={arrayprep[0]}
             scrollEnabled = {true}
             showsVerticalScrollIndicator = {false}
             renderItem={({item}) => (
-                <View style={styles.BonusNumContain}>
-                    <Text style={styles.NumeroIngrediente}>{arrayUtil[0].indexOf(item) + 1}°</Text>
-                    <Text style = {styles.Ingredientes}> {item}</Text>
+                <View style={styles.ModoPreparoContain}>
+                    <Text style={styles.Passo}>• </Text>
+                    <Text style = {styles.PassoDesc}> {item}</Text>
                 </View>
             )}
             />
@@ -267,8 +275,6 @@ Ingredientes:{
     width: 300,
     height: '100%',
     marginTop: 30
-
-    
 },
 Cesta:{
   marginRight: 10,
@@ -320,11 +326,12 @@ ModoPreparoBG:{
   backgroundColor: "#7EB77F",
   width: '77%',
   borderRadius: 20,
-  marginLeft: -5,
+  marginLeft: 30,
   marginTop: '3%',
   alignSelf: 'flex-start',
   marginTop:25,
-  alignSelf: 'center'
+  alignSelf: 'center',
+  marginBottom: 25
 },
 Pote:{
   alignSelf: 'center',
@@ -348,27 +355,32 @@ UtilBG:{
   borderWidth: 3,
   marginTop:25,
   width: 150
+},
+ModoPreparoContain:{
+  marginLeft: 30,
+  display: 'flex',
+  flexDirection: 'row',
+  alignSelf: 'center'
+},
+PassoDesc:{
+  fontWeight: 'bold',
+  fontSize: 20,
+  width: 300,
+  height: '100%',
+  color: '#7EB77F'
+},
+Passo:{
+  fontSize: 20,
+  fontWeight: 'bold',
+  color: '#000000'
+},
+ButtonPlay:{
+  width: 41,
+  height: 41,
+  marginLeft: 10,
+  marginTop:25,
 }
 
 });
-
-// function nomeCompleto(){
-//  nomeComplet0 = nome+sobrenome
-// }
-
-// export const nomeCompletos = () =>{
-//   nomeCompletos = nome+sobrenome
-// }
-
-// const nomeComplet0s = (()=> {
-
-// })
-
-// const nomeCompl3tos = {
-//   nomeCompletos: (() => nomeCompletos = nome+sobrenome),
-//   somar:(()=> 1+1)
-// }
-
-// nomeCompl3tos.somar()
 
 
