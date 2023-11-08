@@ -5,7 +5,8 @@ import { app, app_DB } from '../../../firebaseConfig'
 import { collection, onSnapshot, query, where, orderBy,documentId } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { Button } from 'react-native-elements';
-export default function Trilha({route, props}) {
+
+export default function Trilha({route, props, navigation}) {
 
   const [Receitas, setReceitas] = useState([]);
   const [visible, setVisible] = useState(false)
@@ -78,8 +79,9 @@ export default function Trilha({route, props}) {
       scrollEnabled = {true}
       showsVerticalScrollIndicator ={false}
       renderItem={({item}) => (
+        
         <View style={styles.container}>
-        <TouchableWithoutFeedback onPress={() => handleOnSelectItem(item)}>
+        <TouchableWithoutFeedback onPress={ () => navigation.navigate('Preparo',{paramKey:[item.Nome]})}>
         <View style={[{
           backgroundColor:route.params.paramKey[2],
           width: 112,
@@ -97,23 +99,13 @@ export default function Trilha({route, props}) {
       )}
       />
       
-      <CustomModal selectedItem={selectedItem}/> 
+
        </SafeAreaView>
   );
 }
 
 
-export function CustomModal(selectedItem) {
-  selectedItem =  [selectedItem.selectedItem.NomeTrilha]
-  return(
-    <View>
-    <Button onPress={() => console.log(selectedItem)}></Button>
-    <Text>Teste: {selectedItem} </Text>
-    </View>
-  )
-  
-  // Render things inside the data
-}
+
 
 
 const styles = StyleSheet.create({
