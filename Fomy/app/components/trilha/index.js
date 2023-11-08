@@ -190,10 +190,9 @@ const styles = StyleSheet.create({
   linha:{
     alignSelf: 'center',
     alignItems: 'center',
-    height: 75,
+    height: 97.2,
     width: '100%',
-    paddingTop: '5%',
-    paddingBottom: '28%'
+    marginVertical: '4%'
     
   },
   fase:{
