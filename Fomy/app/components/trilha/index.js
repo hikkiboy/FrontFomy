@@ -4,6 +4,7 @@ import { app, app_DB } from '../../../firebaseConfig'
 import { collection, onSnapshot, query, where, orderBy,documentId } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { Route } from '@react-navigation/native';
+import { Icon } from 'react-native-elements';
 
 export default function Trilha({route}) {
   const [Receitas, setReceitas] = useState([]);
@@ -72,6 +73,9 @@ export default function Trilha({route}) {
         renderItem={({item}) => (
           <View style={styles.container} >
             <View style={styles.row} >
+              <View style={{ height: '107%', width: '100%', zIndex: 1, backgroundColor: '#9D9D9D', position: 'absolute', borderRadius: 15 }} ></View>
+              <View style={{ height: '107%', width: '30%', zIndex: 2, backgroundColor: 'rgba(0,0,0,0.25)', position: 'absolute', borderRadius: 15, borderBottomRightRadius: 0 }} ></View>
+              <View style={[{ height: '107%', width: '30%', zIndex: 1, backgroundColor: route.params.paramKey[2], position: 'absolute', borderRadius: 15, borderBottomRightRadius: 0 }]} ></View>
               <View style={[{
                 backgroundColor:route.params.paramKey[2],
                 width: "30%",
@@ -79,10 +83,7 @@ export default function Trilha({route}) {
                 borderTopLeftRadius: 15,
                 borderBottomLeftRadius: 15,
                 justifyContent: 'center',
-                shadowOffset: { width: 0, height: 5 },
-                shadowColor: '#427643',
-                shadowOpacity: 1,
-                elevation: 3,
+                zIndex: 3
                 }]}
               >
                   <Text style={styles.textoFase}>{item.Posicao}</Text>
@@ -90,7 +91,7 @@ export default function Trilha({route}) {
               <View style={styles.rightRow} >
                 <Text style={styles.descricaoFase}>{item.Nome}</Text>
                 <Image style={styles.detail} source={require("../../assets/lines-detail.png")} />
-                <TouchableOpacity><Text style={[{
+                <TouchableOpacity  ><View><Text style={[{
                   backgroundColor:route.params.paramKey[2],
                   paddingHorizontal: '27%',
                   paddingVertical: '1%',
@@ -100,11 +101,15 @@ export default function Trilha({route}) {
                   fontSize: 17,
                   fontWeight: 'bold',
                   borderRadius: 15,
+                  
                   }]} 
-                >Ver receita</Text></TouchableOpacity>
+                >Ver receita</Text></View></TouchableOpacity>
               </View>
             </View>
-            <View style={styles.linha}></View>
+            <View style={styles.linha}>
+              <Image tintColor={route.params.paramKey[2]} style={{ height: 97.2, width: 19.2 }} source={require('../../assets/seta_default.png')} />
+            </View>
+            
           </View>
         )}
         />
@@ -122,17 +127,13 @@ const styles = StyleSheet.create({
   },
   row:{
     flexDirection: 'row', 
-    alignContent: 'center', 
-    alignItems: 'center',
+    alignContent: 'flex-end', 
     marginStart: 10,
     marginEnd: 10,
     backgroundColor: '#FFF',
     borderRadius: 15,
-    marginTop: 10,
-    shadowOffset: { width: 5, height: 5 },
-    shadowColor: 'black',
-    shadowOpacity: 1,
-    elevation: 3,
+    maxHeight: 200
+
 
   },
   rightRow:{
@@ -140,12 +141,14 @@ const styles = StyleSheet.create({
     height: '100%',
     borderTopRightRadius: 15,
     borderBottomRightRadius: 15,
-    alignItems: 'center'
+    alignItems: 'center',
+    zIndex: 3,
+    backgroundColor:'#FFF'
 
   },
   detail:{
-    width: '50%',
-    height: '4.3%',
+    width: 137,
+    height: 5,
     marginTop: 8
   },
   //fazer fonte depois
@@ -155,8 +158,7 @@ const styles = StyleSheet.create({
     fontSize: 42,
     fontWeight: "700",
     color: "black",
-    marginBottom: 50
-
+    marginBottom: 50 
 
   
     
@@ -181,11 +183,11 @@ const styles = StyleSheet.create({
   },
   linha:{
     alignSelf: 'center',
+    alignItems: 'center',
     height: 75,
-    width: 2,
-    borderRightWidth: 2,
-    marginVertical: 10,
-    borderRadius: 100,
+    width: '100%',
+    paddingTop: '5%',
+    paddingBottom: '30%'
     
   },
   fase:{
@@ -203,7 +205,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: "#000",
     marginTop: 8,
-    textAlign: 'center'
+    textAlign: 'center',
+    width: '80%'
   },
   textoFase:{
     alignSelf: 'center',
