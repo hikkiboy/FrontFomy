@@ -9,7 +9,7 @@ import { doc, updateDoc, collection, onSnapshot } from "firebase/firestore"
 import * as Progress from "react-native-progress"
 import { ImageUpload } from "../imageupload"
 import * as ImagePicker from "expo-image-picker"
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
+import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage'
 
 export function LoadProfile({ data, navigation }){
 
@@ -53,20 +53,23 @@ export function LoadProfile({ data, navigation }){
             console.log("Progress: " + progress + "%")
         },
         (error) => {
-
+            alert("Ocorreu um erro: "+error)
         },
         (complete) => {
             getDownloadURL(uploadTask.snapshot.ref).then(async (downloadUrl) => {
-                console.log("File available at: " + downloadUrl + "\nReference " + storageRef)
+                console.log("File available at: " + downloadUrl)
                 setImage("")
                 try{
+                    if(data.Foto != "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Default-Profile-Picture-PNG-Photo-3895174684.png?alt=media&token=f70e36af-2857-405f-b307-5e7abe35f347"){
+                        deleteObject(ref(app_BKT, data.Foto))
+                    }
                     await updateDoc(userRef, {
                         Foto: downloadUrl
                     });
                     alert("Foto alterada com sucesso!")
                 } catch (error){
                     console.log(error)
-                    alert("Ocorreu um erro "+error)
+                    alert("Ocorreu um erro: "+error)
                 }
             })
         }
