@@ -1,20 +1,78 @@
 import { View, StyleSheet, Image, Text, TouchableOpacity, Modal, TextInput, Alert } from "react-native"
-import { Ionicons } from '@expo/vector-icons'
+import { Ionicons } from "@expo/vector-icons"
 import { useState } from "react"
 import { ActionModal } from "../actionmodal"
 import { Badges } from "../badges"
 import { useEffect } from "react"
-import { app_auth, app_DB} from '../../../firebaseConfig'
-import { doc, updateDoc } from "firebase/firestore"
-import * as Progress from 'react-native-progress'
+import { app_auth, app_BKT, app_DB} from '../../../firebaseConfig'
+import { doc, updateDoc, collection, onSnapshot } from "firebase/firestore"
+import * as Progress from "react-native-progress"
+import { ImageUpload } from "../imageupload"
+import * as ImagePicker from "expo-image-picker"
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 
 export function LoadProfile({ data, navigation }){
 
     const [visible, setVisible] = useState(false)
     const [inputOn, setInputOn] = useState(false)
     const [newName, setNewName] = useState('')
+    const [image, setImage] = useState("")
     var totalXp = 200 + (((data.Nivel - 1) * data.Nivel) * 10)
     var progressToBar = (data.Exp / totalXp)
+
+    //func to pick the damn image
+    async function pickImage() {
+        //properties of the image picker
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [4,4],
+            quality: .9
+        })
+
+        //checks if it wasn't cancelled
+        if(!result.canceled){
+            setImage(result.assets[0].uri)
+            //uploads image
+            await uploadImage(result.assets[0].uri);
+        }
+    }
+
+    async function uploadImage( uri ){
+        const response = await fetch(uri);
+        const blob = await response.blob();
+
+        const storageRef = ref(app_BKT, "Pfps/" + data.Nome + new Date().getTime())
+        const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
+        const uploadTask = uploadBytesResumable(storageRef, blob)
+
+        //listen for events
+        uploadTask.on("state_changed",
+        (snapshot) => {
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            console.log("Progress: " + progress + "%")
+        },
+        (error) => {
+
+        },
+        (complete) => {
+            getDownloadURL(uploadTask.snapshot.ref).then(async (downloadUrl) => {
+                console.log("File available at: " + downloadUrl + "\nReference " + storageRef)
+                setImage("")
+                try{
+                    await updateDoc(userRef, {
+                        Foto: downloadUrl
+                    });
+                    alert("Foto alterada com sucesso!")
+                } catch (error){
+                    console.log(error)
+                    alert("Ocorreu um erro "+error)
+                }
+            })
+        }
+        )
+
+    }
 
     const handleModal = () => {
         setVisible(!visible);
@@ -134,6 +192,7 @@ export function LoadProfile({ data, navigation }){
                     handleAction={handleModal}
                     navigation={navigation}
                     handleName={handleInput}
+                    pickIt={pickImage}
                 
                 />
             </Modal>
@@ -144,7 +203,8 @@ export function LoadProfile({ data, navigation }){
 
 const styles = StyleSheet.create({
     container:{
-        flex: 1
+        flex: 1,
+        display: 'flex'
     },
     pfp:{
         width: 175,
