@@ -51,14 +51,17 @@ export default function Trilha({route}) {
   return (
     <SafeAreaView style={styles.container} >
       <ScrollView style ={{ flexGrow: 1, paddingBottom: 300 }}>
-        <View style={{backgroundColor: route.params.paramKey[2],marginTop: '10%', width: width - 20, height: 270, borderRadius:15, alignSelf: "center", marginBottom: 40 }}>
-          <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
-            <Image style={{width:109, height:109, marginTop: 30}} source={require('../../assets/fogao.png')}/>
-            <Image  style={{width:108, height:139, marginTop:10}} source={require('../../assets/alberto.png')}/>
-            <StatusBar style="auto" />
-          </View>
+        <View style={{backgroundColor: route.params.paramKey[2],marginTop: '10%', width: width - 20, height: 285, borderRadius:15, alignSelf: "center", marginBottom: 40, zIndex: 1 }}>
+          <View style={[{ backgroundColor: route.params.paramKey[2], height: '96.3%', borderRadius: 15, zIndex: 2 }]} >
+            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
+              <Image style={{width:109, height:109, marginTop: 30}} source={require('../../assets/fogao.png')}/>
+              <Image  style={{width:108, height:139, marginTop:10}} source={require('../../assets/alberto.png')}/>
+              <StatusBar style="auto" />
+            </View>
             <Text style={styles.trilhaTit}>{route.params.paramKey[0]}</Text>
             <Text style={styles.textoTrilha}>{route.params.paramKey[1]}</Text>
+          </View>
+          <View style={[{ backgroundColor: 'rgba(0,0,0,0.15)', height: '100%', width: '100%', borderRadius: 15, zIndex: 1, position: 'absolute' }]} ></View>
             
         </View>
 
@@ -73,8 +76,8 @@ export default function Trilha({route}) {
         renderItem={({item}) => (
           <View style={styles.container} >
             <View style={styles.row} >
-              <View style={{ height: '107%', width: '100%', zIndex: 1, backgroundColor: '#9D9D9D', position: 'absolute', borderRadius: 15 }} ></View>
-              <View style={{ height: '107%', width: '30%', zIndex: 2, backgroundColor: 'rgba(0,0,0,0.25)', position: 'absolute', borderRadius: 15, borderBottomRightRadius: 0 }} ></View>
+              <View style={{ height: '107%', width: '100%', zIndex: 1, backgroundColor: '#C9C9C9', position: 'absolute', borderRadius: 15 }} ></View>
+              <View style={{ height: '107%', width: '30%', zIndex: 2, backgroundColor: 'rgba(0,0,0,0.15)', position: 'absolute', borderRadius: 15, borderBottomRightRadius: 0 }} ></View>
               <View style={[{ height: '107%', width: '30%', zIndex: 1, backgroundColor: route.params.paramKey[2], position: 'absolute', borderRadius: 15, borderBottomRightRadius: 0 }]} ></View>
               <View style={[{
                 backgroundColor:route.params.paramKey[2],
@@ -91,19 +94,20 @@ export default function Trilha({route}) {
               <View style={styles.rightRow} >
                 <Text style={styles.descricaoFase}>{item.Nome}</Text>
                 <Image style={styles.detail} source={require("../../assets/lines-detail.png")} />
-                <TouchableOpacity  ><View><Text style={[{
-                  backgroundColor:route.params.paramKey[2],
-                  paddingHorizontal: '27%',
-                  paddingVertical: '1%',
-                  marginTop: 20,
-                  marginBottom: 15,
-                  color: "rgba(0,0,0,0.6)",
-                  fontSize: 17,
-                  fontWeight: 'bold',
-                  borderRadius: 15,
-                  
-                  }]} 
-                >Ver receita</Text></View></TouchableOpacity>
+                <View style={[{ marginTop: 20, backgroundColor: route.params.paramKey[2], marginBottom: 15, width: '85%', height: 37, borderRadius: 15, zIndex: 4 }]} >
+                  <TouchableOpacity style={[{
+                    backgroundColor:route.params.paramKey[2],
+                    height: '83%',
+                    borderRadius: 15,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 5
+                    }]}  
+                  >
+                    <Text style={styles.buttonsee} >Ver receita</Text>
+                  </TouchableOpacity>
+                  <View style={[{ backgroundColor: 'rgba(0,0,0,0.15)', height: '100%', width: '100%', position: 'absolute', borderRadius: 15, zIndex: 4 }]} ></View>
+                </View>
               </View>
             </View>
             <View style={styles.linha}>
@@ -151,6 +155,12 @@ const styles = StyleSheet.create({
     height: 5,
     marginTop: 8
   },
+  buttonsee:{
+    color: "rgba(0,0,0,0.6)",
+    fontSize: 20,
+    fontWeight: 'bold',
+
+  },
   //fazer fonte depois
   trilhaTit:{
     textAlign: 'center',
@@ -158,7 +168,6 @@ const styles = StyleSheet.create({
     fontSize: 42,
     fontWeight: "700",
     color: "black",
-    marginBottom: 50 
 
   
     
@@ -166,7 +175,6 @@ const styles = StyleSheet.create({
   },
   textoTrilha:{
     alignSelf: 'center',
-     marginTop: -70,
     fontSize: 22.5,
     fontWeight: "400",
     color: "black",
@@ -175,10 +183,8 @@ const styles = StyleSheet.create({
     marginLeft: 50,
     marginRight: 50,
     alignSelf: 'center',
-    marginBottom: 15
-    
-
-    
+    marginBottom: 20,
+    marginTop: -20
 
   },
   linha:{
@@ -187,7 +193,7 @@ const styles = StyleSheet.create({
     height: 75,
     width: '100%',
     paddingTop: '5%',
-    paddingBottom: '30%'
+    paddingBottom: '28%'
     
   },
   fase:{
