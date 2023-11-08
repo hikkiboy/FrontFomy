@@ -28,8 +28,8 @@ const Cadastro = () => {
         
 
       } catch (error) {
-
-        alert('deu erro')
+        console.log(error)
+        alert('algum erro ocorreu')
       } finally{
         setLoading(false)
       }
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
   borderWidth: 3,
   marginTop: 20,
   marginBottom: 5,
-  borderRadius: 10,
+  borderRadius: 15,
   width: 250,
  },
  text:{

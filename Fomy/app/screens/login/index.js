@@ -33,7 +33,7 @@ const LoginPage = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState("3264.343@educacao.org.br");
   const [senha, setSenha] = useState("senha123");
-
+  
   const [loading, setLoading] = useState(false);
   const auth = app_auth;
 
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     padding: 13,
     paddingLeft: 42,
     paddingRight: 42,
-    borderRadius: 20,
+    borderRadius: 15,
     borderColor: "black",
     borderBottomWidth: 7,
     borderWidth: 3,
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     marginTop: 20,
     marginBottom: 5,
-    borderRadius: 10,
+    borderRadius: 15,
     width: 250,
   },
   text: {
