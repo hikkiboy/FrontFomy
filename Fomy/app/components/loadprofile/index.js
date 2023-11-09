@@ -16,7 +16,6 @@ export function LoadProfile({ data, navigation }){
     const [visible, setVisible] = useState(false)
     const [inputOn, setInputOn] = useState(false)
     const [newName, setNewName] = useState('')
-    const [image, setImage] = useState("")
     var totalXp = 200 + (((data.Nivel - 1) * data.Nivel) * 10)
     var progressToBar = (data.Exp / totalXp)
 
@@ -32,10 +31,8 @@ export function LoadProfile({ data, navigation }){
 
         //checks if it wasn't cancelled
         if(!result.canceled){
-            setImage(result.assets[0].uri)
-            const fileName = result.assets[0].fileName
             //uploads image
-            await uploadImage(result.assets[0].uri, fileName);
+            await uploadImage(result.assets[0].uri, result.assets[0].uri.substring(result.assets[0].uri.lastIndexOf('/') + 1, result.assets[0].uri.length));
         }
     }
 
@@ -59,7 +56,6 @@ export function LoadProfile({ data, navigation }){
         (complete) => {
             getDownloadURL(uploadTask.snapshot.ref).then(async (downloadUrl) => {
                 console.log("File available at: " + downloadUrl)
-                setImage("")
                 try{
                     if(data.Foto != "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Default-Profile-Picture-PNG-Photo-3895174684.png?alt=media&token=f70e36af-2857-405f-b307-5e7abe35f347"){
                         deleteObject(ref(app_BKT, data.Foto))
