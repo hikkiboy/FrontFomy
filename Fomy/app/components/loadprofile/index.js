@@ -33,16 +33,17 @@ export function LoadProfile({ data, navigation }){
         //checks if it wasn't cancelled
         if(!result.canceled){
             setImage(result.assets[0].uri)
+            const fileName = result.assets[0].fileName
             //uploads image
-            await uploadImage(result.assets[0].uri);
+            await uploadImage(result.assets[0].uri, fileName);
         }
     }
 
-    async function uploadImage( uri ){
+    async function uploadImage( uri, fileName ){
         const response = await fetch(uri);
         const blob = await response.blob();
 
-        const storageRef = ref(app_BKT, "Pfps/" + data.Nome + new Date().getTime())
+        const storageRef = ref(app_BKT, "Pfps/" + data.Nome + new Date().getTime() + fileName )
         const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
         const uploadTask = uploadBytesResumable(storageRef, blob)
 
