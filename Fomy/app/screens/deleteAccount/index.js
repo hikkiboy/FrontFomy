@@ -1,4 +1,5 @@
-import { View, SafeAreaView, Text, TouchableOpacity, StyleSheet, TextInput, Pressable } from "react-native"
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, Pressable } from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context"
 import { app_auth, app_BKT, app_DB} from '../../../firebaseConfig'
 import { getAuth, reauthenticateWithCredential, EmailAuthProvider, deleteUser } from "firebase/auth";
 import { collection, deleteDoc, doc, query, where, onSnapshot, documentId } from "firebase/firestore";
@@ -15,6 +16,7 @@ export default function DeleteAccount({ navigation }){
     useLayoutEffect(() =>{
         navigation.setOptions({
             header: () => (
+                <SafeAreaView style={{ flex: 1, display: 'flex', marginBottom: 54 }} >
                 <View style={{ width: "100%", height: 65, backgroundColor: "rgba(0,0,0,0.15)" }} >
                     <View style={{width: "100%", height: 55, backgroundColor: "#FFF", flexDirection: 'row', alignItems: 'center' }} >
                         <TouchableOpacity style={{ width: "8.5%", marginStart: 10 }} onPress={() => navigation.goBack()} ><Feather name="chevron-left" size={28} /></TouchableOpacity>
@@ -23,6 +25,7 @@ export default function DeleteAccount({ navigation }){
                         </View>
                     </View>
                 </View>
+            </SafeAreaView>
             )
         })
     }, [navigation])

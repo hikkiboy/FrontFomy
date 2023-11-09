@@ -1,6 +1,7 @@
-import { View, SafeAreaView, Text, TouchableOpacity, StyleSheet, TextInput, Pressable } from "react-native"
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, Pressable } from "react-native"
 import { app_auth } from '../../../firebaseConfig'
 import { useLayoutEffect } from "react"
+import { SafeAreaView } from "react-native-safe-area-context"
 import Feather from 'react-native-vector-icons/Feather'
 
 
@@ -9,14 +10,16 @@ export default function Configs ({navigation}){
     useLayoutEffect(() =>{
         navigation.setOptions({
             header: () => (
-                <View style={{ width: "100%", height: 65, backgroundColor: "rgba(0,0,0,0.15)" }} >
-                    <View style={{width: "100%", height: 55, backgroundColor: "#FFF", flexDirection: 'row', alignItems: 'center' }} >
-                        <TouchableOpacity style={{ width: "8.5%", marginStart: 10 }} onPress={() => navigation.goBack()} ><Feather name="chevron-left" size={28} /></TouchableOpacity>
-                        <View style={{ alignSelf: 'center', justifyContent: 'center', width: "100%", position: 'absolute' }} >
-                            <Text style={{ fontSize: 24, fontWeight: 'bold', alignSelf: 'center', position: 'absolute' }} >Configurações</Text>
+                <SafeAreaView style={{ flex: 1, display: 'flex', marginBottom: 54 }} >
+                    <View style={{ width: "100%", height: 65, backgroundColor: "rgba(0,0,0,0.15)" }} >
+                        <View style={{width: "100%", height: 55, backgroundColor: "#FFF", flexDirection: 'row', alignItems: 'center' }} >
+                            <TouchableOpacity style={{ width: "8.5%", marginStart: 10 }} onPress={() => navigation.goBack()} ><Feather name="chevron-left" size={28} /></TouchableOpacity>
+                            <View style={{ alignSelf: 'center', justifyContent: 'center', width: "100%", position: 'absolute' }} >
+                                <Text style={{ fontSize: 24, fontWeight: 'bold', alignSelf: 'center', position: 'absolute' }} >Configurações</Text>
+                            </View>
                         </View>
                     </View>
-                </View>
+                </SafeAreaView>
             )
             /*title: "",
             headerRight: () => (
@@ -33,10 +36,10 @@ export default function Configs ({navigation}){
 
 
         <View style={styles.content} >
-            <Text style={styles.title} >Conta</Text>
+            <Text style={styles.title} >Preferências</Text>
             <View style={styles.configlist} >
                 <TouchableOpacity style={styles.optionbutton} activeOpacity={0.8} >
-                    <Text style={styles.option} >Preferências</Text>
+                    <Text style={styles.option} >Conta</Text>
                     <Feather name="chevron-right" size={28} color={"black"} />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.optionbutton} activeOpacity={0.8} >
@@ -79,14 +82,13 @@ export default function Configs ({navigation}){
 const styles = StyleSheet.create({
 container:{
     flex:1,
-    backgroundColor: "#EFEFEF"
+    backgroundColor: "#EFEFEF",
+    marginTop: 10
 
 },
 content:{
-    paddingVertical: 20,
     paddingLeft: 15,
     paddingRight: 15,
-    paddingTop: 35,
     paddingBottom: 35
 },
 title:{
@@ -132,7 +134,7 @@ action:{
     fontWeight: '600'
 },
 deletearea:{
-    marginTop: 25,
+    marginTop: 50,
     marginStart: 6,
     marginEnd: 6,
 },
