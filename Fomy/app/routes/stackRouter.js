@@ -71,12 +71,12 @@ export default function Routes() {
        <Stack.Screen
         name="Configs"
         component={Configs}
-        options={{ headerShown: false }}
+        options={{ headerShown: true }}
       />
        <Stack.Screen
         name="DeleteAccount"
         component={DeleteAccount}
-        options={{ headerShown: false }}
+        options={{ headerShown: true }}
       />
       
     </Stack.Navigator>

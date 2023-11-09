@@ -1,15 +1,28 @@
-import { View, SafeAreaView, Text, TouchableOpacity, StyleSheet, TextInput } from "react-native"
+import { View, SafeAreaView, Text, TouchableOpacity, StyleSheet, TextInput, Pressable } from "react-native"
 import { app_auth, app_BKT, app_DB} from '../../../firebaseConfig'
 import { getAuth, reauthenticateWithCredential, EmailAuthProvider, deleteUser } from "firebase/auth";
 import { collection, deleteDoc, doc, query, where, onSnapshot, documentId } from "firebase/firestore";
 import { ref, deleteObject } from "firebase/storage";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
+import Feather from 'react-native-vector-icons/Feather'
 
 
 export default function DeleteAccount({ navigation }){
     const [senha, setSenha] = useState('')
     const [image, setImage] = useState('')
+
+    useLayoutEffect(() =>{
+        navigation.setOptions({
+            title: "",
+            headerRight: () => (
+                <Text style={{ fontSize: 24, fontWeight: 'bold', width: "92%", alignSelf: 'center', textAlign: 'center', color: "black", zIndex: 1}} >Deletar Conta</Text>
+            ),
+            headerLeft: () => (
+                <Pressable style={{ zIndex: 99 }} onPress={() => {navigation.goBack()}} ><Feather name="chevron-left" size={32} color={"black"} /></Pressable>
+            )
+        })
+    }, [navigation])
 
     useEffect(()=>{
 
