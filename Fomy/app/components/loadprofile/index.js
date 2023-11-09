@@ -9,14 +9,13 @@ import { doc, updateDoc, collection, onSnapshot } from "firebase/firestore"
 import * as Progress from "react-native-progress"
 import { ImageUpload } from "../imageupload"
 import * as ImagePicker from "expo-image-picker"
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
+import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage'
 
 export function LoadProfile({ data, navigation }){
 
     const [visible, setVisible] = useState(false)
     const [inputOn, setInputOn] = useState(false)
     const [newName, setNewName] = useState('')
-    const [image, setImage] = useState("")
     var totalXp = 200 + (((data.Nivel - 1) * data.Nivel) * 10)
     var progressToBar = (data.Exp / totalXp)
 
@@ -32,17 +31,16 @@ export function LoadProfile({ data, navigation }){
 
         //checks if it wasn't cancelled
         if(!result.canceled){
-            setImage(result.assets[0].uri)
             //uploads image
-            await uploadImage(result.assets[0].uri);
+            await uploadImage(result.assets[0].uri, result.assets[0].uri.substring(result.assets[0].uri.lastIndexOf('/') + 1, result.assets[0].uri.length));
         }
     }
 
-    async function uploadImage( uri ){
+    async function uploadImage( uri, fileName ){
         const response = await fetch(uri);
         const blob = await response.blob();
 
-        const storageRef = ref(app_BKT, "Pfps/" + data.Nome + new Date().getTime())
+        const storageRef = ref(app_BKT, "Pfps/" + data.Nome + new Date().getTime() + fileName )
         const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
         const uploadTask = uploadBytesResumable(storageRef, blob)
 
@@ -53,20 +51,22 @@ export function LoadProfile({ data, navigation }){
             console.log("Progress: " + progress + "%")
         },
         (error) => {
-
+            alert("Ocorreu um erro: "+error)
         },
         (complete) => {
             getDownloadURL(uploadTask.snapshot.ref).then(async (downloadUrl) => {
-                console.log("File available at: " + downloadUrl + "\nReference " + storageRef)
-                setImage("")
+                console.log("File available at: " + downloadUrl)
                 try{
+                    if(data.Foto != "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Default-Profile-Picture-PNG-Photo-3895174684.png?alt=media&token=f70e36af-2857-405f-b307-5e7abe35f347"){
+                        deleteObject(ref(app_BKT, data.Foto))
+                    }
                     await updateDoc(userRef, {
                         Foto: downloadUrl
                     });
                     alert("Foto alterada com sucesso!")
                 } catch (error){
                     console.log(error)
-                    alert("Ocorreu um erro "+error)
+                    alert("Ocorreu um erro: "+error)
                 }
             })
         }

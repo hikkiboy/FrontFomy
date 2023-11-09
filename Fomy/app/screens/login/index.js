@@ -45,6 +45,7 @@ const LoginPage = () => {
     } catch (error) {
       console.log(error);
       alert("deu erro");
+      alert("deu erro");
     } finally {
       setLoading(false);
     }
@@ -118,6 +119,7 @@ const styles = StyleSheet.create({
     paddingLeft: 42,
     paddingRight: 42,
     borderRadius: 15,
+    borderRadius: 15,
     borderColor: "black",
     borderBottomWidth: 7,
     borderWidth: 3,
@@ -140,6 +142,7 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     marginTop: 20,
     marginBottom: 5,
+    borderRadius: 15,
     borderRadius: 15,
     width: 250,
   },

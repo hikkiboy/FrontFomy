@@ -4,6 +4,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { Entypo } from '@expo/vector-icons';
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import { Entypo } from '@expo/vector-icons';
 
 import Profile from "../screens/profile";
 import Doces from "../screens/Trilhas/Doces";
@@ -13,6 +15,7 @@ import LoginPage from "../screens/login";
 import Cadastro from "../screens/cadastro";
 import Fetch from "../components/fetch/index"
 import Home from "../screens/home";
+import OnboardingItem from "../components/Onboarding/index";
 import OnboardingItem from "../components/Onboarding/index";
 import PasswordResets from "../utils/forgotPassword";
 import Trilha from "../components/trilha";
@@ -58,6 +61,10 @@ export default function Routes() {
         name="Onboarding"
         component={OnboardingItem}
         />
+       <Stack.Screen
+        name="Onboarding"
+        component={OnboardingItem}
+        />
       <Stack.Screen
         name="PasswordResets"
         component={PasswordResets}
@@ -88,6 +95,12 @@ const Tab = createBottomTabNavigator();
 export function TabNavigatior() {
   return(
    <Tab.Navigator>
+    <Tab.Screen name = "Home" component={Home}  options={{headerShown: false, tabBarIcon: ({color, size})=>(
+      <Ionicons name="home" size={24} color="black" />
+    )}}/>
+    <Tab.Screen name = "Perfil" component={Profile} options={{headerShown: false, tabBarIcon: ({color, size})=>(
+      <Ionicons name="person-sharp" size={24} color="black" />
+    )}}/>
     <Tab.Screen name = "Home" component={Home}  options={{headerShown: false, tabBarIcon: ({color, size})=>(
       <Ionicons name="home" size={24} color="black" />
     )}}/>
