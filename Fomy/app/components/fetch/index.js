@@ -18,16 +18,14 @@ useEffect(()=>{
         next : (snapshot) => {
             const receitas = []
             snapshot.docs.forEach(doc =>{
-                console.log(doc.data())
+                
                 receitas.push({
                     key : doc.id,
                     ...doc.data()
                 })
             })
             setReceitas(receitas)
-            console.log(receitas)
-            console.log(Receitas)
-
+          
         }
     })
 

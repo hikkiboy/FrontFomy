@@ -1,12 +1,11 @@
-import {View, FlatList,StyleSheet, Animated} from 'react-native'
-import { app_auth, app_DB } from '../../../firebaseConfig'
-import { doc , collection, query, where, onSnapshot, Firestore, documentId} from 'firebase/firestore'
+import {View,StyleSheet,FlatList} from 'react-native'
+import {  app_DB } from '../../../firebaseConfig'
+import { collection, onSnapshot} from 'firebase/firestore'
 import { useEffect, useState,useRef} from 'react'
+import Animated, { useAnimatedScrollHandler, useAnimatedRef, useSharedValue } from 'react-native-reanimated'
 import auth from '@react-native-firebase/auth'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import OnboardingItem from '../../components/Onboarding'
 import paginator from '../../components/paginator'
-import Paginator from '../../components/paginator'
 const Home = ({navigation}) => {
 
  
@@ -23,15 +22,14 @@ useEffect(()=>{
         next : (snapshot) => {
             const receitas = []
             snapshot.docs.forEach(doc =>{
-                console.log(doc.data())
+   
                 receitas.push({
                     key : doc.id,
                     ...doc.data()
                 })
             })
             setReceitas(receitas)
-            console.log(receitas)
-            console.log(Receitas)
+
 
         }
     })
@@ -40,37 +38,35 @@ useEffect(()=>{
 
 },[])
 
-const [currentIndex, setCurrentIndex] = useState(0)
+
+const flatListRef = useAnimatedRef();
+const x = useSharedValue(0)
 
 
-const scrollX = useRef(new Animated.Value(0)).current
-const slidesRef = useRef(null)
 
-const viewableItemsChanged = useRef(({viewableItems})=> {
-  setCurrentIndex(viewableItems[0].index)
-}).current
-
-const viewConfig = useRef({viewAreaCoveragePercentThreshold: 50}).current
+const onScroll = useAnimatedScrollHandler({
+    onScroll: event => {
+        x.value = event.contentOffset.x;
+    },
+})
 
 return (
-  <View style ={{flex: 3}}>
-  <FlatList
-  data={Receitas}
-  renderItem={({item}) => <OnboardingItem item={item}/>}
-  horizontal
-  showsHorizontalScrollIndicator = {false}
-  pagingEnabled
-  bounces={false}
-  keyExtractor={item => item.key}
-  onScroll={Animated.event([{nativeEvent: {contentOffset: {x : scrollX}}}],{
-    useNativeDriver:false,
-  })}
-  scrollEventThrottle={32}
-  onViewableItemsChanged={viewableItemsChanged}
-  viewabilityConfig={viewConfig}
-  ref ={slidesRef}
-  />
-  <Paginator data = {Receitas.length}/>
+    <View style={styles.container}>
+      <Animated.FlatList 
+      ref={flatListRef}
+      onScroll={onScroll}
+      data={Receitas} 
+      renderItem={({item, index}) => {
+        return <OnboardingItem item = {item} index = {index} x = {x} navigation={navigation}/>
+      }}
+      keyExtractor={item => item.key}
+      scrollEventThrottle={16}
+      horizontal = {true} 
+      bounces = {false}
+      showsHorizontalScrollIndicator ={false}
+    pagingEnabled = {true}
+
+      />
   </View>
   )
 }
@@ -99,6 +95,7 @@ const styles = StyleSheet.create({
   fontSize: 18,
   textAlign: 'center'
     }
+
 })
 
 export default Home

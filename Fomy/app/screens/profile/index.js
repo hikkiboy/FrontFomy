@@ -37,8 +37,7 @@ const Profile = ({navigation}) => {
                     })
                 })
                 setReceitas(receitas)
-                console.log(receitas)
-                console.log(receitaRef)
+
 
     
             }
@@ -60,13 +59,7 @@ const Profile = ({navigation}) => {
                     <LoadProfile data={item} navigation={navigation} />
                 )}
                 />
-            </View>       
-           {/*<View>
-                 <Button onPress={() =>{app_auth.signOut()}} title = "Sair"/>
-                  /*<Button onPress={() => navigation.navigate('Fetch')} title = "Trilhas"/>*/
-                  //botão para sair da conta, tem que fazer mandar para pagina inicial
-            }
-            
+            </View>     
 
         </SafeAreaView>
     )

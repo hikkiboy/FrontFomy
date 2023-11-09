@@ -26,10 +26,10 @@ const Cadastro = () => {
       try{
         const response = await signInWithEmailAndPassword(auth, email, senha)
         
-        console.log(response)
+
       } catch (error) {
         console.log(error)
-        alert('deu erro dog')
+        alert('algum erro ocorreu')
       } finally{
         setLoading(false)
       }
@@ -40,7 +40,7 @@ const Cadastro = () => {
         try{
           
           const response = await createUserWithEmailAndPassword(auth, email, senha)
-          console.log(response)
+ 
           const Other = setNome(nome)
           const docRef = await setDoc(doc(app_DB, "Usuarios", response.user.uid), {
             Alergias:[],
@@ -52,13 +52,15 @@ const Cadastro = () => {
             Nome : nome,
             Premium: false,
             ProgressoTrilhas: [],
-            ReceitasFeitas: []
+            ReceitasFeitas: [],
+            Insignias: ["Beta"],
+            Titulo: "Iniciante"
 
           })
 
           
    
-          alert('Olha o email')
+          alert('Usuário Criado com sucesso !')
   
         } catch (error) {
           console.log(error)
@@ -145,7 +147,7 @@ const styles = StyleSheet.create({
   borderWidth: 3,
   marginTop: 20,
   marginBottom: 5,
-  borderRadius: 10,
+  borderRadius: 15,
   width: 250,
  },
  text:{

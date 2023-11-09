@@ -24,8 +24,8 @@ const Login = ({navigation}) => {
         <Text style={styles.otherOptions}>-- ou entre com --</Text>
         
         <View style={styles.loginsDiff}>
-        <TouchableOpacity style={styles.bottonCadastroGoogle}
-        onPress={() => promptAsync()}>
+        <TouchableOpacity style={styles.bottonCadastroGoogle}>
+        
         <Image source={require('../../assets/logoGoogle.png')}  resizeMode='center' style={styles.loginGoogle}/>
         </TouchableOpacity>
   
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     padding: 12,
     paddingLeft: 42,
     paddingRight: 42,
-    borderRadius: 20,
+    borderRadius: 15,
     borderColor: 'black',
     borderBottomWidth: 7,
     borderWidth: 3,
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     marginTop: 5,
     marginBottom: 5,
-    borderRadius: 10
+    borderRadius: 15
     
   },
   login:{

@@ -31,9 +31,9 @@ import PasswordResets from "../../utils/forgotPassword";
 
 const LoginPage = () => {
   const navigation = useNavigation();
-
   const [email, setEmail] = useState("3264.343@educacao.org.br");
   const [senha, setSenha] = useState("senha123");
+  
   const [loading, setLoading] = useState(false);
   const auth = app_auth;
 
@@ -41,11 +41,10 @@ const LoginPage = () => {
     setLoading(true);
     try {
       const response = await signInWithEmailAndPassword(auth, email, senha);
-      console.log(response);
       navigation.navigate("Profile");
     } catch (error) {
       console.log(error);
-      alert("deu erro dog");
+      alert("deu erro");
     } finally {
       setLoading(false);
     }
@@ -118,7 +117,7 @@ const styles = StyleSheet.create({
     padding: 13,
     paddingLeft: 42,
     paddingRight: 42,
-    borderRadius: 20,
+    borderRadius: 15,
     borderColor: "black",
     borderBottomWidth: 7,
     borderWidth: 3,
@@ -141,7 +140,7 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     marginTop: 20,
     marginBottom: 5,
-    borderRadius: 10,
+    borderRadius: 15,
     width: 250,
   },
   text: {
