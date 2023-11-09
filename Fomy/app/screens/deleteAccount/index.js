@@ -14,40 +14,40 @@ export default function DeleteAccount({ navigation }){
     useEffect(()=>{
 
         
-    
+        // Reference to the doc for the query
         const dunnoRef = collection(app_DB, 'Usuarios')
-    
+
+        // Query for the user's doc
         const q = query(
             dunnoRef,
             where(documentId(), '==', app_auth.currentUser.uid)
         )
     
         
-    
+        // Snapshot that verifies doc
         const subscriver = onSnapshot(q, {
             next : (snapshot) => {
-                const image2 = []
+                // Var that will be used to receive the image link
+                var image2 = ""
                 
-                snapshot.docs.forEach(doc =>{   
-                    image2.push({
-                        key : doc.id,
-                        ...doc.data(),
-                       
-                    })
+                snapshot.docs.forEach(doc =>{
+                    // Gets the "Foto" field from the doc
+                    image2 = doc.data().Foto
                 })
+                // image const now has the link
                 setImage(image2)
 
 
     
             }
         })
-        console.log(image)
         return() => subscriver()
     
     },[])
 
     async function DeleteAll({}) {
 
+        // Reference to the user's doc
         const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
         const auth = getAuth()
         const credential = EmailAuthProvider.credential(
@@ -62,10 +62,10 @@ export default function DeleteAccount({ navigation }){
             deleteUser(auth.currentUser).then(() => {
                 // User deleted.
                 deleteDoc(userRef).then(() => {
-                    /*if(image.Foto != "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Default-Profile-Picture-PNG-Photo-3895174684.png?alt=media&token=f70e36af-2857-405f-b307-5e7abe35f347"){
-                        deleteObject(ref(app_BKT, image.Foto)).then(() => {navigation.navigate("Login")})
-                    } else { navigation.navigate("Login") }*/
-                    navigation.navigate("Login")
+                    //Image deleted, if it's not the default
+                    if(image != "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Default-Profile-Picture-PNG-Photo-3895174684.png?alt=media&token=f70e36af-2857-405f-b307-5e7abe35f347"){
+                        deleteObject(ref(app_BKT, image)).then(() => {navigation.navigate("Login")})
+                    } else { navigation.navigate("Login") }
                 })
             })
             
