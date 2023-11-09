@@ -82,6 +82,7 @@ let arrayprep = []
       
       renderItem={({item}) => (
     <SafeAreaView style={styles.container}>
+      {/* <Button onPress={() => console.log(item)}></Button> */}
         <View style={styles.nomebg}>
         <Text style={styles.nomeTexto}>{item.Nome}</Text>
         </View>
@@ -95,7 +96,6 @@ let arrayprep = []
             <Text style={{opacity: 0, position: 'absolute'}}>{arrayBon.push(item.Bonus)}</Text>
             <Text style={{opacity: 0, position: 'absolute'}}>{arrayUtil.push(item.Utensilios)}</Text>
             <Text style={{opacity: 0, position: 'absolute'}}>{arrayprep.push(item.PassosSimp)}</Text>
-            
         <View style={styles.IngredientesContain}>
             <FlatList
             data={arrayIng[0]}
@@ -103,6 +103,7 @@ let arrayprep = []
             showsVerticalScrollIndicator = {false}
             renderItem={({item}) => (
               <View>
+                
                 <View style={styles.IngredientesNumContain}>
                     <Text style={styles.NumeroIngrediente}>{arrayIng[0].indexOf(item ) + 1}-</Text>
                     <Text style = {styles.Ingredientes}> {item}</Text>
@@ -112,7 +113,7 @@ let arrayprep = []
             
             />
             <View>
-              <View style={{display: 'flex', flexDirection: 'row'}}>
+              <View style={{display: 'flex', flexDirection: 'row', marginTop: 30}}>
               <Image style={styles.Ovo} source={require('../../assets/Ovo_leite.png')}/>
               <View style={styles.BonusBg}>
               <Text style={styles.BonusTexto}>Bônus</Text>
@@ -128,12 +129,12 @@ let arrayprep = []
             showsVerticalScrollIndicator = {false}
             renderItem={({item}) => (
                 <View style={styles.BonusNumContain}>
-                    <Text style={styles.NumeroIngrediente}>{arrayBon[0].indexOf(item) + 1}-</Text>
+                    <Text style={styles.NumeroBonus}>{arrayBon[0].indexOf(item) + 1}-</Text>
                     <Text style = {styles.Ingredientes}> {item}</Text>
                 </View>
             )}
             />
-            <View style={{display: 'flex', flexDirection: 'row'}}>
+            <View style={{display: 'flex', flexDirection: 'row', marginTop: 30}}>
             <Image style={styles.Ovo} source={require('../../assets/Uten.png')}/>
               <View style={styles.UtilBG}>
               <Text style={styles.UtilTexto}>Utensílios</Text>
@@ -158,7 +159,8 @@ let arrayprep = []
           <View style={styles.ModoPreparoBG}>
           <Text style={styles.ModoPreparo}>MODO DE FAZER</Text>
           </View>
-          <TouchableOpacity>
+        
+          <TouchableOpacity onPress={() => navigation.navigate('Passos',{paramKey:[item.key]})}>
           <Image style={styles.ButtonPlay} source={require('../../assets/playbutt.png')}/>
           </TouchableOpacity>
         </View>
@@ -267,20 +269,22 @@ BonusNumContain:{
 NumeroIngrediente:{
   fontSize: 40,
   fontWeight: 'bold',
-  color: '#FF595E'
+  color: '#1877D1',
+  marginLeft: 10
 },
 Ingredientes:{
     fontWeight: 'bold',
     fontSize: 20,
     width: 300,
     height: '100%',
-    marginTop: 30
+    marginTop: 30,
+    marginLeft: 10
 },
 Cesta:{
   marginRight: 10,
-  marginLeft: 5,
-  height: 43,
-  width: 43
+  marginLeft: 10,
+  height: 55,
+  width: 55
 },
 ContainTextAndIcon:{
   display: 'flex',
@@ -302,15 +306,16 @@ BonusTexto:{
   fontSize: 20,
 textAlign: 'center',
 color: '#FAB151',
-fontWeight: 'bold'
+fontWeight: 'bold',
+
 },
 BonusSubTit:{
   width: 400,
   opacity: .5
 },
 Ovo:{
-  width: 41,
-  height: 41,
+  width: 50,
+  height: 50,
   marginRight: 10,
   marginLeft: 5,
   marginTop:20
@@ -335,9 +340,10 @@ ModoPreparoBG:{
 },
 Pote:{
   alignSelf: 'center',
-  marginBottom: -25,
-  height: 45,
-  width: 45
+  marginBottom: -24,
+  height: 70,
+  width: 70,
+  marginTop: 45
 },
 UtilTexto:{
   fontSize: 24,
@@ -360,7 +366,8 @@ ModoPreparoContain:{
   marginLeft: 30,
   display: 'flex',
   flexDirection: 'row',
-  alignSelf: 'center'
+  alignSelf: 'center',
+  marginBottom: 5
 },
 PassoDesc:{
   fontWeight: 'bold',
@@ -379,6 +386,12 @@ ButtonPlay:{
   height: 41,
   marginLeft: 10,
   marginTop:25,
+},
+NumeroBonus:{
+  fontSize: 40,
+  fontWeight: 'bold',
+  color: '#FAB151',
+  marginLeft: 10
 }
 
 });
