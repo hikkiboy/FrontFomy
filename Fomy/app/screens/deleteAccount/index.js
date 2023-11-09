@@ -14,12 +14,15 @@ export default function DeleteAccount({ navigation }){
 
     useLayoutEffect(() =>{
         navigation.setOptions({
-            title: "",
-            headerRight: () => (
-                <Text style={{ fontSize: 24, fontWeight: 'bold', width: "92%", alignSelf: 'center', textAlign: 'center', color: "black", zIndex: 1}} >Deletar Conta</Text>
-            ),
-            headerLeft: () => (
-                <Pressable style={{ zIndex: 99 }} onPress={() => {navigation.goBack()}} ><Feather name="chevron-left" size={32} color={"black"} /></Pressable>
+            header: () => (
+                <View style={{ width: "100%", height: 65, backgroundColor: "rgba(0,0,0,0.15)" }} >
+                    <View style={{width: "100%", height: 55, backgroundColor: "#FFF", flexDirection: 'row', alignItems: 'center' }} >
+                        <TouchableOpacity style={{ width: "8.5%", marginStart: 10 }} onPress={() => navigation.goBack()} ><Feather name="chevron-left" size={28} /></TouchableOpacity>
+                        <View style={{ alignSelf: 'center', justifyContent: 'center', width: "100%", position: 'absolute' }} >
+                            <Text style={{ fontSize: 24, fontWeight: 'bold', alignSelf: 'center', position: 'absolute' }} >Deletar Conta</Text>
+                        </View>
+                    </View>
+                </View>
             )
         })
     }, [navigation])
@@ -92,28 +95,25 @@ export default function DeleteAccount({ navigation }){
     
     return(
 
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
 
 
 
         <View style={styles.content} >
        
-        <TextInput
-            value={senha}
-            style={styles.input}
-            placeholder="Insira sua Senha"
-            autoCapitalize="none"
-            onChangeText={(text) => setSenha(text)}
-            secureTextEntry={true}
-          ></TextInput>
-
-            <TouchableOpacity style={styles.button} onPress={ () => navigation.navigate("Configs")} activeOpacity={0.9} >
-                <Text style={styles.action} >Voltar</Text>
-            </TouchableOpacity>
-            
-            <TouchableOpacity style={styles.leave} onPress={DeleteAll} activeOpacity={0.9} >
-                <Text style={styles.action} >Confirmar Deleção</Text>
-            </TouchableOpacity>
+            <TextInput
+                value={senha}
+                style={styles.input}
+                placeholder="Insira sua Senha"
+                autoCapitalize="none"
+                onChangeText={(text) => setSenha(text)}
+                secureTextEntry={true}
+            />
+            <View style={styles.deletearea} >
+                <TouchableOpacity style={styles.delete} onPress={DeleteAll} activeOpacity={0.9} >
+                    <Text style={styles.action} >Confirmar</Text>
+                </TouchableOpacity>
+            </View>
 
 
             </View>
@@ -123,30 +123,29 @@ export default function DeleteAccount({ navigation }){
 
 const styles = StyleSheet.create({
 container:{
-    flex:1
+    flex:1,
+    justifyContent: 'center',
 
 },
 input: {
-    marginTop: 200,
     backgroundColor: "#FFFFFF",
-    margin: 10,
-    borderWidth: 2,
-    borderRadius: 10,
-    width: 300,
+    marginHorizontal: 10,
+    borderWidth: 5,
+    borderBottomWidth: 10,
+    borderRadius: 15,
+    borderColor: "rgba(0,0,0,0.25)",
+    width: "95%",
     alignSelf: "center",
     padding: 15,
+    paddingVertical: 10,
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: '500',
+    marginBottom: 50
   },
 content:{
-    paddingVertical: 20,
     paddingLeft: 15,
     paddingRight: 15,
-    paddingTop: 35,
-    paddingBottom: 35,
-    backgroundColor: "#FFF",
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
-    elevation: 10,
-    shadowColor: "#000",
 },
 button:{
     zIndex: 99,
@@ -163,16 +162,21 @@ action:{
     fontSize: 18,
     fontWeight: '600'
 },
-leave:{
+deletearea:{
+    marginTop: 20,
+    marginStart: 6,
+    marginEnd: 6,
+},
+delete:{
     zIndex: 99,
     backgroundColor: "#DC6A87",
     borderRadius: 15,
-    marginTop: 15,
     padding: 10,
     alignItems: 'center',
     borderWidth: 5,
     borderBottomWidth: 10,
-    borderColor: "#95233F"
+    borderColor: "#95233F",
+    width: "100%"
 }
 
 })
