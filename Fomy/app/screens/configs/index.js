@@ -8,13 +8,20 @@ export default function Configs ({navigation}){
 
     useLayoutEffect(() =>{
         navigation.setOptions({
-            title: "",
+            header: () => (
+                <View style={{ height: 60, backgroundColor: "rgba(0,0,0,0.2)" }} >
+                    <View style={{ height: 50, backgroundColor: "#FFF" }} >
+                        <TouchableOpacity><Feather name="chevron-right" size={28} /></TouchableOpacity>
+                    </View>
+                </View>
+            )
+            /*title: "",
             headerRight: () => (
                 <Text style={{ fontSize: 24, fontWeight: 'bold', width: "92%", alignSelf: 'center', textAlign: 'center', color: "black", zIndex: 1}} >Configurações</Text>
             ),
             headerLeft: () => (
-                <Pressable style={{ zIndex: 99 }} onPress={() => {navigation.goBack()}} ><Feather name="chevron-left" size={32} color={"black"} /></Pressable>
-            )
+                <TouchableOpacity style={{ zIndex: 99, backgroundColor: 'blue' }} onPress={() => {navigation.goBack()}} ><Feather name="chevron-left" size={32} color={"black"} /></TouchableOpacity>
+            )*/
         })
     }, [navigation])
     
