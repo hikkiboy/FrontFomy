@@ -1,13 +1,54 @@
 import { View, SafeAreaView, Text, TouchableOpacity, StyleSheet, TextInput } from "react-native"
 import { app_auth, app_BKT, app_DB} from '../../../firebaseConfig'
 import { getAuth, reauthenticateWithCredential, EmailAuthProvider, deleteUser } from "firebase/auth";
-import { useState } from "react";
+import { collection, deleteDoc, doc, query, where, onSnapshot, documentId } from "firebase/firestore";
+import { ref, deleteObject } from "firebase/storage";
+import { useState, useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 
-export default function DeleteAccount({navigation}){
+export default function DeleteAccount({ navigation }){
     const [senha, setSenha] = useState('')
+    const [image, setImage] = useState('')
+
+    useEffect(()=>{
+
+        
+    
+        const dunnoRef = collection(app_DB, 'Usuarios')
+    
+        const q = query(
+            dunnoRef,
+            where(documentId(), '==', app_auth.currentUser.uid)
+        )
+    
+        
+    
+        const subscriver = onSnapshot(q, {
+            next : (snapshot) => {
+                const image2 = []
+                
+                snapshot.docs.forEach(doc =>{   
+                    image2.push({
+                        key : doc.id,
+                        ...doc.data(),
+                       
+                    })
+                })
+                setImage(image2)
+
+
+    
+            }
+        })
+        console.log(image)
+        return() => subscriver()
+    
+    },[])
+
     async function DeleteAll({}) {
 
+        const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
         const auth = getAuth()
         const credential = EmailAuthProvider.credential(
             auth.currentUser.email,
@@ -18,10 +59,16 @@ export default function DeleteAccount({navigation}){
             credential
         ).then((sucessuful) => {
             // User re-authenticated.
-            /*deleteUser(auth.currentUser).then(() => {
+            deleteUser(auth.currentUser).then(() => {
                 // User deleted.
-              }) */
-            console.log('Thy end is now!')
+                deleteDoc(userRef).then(() => {
+                    /*if(image.Foto != "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Default-Profile-Picture-PNG-Photo-3895174684.png?alt=media&token=f70e36af-2857-405f-b307-5e7abe35f347"){
+                        deleteObject(ref(app_BKT, image.Foto)).then(() => {navigation.navigate("Login")})
+                    } else { navigation.navigate("Login") }*/
+                    navigation.navigate("Login")
+                })
+            })
+            
           }).catch((error) => {
             // An error ocurred
             // ...
