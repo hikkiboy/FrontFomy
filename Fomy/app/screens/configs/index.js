@@ -82,7 +82,6 @@ export default function Configs ({navigation}){
 const styles = StyleSheet.create({
 container:{
     flex:1,
-    backgroundColor: "#EFEFEF",
     marginTop: 50
 
 },
@@ -134,19 +133,19 @@ action:{
     fontWeight: '600'
 },
 deletearea:{
-    marginTop: 50,
+    marginTop: 80,
     marginStart: 6,
     marginEnd: 6,
 },
 delete:{
     zIndex: 99,
-    backgroundColor: "#DC6A87",
+    backgroundColor: "#FAC6C8",
     borderRadius: 15,
     padding: 10,
     alignItems: 'center',
     borderWidth: 5,
     borderBottomWidth: 10,
-    borderColor: "#95233F",
+    borderColor: "#F68F92",
     width: "100%"
 }
 

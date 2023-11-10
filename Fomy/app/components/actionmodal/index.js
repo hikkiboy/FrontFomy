@@ -49,12 +49,12 @@ const styles = StyleSheet.create({
         zIndex: 99,
         backgroundColor: "#FFF",
         borderRadius: 15,
-        marginTop: 15,
+        marginTop: 25,
         padding: 10,
         alignItems: 'center',
         borderWidth: 5,
         borderBottomWidth: 10,
-        borderColor: "#7EB77F"
+        borderColor: "#B1D3B1"
     },
     action:{
         fontSize: 18,
@@ -62,14 +62,14 @@ const styles = StyleSheet.create({
     },
     leave:{
         zIndex: 99,
-        backgroundColor: "#DC6A87",
+        backgroundColor: "#FAC6C8",
         borderRadius: 15,
-        marginTop: 15,
+        marginTop: 25,
         padding: 10,
         alignItems: 'center',
         borderWidth: 5,
         borderBottomWidth: 10,
-        borderColor: "#95233F"
+        borderColor: "#F68F92",
     }
 
 })

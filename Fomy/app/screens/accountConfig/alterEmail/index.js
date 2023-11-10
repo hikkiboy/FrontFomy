@@ -106,33 +106,35 @@ export default function AlterEmail({ navigation }){
 
 
         <View style={styles.content} >
-       
-            <TextInput
-                value={email}
-                style={styles.input}
-                placeholder="Insira o e-mail atual"
-                autoCapitalize="none"
-                onChangeText={(text) => setEmail(text)}
-                secureTextEntry={true}
-            ></TextInput>
 
-            <TextInput
-                value={novoEmail}
-                style={styles.input}
-                placeholder="Insira o e-mail novo"
-                autoCapitalize="none"
-                onChangeText={(text) => setNovoEmail(text)}
-                secureTextEntry={true}
-            ></TextInput>
+            <View style={styles.inputarea} >
+                <TextInput
+                    value={email}
+                    style={styles.input}
+                    placeholder="Insira seu e-mail atual"
+                    autoCapitalize="none"
+                    onChangeText={(text) => setEmail(text)}
+                    secureTextEntry={true}
+                ></TextInput>
 
-            <TextInput
-                value={senha}
-                style={styles.input}
-                placeholder="Insira a senha atual"
-                autoCapitalize="none"
-                onChangeText={(text) => setSenha(text)}
-                secureTextEntry={true}
-            ></TextInput>
+                <TextInput
+                    value={novoEmail}
+                    style={styles.input}
+                    placeholder="Insira seu e-mail novo"
+                    autoCapitalize="none"
+                    onChangeText={(text) => setNovoEmail(text)}
+                    secureTextEntry={true}
+                ></TextInput>
+
+                <TextInput
+                    value={senha}
+                    style={styles.input}
+                    placeholder="Insira sua senha atual"
+                    autoCapitalize="none"
+                    onChangeText={(text) => setSenha(text)}
+                    secureTextEntry={true}
+                ></TextInput>
+            </View>
 
 
             <View style={styles.buttonarea} >    
@@ -153,14 +155,18 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     
     },
+    inputarea:{
+        marginStart: 6,
+        marginEnd: 6,
+    
+    },
     input: {
         backgroundColor: "#FFFFFF",
-        marginHorizontal: 10,
         borderWidth: 5,
         borderBottomWidth: 10,
         borderRadius: 15,
-        borderColor: "rgba(0,0,0,0.25)",
-        width: "95%",
+        borderColor: "rgba(0,0,0,0.18)",
+        width: "100%",
         alignSelf: "center",
         padding: 15,
         paddingVertical: 10,
@@ -168,7 +174,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: '500',
         marginBottom: 40
-      },
+    },
     content:{
         paddingLeft: 15,
         paddingRight: 15,
@@ -184,14 +190,14 @@ const styles = StyleSheet.create({
     },
     button:{
         zIndex: 99,
-        backgroundColor: "#5EA5E8",
+        backgroundColor: "#C8E0F9",
         borderRadius: 15,
         marginTop: 15,
         padding: 10,
         alignItems: 'center',
         borderWidth: 5,
         borderBottomWidth: 10,
-        borderColor: "#175EA1"
+        borderColor: "#91C0F3"
     }
 
 })

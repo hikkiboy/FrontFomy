@@ -104,14 +104,16 @@ export default function DeleteAccount({ navigation }){
 
         <View style={styles.content} >
        
-            <TextInput
-                value={senha}
-                style={styles.input}
-                placeholder="Insira sua Senha"
-                autoCapitalize="none"
-                onChangeText={(text) => setSenha(text)}
-                secureTextEntry={true}
-            />
+            <View style={styles.inputarea} >
+                <TextInput
+                    value={senha}
+                    style={styles.input}
+                    placeholder="Insira sua senha"
+                    autoCapitalize="none"
+                    onChangeText={(text) => setSenha(text)}
+                    secureTextEntry={true}
+                />
+            </View>
             <View style={styles.deletearea} >
                 <TouchableOpacity style={styles.delete} onPress={DeleteAll} activeOpacity={0.9} >
                     <Text style={styles.action} >Confirmar</Text>
@@ -130,14 +132,18 @@ container:{
     justifyContent: 'center',
 
 },
+inputarea:{
+    marginStart: 6,
+    marginEnd: 6,
+
+},
 input: {
     backgroundColor: "#FFFFFF",
-    marginHorizontal: 10,
     borderWidth: 5,
     borderBottomWidth: 10,
     borderRadius: 15,
-    borderColor: "rgba(0,0,0,0.25)",
-    width: "95%",
+    borderColor: "rgba(0,0,0,0.18)",
+    width: "100%",
     alignSelf: "center",
     padding: 15,
     paddingVertical: 10,
@@ -161,13 +167,13 @@ deletearea:{
 },
 delete:{
     zIndex: 99,
-    backgroundColor: "#DC6A87",
+    backgroundColor: "#FAC6C8",
     borderRadius: 15,
     padding: 10,
     alignItems: 'center',
     borderWidth: 5,
     borderBottomWidth: 10,
-    borderColor: "#95233F",
+    borderColor: "#F68F92",
     width: "100%"
 }
 

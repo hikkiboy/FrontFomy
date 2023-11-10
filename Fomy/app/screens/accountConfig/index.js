@@ -60,7 +60,6 @@ export default function Preferences ({navigation}){
 const styles = StyleSheet.create({
 container:{
     flex:1,
-    backgroundColor: "#EFEFEF",
     marginTop: 50
 
 },
@@ -106,24 +105,6 @@ lastoptionbutton:{
     justifyContent: 'space-between',
     alignItems: 'center'
 
-},
-action:{
-    fontSize: 18,
-    fontWeight: '600'
-},
-delete:{
-    zIndex: 99,
-    backgroundColor: "#DC6A87",
-    borderRadius: 15,
-    marginTop: 20,
-    marginStart: 5,
-    marginEnd: 5,
-    padding: 10,
-    alignItems: 'center',
-    borderWidth: 5,
-    borderBottomWidth: 10,
-    borderColor: "#95233F",
-    width: "98%"
 }
 
 })
