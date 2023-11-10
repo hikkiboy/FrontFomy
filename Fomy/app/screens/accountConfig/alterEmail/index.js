@@ -6,6 +6,7 @@ import { useState, useEffect, useLayoutEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Feather from 'react-native-vector-icons/Feather'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 
 export default function AlterEmail({ navigation }){
@@ -109,32 +110,39 @@ export default function AlterEmail({ navigation }){
         <View style={styles.content} >
 
             <View style={styles.inputarea} >
-                <TextInput
-                    value={email}
-                    style={styles.input}
-                    placeholder="Insira seu e-mail atual"
-                    autoCapitalize="none"
-                    onChangeText={(text) => setEmail(text)}
-                    secureTextEntry={true}
-                ></TextInput>
-
-                <TextInput
-                    value={novoEmail}
-                    style={styles.input}
-                    placeholder="Insira seu e-mail novo"
-                    autoCapitalize="none"
-                    onChangeText={(text) => setNovoEmail(text)}
-                    secureTextEntry={true}
-                ></TextInput>
-
-                <TextInput
-                    value={senha}
-                    style={styles.input}
-                    placeholder="Insira sua senha atual"
-                    autoCapitalize="none"
-                    onChangeText={(text) => setSenha(text)}
-                    secureTextEntry={true}
-                ></TextInput>
+                <View style={styles.inputextarea}>
+                    <TextInput
+                        value={email}
+                        style={styles.input}
+                        placeholder="Insira seu e-mail atual"
+                        autoCapitalize="none"
+                        onChangeText={(text) => setEmail(text)}
+                        secureTextEntry={true}
+                    ></TextInput>
+                    <Feather name="mail" size={27} />
+                </View>
+                <View style={styles.inputextarea}>
+                    <TextInput
+                        value={novoEmail}
+                        style={styles.input}
+                        placeholder="Insira seu e-mail novo"
+                        autoCapitalize="none"
+                        onChangeText={(text) => setNovoEmail(text)}
+                        secureTextEntry={true}
+                    ></TextInput>
+                    <Feather name="mail" size={27} />
+                </View>
+                <View style={styles.inputextarea}>
+                    <TextInput
+                        value={senha}
+                        style={styles.input}
+                        placeholder="Insira sua senha atual"
+                        autoCapitalize="none"
+                        onChangeText={(text) => setSenha(text)}
+                        secureTextEntry={true}
+                    ></TextInput>
+                    <Feather name="lock" size={27} />
+                </View>
             </View>
 
 
@@ -156,7 +164,7 @@ const styles = StyleSheet.create({
         flex:1,
         justifyContent: 'center',
         backgroundColor: "#FFF",
-        paddingTop: 65
+        marginTop: 65
     
     },
     inputarea:{
@@ -164,19 +172,24 @@ const styles = StyleSheet.create({
         marginEnd: 6,
     
     },
-    input: {
+    inputextarea:{
         backgroundColor: "#FFFFFF",
         borderWidth: 5,
         borderBottomWidth: 10,
         borderRadius: 15,
         borderColor: "rgba(0,0,0,0.18)",
         width: "100%",
-        alignSelf: "center",
+        marginBottom: 50,
+        paddingHorizontal: 25,
         paddingVertical: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+
+    },
+    input: {
         fontSize: 18,
         fontWeight: '500',
-        marginBottom: 50,
-        paddingHorizontal: 25
+        width: '80%'
     },
     content:{
         paddingLeft: 15,

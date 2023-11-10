@@ -107,23 +107,28 @@ export default function AlterPassword({ navigation }){
         <View style={styles.content} >
 
             <View style={styles.inputarea} >
-                <TextInput
-                    value={senha}
-                    style={styles.input}
-                    placeholder="Insira sua senha atual"
-                    autoCapitalize="none"
-                    onChangeText={(text) => setSenha(text)}
-                    secureTextEntry={true}
-                />
-
-                <TextInput
-                    value={novaSenha}
-                    style={styles.input}
-                    placeholder="Insira sua senha nova"
-                    autoCapitalize="none"
-                    onChangeText={(text) => setNovaSenha(text)}
-                    secureTextEntry={true}
-                />
+                <View style={styles.inputextarea}>
+                    <TextInput
+                        value={senha}
+                        style={styles.input}
+                        placeholder="Insira sua senha atual"
+                        autoCapitalize="none"
+                        onChangeText={(text) => setSenha(text)}
+                        secureTextEntry={true}
+                    />
+                    <Feather name="lock" size={27} />
+                </View>
+                <View style={styles.inputextarea}>
+                    <TextInput
+                        value={novaSenha}
+                        style={styles.input}
+                        placeholder="Insira sua senha nova"
+                        autoCapitalize="none"
+                        onChangeText={(text) => setNovaSenha(text)}
+                        secureTextEntry={true}
+                    />
+                    <Feather name="lock" size={27} />
+                </View>
             </View>
 
             <View style={styles.buttonarea} >
@@ -144,7 +149,7 @@ container:{
     flex:1,
     justifyContent: 'center',
     backgroundColor: "#FFF",
-    paddingTop: 65
+    marginTop: 65
 
 },
 inputarea:{
@@ -152,19 +157,24 @@ inputarea:{
     marginEnd: 6,
 
 },
-input: {
+inputextarea:{
     backgroundColor: "#FFFFFF",
     borderWidth: 5,
     borderBottomWidth: 10,
     borderRadius: 15,
     borderColor: "rgba(0,0,0,0.18)",
     width: "100%",
-    alignSelf: "center",
+    marginBottom: 50,
+    paddingHorizontal: 25,
     paddingVertical: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+
+},
+input: {
     fontSize: 18,
     fontWeight: '500',
-    marginBottom: 50,
-    paddingHorizontal: 25
+    width: '80%'
 },
 content:{
     paddingLeft: 15,

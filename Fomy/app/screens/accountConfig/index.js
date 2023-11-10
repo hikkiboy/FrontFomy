@@ -60,7 +60,7 @@ export default function Preferences ({navigation}){
 const styles = StyleSheet.create({
 container:{
     flex:1,
-    paddingTop: 65,
+    marginTop: 65,
     backgroundColor: "#FFFFFF"
 
 },
