@@ -34,7 +34,6 @@ export default function Passos({route, props, navigation}) {
     
     const q = query(
     receitaRef,
-    // where("Nome", "==", "Massa de Bolo Simples de Ló") 
     )
       const subscriver = onSnapshot(q, {
         next : (snapshot) => {
@@ -53,49 +52,33 @@ export default function Passos({route, props, navigation}) {
   
   },[])
 
-// console.log(Receitas[0].Sequencia)
-let arr = []
-arr.push(Receitas[0])
+const [Passo, setPasso] = useState(Receitas)
+
+let i = 0
+let passed = false
 const x = () => {
-  arr.shift()
+  do {
+    setPasso(Receitas[i])
+    console.log(i)
+    passed = true
+  }while (i < Receitas.length && passed == false)
 }
-console.log(arr)
+
   return (
        <SafeAreaView style={{marginTop: 30}}>
         <ImageBackground style={{height: 250}} source={require('../../assets/Group171.png')}>
         <View style={styles.botaoPassos}>
-        <FlatList
-            data={arr}
-            scrollEnabled = {true}
-            showsVerticalScrollIndicator = {false}
-            renderItem={({item}) => (
-                <View>
-                  <Button onPress={() => x()}/> 
-                  <Button onPress={() => arr.push(Receitas[1])}/> 
-                    <Text style={styles.TituloPasso}>Passo {item.key}: {item.Titulo}</Text>
-
-                </View>
-            )}
-            />
-          {/* <Text style={styles.TituloPasso}> Passo 1: {Receitas[0].Titulo}</Text> */}
+          <Text style={styles.TituloPasso}> Passo: {Passo.Titulo}</Text> 
+          <Button onPress={() => x()}></Button>
+          
           </View>
           <View style={styles.Video}>
-
+          
           </View>
         </ImageBackground>
-        <ImageBackground style={{height: '50%', width: '50%', alignSelf: 'center'}} source={require('../../assets/balaoDialogo.png')}>
-        <FlatList
-            data={Receitas}
-            scrollEnabled = {true}
-            showsVerticalScrollIndicator = {false}
-            renderItem={({item}) => (
-                <View>
-                  <Button onPress={() => console.log(item)}/>
-                    <Text style={styles.DescPasso}>Passo {item.key}: {item.Passo}</Text>
-                </View>
-            )}
-            />
-        </ImageBackground>
+        <View>
+        
+        </View>
        </SafeAreaView>  
       )} 
 const styles = StyleSheet.create({
