@@ -39,7 +39,7 @@ export default function Configs ({navigation}){
             <Text style={styles.title} >Preferências</Text>
             <View style={styles.configlist} >
                 <TouchableOpacity style={styles.optionbutton} onPress={ () => navigation.navigate("AccountConfig")} activeOpacity={0.8} >
-                    <Text style={styles.option} >Preferências</Text>
+                    <Text style={styles.option} >Conta</Text>
                     <Feather name="chevron-right" size={28} color={"black"} />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.optionbutton} activeOpacity={0.8} >
