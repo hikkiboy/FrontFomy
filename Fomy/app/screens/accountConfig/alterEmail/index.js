@@ -5,6 +5,7 @@ import { collection, deleteDoc, doc, query, where, onSnapshot, documentId } from
 import { useState, useEffect, useLayoutEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Feather from 'react-native-vector-icons/Feather'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 
 export default function AlterEmail({ navigation }){
@@ -15,8 +16,8 @@ export default function AlterEmail({ navigation }){
     useLayoutEffect(() =>{
         navigation.setOptions({
             header: () => (
-                <SafeAreaView style={{ flex: 1, display: 'flex', marginBottom: 54 }} >
-                    <View style={{ width: "100%", height: 65, backgroundColor: "rgba(0,0,0,0.10)" }} >
+                <SafeAreaView style={{ flex: 1, display: 'flex' }} >
+                    <View style={{ width: "100%", height: 65, backgroundColor: "rgba(0,0,0,0.18)" }} >
                         <View style={{width: "100%", height: 55, backgroundColor: "#FFF", flexDirection: 'row', alignItems: 'center' }} >
                             <TouchableOpacity style={{ width: "8.5%", marginStart: 10 }} onPress={() => navigation.goBack()} ><Feather name="chevron-left" size={28} /></TouchableOpacity>
                             <View style={{ alignSelf: 'center', justifyContent: 'center', width: "100%", position: 'absolute' }} >
@@ -140,6 +141,7 @@ export default function AlterEmail({ navigation }){
             <View style={styles.buttonarea} >    
                 <TouchableOpacity style={styles.button} onPress={NewPassword} activeOpacity={0.9} >
                     <Text style={styles.action} >Confirmar E-mail</Text>
+                    <FontAwesome name="check" size={25} />
                 </TouchableOpacity>
             </View>
 
@@ -152,7 +154,9 @@ export default function AlterEmail({ navigation }){
 const styles = StyleSheet.create({
     container:{
         flex:1,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: "#FFF",
+        paddingTop: 65
     
     },
     inputarea:{
@@ -168,12 +172,11 @@ const styles = StyleSheet.create({
         borderColor: "rgba(0,0,0,0.18)",
         width: "100%",
         alignSelf: "center",
-        padding: 15,
         paddingVertical: 10,
-        textAlign: 'center',
         fontSize: 18,
         fontWeight: '500',
-        marginBottom: 40
+        marginBottom: 50,
+        paddingHorizontal: 25
     },
     content:{
         paddingLeft: 15,
@@ -181,7 +184,7 @@ const styles = StyleSheet.create({
     },
     action:{
         fontSize: 20,
-        fontWeight: '700'
+        fontWeight: 'bold'
     },
     buttonarea:{
         marginTop: 20,
@@ -192,12 +195,14 @@ const styles = StyleSheet.create({
         zIndex: 99,
         backgroundColor: "#C8E0F9",
         borderRadius: 15,
-        marginTop: 15,
         padding: 10,
         alignItems: 'center',
         borderWidth: 5,
         borderBottomWidth: 10,
-        borderColor: "#91C0F3"
+        borderColor: "#91C0F3",
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 25
     }
 
 })

@@ -1,5 +1,6 @@
 import { View, StyleSheet, Image, Text, TouchableOpacity, Modal, TextInput, Alert } from "react-native"
-import { Ionicons } from "@expo/vector-icons"
+import Feather from 'react-native-vector-icons/Feather'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useState } from "react"
 import { ActionModal } from "../actionmodal"
 import { Badges } from "../badges"
@@ -138,7 +139,7 @@ export function LoadProfile({ data, navigation }){
     return(
         <View style={styles.container} >
             <TouchableOpacity style={{ zIndex: 99 }} onPress={handleModal} >
-                <Ionicons style={styles.gear} name="settings-sharp" size={35} color="#000"/>
+                <Feather style={styles.menu} name="menu" size={35} color="#000"/>
             </TouchableOpacity>
             <View style={styles.pfpstuff} >
                 <View style={styles.bgpfp} ></View>
@@ -265,15 +266,15 @@ const styles = StyleSheet.create({
         fontWeight: '700'
 
     },
-    gear:{
+    menu:{
         position: "absolute",
         alignSelf: 'flex-end',
-        padding: 10
+        padding: 15,
 
     },
     inputarea:{
         position: 'absolute',
-        marginTop: 15,
+        marginTop: 23,
         alignItems: 'center',
         alignSelf: 'center'
 

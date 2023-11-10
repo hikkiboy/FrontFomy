@@ -10,8 +10,8 @@ export default function Configs ({navigation}){
     useLayoutEffect(() =>{
         navigation.setOptions({
             header: () => (
-                <SafeAreaView style={{ flex: 1, display: 'flex', marginBottom: 54 }} >
-                    <View style={{ width: "100%", height: 65, backgroundColor: "rgba(0,0,0,0.10)" }} >
+                <SafeAreaView style={{ flex: 1, display: 'flex' }} >
+                    <View style={{ width: "100%", height: 65, backgroundColor: "rgba(0,0,0,0.18)" }} >
                         <View style={{width: "100%", height: 55, backgroundColor: "#FFF", flexDirection: 'row', alignItems: 'center' }} >
                             <TouchableOpacity style={{ width: "8.5%", marginStart: 10 }} onPress={() => navigation.goBack()} ><Feather name="chevron-left" size={28} /></TouchableOpacity>
                             <View style={{ alignSelf: 'center', justifyContent: 'center', width: "100%", position: 'absolute' }} >
@@ -70,6 +70,7 @@ export default function Configs ({navigation}){
             <View style={styles.deletearea} >
                 <TouchableOpacity style={styles.delete} onPress={ () => navigation.navigate("DeleteAccount")} activeOpacity={0.9} >
                     <Text style={styles.action} >Deletar Conta</Text>
+                    <Feather name="user-x" size={24} />
                 </TouchableOpacity>
             </View>
 
@@ -82,7 +83,8 @@ export default function Configs ({navigation}){
 const styles = StyleSheet.create({
 container:{
     flex:1,
-    marginTop: 50
+    paddingTop: 65,
+    backgroundColor: "#FFFFFF"
 
 },
 content:{
@@ -146,7 +148,9 @@ delete:{
     borderWidth: 5,
     borderBottomWidth: 10,
     borderColor: "#F68F92",
-    width: "100%"
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 25
 }
 
 })

@@ -1,5 +1,6 @@
 import { View, SafeAreaView, Text, TouchableOpacity, StyleSheet } from "react-native"
 import { app_auth } from '../../../firebaseConfig'
+import Feather from 'react-native-vector-icons/Feather'
 
 export function ActionModal({ handleAction, navigation, handleName, pickIt }){
     return(
@@ -8,19 +9,23 @@ export function ActionModal({ handleAction, navigation, handleName, pickIt }){
 
             <View style={styles.content} >
                 <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={pickIt} >
-                    <Text style={styles.action} >Mudar Foto</Text>
+                    <Text style={styles.action} >Alterar Foto</Text>
+                    <Feather name="camera" size={26} />
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={handleName} >
-                    <Text style={styles.action} >Mudar Nome</Text>
+                    <Text style={styles.action} >Alterar Nome</Text>
+                    <Feather name="edit" size={26} />
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => navigation.navigate('Configs')}>
                     <Text style={styles.action} >Configurações</Text>
+                    <Feather name="settings" size={26} />
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.leave} activeOpacity={0.9} onPress={() => {app_auth.signOut(); navigation.navigate('Login')}} >
                     <Text style={styles.action} >Sair</Text>
+                    <Feather name="log-out" size={26} />
                 </TouchableOpacity>
 
                 </View>
@@ -54,11 +59,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderWidth: 5,
         borderBottomWidth: 10,
-        borderColor: "#B1D3B1"
+        borderColor: "#B1D3B1",
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 25
     },
     action:{
-        fontSize: 18,
-        fontWeight: '600'
+        fontSize: 20,
+        fontWeight: '600',
     },
     leave:{
         zIndex: 99,
@@ -70,6 +78,9 @@ const styles = StyleSheet.create({
         borderWidth: 5,
         borderBottomWidth: 10,
         borderColor: "#F68F92",
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 25
     }
 
 })

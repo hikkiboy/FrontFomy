@@ -7,6 +7,7 @@ import { ref, deleteObject } from "firebase/storage";
 import { useState, useEffect, useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Feather from 'react-native-vector-icons/Feather'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 
 export default function DeleteAccount({ navigation }){
@@ -16,8 +17,8 @@ export default function DeleteAccount({ navigation }){
     useLayoutEffect(() =>{
         navigation.setOptions({
             header: () => (
-                <SafeAreaView style={{ flex: 1, display: 'flex', marginBottom: 54 }} >
-                <View style={{ width: "100%", height: 65, backgroundColor: "rgba(0,0,0,0.10)" }} >
+                <SafeAreaView style={{ flex: 1, display: 'flex' }} >
+                <View style={{ width: "100%", height: 65, backgroundColor: "rgba(0,0,0,0.18)" }} >
                     <View style={{width: "100%", height: 55, backgroundColor: "#FFF", flexDirection: 'row', alignItems: 'center' }} >
                         <TouchableOpacity style={{ width: "8.5%", marginStart: 10 }} onPress={() => navigation.goBack()} ><Feather name="chevron-left" size={28} /></TouchableOpacity>
                         <View style={{ alignSelf: 'center', justifyContent: 'center', width: "100%", position: 'absolute' }} >
@@ -117,6 +118,7 @@ export default function DeleteAccount({ navigation }){
             <View style={styles.deletearea} >
                 <TouchableOpacity style={styles.delete} onPress={DeleteAll} activeOpacity={0.9} >
                     <Text style={styles.action} >Confirmar</Text>
+                    <FontAwesome name="eraser" size={25} />
                 </TouchableOpacity>
             </View>
 
@@ -130,6 +132,8 @@ const styles = StyleSheet.create({
 container:{
     flex:1,
     justifyContent: 'center',
+    backgroundColor: "#FFF",
+    paddingTop: 65
 
 },
 inputarea:{
@@ -145,12 +149,11 @@ input: {
     borderColor: "rgba(0,0,0,0.18)",
     width: "100%",
     alignSelf: "center",
-    padding: 15,
     paddingVertical: 10,
-    textAlign: 'center',
     fontSize: 18,
     fontWeight: '500',
-    marginBottom: 50
+    marginBottom: 50,
+    paddingHorizontal: 25
   },
 content:{
     paddingLeft: 15,
@@ -158,7 +161,7 @@ content:{
 },
 action:{
     fontSize: 20,
-    fontWeight: '700'
+    fontWeight: 'bold'
 },
 deletearea:{
     marginTop: 20,
@@ -174,7 +177,9 @@ delete:{
     borderWidth: 5,
     borderBottomWidth: 10,
     borderColor: "#F68F92",
-    width: "100%"
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 25
 }
 
 })
