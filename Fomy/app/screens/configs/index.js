@@ -1,6 +1,7 @@
-import { View, SafeAreaView, Text, TouchableOpacity, StyleSheet, TextInput, Pressable } from "react-native"
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, Pressable } from "react-native"
 import { app_auth } from '../../../firebaseConfig'
 import { useLayoutEffect } from "react"
+import { SafeAreaView } from "react-native-safe-area-context"
 import Feather from 'react-native-vector-icons/Feather'
 
 
@@ -9,11 +10,16 @@ export default function Configs ({navigation}){
     useLayoutEffect(() =>{
         navigation.setOptions({
             header: () => (
-                <View style={{ height: 60, backgroundColor: "rgba(0,0,0,0.2)" }} >
-                    <View style={{ height: 50, backgroundColor: "#FFF" }} >
-                        <TouchableOpacity><Feather name="chevron-right" size={28} /></TouchableOpacity>
+                <SafeAreaView style={{ flex: 1, display: 'flex', marginBottom: 54 }} >
+                    <View style={{ width: "100%", height: 65, backgroundColor: "rgba(0,0,0,0.15)" }} >
+                        <View style={{width: "100%", height: 55, backgroundColor: "#FFF", flexDirection: 'row', alignItems: 'center' }} >
+                            <TouchableOpacity style={{ width: "8.5%", marginStart: 10 }} onPress={() => navigation.goBack()} ><Feather name="chevron-left" size={28} /></TouchableOpacity>
+                            <View style={{ alignSelf: 'center', justifyContent: 'center', width: "100%", position: 'absolute' }} >
+                                <Text style={{ fontSize: 24, fontWeight: 'bold', alignSelf: 'center', position: 'absolute' }} >Configurações</Text>
+                            </View>
+                        </View>
                     </View>
-                </View>
+                </SafeAreaView>
             )
             /*title: "",
             headerRight: () => (
@@ -30,7 +36,7 @@ export default function Configs ({navigation}){
 
 
         <View style={styles.content} >
-            <Text style={styles.title} >Conta</Text>
+            <Text style={styles.title} >Preferências</Text>
             <View style={styles.configlist} >
                 <TouchableOpacity style={styles.optionbutton} onPress={ () => navigation.navigate("AccountConfig")} activeOpacity={0.8} >
                     <Text style={styles.option} >Preferências</Text>
@@ -61,10 +67,11 @@ export default function Configs ({navigation}){
                     <Feather name="chevron-right" size={28} color={"black"} />
                 </TouchableOpacity>
             </View>
-
-            <TouchableOpacity style={styles.delete} onPress={ () => navigation.navigate("DeleteAccount")} activeOpacity={0.9} >
-                <Text style={styles.action} >Deletar Conta</Text>
-            </TouchableOpacity>
+            <View style={styles.deletearea} >
+                <TouchableOpacity style={styles.delete} onPress={ () => navigation.navigate("DeleteAccount")} activeOpacity={0.9} >
+                    <Text style={styles.action} >Deletar Conta</Text>
+                </TouchableOpacity>
+            </View>
 
 
             </View>
@@ -75,16 +82,14 @@ export default function Configs ({navigation}){
 const styles = StyleSheet.create({
 container:{
     flex:1,
-    backgroundColor: "#EFEFEF"
+    backgroundColor: "#EFEFEF",
+    marginTop: 10
 
 },
 content:{
-    paddingVertical: 20,
     paddingLeft: 15,
     paddingRight: 15,
-    paddingTop: 35,
-    paddingBottom: 35,
-    shadowColor: "#000",
+    paddingBottom: 35
 },
 title:{
     marginStart: 7,
@@ -128,19 +133,21 @@ action:{
     fontSize: 18,
     fontWeight: '600'
 },
+deletearea:{
+    marginTop: 50,
+    marginStart: 6,
+    marginEnd: 6,
+},
 delete:{
     zIndex: 99,
     backgroundColor: "#DC6A87",
     borderRadius: 15,
-    marginTop: 20,
-    marginStart: 5,
-    marginEnd: 5,
     padding: 10,
     alignItems: 'center',
     borderWidth: 5,
     borderBottomWidth: 10,
     borderColor: "#95233F",
-    width: "98%"
+    width: "100%"
 }
 
 })
