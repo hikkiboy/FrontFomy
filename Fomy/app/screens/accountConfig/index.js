@@ -1,17 +1,16 @@
-import { View, SafeAreaView, Text, TouchableOpacity, StyleSheet, TextInput, Pressable } from "react-native"
-import { app_auth } from '../../../firebaseConfig'
+import { View, SafeAreaView, Text, TouchableOpacity, StyleSheet} from "react-native"
 import { useLayoutEffect } from "react"
 import Feather from 'react-native-vector-icons/Feather'
 
 
-export default function Configs ({navigation}){
+export default function Preferences ({navigation}){
 
     useLayoutEffect(() =>{
         navigation.setOptions({
             header: () => (
-                <View style={{ height: 60, backgroundColor: "rgba(0,0,0,0.2)" }} >
+                <View style={{ height: 60, paddingTop: 30, backgroundColor: "rgba(0,0,0,0.2)" }} >
                     <View style={{ height: 50, backgroundColor: "#FFF" }} >
-                        <TouchableOpacity><Feather name="chevron-right" size={28} /></TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate("Config")}><Feather name="chevron-right" size={28} /></TouchableOpacity>
                     </View>
                 </View>
             )
@@ -32,39 +31,19 @@ export default function Configs ({navigation}){
         <View style={styles.content} >
             <Text style={styles.title} >Conta</Text>
             <View style={styles.configlist} >
-                <TouchableOpacity style={styles.optionbutton} onPress={ () => navigation.navigate("AccountConfig")} activeOpacity={0.8} >
-                    <Text style={styles.option} >Preferências</Text>
+                <TouchableOpacity style={styles.optionbutton} onPress={ () => navigation.navigate("AlterPassword")} activeOpacity={0.8} >
+                    <Text style={styles.option} >Mudar Senha</Text>
                     <Feather name="chevron-right" size={28} color={"black"} />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.optionbutton} activeOpacity={0.8} >
-                    <Text style={styles.option} >Notificações</Text>
+                <TouchableOpacity style={styles.optionbutton} onPress={ () => navigation.navigate("AlterEmail")} activeOpacity={0.8} >
+                    <Text style={styles.option} >Mudar E-mail</Text>
                     <Feather name="chevron-right" size={28} color={"black"} />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.lastoptionbutton} activeOpacity={0.8} >
-                    <Text style={styles.option} >Privacidade</Text>
+                    <Text style={styles.option} >Verificação 2 Etapas</Text>
                     <Feather name="chevron-right" size={28} color={"black"} />
                 </TouchableOpacity>
             </View>
-
-            <Text style={styles.title} >Premium</Text>
-            <View style={styles.configlist} >
-                <TouchableOpacity style={styles.lastoptionbutton} activeOpacity={0.8} >
-                    <Text style={styles.option} >Assinatura</Text>
-                    <Feather name="chevron-right" size={28} color={"black"} />
-                </TouchableOpacity>
-            </View>
-
-            <Text style={styles.title} >Suporte</Text>
-            <View style={styles.configlist} >
-                <TouchableOpacity style={styles.lastoptionbutton} activeOpacity={0.8} >
-                    <Text style={styles.option} >Atendimento</Text>
-                    <Feather name="chevron-right" size={28} color={"black"} />
-                </TouchableOpacity>
-            </View>
-
-            <TouchableOpacity style={styles.delete} onPress={ () => navigation.navigate("DeleteAccount")} activeOpacity={0.9} >
-                <Text style={styles.action} >Deletar Conta</Text>
-            </TouchableOpacity>
 
 
             </View>
