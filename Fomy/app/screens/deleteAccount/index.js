@@ -17,7 +17,7 @@ export default function DeleteAccount({ navigation }){
         navigation.setOptions({
             header: () => (
                 <SafeAreaView style={{ flex: 1, display: 'flex', marginBottom: 54 }} >
-                <View style={{ width: "100%", height: 65, backgroundColor: "rgba(0,0,0,0.15)" }} >
+                <View style={{ width: "100%", height: 65, backgroundColor: "rgba(0,0,0,0.10)" }} >
                     <View style={{width: "100%", height: 55, backgroundColor: "#FFF", flexDirection: 'row', alignItems: 'center' }} >
                         <TouchableOpacity style={{ width: "8.5%", marginStart: 10 }} onPress={() => navigation.goBack()} ><Feather name="chevron-left" size={28} /></TouchableOpacity>
                         <View style={{ alignSelf: 'center', justifyContent: 'center', width: "100%", position: 'absolute' }} >
@@ -150,20 +150,9 @@ content:{
     paddingLeft: 15,
     paddingRight: 15,
 },
-button:{
-    zIndex: 99,
-    backgroundColor: "#FFF",
-    borderRadius: 15,
-    marginTop: 15,
-    padding: 10,
-    alignItems: 'center',
-    borderWidth: 5,
-    borderBottomWidth: 10,
-    borderColor: "#7EB77F"
-},
 action:{
-    fontSize: 18,
-    fontWeight: '600'
+    fontSize: 20,
+    fontWeight: '700'
 },
 deletearea:{
     marginTop: 20,
