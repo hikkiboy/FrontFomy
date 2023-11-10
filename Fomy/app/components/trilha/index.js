@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, FlatList, useWindowDimensions, TouchableOpacity } from 'react-native';
+import { Alert, Modal, StyleSheet, Text, View, SafeAreaView, Image, ScrollView, FlatList, useWindowDimensions, TouchableOpacity } from 'react-native';
 import { app, app_DB } from '../../../firebaseConfig'
 import { collection, onSnapshot, query, where, orderBy,documentId } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
@@ -90,18 +90,21 @@ export default function Trilha({route}) {
                 }]}
               >
                   <Text style={styles.textoFase}>{item.Posicao}</Text>
+
+                  {/* USAR MODAL */}
               </View>
               <View style={styles.rightRow} >
                 <Text style={styles.descricaoFase}>{item.Nome}</Text>
                 <Image style={styles.detail} source={require("../../assets/lines-detail.png")} />
                 <View style={[{ marginTop: 20, backgroundColor: route.params.paramKey[2], marginBottom: 15, width: '85%', height: 37, borderRadius: 15, zIndex: 4 }]} >
+                 
                   <TouchableOpacity style={[{
                     backgroundColor:route.params.paramKey[2],
                     height: '83%',
                     borderRadius: 15,
                     alignItems: 'center',
                     justifyContent: 'center',
-                    zIndex: 5
+                    zIndex: 5,
                     }]}  
                   >
                     <Text style={styles.buttonsee} >Ver receita</Text>
