@@ -69,16 +69,7 @@ const styles = StyleSheet.create({
 
     container:{
         flex: 1,
-        backgroundColor: "#EFEFEF"
-    },
-    backgroundPfp:{
-        height: '60%',
         backgroundColor: "#7EB77F"
-
-    },
-    pfp:{
-        width: '50%',
-        height: '50%'
     }
 })
 

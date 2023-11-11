@@ -7,28 +7,30 @@ export function ActionModal({ handleAction, navigation, handleName, pickIt }){
         <SafeAreaView style={styles.container} >
             <TouchableOpacity style={{ flex: 1, zIndex: 9 }} onPress={handleAction} ></TouchableOpacity>
 
-            <View style={styles.content} >
-                <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={pickIt} >
-                    <Text style={styles.action} >Alterar Foto</Text>
-                    <Feather name="camera" size={26} />
-                </TouchableOpacity>
+            <View style={{ backgroundColor: "rgba(0,0,0,0.08)", justifyContent: 'flex-end', borderRadius: 10}} >
+                <View style={styles.content} >
+                    <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={pickIt} >
+                        <Text style={styles.action} >Alterar Foto</Text>
+                        <Feather name="camera" size={26} />
+                    </TouchableOpacity>
 
-                <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={handleName} >
-                    <Text style={styles.action} >Alterar Nome</Text>
-                    <Feather name="edit" size={26} />
-                </TouchableOpacity>
+                    <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={handleName} >
+                        <Text style={styles.action} >Alterar Nome</Text>
+                        <Feather name="edit" size={26} />
+                    </TouchableOpacity>
 
-                <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => navigation.navigate('Configs')}>
-                    <Text style={styles.action} >Configurações</Text>
-                    <Feather name="settings" size={26} />
-                </TouchableOpacity>
+                    <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => navigation.navigate('Configs')}>
+                        <Text style={styles.action} >Configurações</Text>
+                        <Feather name="settings" size={26} />
+                    </TouchableOpacity>
 
-                <TouchableOpacity style={styles.leave} activeOpacity={0.9} onPress={() => {app_auth.signOut(); navigation.navigate('Login')}} >
-                    <Text style={styles.action} >Sair</Text>
-                    <Feather name="log-out" size={26} />
-                </TouchableOpacity>
+                    <TouchableOpacity style={styles.leave} activeOpacity={0.9} onPress={() => {app_auth.signOut(); navigation.navigate('Login')}} >
+                        <Text style={styles.action} >Sair</Text>
+                        <Feather name="log-out" size={26} />
+                    </TouchableOpacity>
 
                 </View>
+            </View>
 
         </SafeAreaView>
     )
@@ -47,8 +49,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFF",
         borderTopLeftRadius: 15,
         borderTopRightRadius: 15,
-        elevation: 10,
-        shadowColor: "#000",
+        marginTop: 6,
     },
     button:{
         zIndex: 99,

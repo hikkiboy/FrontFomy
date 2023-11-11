@@ -119,7 +119,7 @@ export function LoadProfile({ data, navigation }){
             borderRadius={9}
             color="#F68F92"
             borderWidth={0}
-            unfilledColor="#D9D9D9"
+            unfilledColor="#EFEFEF"
         />
     )
     var progressExp = (
@@ -205,7 +205,8 @@ export function LoadProfile({ data, navigation }){
 const styles = StyleSheet.create({
     container:{
         flex: 1,
-        display: 'flex'
+        display: 'flex',
+        backgroundColor: "#FFF"
     },
     pfp:{
         width: 175,
@@ -227,8 +228,8 @@ const styles = StyleSheet.create({
         borderRadius: 150,
         borderWidth: 10,
         marginBottom:-100,
-        borderColor: "#EFEFEF",
-        backgroundColor: 'white',
+        borderColor: "#FFF",
+        backgroundColor: "#EFEFEF",
         marginTop: 35
     },
     name:{
@@ -301,7 +302,7 @@ const styles = StyleSheet.create({
         marginBottom: 100
     },
     badgearea:{
-        backgroundColor: "#D9D9D9",
+        backgroundColor: "#EFEFEF",
         width: '100%',
         height: 350,
         borderTopLeftRadius: 15,

@@ -79,16 +79,16 @@ title:{
 configlist:{
     marginStart: 5,
     marginEnd: 5,
-    borderWidth: 2,
+    borderWidth: 3,
     borderRadius: 15,
-    borderColor: "rgba(0,0,0,0.25)",
+    borderColor: "rgba(0,0,0,0.18)",
     marginBottom: 25
 
 
 },
 optionbutton:{
-    borderBottomWidth: 2,
-    borderColor: "rgba(0,0,0,0.25)",
+    borderBottomWidth: 3,
+    borderColor: "rgba(0,0,0,0.18)",
     paddingVertical: 8,
     paddingHorizontal: 10,
     flexDirection: 'row',
