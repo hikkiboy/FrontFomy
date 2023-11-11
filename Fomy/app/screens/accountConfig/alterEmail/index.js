@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, StyleSheet, TextInput, Pressable } from "react-native"
 import { app_auth, app_BKT, app_DB} from '../../../../firebaseConfig'
-import { getAuth, reauthenticateWithCredential, EmailAuthProvider, updateEmail } from "firebase/auth";
+import { getAuth, reauthenticateWithCredential, EmailAuthProvider, updateEmail, send } from "firebase/auth";
 import { collection, deleteDoc, doc, query, where, onSnapshot, documentId } from "firebase/firestore";
 import { useState, useEffect, useLayoutEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -48,24 +48,7 @@ export default function AlterEmail({ navigation }){
             dunnoRef,
             where(documentId(), '==', app_auth.currentUser.uid)
         )
-    
         
-        // Snapshot that verifies doc
-        const subscriver = onSnapshot(q, {
-            next : (snapshot) => {
-                // Var that will be used to receive the image link
-                var image2 = ""
-                
-                snapshot.docs.forEach(doc =>{
-                    // Gets the "Foto" field from the doc
-                    image2 = doc.data().Foto
-                })
-                // image const now has the link
-
-
-    
-            }
-        })
         return() => subscriver()
     
     },[])
