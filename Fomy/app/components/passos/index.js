@@ -13,6 +13,8 @@ export default function Passos({route, props, navigation}) {
 
   const [Receitas, setReceitas] = useState([]);
   const [visible, setVisible] = useState(false)
+  const [Passo, setPasso] = useState([])
+  const [calcula, setCalcula] = useState(0)
 
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -52,30 +54,25 @@ export default function Passos({route, props, navigation}) {
   
   },[])
 
-const [Passo, setPasso] = useState(Receitas)
+function pa(i){
+  if(i < Receitas.length){
+    i++;
+    setCalcula(i);
+    setPasso(Receitas[(i - 1)]);
+    console.log("Valor: "+ i + "Valor2: "+calcula);
 
-
-var i = 0
-
-let passed = false
-const x = () => {
-  do {
-    i++
-    setPasso(Receitas[i])
-    console.log("dentro:", i)
-    passed = true
-  }while (i < Receitas.length && passed == false)
-  passed == false
-  return i
+  } else{
+    setCalcula(0);
+  }
 }
-console.log('FORA:',i)
+console.log("Passo: ",Passo)
 
   return (
        <SafeAreaView style={{marginTop: 30}}>
         <ImageBackground style={{height: 250}} source={require('../../assets/Group171.png')}>
         <View style={styles.botaoPassos}>
-          <Text style={styles.TituloPasso}> Passo: {Passo.Titulo}</Text> 
-          <Button onPress={ () => x()}></Button>
+          <Text style={styles.TituloPasso}> Passo: {Passo.Titulo}</Text>
+          <Button onPress={ () => pa(calcula)}></Button>
           
           </View>
           <View style={styles.Video}>
