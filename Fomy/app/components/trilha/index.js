@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Alert, Modal, StyleSheet, Text, View, SafeAreaView, Image, ScrollView, FlatList, useWindowDimensions, TouchableOpacity } from 'react-native';
+import { Alert, Modal, Pressable, StyleSheet, Text, View, SafeAreaView, Image, ScrollView, FlatList, useWindowDimensions, TouchableOpacity } from 'react-native';
 import { app, app_DB } from '../../../firebaseConfig'
 import { collection, onSnapshot, query, where, orderBy,documentId } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
@@ -47,6 +47,8 @@ export default function Trilha({route}) {
 
   const {width} = useWindowDimensions()
 
+  const [modalVisible, setModalVisible] = useState(false);
+
 
   return (
     <SafeAreaView style={styles.container} >
@@ -68,6 +70,34 @@ export default function Trilha({route}) {
    
         {/* <View style={styles.linha}></View> */}
         {/* fazer um flat list pra gerar as fases  */}
+        {/* INICIO DO MODAL */}
+        <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>oia os paranaue</Text>
+            <TouchableOpacity style={[{
+                    backgroundColor:route.params.paramKey[2],
+                    height: '83%',
+                    borderRadius: 15,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 5,
+                    }]}  
+                    onPress={() => setModalVisible(!modalVisible)}
+                  >
+              <Text style={styles.textStyle}>Hide Modal</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        </Modal>
+        {/* FIM DO MODAL */}
       
         <FlatList
         data={Receitas}
@@ -106,6 +136,7 @@ export default function Trilha({route}) {
                     justifyContent: 'center',
                     zIndex: 5,
                     }]}  
+                    onPress={() => setModalVisible(!modalVisible)}
                   >
                     <Text style={styles.buttonsee} >Ver receita</Text>
                   </TouchableOpacity>
@@ -228,7 +259,25 @@ const styles = StyleSheet.create({
     position: 'absolute',
     flex: 1,
     paddingLeft: 100
-  }
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    }
+    }
 
 });
 
