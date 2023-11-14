@@ -1,13 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
-import { Alert, Modal, Pressable, StyleSheet, Text, View, SafeAreaView, Image, ScrollView, FlatList, useWindowDimensions, TouchableOpacity } from 'react-native';
+import { Alert, Modal, Pressable, StyleSheet, Text, View, Image, ScrollView, FlatList, useWindowDimensions, TouchableOpacity} from 'react-native';
 import { app, app_DB } from '../../../firebaseConfig'
 import { collection, onSnapshot, query, where, orderBy,documentId } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { Route } from '@react-navigation/native';
 import { Icon } from 'react-native-elements';
+import { ModalTrilha } from '../actionmodal/modaltrilha';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+
 
 export default function Trilha({route}) {
   const [Receitas, setReceitas] = useState([]);
+  const [clicado, setClicado] = useState()
 
   
   const NomeTrilha = route.params.paramKey
@@ -47,13 +52,27 @@ export default function Trilha({route}) {
 
   const {width} = useWindowDimensions()
 
-  const [modalVisible, setModalVisible] = useState(false);
+  const [visible, setVisible] = useState(false)
+
+  function handleModal(id){
+    setVisible(!visible);
+    setClicado(id)
+
+  }
+
 
 
   return (
-    <SafeAreaView style={styles.container} >
-      <ScrollView style ={{ flexGrow: 1, paddingBottom: 300 }}>
-        <View style={{backgroundColor: route.params.paramKey[2],marginTop: '10%', width: width - 20, height: 285, borderRadius:15, alignSelf: "center", marginBottom: 40, zIndex: 1 }}>
+    <SafeAreaView style={styles.status} >
+        <StatusBar
+         animated={true}
+         backgroundColor="black"
+         barStyle={"dark-content"}
+         translucent={false}
+     />
+      <ScrollView contentInsetAdjustmentBehavior="automatic" style ={{ flexGrow: 1, paddingBottom: 300 }}>
+
+        <View style={{backgroundColor: route.params.paramKey[2],marginTop: '5%', width: width - 20, height: 285, borderRadius:15, alignSelf: "center", marginBottom: 40, zIndex: 1 }}>
           <View style={[{ backgroundColor: route.params.paramKey[2], height: '96.3%', borderRadius: 15, zIndex: 2 }]} >
             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
               <Image style={{width:109, height:109, marginTop: 30}} source={require('../../assets/fogao.png')}/>
@@ -71,31 +90,15 @@ export default function Trilha({route}) {
         {/* <View style={styles.linha}></View> */}
         {/* fazer um flat list pra gerar as fases  */}
         {/* INICIO DO MODAL */}
-        <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setModalVisible(!modalVisible);
-        }}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>oia os paranaue</Text>
-            <TouchableOpacity style={[{
-                    backgroundColor:route.params.paramKey[2],
-                    height: '83%',
-                    borderRadius: 15,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    zIndex: 5,
-                    }]}  
-                    onPress={() => setModalVisible(!modalVisible)}
-                  >
-              <Text style={styles.textStyle}>Hide Modal</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        <Modal visible={visible}
+            onRequestClose={handleModal} 
+            animationType="slide"
+            transparent={true}
+            >
+                <ModalTrilha
+                    handleAction={handleModal}
+                    data={Receitas[clicado]}
+                />
         </Modal>
         {/* FIM DO MODAL */}
       
@@ -121,7 +124,7 @@ export default function Trilha({route}) {
               >
                   <Text style={styles.textoFase}>{item.Posicao}</Text>
 
-                  {/* USAR MODAL */}
+            
               </View>
               <View style={styles.rightRow} >
                 <Text style={styles.descricaoFase}>{item.Nome}</Text>
@@ -136,7 +139,7 @@ export default function Trilha({route}) {
                     justifyContent: 'center',
                     zIndex: 5,
                     }]}  
-                    onPress={() => setModalVisible(!modalVisible)}
+                    onPress={handleModal(item.key)}
                   >
                     <Text style={styles.buttonsee} >Ver receita</Text>
                   </TouchableOpacity>
@@ -158,10 +161,14 @@ export default function Trilha({route}) {
 }
 
 const styles = StyleSheet.create({
+  
+  status:{
+    backgroundColor: "#EFEFEF",
+  },
   container: {
     flex: 1,
     display: 'flex',
-    backgroundColor: "#EFEFEF"
+    backgroundColor: "#EFEFEF",
   },
   row:{
     flexDirection: 'row', 
@@ -281,23 +288,6 @@ const styles = StyleSheet.create({
 
 });
 
-// function nomeCompleto(){
-//  nomeComplet0 = nome+sobrenome
-// }
 
-// export const nomeCompletos = () =>{
-//   nomeCompletos = nome+sobrenome
-// }
-
-// const nomeComplet0s = (()=> {
-
-// })
-
-// const nomeCompl3tos = {
-//   nomeCompletos: (() => nomeCompletos = nome+sobrenome),
-//   somar:(()=> 1+1)
-// }
-
-// nomeCompl3tos.somar()
 
 
