@@ -6,6 +6,7 @@ import { collection, onSnapshot, query, where, orderBy,documentId, collectionGro
 import React, { useEffect, useState } from 'react'
 import { Button, ListItem } from 'react-native-elements';
 import { center } from '@shopify/react-native-skia';
+import { Feather } from 'react-native-vector-icons'
 
 
 export default function Passos({route, props, navigation}) {
@@ -14,7 +15,7 @@ export default function Passos({route, props, navigation}) {
   const [Receitas, setReceitas] = useState([]);
   const [visible, setVisible] = useState(false)
   const [Passo, setPasso] = useState([])
-  const [calcula, setCalcula] = useState(0)
+  const [calcula, setCalcula] = useState(1)
 
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -47,6 +48,9 @@ export default function Passos({route, props, navigation}) {
             })
           })
           setReceitas(receitas)
+          //isso pode causar problemas quando a pessoa estiver fazendo e ocorrer uma atualização no banco de dados,
+          //porque reiniciará a posição dela, talvez depois fazer uma outra variavel que define se isso carregou pela primeira vez
+          setPasso(receitas[0])
         }
       })
       return() => subscriver()
@@ -54,25 +58,34 @@ export default function Passos({route, props, navigation}) {
   
   },[])
 
-function pa(i){
-  if(i < Receitas.length){
+function pa(i, fwd){
+  if(i < Receitas.length && fwd == true){
     i++;
     setCalcula(i);
     setPasso(Receitas[(i - 1)]);
     console.log("Valor: "+ i + "Valor2: "+calcula);
 
+  } else if(i < Receitas.length && fwd == false){
+    i--;
+    setCalcula(i);
+    setPasso(Receitas[(i - 1)]);
+    console.log("Valor: "+ i + "Valor2: "+calcula);
+
+  } else if( i - 1 == 0 && fwd == false ){
+    navigation.goBack()
   } else{
-    setCalcula(0);
+    navigation.navigate("Parabens")
   }
 }
 console.log("Passo: ",Passo)
 
   return (
        <SafeAreaView style={{marginTop: 30}}>
-        <ImageBackground style={{height: 250}} source={require('../../assets/Group171.png')}>
+        <TouchableOpacity style={{ position: 'absolute', zIndex: 99 }} ><Feather name="chevron-left" color={"black"} size={40} /></TouchableOpacity>
+        <ImageBackground style={{height: 250, zIndex: 0}} source={require('../../assets/Group171.png')}>
         <View style={styles.botaoPassos}>
-          <Text style={styles.TituloPasso}> Passo: {Passo.Titulo}</Text>
-          <Button onPress={ () => pa(calcula)}></Button>
+          <Text style={styles.TituloPasso}> Passo {Passo.Sequencia}:  {Passo.Titulo}</Text>
+          <Button onPress={ () => pa(calcula, true)}></Button>
           
           </View>
           <View style={styles.Video}>
