@@ -12,7 +12,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Trilha({route}) {
   const [Receitas, setReceitas] = useState([]);
-  const [clicado, setClicado] = useState()
 
   
   const NomeTrilha = route.params.paramKey
@@ -54,11 +53,9 @@ export default function Trilha({route}) {
 
   const [visible, setVisible] = useState(false)
 
-  function handleModal(id){
+  const handleModal = () => {
     setVisible(!visible);
-    setClicado(id)
-
-  }
+}
 
 
 
@@ -97,9 +94,9 @@ export default function Trilha({route}) {
             >
                 <ModalTrilha
                     handleAction={handleModal}
-                    data={Receitas[clicado]}
+                
                 />
-        </Modal>
+            </Modal>
         {/* FIM DO MODAL */}
       
         <FlatList
@@ -139,7 +136,7 @@ export default function Trilha({route}) {
                     justifyContent: 'center',
                     zIndex: 5,
                     }]}  
-                    onPress={handleModal(item.key)}
+                    onPress={handleModal}
                   >
                     <Text style={styles.buttonsee} >Ver receita</Text>
                   </TouchableOpacity>
@@ -288,6 +285,23 @@ const styles = StyleSheet.create({
 
 });
 
+// function nomeCompleto(){
+//  nomeComplet0 = nome+sobrenome
+// }
 
+// export const nomeCompletos = () =>{
+//   nomeCompletos = nome+sobrenome
+// }
+
+// const nomeComplet0s = (()=> {
+
+// })
+
+// const nomeCompl3tos = {
+//   nomeCompletos: (() => nomeCompletos = nome+sobrenome),
+//   somar:(()=> 1+1)
+// }
+
+// nomeCompl3tos.somar()
 
 

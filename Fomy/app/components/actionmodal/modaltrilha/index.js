@@ -2,7 +2,7 @@ import { View, SafeAreaView, Text, TouchableOpacity, StyleSheet } from "react-na
 import { Button } from "react-native-elements"
 
 
-export function ModalTrilha({ handleAction, route }){
+export function ModalTrilha({ handleAction, data }){
     return(
         <SafeAreaView style={styles.container} >
             <TouchableOpacity style={{ flex: 1, zIndex: 9 }} onPress={handleAction} ></TouchableOpacity>
