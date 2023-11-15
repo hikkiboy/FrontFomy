@@ -14,6 +14,8 @@ export default function Trilha({route}) {
   const [Receitas, setReceitas] = useState([]);
 
   
+
+  
   const NomeTrilha = route.params.paramKey
     console.log(route.params.paramKey)
   useEffect(()=>{
