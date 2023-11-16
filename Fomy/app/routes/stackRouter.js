@@ -16,6 +16,8 @@ import Home from "../screens/home";
 import OnboardingItem from "../components/Onboarding/index";
 import PasswordResets from "../utils/forgotPassword";
 import Trilha from "../components/trilha";
+import Preparo from "../components/preparo";
+import Passos from "../components/passos";
 
 const Stack = createNativeStackNavigator();
 
@@ -66,7 +68,18 @@ export default function Routes() {
         component={Trilha}
         options={{ headerShown: false }}
       />
+       <Stack.Screen
+        name="Preparo"
+        component={Preparo}
+        options={{ headerShown: false }}
+      />
+        <Stack.Screen
+        name="Passos"
+        component={Passos}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
+    
   );
 }
 

@@ -1,12 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, FlatList } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Image,FlatList,TouchableWithoutFeedback } from 'react-native';
+import Modal from "react-native-modal";
 import { app, app_DB } from '../../../firebaseConfig'
 import { collection, onSnapshot, query, where, orderBy,documentId } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
-import { Route } from '@react-navigation/native';
+import { Button } from 'react-native-elements';
 
-export default function Trilha({route}) {
+export default function Trilha({route, props, navigation}) {
+
   const [Receitas, setReceitas] = useState([]);
+  const [visible, setVisible] = useState(false)
+
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  const handleOnSelectItem = (item) => {
+    setSelectedItem(item);
+  };
+
+  const handleOnCloseModal = () => {
+    setSelectedItem(null);
+  };
 
   
   const NomeTrilha = route.params.paramKey
@@ -33,9 +46,6 @@ export default function Trilha({route}) {
             })
           })
           setReceitas(receitas)
-          
-
-          
         }
       })
       
@@ -44,7 +54,7 @@ export default function Trilha({route}) {
   
   },[])
   
-
+ 
 
   return (
     <SafeAreaView style={styles.container} >
@@ -58,6 +68,7 @@ export default function Trilha({route}) {
           <Text style={styles.trilhaTit}>{route.params.paramKey[0]}</Text>
           <Text style={styles.textoTrilha}>{route.params.paramKey[1]}</Text>
         </View>
+        
 
    
       {/* <View style={styles.linha}></View> */}
@@ -65,11 +76,12 @@ export default function Trilha({route}) {
       
       <FlatList
       data={Receitas}
-
       scrollEnabled = {true}
       showsVerticalScrollIndicator ={false}
       renderItem={({item}) => (
+        
         <View style={styles.container}>
+        <TouchableWithoutFeedback onPress={ () => navigation.navigate('Preparo',{paramKey:[item.Nome]})}>
         <View style={[{
           backgroundColor:route.params.paramKey[2],
           width: 112,
@@ -80,17 +92,21 @@ export default function Trilha({route}) {
           marginLeft: 15,
         }]}>
         <Text style={styles.textoFase}>{item.Posicao}</Text>
-        
         <View style={styles.linha}></View>
         </View>
-  
+        </TouchableWithoutFeedback>
       </View>
       )}
       />
+      
+
        </SafeAreaView>
   );
-  
 }
+
+
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -142,6 +158,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     flex: 1,
     paddingLeft: 100
+  },
+  modalContain: {
+    width: "80%",
+    height: "20%",
+    backgroundColor: 'black',
+    justifyContent: 'center',
+    alignSelf: 'center'
   }
 
 });

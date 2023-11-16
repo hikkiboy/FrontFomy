@@ -2,12 +2,12 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, Vibration } from 'reac
 
 export function Logo() {
   return (
-    <TouchableOpacity onPress={() => Vibration.vibrate()}>
+    
       <View style={styles.container}>
           <Image resizeMode='center' style={styles.Mascote} source={require('../../assets/alberto.png')}/>
           <Image resizeMode='center' style={styles.Titulo} source={require('../../assets/logoTitulo.png')}/>
       </View>
-    </TouchableOpacity>
+
   );
 }
 
