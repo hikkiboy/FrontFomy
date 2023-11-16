@@ -52,10 +52,13 @@ export default function Preparo({route, props, navigation}) {
       return() => subscriver()
   
   },[])
+  const [y, setY] = useState(1);
 let arrayIng = []
 let arrayBon = []
 let arrayUtil = []
 let arrayprep = []
+let arrayporc = []
+
   return (
     <SafeAreaView style={styles.container} >
       
@@ -86,6 +89,42 @@ let arrayprep = []
         <View style={styles.nomebg}>
         <Text style={styles.nomeTexto}>{item.Nome}</Text>
         </View>
+        <View>
+        <TouchableOpacity
+              onPress={() => setY(y + 1)}
+              style={{
+                width: 40,
+                height: 40,
+                marginLeft: 320,
+                borderRadius: 10,
+                borderColor:  '#7EB77F',
+                borderBottomColor: 'black',
+                borderWidth: 6,
+                borderRightWidth:0,
+                borderBottomWidth:0,
+                transform: [{ rotate: '45deg'}]
+                
+              }}
+            ></TouchableOpacity>
+              <Text style={{marginLeft: 335, fontSize: 20}}>{y}</Text>
+        <TouchableOpacity
+              onPress={() => setY(y <= 1 ? y : y - 1)}
+              style={{
+                width: 40,
+                height: 40,
+                marginLeft: 320,
+                borderRadius: 10,
+                borderColor:  '#7EB77F',
+                borderBottomColor: 'black',
+                borderWidth: 6,
+                borderRightWidth:0,
+                borderBottomWidth:0,
+                transform: [{ rotate: '225deg'}]
+                
+              }}
+              >
+        </TouchableOpacity>
+            </View>
         <View style={styles.ContainTextAndIcon}>
         <Image style={styles.Cesta} source={require('../../assets/Cesta.png')}/>
         <View style={styles.Ingredientesbg}>
@@ -96,6 +135,7 @@ let arrayprep = []
             <Text style={{opacity: 0, position: 'absolute'}}>{arrayBon.push(item.Bonus)}</Text>
             <Text style={{opacity: 0, position: 'absolute'}}>{arrayUtil.push(item.Utensilios)}</Text>
             <Text style={{opacity: 0, position: 'absolute'}}>{arrayprep.push(item.PassosSimp)}</Text>
+            <Text style={{opacity: 0, position: 'absolute'}}>{arrayporc.push(item.Porcoes)}</Text>
         <View style={styles.IngredientesContain}>
             <FlatList
             data={arrayIng[0]}
@@ -103,9 +143,13 @@ let arrayprep = []
             showsVerticalScrollIndicator = {false}
             renderItem={({item}) => (
               <View>
-                
                 <View style={styles.IngredientesNumContain}>
-                    <Text style={styles.NumeroIngrediente}>{arrayIng[0].indexOf(item ) + 1}-</Text>
+                    <Text style={styles.NumeroIngrediente}>-</Text>
+                    <Text style={{fontSize: 25, fontWeight: 'bold', marginRight:-5}}>
+                      {(arrayporc[0][Receitas[0].Ingredientes.indexOf(item)] * y) == 0 ?
+                       '':
+                        (arrayporc[0][Receitas[0].Ingredientes.indexOf(item)] * y)}
+                      </Text>
                     <Text style = {styles.Ingredientes}> {item}</Text>
                 </View>
               </View>
@@ -270,7 +314,7 @@ NumeroIngrediente:{
   fontSize: 40,
   fontWeight: 'bold',
   color: '#1877D1',
-  marginLeft: 10
+  marginLeft: -15
 },
 Ingredientes:{
     fontWeight: 'bold',

@@ -65,7 +65,6 @@ function pa(i){
     setCalcula(0);
   }
 }
-console.log("Passo: ",Passo)
 
   return (
        <SafeAreaView style={{marginTop: 30}}>
@@ -100,7 +99,7 @@ const styles = StyleSheet.create({
     marginTop: '30%'
   },
   TituloPasso:{
-    fontSize: 20,
+    fontSize: 30,
     textAlign: 'center',
     fontWeight: 'bold',
     color: '#FFFFFF'
