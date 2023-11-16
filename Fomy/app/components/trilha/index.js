@@ -12,6 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Trilha({route}) {
   const [Receitas, setReceitas] = useState([]);
+  const [modal, setModal] = useState([])
 
   
 
@@ -40,6 +41,7 @@ export default function Trilha({route}) {
             })
           })
           setReceitas(receitas)
+          console.log(Receitas)
           
 
           
@@ -55,8 +57,9 @@ export default function Trilha({route}) {
 
   const [visible, setVisible] = useState(false)
 
-  const handleModal = () => {
+  const handleModal = (item) => {
     setVisible(!visible);
+    setModal(item)
 }
 
 
@@ -96,6 +99,7 @@ export default function Trilha({route}) {
             >
                 <ModalTrilha
                     handleAction={handleModal}
+                    data={modal}
                 
                 />
             </Modal>
@@ -138,7 +142,7 @@ export default function Trilha({route}) {
                     justifyContent: 'center',
                     zIndex: 5,
                     }]}  
-                    onPress={handleModal}
+                    onPress={() => handleModal(item)}
                   >
                     <Text style={styles.buttonsee} >Ver receita</Text>
                   </TouchableOpacity>

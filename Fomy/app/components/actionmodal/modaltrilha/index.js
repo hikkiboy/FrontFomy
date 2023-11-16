@@ -10,52 +10,6 @@ import { collection, onSnapshot, query, where, orderBy,documentId } from "fireba
 
 export function ModalTrilha({ handleAction, data }){
 
-    const [Receitas, setReceitas] = useState([]);
-    const [visible, setVisible] = useState(false)
-    const [Passo, setPasso] = useState([])
-   
-  
-    const [selectedItem, setSelectedItem] = useState(null);
-  
-    const handleOnSelectItem = (item) => {
-      setSelectedItem(item);
-    };
-  
-    const handleOnCloseModal = () => {
-      setSelectedItem(null);
-    };
-  
-    const key = route.params.paramKey
-    
-  //   const NomeTrilha = route.params.paramKey
-  //     console.log(route.params.paramKey)
-    useEffect(()=>{
-      
-      const receitaRef = collection(app_DB,`Receitas/${key}/Passos`)
-      
-      const q = query(
-      receitaRef,
-      )
-        const subscriver = onSnapshot(q, {
-          next : (snapshot) => {
-            const receitas = []
-            snapshot.docs.forEach(doc =>{
-              receitas.push({
-                key : doc.id,
-                ...doc.data(),
-              })
-            })
-            setReceitas(receitas)
-            //isso pode causar problemas quando a pessoa estiver fazendo e ocorrer uma atualização no banco de dados,
-            //porque reiniciará a posição dela, talvez depois fazer uma outra variavel que define se isso carregou pela primeira vez
-            setPasso(receitas[0])
-          }
-        })
-        return() => subscriver()
-        
-    
-    },[])
-
     return(
         <SafeAreaView style={styles.container} >
             <TouchableOpacity style={{ flex: 1, zIndex: 9 }} onPress={handleAction} ></TouchableOpacity>
