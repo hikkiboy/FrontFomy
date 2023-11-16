@@ -8,7 +8,7 @@ import { collection, onSnapshot, query, where, orderBy,documentId } from "fireba
 
 
 
-export function ModalTrilha({ handleAction, data }){
+export function ModalTrilha({ handleAction, data, navigation, cor }){
 
     return(
         <SafeAreaView style={styles.container} >
@@ -16,10 +16,7 @@ export function ModalTrilha({ handleAction, data }){
 
             <View style={styles.content} >
                 <TouchableOpacity style={styles.button} activeOpacity={0.9}
-                onPress={() => {
-                    const result = ReceitaRef(); // Call the function
-                    console.log(result); // Do something with the result
-                  }} >
+                onPress={ () => navigation.navigate('Preparo',{paramKey:[item.Nome]}) } >
                     <Text style={styles.action} >Ir para a receita</Text>
                 </TouchableOpacity>
             </View>

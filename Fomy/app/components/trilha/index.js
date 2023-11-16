@@ -10,7 +10,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 
-export default function Trilha({route}) {
+export default function Trilha({ route, navigation }) {
   const [Receitas, setReceitas] = useState([]);
   const [modal, setModal] = useState([])
 
@@ -41,7 +41,6 @@ export default function Trilha({route}) {
             })
           })
           setReceitas(receitas)
-          console.log(Receitas)
           
 
           
@@ -100,6 +99,8 @@ export default function Trilha({route}) {
                 <ModalTrilha
                     handleAction={handleModal}
                     data={modal}
+                    navigation={navigation}
+                    cor={route.params.paramKey[2]}
                 
                 />
             </Modal>
