@@ -68,8 +68,7 @@ export function ModalTrilha({ handleAction, data, navigation, cor }){
 
 const styles = StyleSheet.create({
     container:{
-        flex:1,
-        backgroundColor: 'rgba(0, 0, 0, 0.3)'
+        flex:1
 
     },
     content:{

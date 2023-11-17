@@ -92,9 +92,20 @@ export default function Trilha({ route, navigation }) {
         {/* fazer um flat list pra gerar as fases  */}
         {/* INICIO DO MODAL */}
         <Modal visible={visible}
+            onRequestClose={handleModal}
+            transparent={true}
+            animationType='fade'
+            style={{ zIndex: 100 }}
+            >
+                <View style={{ flex: 1, display: 'flex', backgroundColor: 'rgba(0, 0, 0, 0.3)' }} >
+
+                </View>
+        </Modal>
+        <Modal visible={visible}
             onRequestClose={handleModal} 
             animationType="slide"
             transparent={true}
+            style={{ zIndex: 101 }}
             >
                 <ModalTrilha
                     handleAction={handleModal}
