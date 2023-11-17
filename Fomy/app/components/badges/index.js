@@ -46,7 +46,7 @@ export function Badges({ data }) {
     return(
         <View style={styles.container} >
             <FlatList
-                style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
+                style={{ flexDirection: 'row', alignItems: 'center' }}
                 data={Insignias}
                 renderItem={({item}) => {
                     return(
@@ -72,12 +72,14 @@ const styles = StyleSheet.create({
     container:{
         flex: 1,
         alignItems: 'center',
+        paddingStart: 20,
+        paddingEnd: 20,
+        marginTop: 15
     },
     image:{
         width: 100,
         height: 100,
-        margin: 12,
-        marginHorizontal: 15
+        marginHorizontal: '2.5%'
     },
     thebadge:{
         alignItems: 'center'

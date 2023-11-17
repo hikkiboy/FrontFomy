@@ -16,6 +16,12 @@ import Home from "../screens/home";
 import OnboardingItem from "../components/Onboarding/index";
 import PasswordResets from "../utils/forgotPassword";
 import Trilha from "../components/trilha";
+import DeleteAccount from "../screens/deleteAccount";
+import Configs from "../screens/configs";
+import AccountConfig from "../screens/accountConfig"
+import AlterPassword from "../screens/accountConfig/alterPassword"
+import AlterEmail from "../screens/accountConfig/alterEmail"
+
 import Preparo from "../components/preparo";
 import Passos from "../components/passos";
 
@@ -68,6 +74,32 @@ export default function Routes() {
         component={Trilha}
         options={{ headerShown: false }}
       />
+       <Stack.Screen
+        name="Configs"
+        component={Configs}
+        options={{ headerShown: true }}
+      />
+       <Stack.Screen
+        name="DeleteAccount"
+        component={DeleteAccount}
+        options={{ headerShown: true }}
+      />
+       <Stack.Screen
+        name="AccountConfig"
+        component={AccountConfig}
+        options={{ headerShown: true }}
+      />
+       <Stack.Screen
+        name="AlterPassword"
+        component={AlterPassword}
+        options={{ headerShown: true }}
+      />
+       <Stack.Screen
+        name="AlterEmail"
+        component={AlterEmail}
+        options={{ headerShown: true }}
+      />
+      
        <Stack.Screen
         name="Preparo"
         component={Preparo}

@@ -27,8 +27,8 @@ const Cadastro = () => {
         
 
       } catch (error) {
-
-        alert('deu erro')
+        console.log(error)
+        alert('algum erro ocorreu')
       } finally{
         setLoading(false)
       }
@@ -117,46 +117,27 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     padding: 15,
   },
-  buttonRegistro: {
-    alignSelf: "center",
-    fontSize: 20,
-    fontWeight: "bold",
-    padding: 13,
-    paddingLeft: 42,
-    paddingRight: 42,
-    borderRadius: 20,
-    borderColor: "black",
-    borderBottomWidth: 7,
-    borderWidth: 3,
-    margin: 3,
-    width: 250,
-    borderTopStartRadius: 0,
-    borderTopEndRadius: 0,
-  },
-  buttonLogin: {
-    backgroundColor: "#7EB77F",
-    alignSelf: "center",
-    fontSize: 20,
-    fontWeight: "bold",
-    padding: 13,
-    paddingLeft: 40,
-    paddingRight: 40,
-    //borderBottomStartRadius: 0,
-    //borderBottomEndRadius: 0,
-    borderColor: "black",
-    borderWidth: 3,
-    marginTop: 20,
-    marginBottom: 5,
-    borderRadius: 10,
-    width: 250,
-  },
-  text: {
-    fontWeight: "bold",
-    fontSize: 18,
-    textAlign: "center",
-  },
-  forgotPassword:{
-    alignSelf: "center",
-    opacity: 0.4
-  }
+ buttonRegistro:{
+  backgroundColor: "#7EB77F",
+  alignSelf: "center",
+  fontSize: 20,
+  fontWeight: "bold",
+  padding: 13,
+  paddingLeft: 40,
+  paddingRight: 40,
+  borderColor: "black",
+  borderWidth: 2,
+  marginTop: 20,
+  marginBottom: 5,
+  borderRadius: 15,
+  width: 250,
+ },
+ text:{
+  fontWeight: 'bold',
+  fontSize: 18,
+  textAlign: 'center'
+ },
+ fundo:{
+  backgroundColor: 'White'
+ }
 });

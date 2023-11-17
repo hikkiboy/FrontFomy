@@ -24,9 +24,9 @@ import { useNavigation } from "@react-navigation/native";
 
 const LoginPage = () => {
   const navigation = useNavigation();
-  const [email, setEmail] = useState("teste@teste.com");
-  const [senha, setSenha] = useState("senhasenha");
-
+  const [email, setEmail] = useState("testando@essabudega.com");
+  const [senha, setSenha] = useState("thissucks");
+  
   const [loading, setLoading] = useState(false);
   const auth = app_auth;
 
@@ -37,6 +37,7 @@ const LoginPage = () => {
       navigation.navigate("Profile");
     } catch (error) {
       console.log(error);
+      alert("deu erro");
       alert("deu erro");
     } finally {
       setLoading(false);
@@ -113,7 +114,8 @@ const styles = StyleSheet.create({
     padding: 13,
     paddingLeft: 42,
     paddingRight: 42,
-    borderRadius: 20,
+    borderRadius: 15,
+    borderRadius: 15,
     borderColor: "black",
     borderBottomWidth: 7,
     borderWidth: 3,
@@ -136,7 +138,8 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     marginTop: 20,
     marginBottom: 5,
-    borderRadius: 10,
+    borderRadius: 15,
+    borderRadius: 15,
     width: 250,
   },
   text: {
