@@ -65,12 +65,6 @@ export default function Trilha({ route, navigation }) {
 
   return (
     <SafeAreaView style={styles.status} >
-        <StatusBar
-         animated={true}
-         backgroundColor="black"
-         barStyle={"dark-content"}
-         translucent={false}
-     />
       <ScrollView contentInsetAdjustmentBehavior="automatic" style ={{ flexGrow: 1, paddingBottom: 300 }}>
 
         <View style={{backgroundColor: route.params.paramKey[2],marginTop: '5%', width: width - 20, height: 285, borderRadius:15, alignSelf: "center", marginBottom: 40, zIndex: 1 }}>
@@ -114,7 +108,7 @@ export default function Trilha({ route, navigation }) {
                     cor={route.params.paramKey[2]}
                 
                 />
-            </Modal>
+        </Modal>
         {/* FIM DO MODAL */}
       
         <FlatList

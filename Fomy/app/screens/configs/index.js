@@ -3,6 +3,7 @@ import { app_auth } from '../../../firebaseConfig'
 import { useLayoutEffect } from "react"
 import { SafeAreaView } from "react-native-safe-area-context"
 import Feather from 'react-native-vector-icons/Feather'
+import { ScrollView } from "react-native"
 
 
 export default function Configs ({navigation}){
@@ -34,48 +35,49 @@ export default function Configs ({navigation}){
     return(
     <SafeAreaView style={styles.container} >
 
+        <ScrollView>
+            <View style={styles.content} >
+                <Text style={styles.title} >Preferências</Text>
+                <View style={styles.configlist} >
+                    <TouchableOpacity style={styles.optionbutton} onPress={ () => navigation.navigate("AccountConfig")} activeOpacity={0.8} >
+                        <Text style={styles.option} >Conta</Text>
+                        <Feather name="chevron-right" size={28} color={"black"} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.optionbutton} activeOpacity={0.8} >
+                        <Text style={styles.option} >Notificações</Text>
+                        <Feather name="chevron-right" size={28} color={"black"} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.lastoptionbutton} activeOpacity={0.8} >
+                        <Text style={styles.option} >Privacidade</Text>
+                        <Feather name="chevron-right" size={28} color={"black"} />
+                    </TouchableOpacity>
+                </View>
 
-        <View style={styles.content} >
-            <Text style={styles.title} >Preferências</Text>
-            <View style={styles.configlist} >
-                <TouchableOpacity style={styles.optionbutton} onPress={ () => navigation.navigate("AccountConfig")} activeOpacity={0.8} >
-                    <Text style={styles.option} >Conta</Text>
-                    <Feather name="chevron-right" size={28} color={"black"} />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.optionbutton} activeOpacity={0.8} >
-                    <Text style={styles.option} >Notificações</Text>
-                    <Feather name="chevron-right" size={28} color={"black"} />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.lastoptionbutton} activeOpacity={0.8} >
-                    <Text style={styles.option} >Privacidade</Text>
-                    <Feather name="chevron-right" size={28} color={"black"} />
-                </TouchableOpacity>
-            </View>
+                <Text style={styles.title} >Premium</Text>
+                <View style={styles.configlist} >
+                    <TouchableOpacity style={styles.lastoptionbutton} activeOpacity={0.8} >
+                        <Text style={styles.option} >Assinatura</Text>
+                        <Feather name="chevron-right" size={28} color={"black"} />
+                    </TouchableOpacity>
+                </View>
 
-            <Text style={styles.title} >Premium</Text>
-            <View style={styles.configlist} >
-                <TouchableOpacity style={styles.lastoptionbutton} activeOpacity={0.8} >
-                    <Text style={styles.option} >Assinatura</Text>
-                    <Feather name="chevron-right" size={28} color={"black"} />
-                </TouchableOpacity>
-            </View>
-
-            <Text style={styles.title} >Suporte</Text>
-            <View style={styles.configlist} >
-                <TouchableOpacity style={styles.lastoptionbutton} activeOpacity={0.8} >
-                    <Text style={styles.option} >Atendimento</Text>
-                    <Feather name="chevron-right" size={28} color={"black"} />
-                </TouchableOpacity>
-            </View>
-            <View style={styles.deletearea} >
-                <TouchableOpacity style={styles.delete} onPress={ () => navigation.navigate("DeleteAccount")} activeOpacity={0.9} >
-                    <Text style={styles.action} >Deletar Conta</Text>
-                    <Feather name="user-x" size={24} />
-                </TouchableOpacity>
-            </View>
+                <Text style={styles.title} >Suporte</Text>
+                <View style={styles.configlist} >
+                    <TouchableOpacity style={styles.lastoptionbutton} activeOpacity={0.8} >
+                        <Text style={styles.option} >Atendimento</Text>
+                        <Feather name="chevron-right" size={28} color={"black"} />
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.deletearea} >
+                    <TouchableOpacity style={styles.delete} onPress={ () => navigation.navigate("DeleteAccount")} activeOpacity={0.9} >
+                        <Text style={styles.action} >Deletar Conta</Text>
+                        <Feather name="user-x" size={24} />
+                    </TouchableOpacity>
+                </View>
 
 
             </View>
+        </ScrollView>
 
     </SafeAreaView>
 )}
@@ -83,14 +85,14 @@ export default function Configs ({navigation}){
 const styles = StyleSheet.create({
 container:{
     flex:1,
-    marginTop: 65,
     backgroundColor: "#FFFFFF"
 
 },
 content:{
     paddingLeft: 15,
     paddingRight: 15,
-    paddingBottom: 35
+    paddingBottom: 35,
+    marginTop: 65,
 },
 title:{
     marginStart: 7,
