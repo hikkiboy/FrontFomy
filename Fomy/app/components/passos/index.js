@@ -58,6 +58,7 @@ export default function Passos({route, props, navigation}) {
       
   
   },[])
+  console.log(Receitas)
 
 function pa(i, fwd){
   if(i < Receitas.length && fwd == true){
