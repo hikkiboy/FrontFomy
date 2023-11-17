@@ -41,6 +41,9 @@ export default function Trilha({ route, navigation }) {
             })
           })
           setReceitas(receitas)
+          
+
+          
         }
       })
       
@@ -48,7 +51,8 @@ export default function Trilha({ route, navigation }) {
       return() => subscriver()
   
   },[])
-  
+
+  const {width} = useWindowDimensions()
 
   const [visible, setVisible] = useState(false)
 
@@ -157,11 +161,8 @@ export default function Trilha({ route, navigation }) {
       </ScrollView>
     </SafeAreaView>
   );
+  
 }
-
-
-
-
 
 const styles = StyleSheet.create({
   
@@ -309,5 +310,3 @@ const styles = StyleSheet.create({
 // }
 
 // nomeCompl3tos.somar()
-
-

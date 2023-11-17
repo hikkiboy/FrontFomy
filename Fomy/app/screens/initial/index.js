@@ -13,18 +13,18 @@ const Login = ({navigation}) => {
         <SafeAreaView>
         <Logo/>
   
-        <TouchableOpacity style={styles.bottonCadastro} onPress={() => navigation.navigate('Cadastro')}>
+        <TouchableOpacity style={styles.buttonCadastro} onPress={() => navigation.navigate('Cadastro')}>
         <Text style={styles.loginCadastro}>Cadastro</Text>
         </TouchableOpacity>
   
-        <TouchableOpacity style={styles.bottonLogin} onPress={ () => navigation.navigate('Loginpage')}>
+        <TouchableOpacity style={styles.buttonLogin} onPress={ () => navigation.navigate('Loginpage')}>
         <Text style={styles.login}>Login</Text>
         </TouchableOpacity>
   
         <Text style={styles.otherOptions}>-- ou entre com --</Text>
         
         <View style={styles.loginsDiff}>
-        <TouchableOpacity style={styles.bottonCadastroGoogle}>
+        <TouchableOpacity style={styles.buttonCadastroGoogle}>
         
         <Image source={require('../../assets/logoGoogle.png')}  resizeMode='center' style={styles.loginGoogle}/>
         </TouchableOpacity>
@@ -46,7 +46,7 @@ export default Login
 
 
 const styles = StyleSheet.create({
-  bottonCadastro: {
+  buttonCadastro: {
     alignSelf: 'center',
     backgroundColor: '#7EB77F',
     fontSize: 20,
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     paddingLeft: 40,
     paddingRight: 40,
   },
-  bottonLogin: {
+  buttonLogin: {
     alignSelf: 'center',
     fontSize: 20,
     fontWeight: 'bold',
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginLeft: 20
   },
-  bottonCadastroGoogle: {
+  buttonCadastroGoogle: {
     alignSelf: 'center',
     fontSize: 20,
     fontWeight: 'bold',
