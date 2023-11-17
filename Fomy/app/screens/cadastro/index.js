@@ -1,14 +1,11 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, Alert, TextInput, ActivityIndicator, KeyboardAvoidingView, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Alert, TextInput, ActivityIndicator, KeyboardAvoidingView, ImageBackground, ScrollView } from 'react-native';
 import React, {useState} from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { app, app_DB, app_auth } from '../../../firebaseConfig'
-import { Logo } from '../../components/logo';
-import Ionicons from '@expo/vector-icons/Ionicons'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { useHeaderHeight } from '@react-navigation/elements'
 import { doc, setDoc } from "firebase/firestore"; 
-import {Button} from 'react-native'
-import fundo from '../../assets/fundinho.png'
-import { StatusBar } from 'expo-status-bar';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 
 
@@ -22,7 +19,7 @@ const Cadastro = () => {
     const [loading, setLoading] = useState(false)
     const auth = app_auth;
 
-
+    const height = useHeaderHeight()
     const SignIn = async () => {
       setLoading(true)
       try{
@@ -72,58 +69,51 @@ const Cadastro = () => {
         }
     }
   
-    return (
-
-
-      <KeyboardAvoidingView style = {styles.container} behavior='padding'>
+   return (
+        <KeyboardAwareScrollView>
         
-        <SafeAreaView >
-        
-        <TextInput value= {nome} style={styles.input} placeholder='Nome' autoCapitalize='none' onChangeText={(text) => setNome(text)}></TextInput>
-        <TextInput value={email} style = {styles.input} placeholder='Email' autoCapitalize='none'
+        <View style={styles.container}>
+
+        <TextInput value= {nome} style={styles.input} placeholder=' Nome' autoCapitalize='none' onChangeText={(text) => setNome(text)}></TextInput>
+        <TextInput value={email} style = {styles.input} placeholder=' Email' autoCapitalize='none'
         onChangeText={(text) => setEmail(text)}></TextInput>
-         <TextInput value={senha} style = {styles.input} placeholder='Senha' autoCapitalize='none'
+         <TextInput value={senha} style = {styles.input} placeholder=' Senha' autoCapitalize='none'
         onChangeText={(text) => setSenha(text)} secureTextEntry={true}></TextInput>
-        <TextInput value={senha} style = {styles.input} placeholder='Confirmar Senha' autoCapitalize='none'
+        <TextInput value={senha} style = {styles.input} placeholder=' Confirmar Senha' autoCapitalize='none'
         onChangeText={(text) => setSenha(text)} secureTextEntry={true}></TextInput>
-        
 
-        {loading ?(
-           <ActivityIndicator size="large" color="#0000ff"/>  
-        ): (
-          <>
-          <TouchableOpacity style = {styles.buttonRegistro} title = 'Registrar' onPress={SignUp}>
-          <Text style={styles.text}>Começar jornada!</Text>
-          </TouchableOpacity>
+          {loading ? (
+            <ActivityIndicator size="large" color="#0000ff" />
+          ) : (
+            <>
+              <TouchableOpacity
+                title="Entrar"
+                style={styles.buttonLogin}
+                onPress={SignIn}
+              >
+                <Text style={styles.text}>Entrar</Text>
+              </TouchableOpacity>
+            </>
+          )}
+          </View>
+        </KeyboardAwareScrollView>
 
-          </>
-        )} 
-        </SafeAreaView>
-      </KeyboardAvoidingView>
-
-     
-    
-      
-
-      
-     
-
-    )
-}
-export default Cadastro
+  );
+};
+export default Cadastro;
 
 const styles = StyleSheet.create({
   container:{
-   flex:1,
-
+    flex: 1,
+    marginTop: '60%'
   },
   input: {
     marginTop: 0,
     backgroundColor: "#FFFFFF",
     margin: 10,
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 10,
-    width: '90%',
+    width: 300,
     alignSelf: "center",
     padding: 15,
   },
@@ -150,6 +140,4 @@ const styles = StyleSheet.create({
  fundo:{
   backgroundColor: 'White'
  }
-
- 
 });
