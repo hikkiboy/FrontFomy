@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet} from "react-native"
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView} from "react-native"
 import { useLayoutEffect } from "react"
 import { SafeAreaView } from "react-native-safe-area-context"
 import Feather from 'react-native-vector-icons/Feather'
@@ -33,26 +33,27 @@ export default function Preferences ({navigation}){
     return(
     <SafeAreaView style={styles.container} >
 
+        <ScrollView>
+            <View style={styles.content} >
+                <Text style={styles.title} >Segurança</Text>
+                <View style={styles.configlist} >
+                    <TouchableOpacity style={styles.optionbutton} onPress={ () => navigation.navigate("AlterPassword")} activeOpacity={0.8} >
+                        <Text style={styles.option} >Alterar Senha</Text>
+                        <Feather name="chevron-right" size={28} color={"black"} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.optionbutton} onPress={ () => navigation.navigate("AlterEmail")} activeOpacity={0.8} >
+                        <Text style={styles.option} >Alterar E-mail</Text>
+                        <Feather name="chevron-right" size={28} color={"black"} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.lastoptionbutton} activeOpacity={0.8} >
+                        <Text style={styles.option} >Verificação de 2 Etapas</Text>
+                        <Feather name="chevron-right" size={28} color={"black"} />
+                    </TouchableOpacity>
+                </View>
 
-        <View style={styles.content} >
-            <Text style={styles.title} >Segurança</Text>
-            <View style={styles.configlist} >
-                <TouchableOpacity style={styles.optionbutton} onPress={ () => navigation.navigate("AlterPassword")} activeOpacity={0.8} >
-                    <Text style={styles.option} >Alterar Senha</Text>
-                    <Feather name="chevron-right" size={28} color={"black"} />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.optionbutton} onPress={ () => navigation.navigate("AlterEmail")} activeOpacity={0.8} >
-                    <Text style={styles.option} >Alterar E-mail</Text>
-                    <Feather name="chevron-right" size={28} color={"black"} />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.lastoptionbutton} activeOpacity={0.8} >
-                    <Text style={styles.option} >Verificação de 2 Etapas</Text>
-                    <Feather name="chevron-right" size={28} color={"black"} />
-                </TouchableOpacity>
+
             </View>
-
-
-            </View>
+        </ScrollView>
 
     </SafeAreaView>
 )}
@@ -60,14 +61,14 @@ export default function Preferences ({navigation}){
 const styles = StyleSheet.create({
 container:{
     flex:1,
-    marginTop: 65,
     backgroundColor: "#FFFFFF"
 
 },
 content:{
     paddingLeft: 15,
     paddingRight: 15,
-    paddingBottom: 35
+    paddingBottom: 35,
+    marginTop: 65,
 },
 title:{
     marginStart: 7,

@@ -54,7 +54,7 @@ export function ModalTrilha({ handleAction, data, navigation, cor }){
                         }]}  
                         onPress={ () => navigation.navigate('Preparo',{paramKey:[data.Nome]})}
                     >
-                        <Text style={styles.buttonsee} >Ver receita</Text>
+                        <Text style={styles.buttonsee} >Começar!</Text>
                     </TouchableOpacity>
                     <View style={[{ backgroundColor: 'rgba(0,0,0,0.15)', height: '100%', width: '100%', position: 'absolute', borderRadius: 15, zIndex: 4 }]} ></View>
                 </View>
@@ -116,8 +116,8 @@ const styles = StyleSheet.create({
         marginBottom: 15
     },
     icon:{
-        width:105, 
-        height:104.5,
+        width: 105, 
+        height: 105,
     },
     statarea:{
         flexDirection: 'row',

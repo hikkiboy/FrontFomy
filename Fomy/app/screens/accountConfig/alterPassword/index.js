@@ -148,8 +148,7 @@ const styles = StyleSheet.create({
 container:{
     flex:1,
     justifyContent: 'center',
-    backgroundColor: "#FFF",
-    marginTop: 65
+    backgroundColor: "#FFF"
 
 },
 inputarea:{
@@ -179,6 +178,7 @@ input: {
 content:{
     paddingLeft: 15,
     paddingRight: 15,
+    marginTop: 65
 },
 action:{
     fontSize: 20,

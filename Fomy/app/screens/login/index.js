@@ -24,8 +24,8 @@ import { useNavigation } from "@react-navigation/native";
 
 const LoginPage = () => {
   const navigation = useNavigation();
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
+  const [email, setEmail] = useState("testando@essabudega.com");
+  const [senha, setSenha] = useState("thissucks");
   
   const [loading, setLoading] = useState(false);
   const auth = app_auth;
