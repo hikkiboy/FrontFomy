@@ -22,6 +22,8 @@ import AccountConfig from "../screens/accountConfig"
 import AlterPassword from "../screens/accountConfig/alterPassword"
 import AlterEmail from "../screens/accountConfig/alterEmail"
 
+import Preparo from "../components/preparo";
+import Passos from "../components/passos";
 
 const Stack = createNativeStackNavigator();
 
@@ -98,7 +100,18 @@ export default function Routes() {
         options={{ headerShown: true }}
       />
       
+       <Stack.Screen
+        name="Preparo"
+        component={Preparo}
+        options={{ headerShown: false }}
+      />
+        <Stack.Screen
+        name="Passos"
+        component={Passos}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
+    
   );
 }
 

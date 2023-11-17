@@ -14,20 +14,13 @@ import {
 import React, { useState } from "react";
 import { app_auth } from "../../../firebaseConfig";
 import { Logo } from "../../components/logo";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithRedirect,
 } from "firebase/auth";
-import { Button } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import Home from "../profile";
-import Login from "../initial";
-import fundo from '../../assets/fundinho.png'
 
 import { useNavigation } from "@react-navigation/native";
-import PasswordResets from "../../utils/forgotPassword";
 
 const LoginPage = () => {
   const navigation = useNavigation();
@@ -52,10 +45,13 @@ const LoginPage = () => {
   };
 
   return (
-    <SafeAreaView>
+    
+    
+<>
 
-      <Logo />
-        <View style={styles.container}>
+      
+        <KeyboardAvoidingView style={styles.container} behavior="padding">
+        <Logo/>
           <TextInput
             value={email}
             style={styles.input}
@@ -88,18 +84,18 @@ const LoginPage = () => {
               </TouchableOpacity>
             </>
           )}
-        </View>
+        </KeyboardAvoidingView>
         
 
-    </SafeAreaView>
-    
+        </>
+
   );
 };
 export default LoginPage;
 
 const styles = StyleSheet.create({
   container:{
-    marginBottom: 450
+    flex: 1
   },
   input: {
     marginTop: 0,

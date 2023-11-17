@@ -6,8 +6,18 @@ import React, { useEffect, useState } from 'react'
 import { Route } from '@react-navigation/native';
 import { Icon } from 'react-native-elements';
 
-export default function Trilha({route}) {
   const [Receitas, setReceitas] = useState([]);
+  const [visible, setVisible] = useState(false)
+
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  const handleOnSelectItem = (item) => {
+    setSelectedItem(item);
+  };
+
+  const handleOnCloseModal = () => {
+    setSelectedItem(null);
+  };
 
   
   const NomeTrilha = route.params.paramKey
@@ -34,9 +44,6 @@ export default function Trilha({route}) {
             })
           })
           setReceitas(receitas)
-          
-
-          
         }
       })
       
@@ -44,84 +51,57 @@ export default function Trilha({route}) {
       return() => subscriver()
   
   },[])
+  
 
-  const {width} = useWindowDimensions()
-
-
+  export default function Trilha({route, props, navigation}) {
   return (
     <SafeAreaView style={styles.container} >
-      <ScrollView style ={{ flexGrow: 1, paddingBottom: 300 }}>
-        <View style={{backgroundColor: route.params.paramKey[2],marginTop: '10%', width: width - 20, height: 285, borderRadius:15, alignSelf: "center", marginBottom: 40, zIndex: 1 }}>
-          <View style={[{ backgroundColor: route.params.paramKey[2], height: '96.3%', borderRadius: 15, zIndex: 2 }]} >
-            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
-              <Image style={{width:109, height:109, marginTop: 30}} source={require('../../assets/fogao.png')}/>
-              <Image  style={{width:108, height:139, marginTop:10}} source={require('../../assets/alberto.png')}/>
-              <StatusBar style="auto" />
-            </View>
-            <Text style={styles.trilhaTit}>{route.params.paramKey[0]}</Text>
-            <Text style={styles.textoTrilha}>{route.params.paramKey[1]}</Text>
-          </View>
-          <View style={[{ backgroundColor: 'rgba(0,0,0,0.15)', height: '100%', width: '100%', borderRadius: 15, zIndex: 1, position: 'absolute' }]} ></View>
-            
+      
+      <View style={{backgroundColor: route.params.paramKey[2],marginTop: 14, width: 378, height: 219, borderRadius:15 }}>
+      <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
+        <Image style={{width:109, height:109, marginTop: 18}} source={require('../../assets/fogao.png')}/>
+        <Image  style={{width:108, height:139}} source={require('../../assets/alberto.png')}/>
+        <StatusBar style="auto" />
+        </View>
+          <Text style={styles.trilhaTit}>{route.params.paramKey[0]}</Text>
+          <Text style={styles.textoTrilha}>{route.params.paramKey[1]}</Text>
         </View>
 
    
         {/* <View style={styles.linha}></View> */}
         {/* fazer um flat list pra gerar as fases  */}
       
-        <FlatList
-        data={Receitas}
-        scrollEnabled = {false}
-        showsVerticalScrollIndicator ={false}
-        renderItem={({item}) => (
-          <View style={styles.container} >
-            <View style={styles.row} >
-              <View style={{ height: '107%', width: '100%', zIndex: 1, backgroundColor: '#C9C9C9', position: 'absolute', borderRadius: 15 }} ></View>
-              <View style={{ height: '107%', width: '30%', zIndex: 2, backgroundColor: 'rgba(0,0,0,0.15)', position: 'absolute', borderRadius: 15, borderBottomRightRadius: 0 }} ></View>
-              <View style={[{ height: '107%', width: '30%', zIndex: 1, backgroundColor: route.params.paramKey[2], position: 'absolute', borderRadius: 15, borderBottomRightRadius: 0 }]} ></View>
-              <View style={[{
-                backgroundColor:route.params.paramKey[2],
-                width: "30%",
-                height: "100%",
-                borderTopLeftRadius: 15,
-                borderBottomLeftRadius: 15,
-                justifyContent: 'center',
-                zIndex: 3
-                }]}
-              >
-                  <Text style={styles.textoFase}>{item.Posicao}</Text>
-              </View>
-              <View style={styles.rightRow} >
-                <Text style={styles.descricaoFase}>{item.Nome}</Text>
-                <Image style={styles.detail} source={require("../../assets/lines-detail.png")} />
-                <View style={[{ marginTop: 20, backgroundColor: route.params.paramKey[2], marginBottom: 15, width: '85%', height: 37, borderRadius: 15, zIndex: 4 }]} >
-                  <TouchableOpacity style={[{
-                    backgroundColor:route.params.paramKey[2],
-                    height: '83%',
-                    borderRadius: 15,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    zIndex: 5
-                    }]}  
-                  >
-                    <Text style={styles.buttonsee} >Ver receita</Text>
-                  </TouchableOpacity>
-                  <View style={[{ backgroundColor: 'rgba(0,0,0,0.15)', height: '100%', width: '100%', position: 'absolute', borderRadius: 15, zIndex: 4 }]} ></View>
-                </View>
-              </View>
-            </View>
-            <View style={styles.linha}>
-              <Image tintColor={route.params.paramKey[2]} style={{ height: 97.2, width: 19.2 }} source={require('../../assets/seta_default.png')} />
-            </View>
-            
-          </View>
-        )}
-        />
-      </ScrollView>
-    </SafeAreaView>
-  );
+      <FlatList
+      data={Receitas}
+
+      scrollEnabled = {true}
+      showsVerticalScrollIndicator ={false}
+      renderItem={({item}) => (
+        <View style={styles.container}>
+        <View style={[{
+          backgroundColor:route.params.paramKey[2],
+          width: 112,
+          height: 88,
+          borderRadius: 15,
+          textAlign: "center",
+          marginTop: 50,
+          marginLeft: 15,
+        }]}>
+        <Text style={styles.textoFase}>{item.Posicao}</Text>
+        
+        <View style={styles.linha}></View>
+        </View>
   
+      </View>
+      )}
+      />
+       </SafeAreaView>
+  );
 }
+
+
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -225,6 +205,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     flex: 1,
     paddingLeft: 100
+  },
+  modalContain: {
+    width: "80%",
+    height: "20%",
+    backgroundColor: 'black',
+    justifyContent: 'center',
+    alignSelf: 'center'
   }
 
 });
