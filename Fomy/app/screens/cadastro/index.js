@@ -1,12 +1,11 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Alert, TextInput, ActivityIndicator, KeyboardAvoidingView, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Alert, TextInput, ActivityIndicator, KeyboardAvoidingView, ImageBackground, ScrollView } from 'react-native';
 import React, {useState} from 'react'
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { app, app_DB, app_auth } from '../../../firebaseConfig'
-import { Logo } from '../../components/logo';
-import Ionicons from '@expo/vector-icons/Ionicons'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { useHeaderHeight } from '@react-navigation/elements'
 import { doc, setDoc } from "firebase/firestore"; 
-import {Button} from 'react-native'
-import fundo from '../../assets/fundinho.png'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 
 
@@ -20,7 +19,7 @@ const Cadastro = () => {
     const [loading, setLoading] = useState(false)
     const auth = app_auth;
 
-
+    const height = useHeaderHeight()
     const SignIn = async () => {
       setLoading(true)
       try{
@@ -28,8 +27,8 @@ const Cadastro = () => {
         
 
       } catch (error) {
-        console.log(error)
-        alert('algum erro ocorreu')
+
+        alert('deu erro')
       } finally{
         setLoading(false)
       }
@@ -70,94 +69,94 @@ const Cadastro = () => {
         }
     }
   
-    return (
-      
-      <SafeAreaView>
-      {/*<ImageBackground 
-       source={fundo}
-       style={styles.fundo}
-    >*/}
-
-      <View style = {styles.container}>
+   return (
+        <KeyboardAwareScrollView>
         
-      
-    
+        <View style={styles.container}>
 
-        <TextInput value= {nome} style={styles.input} placeholder='Nome' autoCapitalize='none' onChangeText={(text) => setNome(text)}></TextInput>
-        <TextInput value={email} style = {styles.input} placeholder='Email' autoCapitalize='none'
+        <TextInput value= {nome} style={styles.input} placeholder=' Nome' autoCapitalize='none' onChangeText={(text) => setNome(text)}></TextInput>
+        <TextInput value={email} style = {styles.input} placeholder=' Email' autoCapitalize='none'
         onChangeText={(text) => setEmail(text)}></TextInput>
-         <TextInput value={senha} style = {styles.input} placeholder='Senha' autoCapitalize='none'
+         <TextInput value={senha} style = {styles.input} placeholder=' Senha' autoCapitalize='none'
         onChangeText={(text) => setSenha(text)} secureTextEntry={true}></TextInput>
-        <TextInput value={senha} style = {styles.input} placeholder='Confirmar Senha' autoCapitalize='none'
+        <TextInput value={senha} style = {styles.input} placeholder=' Confirmar Senha' autoCapitalize='none'
         onChangeText={(text) => setSenha(text)} secureTextEntry={true}></TextInput>
-        
 
-        {loading ?(
-           <ActivityIndicator size="large" color="#0000ff"/>  
-        ): (
-          <>
-          <TouchableOpacity style = {styles.buttonRegistro} title = 'Registrar' onPress={SignUp}>
-          <Text style={styles.text}>Começar jornada!</Text>
-          </TouchableOpacity>
+          {loading ? (
+            <ActivityIndicator size="large" color="#0000ff" />
+          ) : (
+            <>
+              <TouchableOpacity
+                title="Entrar"
+                style={styles.buttonLogin}
+                onPress={SignIn}
+              >
+                <Text style={styles.text}>Entrar</Text>
+              </TouchableOpacity>
+            </>
+          )}
+          </View>
+        </KeyboardAwareScrollView>
 
-          </>
-        )} 
-
-        
-
-      </View>
-      {/*</ImageBackground>*/}
-     
-    
-      
-
-      
-     
-    </SafeAreaView  >
-    )
-}
-export default Cadastro
+  );
+};
+export default Cadastro;
 
 const styles = StyleSheet.create({
   container:{
-    marginTop: 250,
-    //marginBottom: 250,
-  
+    flex: 1,
+    marginTop: '60%'
   },
- input: {
-  backgroundColor: '#FFFFFF',
-
+  input: {
+    marginTop: 0,
+    backgroundColor: "#FFFFFF",
     margin: 10,
     borderWidth: 2,
     borderRadius: 10,
-    borderColor:'#A6A6A6',
     width: 300,
-    alignSelf: 'center',
-    padding: 15
- },
- buttonRegistro:{
-  backgroundColor: "#7EB77F",
-  alignSelf: "center",
-  fontSize: 20,
-  fontWeight: "bold",
-  padding: 13,
-  paddingLeft: 40,
-  paddingRight: 40,
-  borderColor: "black",
-  borderWidth: 3,
-  marginTop: 20,
-  marginBottom: 5,
-  borderRadius: 15,
-  width: 250,
- },
- text:{
-  fontWeight: 'bold',
-  fontSize: 18,
-  textAlign: 'center'
- },
- fundo:{
-  backgroundColor: 'White'
- }
-
- 
+    alignSelf: "center",
+    padding: 15,
+  },
+  buttonRegistro: {
+    alignSelf: "center",
+    fontSize: 20,
+    fontWeight: "bold",
+    padding: 13,
+    paddingLeft: 42,
+    paddingRight: 42,
+    borderRadius: 20,
+    borderColor: "black",
+    borderBottomWidth: 7,
+    borderWidth: 3,
+    margin: 3,
+    width: 250,
+    borderTopStartRadius: 0,
+    borderTopEndRadius: 0,
+  },
+  buttonLogin: {
+    backgroundColor: "#7EB77F",
+    alignSelf: "center",
+    fontSize: 20,
+    fontWeight: "bold",
+    padding: 13,
+    paddingLeft: 40,
+    paddingRight: 40,
+    //borderBottomStartRadius: 0,
+    //borderBottomEndRadius: 0,
+    borderColor: "black",
+    borderWidth: 3,
+    marginTop: 20,
+    marginBottom: 5,
+    borderRadius: 10,
+    width: 250,
+  },
+  text: {
+    fontWeight: "bold",
+    fontSize: 18,
+    textAlign: "center",
+  },
+  forgotPassword:{
+    alignSelf: "center",
+    opacity: 0.4
+  }
 });
