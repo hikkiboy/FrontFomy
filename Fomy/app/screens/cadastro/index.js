@@ -27,7 +27,7 @@ const Cadastro = () => {
         
 
       } catch (error) {
-
+        console.log(error)
         alert('deu erro')
       } finally{
         setLoading(false)
@@ -86,13 +86,9 @@ const Cadastro = () => {
             <ActivityIndicator size="large" color="#0000ff" />
           ) : (
             <>
-              <TouchableOpacity
-                title="Entrar"
-                style={styles.buttonLogin}
-                onPress={SignIn}
-              >
-                <Text style={styles.text}>Entrar</Text>
-              </TouchableOpacity>
+          <TouchableOpacity style = {styles.buttonLogin} title = 'Registrar' onPress={SignUp}>
+          <Text style={styles.text}>Começar jornada!</Text>
+          </TouchableOpacity>
             </>
           )}
           </View>
