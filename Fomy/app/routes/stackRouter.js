@@ -24,6 +24,7 @@ import AlterEmail from "../screens/accountConfig/alterEmail"
 
 import Preparo from "../components/preparo";
 import Passos from "../components/passos";
+import Parabens from "../components/parabens";
 
 const Stack = createNativeStackNavigator();
 
@@ -108,6 +109,11 @@ export default function Routes() {
         <Stack.Screen
         name="Passos"
         component={Passos}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Parabens"
+        component={Parabens}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
