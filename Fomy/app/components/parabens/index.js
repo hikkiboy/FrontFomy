@@ -9,6 +9,27 @@ import { app_DB } from '../../../firebaseConfig';
 
 export default function Parabens({navigation, route}){
 
+  const [Receita, setReceita] = useState()
+
+  const handleUpdate = async () => {
+        try{
+            const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
+            await updateDoc(userRef, {
+                ReceitasFeitas: Receita
+            });
+        } catch(error){
+            console.log(error)
+            alert("Ocorreu um erro "+error)
+        }
+};
+
+  useEffect(()=>{
+    setReceita(route?.params.paramKey)
+    handleUpdate()
+
+  }, [])
+
+
     console.log(route?.params.paramKey)
 
     return (
