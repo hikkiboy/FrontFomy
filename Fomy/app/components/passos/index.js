@@ -58,7 +58,6 @@ export default function Passos({route, props, navigation}) {
       
   
   },[])
-  console.log(Receitas)
 
 function pa(i, fwd){
   if(i < Receitas.length && fwd == true){
@@ -76,7 +75,8 @@ function pa(i, fwd){
   } else if( i - 1 == 0 && fwd == false ){
     navigation.goBack()
   } else{
-    navigation.navigate("Parabens")
+    //coloquei isso o replace prq ele tava mandando o id com espaço (?????) ai o query n funfava
+    navigation.navigate("Parabens", {paramKey:[Receitas[0].Parabenizacao,Receitas[0].id.replace(/\s/g, "")]})
   }
 }
 
