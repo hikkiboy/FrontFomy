@@ -12,7 +12,7 @@ export default function Parabens({navigation, route}){
   const [Receita, setReceita] = useState()
   const [XP, setXP] = useState()
   const [ExpAtual,setExpAtual] = useState()
-  const [ReceitasFeitas, setReceitasFeitas] = useEffect([])
+  const [ReceitasFeitas, setReceitasFeitas] = useState([])
   console.log(route?.params.paramKey[1])
   
   useEffect(()=>{
@@ -82,6 +82,11 @@ export default function Parabens({navigation, route}){
 
   const handleUpdate = async () => {
     console.log("RECEITA DENTRO DO HANDLE:", Receita)
+
+    
+
+
+
     if(true){
       
         try{
