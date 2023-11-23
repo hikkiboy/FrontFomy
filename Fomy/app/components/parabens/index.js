@@ -9,38 +9,44 @@ import { app_DB, app_auth } from '../../../firebaseConfig';
 
 export default function Parabens({navigation, route}){
 
-  const [Receita, setReceita] = useState()
+  const Receita = route?.params.paramKey[1]
   const [XP, setXP] = useState()
   const [ExpAtual,setExpAtual] = useState()
   const [ReceitasFeitas, setReceitasFeitas] = useState([])
-  console.log(route?.params.paramKey[1])
+  console.log("Current recipe key: ",route?.params.paramKey[1])
   
   useEffect(()=>{
-    setReceita(route?.params.paramKey[1])
     handleUpdate()
-  }, [])
+    //Fiz com que ele só checasse XP da receita e ReceitasFeitas, sem verificar ExpAtual
+    //Já que o ReceitasFeitas e ExpAtual mudam ao mesmo tempo...
+    //Acho que isso arrumou o fato que ele rodava isso duas vezes antes, dando o dobro de xp na primeira vez que a pessoa fazia
+  }, [XP, ReceitasFeitas])
 
   useEffect(()=>{
-    const XPref = collection(app_DB, 'Usuarios')
+    const UserRef = collection(app_DB, 'Usuarios')
     const q = query(
-        XPref,
+        UserRef,
         where(documentId(), '==', app_auth.currentUser.uid)
     )
 
     const subscriver = onSnapshot(q, {
         next : (snapshot) => {
-            const exp = []
+            const userq = []
             
             snapshot.docs.forEach(doc =>{   
-                exp.push({
+                userq.push({
                     key : doc.id,
                     ...doc.data(),
                    
                 })
             })
-            setExpAtual(exp[0].Exp)
-            setReceitasFeitas(exp[0].ReceitasFeitas)
-            console.log(ExpAtual)
+            setExpAtual(userq[0].Exp)
+            setReceitasFeitas(userq[0].ReceitasFeitas)
+            console.log()
+            console.log("Current XP: ", userq[0].Exp)
+            console.log()
+            console.log("Recipes that the user did before: ", userq[0].ReceitasFeitas)
+            console.log()
         }
     })
 
@@ -50,9 +56,9 @@ export default function Parabens({navigation, route}){
 
   
   useEffect(()=>{
-    const XPref = collection(app_DB, 'Receitas')
+    const XPRef = collection(app_DB, 'Receitas')
     const q = query(
-        XPref,
+        XPRef,
         where(documentId(), '==', route?.params.paramKey[1])
     )
 
@@ -68,8 +74,7 @@ export default function Parabens({navigation, route}){
                 })
             })
             setXP(exp[0].Exp)
-            console.log(exp[0].Exp)
-            console.log(XP)
+            console.log("Recipe xp: ", XP)
         }
     })
 
@@ -81,31 +86,50 @@ export default function Parabens({navigation, route}){
 
 
   const handleUpdate = async () => {
-    console.log("RECEITA DENTRO DO HANDLE:", Receita)
+    //checa se tem algo para não atualizar o xp da pessoa com NaN ou undefined
+    if (ExpAtual != undefined && XP != undefined && ExpAtual != NaN && XP != NaN){
+      try{
+        //checa se dentro do "mapa" de ReceitasFeitas tem a Receita que acabou de fazer
+        var checkIfDid = false
+        ReceitasFeitas.forEach((field) => {
+          if(field.match(Receita)){
+            checkIfDid = true
+          }
+        })
 
-    
 
+        //Sempre que ele faz pela primeira vez, ele faz isso duas vezes dando o dobro de xp
+        //eu acho que o setState é tão FUCKING LENTO que precisa rodar DUAS VEZES para ele atualizar para tudo
+        //UPDATE: (olha no primeiro useEffect)
+        if(!checkIfDid){
+          
+            //Coloquei em uma variavel prq tava dando erro colocando dentro do UpdateDoc
+            //Ou só foi um pequeno bug e isso n arrumou nada mas whatever quem liga
+            var addExp = (ExpAtual + XP)
 
+            try{
+                console.log("------atualizou xp do perfil------\n\n")
+                const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
+                await updateDoc(userRef, {
+                    ReceitasFeitas: arrayUnion(Receita),
+                    Exp: addExp
 
-    if(true){
-      
-        try{
-            const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
-            await updateDoc(userRef, {
-                ReceitasFeitas: arrayUnion(Receita),
-                Exp: ExpAtual + XP
-
-            });
-        } catch(error){
-            console.log(error)
-        }
+                });
+            } catch(error){
+                console.log(error)
+            }
+          } else{
+            //Ele tá mandando isso até na primeira vez, mas eu n ligo prq tá funcionando :)
+            console.log("esse maluquinho realmente acha que pode farmar xp LOL!!!")
+          }
+      } catch(error) {
+        console.log("esse try só checa por erro de lógica:")
+        console.log(error)
       }
+    } else{
+      console.log("Tentou mas n foi prq é burro, que imbecil...")
+    }
 };
-
-
-
-
-    console.log(route?.params.paramKey)
 
     return (
         <SafeAreaView style={styles.container}>

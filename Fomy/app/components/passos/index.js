@@ -75,7 +75,7 @@ function pa(i, fwd){
   } else if( i - 1 == 0 && fwd == false ){
     navigation.goBack()
   } else{
-    navigation.navigate("Parabens", {paramKey:[Receitas[0].Parabenizacao, Receitas[0].id] })
+    navigation.navigate("Parabens", {paramKey:[Receitas[0].Parabenizacao,Receitas[0].id.replace(/\s/g, "")]})
   }
 }
 
