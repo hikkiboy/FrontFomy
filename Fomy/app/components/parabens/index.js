@@ -12,6 +12,7 @@ export default function Parabens({navigation, route}){
   const [Receita, setReceita] = useState()
   const [XP, setXP] = useState()
   const [ExpAtual,setExpAtual] = useState()
+  const [ReceitasFeitas, setReceitasFeitas] = useEffect([])
   console.log(route?.params.paramKey[1])
   
   useEffect(()=>{
@@ -38,6 +39,7 @@ export default function Parabens({navigation, route}){
                 })
             })
             setExpAtual(exp[0].Exp)
+            setReceitasFeitas(exp[0].ReceitasFeitas)
             console.log(ExpAtual)
         }
     })
