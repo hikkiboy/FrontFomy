@@ -3,31 +3,99 @@ import { StyleSheet, Text, View, Image,FlatList,TouchableWithoutFeedback, Toucha
 import React, { useEffect, useState } from 'react'
 import { Feather } from 'react-native-vector-icons'
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { collection, onSnapshot, query, where, orderBy,documentId } from '@firebase/firestore'
-import { app_DB } from '../../../firebaseConfig';
+import { collection, onSnapshot, query, where, orderBy,documentId,doc, updateDoc, arrayUnion } from '@firebase/firestore'
+import { app_DB, app_auth } from '../../../firebaseConfig';
 
 
 export default function Parabens({navigation, route}){
 
   const [Receita, setReceita] = useState()
+  const [XP, setXP] = useState()
+  const [ExpAtual,setExpAtual] = useState()
+  console.log(route?.params.paramKey[1])
+  
+  useEffect(()=>{
+    setReceita(route?.params.paramKey[1])
+    handleUpdate()
+  }, [])
+
+  useEffect(()=>{
+    const XPref = collection(app_DB, 'Usuarios')
+    const q = query(
+        XPref,
+        where(documentId(), '==', app_auth.currentUser.uid)
+    )
+
+    const subscriver = onSnapshot(q, {
+        next : (snapshot) => {
+            const exp = []
+            
+            snapshot.docs.forEach(doc =>{   
+                exp.push({
+                    key : doc.id,
+                    ...doc.data(),
+                   
+                })
+            })
+            setExpAtual(exp[0].Exp)
+            console.log(ExpAtual)
+        }
+    })
+
+    return() => subscriver()
+
+},[])
+
+  
+  useEffect(()=>{
+    const XPref = collection(app_DB, 'Receitas')
+    const q = query(
+        XPref,
+        where(documentId(), '==', route?.params.paramKey[1])
+    )
+
+    const subscriver = onSnapshot(q, {
+        next : (snapshot) => {
+            const exp = []
+            
+            snapshot.docs.forEach(doc =>{   
+                exp.push({
+                    key : doc.id,
+                    ...doc.data(),
+                   
+                })
+            })
+            setXP(exp[0].Exp)
+            console.log(exp[0].Exp)
+            console.log(XP)
+        }
+    })
+
+    return() => subscriver()
+
+},[])
+
+
+
 
   const handleUpdate = async () => {
+    console.log("RECEITA DENTRO DO HANDLE:", Receita)
+    if(true){
+      
         try{
             const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
             await updateDoc(userRef, {
-                ReceitasFeitas: Receita
+                ReceitasFeitas: arrayUnion(Receita),
+                Exp: ExpAtual + XP
+
             });
         } catch(error){
             console.log(error)
-            alert("Ocorreu um erro "+error)
         }
+      }
 };
 
-  useEffect(()=>{
-    setReceita(route?.params.paramKey)
-    handleUpdate()
 
-  }, [])
 
 
     console.log(route?.params.paramKey)
@@ -49,7 +117,7 @@ export default function Parabens({navigation, route}){
              </View>
              <View>
                 <Text style={styles.parabenstitulo}>AI SIM HEIN!!</Text>
-                <Text style={styles.parabenstexto}>{route.params.paramKey}</Text>
+                <Text style={styles.parabenstexto}>{route.params.paramKey[0]}</Text>
              </View>
              <TouchableOpacity onPress={() => navigation.navigate('Perfil')}>
              <View style={styles.butao}>

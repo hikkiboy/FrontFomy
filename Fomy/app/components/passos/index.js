@@ -58,8 +58,6 @@ export default function Passos({route, props, navigation}) {
       
   
   },[])
-  console.log(Receitas)
-  console.log(Receitas[0].Parabenizacao)
 
 function pa(i, fwd){
   if(i < Receitas.length && fwd == true){
@@ -77,7 +75,7 @@ function pa(i, fwd){
   } else if( i - 1 == 0 && fwd == false ){
     navigation.goBack()
   } else{
-    navigation.navigate("Parabens", {paramKey:[Receitas[0].Parabenizacao] })
+    navigation.navigate("Parabens", {paramKey:[Receitas[0].Parabenizacao, Receitas[0].id] })
   }
 }
 
