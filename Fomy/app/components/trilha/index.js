@@ -1,18 +1,19 @@
 import { StatusBar } from 'expo-status-bar';
 import { Alert, Modal, Pressable, StyleSheet, Text, View, Image, ScrollView, FlatList, useWindowDimensions, TouchableOpacity} from 'react-native';
-import { app, app_DB } from '../../../firebaseConfig'
+import { app, app_DB, app_auth } from '../../../firebaseConfig'
 import { collection, onSnapshot, query, where, orderBy,documentId } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { Route } from '@react-navigation/native';
-import { Icon } from 'react-native-elements';
+import { Button, ButtonGroup, Icon } from 'react-native-elements';
 import { ModalTrilha } from '../actionmodal/modaltrilha';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 
-export default function Trilha({ route, navigation }) {
+export default  function Trilha({ route, navigation }) {
   const [Receitas, setReceitas] = useState([]);
   const [modal, setModal] = useState([])
+  const [onde, setOnde] = useState()
 
   
 
@@ -51,8 +52,41 @@ export default function Trilha({ route, navigation }) {
       return() => subscriver()
   
   },[])
+  useEffect(()=>{
+    
+    const receitaRef = collection(app_DB, 'Usuarios')
+    
+    const q = query(
+      receitaRef,
+      where(documentId(), '==', app_auth.currentUser.uid),
+      )
+      console.log(NomeTrilha)     
+      const subscriver = onSnapshot(q, {
+        next : (snapshot) => {
+          const receitas = []
+          snapshot.docs.forEach(doc =>{
+            receitas.push({
+              key : doc.id,
+              ...doc.data(),
+              
+            })
+          })
+          setOnde(receitas)
+          
+
+          
+        }
+      })
+      
+      return() => subscriver()
+      
+
+  
+  },[])
 
   const {width} = useWindowDimensions()
+  
+
 
   const [visible, setVisible] = useState(false)
 
@@ -61,7 +95,7 @@ export default function Trilha({ route, navigation }) {
     setModal(item)
 }
 
-
+var papa = route?.params.paramKey[0]
 
   return (
     <SafeAreaView style={styles.status} >
@@ -76,6 +110,7 @@ export default function Trilha({ route, navigation }) {
             </View>
             <Text style={styles.trilhaTit}>{route.params.paramKey[0]}</Text>
             <Text style={styles.textoTrilha}>{route.params.paramKey[1]}</Text>
+            
           </View>
           <View style={[{ backgroundColor: 'rgba(0,0,0,0.15)', height: '100%', width: '100%', borderRadius: 15, zIndex: 1, position: 'absolute' }]} ></View>
             
@@ -118,9 +153,11 @@ export default function Trilha({ route, navigation }) {
         renderItem={({item}) => (
           <View style={styles.container} >
             <View style={styles.row} >
+              
               <View style={{ height: '107%', width: '100%', zIndex: 1, backgroundColor: '#C9C9C9', position: 'absolute', borderRadius: 15 }} ></View>
               <View style={{ height: '107%', width: '30%', zIndex: 2, backgroundColor: 'rgba(0,0,0,0.15)', position: 'absolute', borderRadius: 15, borderBottomRightRadius: 0 }} ></View>
               <View style={[{ height: '107%', width: '30%', zIndex: 1, backgroundColor: route.params.paramKey[2], position: 'absolute', borderRadius: 15, borderBottomRightRadius: 0 }]} ></View>
+              
               <View style={[{
                 backgroundColor:route.params.paramKey[2],
                 width: "30%",
@@ -131,6 +168,7 @@ export default function Trilha({ route, navigation }) {
                 zIndex: 3
                 }]}
               >
+                <Button onPress={() => console.log(onde[0].papa)}/>
                   <Text style={styles.textoFase}>{item.Posicao}</Text>
 
             
@@ -140,6 +178,8 @@ export default function Trilha({ route, navigation }) {
                 <Image style={styles.detail} source={require("../../assets/lines-detail.png")} />
                 <View style={[{ marginTop: 20, backgroundColor: route.params.paramKey[2], marginBottom: 15, width: '85%', height: 37, borderRadius: 15, zIndex: 4 }]} >
                  
+                 
+                 {onde[0].route?.params.paramKey[0] +1 >= Receitas[Receitas.indexOf(item)].Posicao && (
                   <TouchableOpacity style={[{
                     backgroundColor:route.params.paramKey[2],
                     height: '83%',
@@ -152,6 +192,8 @@ export default function Trilha({ route, navigation }) {
                   >
                     <Text style={styles.buttonsee} >Ver receita</Text>
                   </TouchableOpacity>
+                  )}
+  
                   <View style={[{ backgroundColor: 'rgba(0,0,0,0.15)', height: '100%', width: '100%', position: 'absolute', borderRadius: 15, zIndex: 4 }]} ></View>
                 </View>
               </View>

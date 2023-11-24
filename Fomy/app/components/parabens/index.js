@@ -13,6 +13,7 @@ export default function Parabens({navigation, route}){
   const [XP, setXP] = useState()
   const [ExpAtual,setExpAtual] = useState()
   const [ReceitasFeitas, setReceitasFeitas] = useState([])
+  const [DocesQ, setDocesQ] = useState()
   console.log("Current recipe key: ",route?.params.paramKey[1])
   
   useEffect(()=>{
@@ -42,6 +43,7 @@ export default function Parabens({navigation, route}){
             })
             setExpAtual(userq[0].Exp)
             setReceitasFeitas(userq[0].ReceitasFeitas)
+            setDocesQ(userq[0].Doces)
             console.log()
             console.log("Current XP: ", userq[0].Exp)
             console.log()
@@ -112,7 +114,8 @@ export default function Parabens({navigation, route}){
                 const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
                 await updateDoc(userRef, {
                     ReceitasFeitas: arrayUnion(Receita),
-                    Exp: addExp
+                    Exp: addExp,
+                    Doces: DocesQ + 1
 
                 });
             } catch(error){
