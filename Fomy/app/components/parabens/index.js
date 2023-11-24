@@ -15,6 +15,7 @@ export default function Parabens({navigation, route}){
   const [ReceitasFeitas, setReceitasFeitas] = useState([])
   const [DocesQ, setDocesQ] = useState()
   console.log("Current recipe key: ",route?.params.paramKey[1])
+  console.log("Current Trilha: ", route?.params.paramKey[2])
   
   useEffect(()=>{
     handleUpdate()
@@ -43,7 +44,7 @@ export default function Parabens({navigation, route}){
             })
             setExpAtual(userq[0].Exp)
             setReceitasFeitas(userq[0].ReceitasFeitas)
-            setDocesQ(userq[0].Doces)
+            setDocesQ(userq)
             console.log()
             console.log("Current XP: ", userq[0].Exp)
             console.log()
@@ -84,8 +85,31 @@ export default function Parabens({navigation, route}){
 
 },[])
 
+function handleTrilha (){
+  try {
+    if (route?.params.paramKey[2] == "Refeições"){
+      setDocesQ(DocesQ[0].Refeições)
+      console.log(DocesQ)
+    }
+    else if(route?.params.paramKey[2] == "Basico"){
+      setDocesQ(DocesQ[0].Basico)
+      console.log(DocesQ)
+    }
+    else if(route?.params.paramKey[2] == "Doces"){
+      setDocesQ(DocesQ[0].Doces)
+      console.log(DocesQ)
+    }
+    else{
+      console.log("Deu errado :(")
+    }
+  } catch (error) {
+    console.log("deu errado dog")
+  }
+
+}
 
 
+handleTrilha()
 
   const handleUpdate = async () => {
     //checa se tem algo para não atualizar o xp da pessoa com NaN ou undefined
@@ -115,9 +139,32 @@ export default function Parabens({navigation, route}){
                 await updateDoc(userRef, {
                     ReceitasFeitas: arrayUnion(Receita),
                     Exp: addExp,
-                    Doces: DocesQ + 1
-
                 });
+                if(route?.params.paramKey[2] == 'Refeições'){
+                  const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
+                await updateDoc(userRef, {
+                    Refeições: DocesQ + 1
+                });
+                }
+                else if(route?.params.paramKey[2] == 'Doces'){
+                  const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
+                await updateDoc(userRef, {
+                    Doces: DocesQ + 1
+                });
+                }
+                else if(route?.params.paramKey[2] == 'Basico'){
+                  const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
+                await updateDoc(userRef, {
+                    Basico: DocesQ + 1
+                });
+                }
+                else if(route?.params.paramKey[2] == 'Gourmet'){
+                  const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
+                await updateDoc(userRef, {
+                    Gourmet: DocesQ + 1
+                });
+                }
+
             } catch(error){
                 console.log(error)
             }

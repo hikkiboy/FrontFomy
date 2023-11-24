@@ -76,7 +76,7 @@ function pa(i, fwd){
     navigation.goBack()
   } else{
     //coloquei isso o replace prq ele tava mandando o id com espaço (?????) ai o query n funfava
-    navigation.navigate("Parabens", {paramKey:[Receitas[0].Parabenizacao,Receitas[0].id.replace(/\s/g, "")]})
+    navigation.navigate("Parabens", {paramKey:[Receitas[0].Parabenizacao,Receitas[0].id.replace(/\s/g, ""), Receitas[0].Trilha]})
   }
 }
 

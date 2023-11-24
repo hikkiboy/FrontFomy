@@ -59,8 +59,8 @@ export default  function Trilha({ route, navigation }) {
     const q = query(
       receitaRef,
       where(documentId(), '==', app_auth.currentUser.uid),
-      )
-      console.log(NomeTrilha)     
+      
+      )  
       const subscriver = onSnapshot(q, {
         next : (snapshot) => {
           const receitas = []
@@ -72,7 +72,7 @@ export default  function Trilha({ route, navigation }) {
             })
           })
           setOnde(receitas)
-          
+
 
           
         }
@@ -95,7 +95,38 @@ export default  function Trilha({ route, navigation }) {
     setModal(item)
 }
 
-var papa = route?.params.paramKey[0]
+function handleTrilha (){
+  try {
+    if (route?.params.paramKey[0] == "Refeições"){
+      setOnde(onde[0].Refeições)
+      console.log(onde)
+    }
+    else if(route?.params.paramKey[0] == "Basico"){
+      setOnde(onde[0].Basico)
+      console.log(onde)
+    }
+    else if(route?.params.paramKey[0] == "Doces"){
+      setOnde(onde[0].Doces)
+      console.log(onde)
+    }
+    else if(route?.params.paramKey[0] == "Gourmet"){
+      setOnde(onde[0].Gourmet)
+      console.log(onde)
+    }
+
+    else{
+      console.log("Deu errado :(")
+    }
+  } catch (error) {
+    console.log("deu errado dog")
+  }
+
+}
+
+
+handleTrilha()
+
+
 
   return (
     <SafeAreaView style={styles.status} >
@@ -168,7 +199,6 @@ var papa = route?.params.paramKey[0]
                 zIndex: 3
                 }]}
               >
-                <Button onPress={() => console.log(onde[0].papa)}/>
                   <Text style={styles.textoFase}>{item.Posicao}</Text>
 
             
@@ -179,7 +209,7 @@ var papa = route?.params.paramKey[0]
                 <View style={[{ marginTop: 20, backgroundColor: route.params.paramKey[2], marginBottom: 15, width: '85%', height: 37, borderRadius: 15, zIndex: 4 }]} >
                  
                  
-                 {onde[0].route?.params.paramKey[0] +1 >= Receitas[Receitas.indexOf(item)].Posicao && (
+                 {onde +1 >= Receitas[Receitas.indexOf(item)].Posicao && (
                   <TouchableOpacity style={[{
                     backgroundColor:route.params.paramKey[2],
                     height: '83%',
