@@ -22,6 +22,5 @@ export const app_auth = getAuth(app);
 export const app_DB = getFirestore(app);
 export const app_BKT = getStorage(app);
 
-
-export {firebase}
-
+//IOS: 27576730639-s5jlear7di4c8pmld8sqe3fqeo5qg601.apps.googleusercontent.com
+//ANDROID: 27576730639-f5up9pq9f3fcvbn2lltms4sura2sn8uv.apps.googleusercontent.com
