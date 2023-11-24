@@ -14,6 +14,8 @@ export default function Parabens({navigation, route}){
   const [ExpAtual,setExpAtual] = useState()
   const [ReceitasFeitas, setReceitasFeitas] = useState([])
   const [DocesQ, setDocesQ] = useState()
+  const [MAtual, setMAtual] = useState()
+  const [Moeda, setMoeda] = useState()
   console.log("Current recipe key: ",route?.params.paramKey[1])
   console.log("Current Trilha: ", route?.params.paramKey[2])
   
@@ -45,11 +47,13 @@ export default function Parabens({navigation, route}){
             setExpAtual(userq[0].Exp)
             setReceitasFeitas(userq[0].ReceitasFeitas)
             setDocesQ(userq)
+            setMAtual(userq[0].Moedas)
             console.log()
             console.log("Current XP: ", userq[0].Exp)
             console.log()
             console.log("Recipes that the user did before: ", userq[0].ReceitasFeitas)
             console.log()
+            console.log("Moedas do usuario:", MAtual)
         }
     })
 
@@ -77,6 +81,9 @@ export default function Parabens({navigation, route}){
                 })
             })
             setXP(exp[0].Exp)
+            setMoeda(exp[0].Moedas)
+            console.log("Recipe moedas:", Moeda)
+            console.log()
             console.log("Recipe xp: ", XP)
         }
     })
@@ -132,6 +139,7 @@ handleTrilha()
             //Coloquei em uma variavel prq tava dando erro colocando dentro do UpdateDoc
             //Ou só foi um pequeno bug e isso n arrumou nada mas whatever quem liga
             var addExp = (ExpAtual + XP)
+            var addMoeda = (MAtual + Moeda)
 
             try{
                 console.log("------atualizou xp do perfil------\n\n")
@@ -139,6 +147,7 @@ handleTrilha()
                 await updateDoc(userRef, {
                     ReceitasFeitas: arrayUnion(Receita),
                     Exp: addExp,
+                    Moedas: addMoeda
                 });
                 if(route?.params.paramKey[2] == 'Refeições'){
                   const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
