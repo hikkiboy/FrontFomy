@@ -7,6 +7,7 @@ import { Route } from '@react-navigation/native';
 import { Button, ButtonGroup, Icon } from 'react-native-elements';
 import { ModalTrilha } from '../actionmodal/modaltrilha';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { FontAwesome } from '@expo/vector-icons'; 
 
 
 
@@ -199,17 +200,34 @@ handleTrilha()
                 zIndex: 3
                 }]}
               >
-                  <Text style={styles.textoFase}>{item.Posicao}</Text>
+            
+                {onde +1 == Receitas[Receitas.indexOf(item)].Posicao &&(
+
+                  <Image  style={styles.bandeira} source={require('../../assets/Bandeira-Trilha.png')}/>
+
+                )}
+                 {onde +1 > Receitas[Receitas.indexOf(item)].Posicao &&(
+
+                  <Image  style={styles.estrela} source={require('../../assets/estrelha-trilha.png')}/>
+
+                )}
+                  {onde +1 < Receitas[Receitas.indexOf(item)].Posicao &&(
+
+                    <Text style={styles.textoFase}>{item.Posicao}</Text>
+
+                )}
+
+
 
             
               </View>
               <View style={styles.rightRow} >
                 <Text style={styles.descricaoFase}>{item.Nome}</Text>
                 <Image style={styles.detail} source={require("../../assets/lines-detail.png")} />
+                 {onde +1 >= Receitas[Receitas.indexOf(item)].Posicao && (
                 <View style={[{ marginTop: 20, backgroundColor: route.params.paramKey[2], marginBottom: 15, width: '85%', height: 37, borderRadius: 15, zIndex: 4 }]} >
                  
                  
-                 {onde +1 >= Receitas[Receitas.indexOf(item)].Posicao && (
                   <TouchableOpacity style={[{
                     backgroundColor:route.params.paramKey[2],
                     height: '83%',
@@ -222,10 +240,16 @@ handleTrilha()
                   >
                     <Text style={styles.buttonsee} >Ver receita</Text>
                   </TouchableOpacity>
-                  )}
+
   
-                  <View style={[{ backgroundColor: 'rgba(0,0,0,0.15)', height: '100%', width: '100%', position: 'absolute', borderRadius: 15, zIndex: 4 }]} ></View>
+                  <View style={[{ backgroundColor: 'rgba(0,0,0,0.15)', height: '100%', width: '100%', position: 'absolute', borderRadius: 15, zIndex: 4 }]} >
+
+                  </View>
                 </View>
+                  )}
+                  {onde +1 < Receitas[Receitas.indexOf(item)].Posicao && (
+                    <FontAwesome style={styles.cadeado} name="lock" size={58} color="black" />
+                   )}
               </View>
             </View>
             <View style={styles.linha}>
@@ -259,8 +283,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     borderRadius: 15,
     maxHeight: 200
-
-
   },
   rightRow:{
     width: '70%',
@@ -269,7 +291,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 15,
     alignItems: 'center',
     zIndex: 3,
-    backgroundColor:'#FFF'
+    backgroundColor:'#FFF',
 
   },
   detail:{
@@ -365,6 +387,20 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     }
+    },
+    cadeado:{
+      alignSelf: 'center',
+      marginTop: 10
+    },
+    estrela:{
+      width: 80,
+      height: 80,
+      alignSelf: 'center',
+    },
+    bandeira:{
+      width: 70,
+      height: 70,
+      alignSelf: 'center',
     }
 
 });

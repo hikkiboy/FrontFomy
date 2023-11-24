@@ -82,7 +82,9 @@ export default function Parabens({navigation, route}){
             })
             setXP(exp[0].Exp)
             setMoeda(exp[0].Moedas)
-            console.log("Recipe moedas:", Moeda)
+            console.log()
+            console.log("JOAO",typeof exp[0].Moedas)
+            console.log("jorge:", typeof Moeda)
             console.log()
             console.log("Recipe xp: ", XP)
         }
@@ -139,8 +141,8 @@ handleTrilha()
             //Coloquei em uma variavel prq tava dando erro colocando dentro do UpdateDoc
             //Ou só foi um pequeno bug e isso n arrumou nada mas whatever quem liga
             var addExp = (ExpAtual + XP)
-            var addMoeda = (MAtual + Moeda)
-
+            let addMoeda = (MAtual + Moeda)
+            console.log("poggers",addMoeda)
             try{
                 console.log("------atualizou xp do perfil------\n\n")
                 const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
