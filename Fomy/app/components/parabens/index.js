@@ -13,7 +13,11 @@ export default function Parabens({navigation, route}){
   const [XP, setXP] = useState()
   const [ExpAtual,setExpAtual] = useState()
   const [ReceitasFeitas, setReceitasFeitas] = useState([])
+  const [DocesQ, setDocesQ] = useState()
+  const [MAtual, setMAtual] = useState()
+  const [Moeda, setMoeda] = useState()
   console.log("Current recipe key: ",route?.params.paramKey[1])
+  console.log("Current Trilha: ", route?.params.paramKey[2])
   
   useEffect(()=>{
     handleUpdate()
@@ -42,11 +46,14 @@ export default function Parabens({navigation, route}){
             })
             setExpAtual(userq[0].Exp)
             setReceitasFeitas(userq[0].ReceitasFeitas)
+            setDocesQ(userq)
+            setMAtual(userq[0].Moedas)
             console.log()
             console.log("Current XP: ", userq[0].Exp)
             console.log()
             console.log("Recipes that the user did before: ", userq[0].ReceitasFeitas)
             console.log()
+            console.log("Moedas do usuario:", MAtual)
         }
     })
 
@@ -74,6 +81,11 @@ export default function Parabens({navigation, route}){
                 })
             })
             setXP(exp[0].Exp)
+            setMoeda(exp[0].Moedas)
+            console.log()
+            console.log("JOAO",typeof exp[0].Moedas)
+            console.log("jorge:", typeof Moeda)
+            console.log()
             console.log("Recipe xp: ", XP)
         }
     })
@@ -82,8 +94,31 @@ export default function Parabens({navigation, route}){
 
 },[])
 
+function handleTrilha (){
+  try {
+    if (route?.params.paramKey[2] == "Refeições"){
+      setDocesQ(DocesQ[0].Refeições)
+      console.log(DocesQ)
+    }
+    else if(route?.params.paramKey[2] == "Basico"){
+      setDocesQ(DocesQ[0].Basico)
+      console.log(DocesQ)
+    }
+    else if(route?.params.paramKey[2] == "Doces"){
+      setDocesQ(DocesQ[0].Doces)
+      console.log(DocesQ)
+    }
+    else{
+      console.log("Deu errado :(")
+    }
+  } catch (error) {
+    console.log("deu errado dog")
+  }
+
+}
 
 
+handleTrilha()
 
   const handleUpdate = async () => {
     //checa se tem algo para não atualizar o xp da pessoa com NaN ou undefined
@@ -106,15 +141,41 @@ export default function Parabens({navigation, route}){
             //Coloquei em uma variavel prq tava dando erro colocando dentro do UpdateDoc
             //Ou só foi um pequeno bug e isso n arrumou nada mas whatever quem liga
             var addExp = (ExpAtual + XP)
-
+            let addMoeda = (MAtual + Moeda)
+            console.log("poggers",addMoeda)
             try{
                 console.log("------atualizou xp do perfil------\n\n")
                 const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
                 await updateDoc(userRef, {
                     ReceitasFeitas: arrayUnion(Receita),
-                    Exp: addExp
-
+                    Exp: addExp,
+                    Moedas: addMoeda
                 });
+                if(route?.params.paramKey[2] == 'Refeições'){
+                  const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
+                await updateDoc(userRef, {
+                    Refeições: DocesQ + 1
+                });
+                }
+                else if(route?.params.paramKey[2] == 'Doces'){
+                  const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
+                await updateDoc(userRef, {
+                    Doces: DocesQ + 1
+                });
+                }
+                else if(route?.params.paramKey[2] == 'Basico'){
+                  const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
+                await updateDoc(userRef, {
+                    Basico: DocesQ + 1
+                });
+                }
+                else if(route?.params.paramKey[2] == 'Gourmet'){
+                  const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
+                await updateDoc(userRef, {
+                    Gourmet: DocesQ + 1
+                });
+                }
+
             } catch(error){
                 console.log(error)
             }

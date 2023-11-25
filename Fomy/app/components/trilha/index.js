@@ -1,18 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
 import { Alert, Modal, Pressable, StyleSheet, Text, View, Image, ScrollView, FlatList, useWindowDimensions, TouchableOpacity} from 'react-native';
-import { app, app_DB } from '../../../firebaseConfig'
+import { app, app_DB, app_auth } from '../../../firebaseConfig'
 import { collection, onSnapshot, query, where, orderBy,documentId } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { Route } from '@react-navigation/native';
-import { Icon } from 'react-native-elements';
+import { Button, ButtonGroup, Icon } from 'react-native-elements';
 import { ModalTrilha } from '../actionmodal/modaltrilha';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { FontAwesome } from '@expo/vector-icons'; 
 
 
 
-export default function Trilha({ route, navigation }) {
+export default  function Trilha({ route, navigation }) {
   const [Receitas, setReceitas] = useState([]);
   const [modal, setModal] = useState([])
+  const [onde, setOnde] = useState()
 
   
 
@@ -51,8 +53,41 @@ export default function Trilha({ route, navigation }) {
       return() => subscriver()
   
   },[])
+  useEffect(()=>{
+    
+    const receitaRef = collection(app_DB, 'Usuarios')
+    
+    const q = query(
+      receitaRef,
+      where(documentId(), '==', app_auth.currentUser.uid),
+      
+      )  
+      const subscriver = onSnapshot(q, {
+        next : (snapshot) => {
+          const receitas = []
+          snapshot.docs.forEach(doc =>{
+            receitas.push({
+              key : doc.id,
+              ...doc.data(),
+              
+            })
+          })
+          setOnde(receitas)
+
+
+          
+        }
+      })
+      
+      return() => subscriver()
+      
+
+  
+  },[])
 
   const {width} = useWindowDimensions()
+  
+
 
   const [visible, setVisible] = useState(false)
 
@@ -60,6 +95,37 @@ export default function Trilha({ route, navigation }) {
     setVisible(!visible);
     setModal(item)
 }
+
+function handleTrilha (){
+  try {
+    if (route?.params.paramKey[0] == "Refeições"){
+      setOnde(onde[0].Refeições)
+      console.log(onde)
+    }
+    else if(route?.params.paramKey[0] == "Basico"){
+      setOnde(onde[0].Basico)
+      console.log(onde)
+    }
+    else if(route?.params.paramKey[0] == "Doces"){
+      setOnde(onde[0].Doces)
+      console.log(onde)
+    }
+    else if(route?.params.paramKey[0] == "Gourmet"){
+      setOnde(onde[0].Gourmet)
+      console.log(onde)
+    }
+
+    else{
+      console.log("Deu errado :(")
+    }
+  } catch (error) {
+    console.log("deu errado dog")
+  }
+
+}
+
+
+handleTrilha()
 
 
 
@@ -76,6 +142,7 @@ export default function Trilha({ route, navigation }) {
             </View>
             <Text style={styles.trilhaTit}>{route.params.paramKey[0]}</Text>
             <Text style={styles.textoTrilha}>{route.params.paramKey[1]}</Text>
+            
           </View>
           <View style={[{ backgroundColor: 'rgba(0,0,0,0.15)', height: '100%', width: '100%', borderRadius: 15, zIndex: 1, position: 'absolute' }]} ></View>
             
@@ -118,9 +185,11 @@ export default function Trilha({ route, navigation }) {
         renderItem={({item}) => (
           <View style={styles.container} >
             <View style={styles.row} >
+              
               <View style={{ height: '107%', width: '100%', zIndex: 1, backgroundColor: '#C9C9C9', position: 'absolute', borderRadius: 15 }} ></View>
               <View style={{ height: '107%', width: '30%', zIndex: 2, backgroundColor: 'rgba(0,0,0,0.15)', position: 'absolute', borderRadius: 15, borderBottomRightRadius: 0 }} ></View>
               <View style={[{ height: '107%', width: '30%', zIndex: 1, backgroundColor: route.params.paramKey[2], position: 'absolute', borderRadius: 15, borderBottomRightRadius: 0 }]} ></View>
+              
               <View style={[{
                 backgroundColor:route.params.paramKey[2],
                 width: "30%",
@@ -131,14 +200,33 @@ export default function Trilha({ route, navigation }) {
                 zIndex: 3
                 }]}
               >
-                  <Text style={styles.textoFase}>{item.Posicao}</Text>
+            
+                {onde +1 == Receitas[Receitas.indexOf(item)].Posicao &&(
+
+                  <Image  style={styles.bandeira} source={require('../../assets/Bandeira-Trilha.png')}/>
+
+                )}
+                 {onde +1 > Receitas[Receitas.indexOf(item)].Posicao &&(
+
+                  <Image  style={styles.estrela} source={require('../../assets/estrelha-trilha.png')}/>
+
+                )}
+                  {onde +1 < Receitas[Receitas.indexOf(item)].Posicao &&(
+
+                    <Text style={styles.textoFase}>{item.Posicao}</Text>
+
+                )}
+
+
 
             
               </View>
               <View style={styles.rightRow} >
                 <Text style={styles.descricaoFase}>{item.Nome}</Text>
                 <Image style={styles.detail} source={require("../../assets/lines-detail.png")} />
+                 {onde +1 >= Receitas[Receitas.indexOf(item)].Posicao && (
                 <View style={[{ marginTop: 20, backgroundColor: route.params.paramKey[2], marginBottom: 15, width: '85%', height: 37, borderRadius: 15, zIndex: 4 }]} >
+                 
                  
                   <TouchableOpacity style={[{
                     backgroundColor:route.params.paramKey[2],
@@ -152,8 +240,16 @@ export default function Trilha({ route, navigation }) {
                   >
                     <Text style={styles.buttonsee} >Ver receita</Text>
                   </TouchableOpacity>
-                  <View style={[{ backgroundColor: 'rgba(0,0,0,0.15)', height: '100%', width: '100%', position: 'absolute', borderRadius: 15, zIndex: 4 }]} ></View>
+
+  
+                  <View style={[{ backgroundColor: 'rgba(0,0,0,0.15)', height: '100%', width: '100%', position: 'absolute', borderRadius: 15, zIndex: 4 }]} >
+
+                  </View>
                 </View>
+                  )}
+                  {onde +1 < Receitas[Receitas.indexOf(item)].Posicao && (
+                    <FontAwesome style={styles.cadeado} name="lock" size={58} color="black" />
+                   )}
               </View>
             </View>
             <View style={styles.linha}>
@@ -187,8 +283,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     borderRadius: 15,
     maxHeight: 200
-
-
   },
   rightRow:{
     width: '70%',
@@ -197,7 +291,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 15,
     alignItems: 'center',
     zIndex: 3,
-    backgroundColor:'#FFF'
+    backgroundColor:'#FFF',
 
   },
   detail:{
@@ -293,6 +387,20 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     }
+    },
+    cadeado:{
+      alignSelf: 'center',
+      marginTop: 10
+    },
+    estrela:{
+      width: 80,
+      height: 80,
+      alignSelf: 'center',
+    },
+    bandeira:{
+      width: 70,
+      height: 70,
+      alignSelf: 'center',
     }
 
 });
