@@ -91,12 +91,16 @@ const OnboardingItem = ({item, navigation, index, x}) => {
             <Text style = {styles.description}>{item.Descricao}</Text>
         
         {/* <Progress.Bar style={styles.barra} unfilledColor='white' borderColor='black'   progress={Usuarios[0].ProgressoTrilhas[item.indexTrilha]}  width={250} height={20} color='#32a852'><Text style={{position:'absolute', flex:0, alignSelf: 'center'}}>{Usuarios[0].ProgressoTrilhas[item.indexTrilha] * 10} / {item.NumeroReceitas}</Text></Progress.Bar> */}
-        <View style={styles.darkerButton}><Text></Text></View>
-                <TouchableOpacity style = {[styles.buttonRegistro, {backgroundColor: item.Cor}]} title = 'Registrar' onPress={ () => navigation.navigate("Trilha", {paramKey:[item.NomeTrilha, item.Descricao, item.Cor]})} >
+        <TouchableOpacity onPress={ () => navigation.navigate("Trilha", {paramKey:[item.NomeTrilha, item.Descricao, item.Cor]})} style={styles.darkerButton}><Text></Text></TouchableOpacity>
+                <View style = {[styles.buttonRegistro, {backgroundColor: item.Cor}]} title = 'Registrar' >
                     <Text style={[styles.botaoTexto]}>Entrar</Text>
-                </TouchableOpacity>
+                </View>
         </View>
+    
+    <View style={styles.separate}><Text></Text></View>
+    
     </View>
+
     
 
   ) 
@@ -106,6 +110,9 @@ export default OnboardingItem
 const styles = StyleSheet.create({
     container:{
         flex: 1,
+    },
+    separate:{
+        height: 150
     },
     title:{
         fontWeight: '800',
