@@ -5,6 +5,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { Entypo } from '@expo/vector-icons';
 
+import { FontAwesome } from '@expo/vector-icons';
+import { View } from "react-native";
 import Profile from "../screens/profile";
 import Doces from "../screens/Trilhas/Doces";
 import Basico from "../screens/Trilhas/Basico";
@@ -125,13 +127,50 @@ const Tab = createBottomTabNavigator();
 
 export function TabNavigatior() {
   return(
-   <Tab.Navigator>
-    <Tab.Screen name = "Home" component={Home}  options={{headerShown: false, tabBarIcon: ({color, size})=>(
-      <Ionicons name="home" size={24} color="black" />
+   <Tab.Navigator 
+    screenOptions={{
+      tabBarShowLabel: false,
+      tabBarStyle:{
+        backgroundColor: '#427643',
+        height: 70,
+        borderTopStartRadius: 20,
+        borderTopEndRadius: 20,
+        borderTopWidth: 0,
+        position: 'absolute'
+      },
+    }}
+   >
+    <Tab.Screen name = "Perfil" component={Profile} options={{
+      headerShown: false,
+      backgroundColor: 'red',
+      tabBarIcon: ({focused})=>(
+      <Ionicons name="person-sharp" size={32} color={focused ? "white" : "black"} />
     )}}/>
-    <Tab.Screen name = "Perfil" component={Profile} options={{headerShown: false, tabBarIcon: ({color, size})=>(
-      <Ionicons name="person-sharp" size={24} color="black" />
+    
+    <Tab.Screen name = "Chat" component={Home} options={{
+      headerShown: false,
+      tabBarIcon: ({focused})=>(
+      <Ionicons name="chatbubble-ellipses-outline" size={32} color={focused ? "white" : "black"} />
     )}}/>
+
+    <Tab.Screen name = "Home" component={Home}  options={{
+      headerShown: false,
+      tabBarIcon: ({focused})=>(
+      <Ionicons name="home" size={32} color={focused ? "white" : "black"} />
+    )}}/>
+    
+    <Tab.Screen name = "Lolja" component={Profile} options={{
+      headerShown: false,
+      tabBarIcon: ({focused})=>(
+      <Ionicons name="cart-outline" size={32} color={focused ? "white" : "black"} />
+    )}}/>
+    
+    <Tab.Screen name = "Livro de Receitas" component={Profile} options={{
+      headerShown: false,
+      tabBarIcon: ({focused})=>(
+      <FontAwesome name="book" size={32} color={focused ? "white" : "black"} />
+    )}}/>
+
     {/*<Tab.Screen name = "Trilhas" component={Fetch}options={{headerShown: false}}/>*/}
    </Tab.Navigator>
   )

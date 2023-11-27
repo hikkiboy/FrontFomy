@@ -1,8 +1,12 @@
-import { View, SafeAreaView, Text, TouchableOpacity, StyleSheet } from "react-native"
+import { View, SafeAreaView, Text, TouchableOpacity, StyleSheet, useState } from "react-native"
 import { app_auth } from '../../../firebaseConfig'
 import Feather from 'react-native-vector-icons/Feather'
+import { LoadProfile, destroyModal } from "../loadprofile"
+
+
 
 export function ActionModal({ handleAction, navigation, handleName, pickIt }){
+
     return(
         <SafeAreaView style={styles.container} >
             <TouchableOpacity style={{ flex: 1, zIndex: 9 }} onPress={handleAction} ></TouchableOpacity>
@@ -19,7 +23,7 @@ export function ActionModal({ handleAction, navigation, handleName, pickIt }){
                         <Feather name="edit" size={26} />
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => navigation.navigate('Configs')}>
+                    <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={ () => {handleAction(); navigation.navigate('Configs')}}>
                         <Text style={styles.action} >Configurações</Text>
                         <Feather name="settings" size={26} />
                     </TouchableOpacity>

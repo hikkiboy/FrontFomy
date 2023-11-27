@@ -159,6 +159,7 @@ export function LoadProfile({ data, navigation }){
                     <View>
                         <Text style={styles.name} >{nome}</Text>
                         <Text style={styles.title} >{titulo}</Text>
+
                         <View style={styles.inputarea} >
                             {visibleInput}
                         </View>
@@ -180,7 +181,7 @@ export function LoadProfile({ data, navigation }){
                     <View style={styles.badges} >
                         <Badges data={data} />
                     </View>
-
+                
                 </View>
             </View>
 

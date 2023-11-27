@@ -87,15 +87,20 @@ const OnboardingItem = ({item, navigation, index, x}) => {
         <Image source={require("../../assets/alberto.png")} style={[styles.mascote, {width, resizeMode:'center'}]}/>
 
         <View style={{flex: 0.3}}>
-        <Text style = {styles.title}>{item.NomeTrilha}</Text>
-        <Text style = {styles.description}>{item.Descricao}</Text>
+            <Text style = {styles.title}>{item.NomeTrilha}</Text>
+            <Text style = {styles.description}>{item.Descricao}</Text>
         
         {/* <Progress.Bar style={styles.barra} unfilledColor='white' borderColor='black'   progress={Usuarios[0].ProgressoTrilhas[item.indexTrilha]}  width={250} height={20} color='#32a852'><Text style={{position:'absolute', flex:0, alignSelf: 'center'}}>{Usuarios[0].ProgressoTrilhas[item.indexTrilha] * 10} / {item.NumeroReceitas}</Text></Progress.Bar> */}
-        <TouchableOpacity style = {styles.buttonRegistro} title = 'Registrar' onPress={ () => navigation.navigate("Trilha", {paramKey:[item.NomeTrilha, item.Descricao, item.Cor]})} >
-          <Text style={[styles.botaoTexto]}>Entrar</Text>
-          </TouchableOpacity>
+        <TouchableOpacity onPress={ () => navigation.navigate("Trilha", {paramKey:[item.NomeTrilha, item.Descricao, item.Cor]})} style={styles.darkerButton}><Text></Text></TouchableOpacity>
+                <View style = {[styles.buttonRegistro, {backgroundColor: item.Cor}]} title = 'Registrar' >
+                    <Text style={[styles.botaoTexto]}>Entrar</Text>
+                </View>
         </View>
+    
+    <View style={styles.separate}><Text></Text></View>
+    
     </View>
+
     
 
   ) 
@@ -105,6 +110,9 @@ export default OnboardingItem
 const styles = StyleSheet.create({
     container:{
         flex: 1,
+    },
+    separate:{
+        height: 150
     },
     title:{
         fontWeight: '800',
@@ -136,7 +144,6 @@ const styles = StyleSheet.create({
 
     },
     buttonRegistro:{
-            backgroundColor: "#7EB77F",
             alignSelf: "center",
             fontSize: 20,
             fontWeight: "bold",
@@ -149,6 +156,17 @@ const styles = StyleSheet.create({
             marginBottom: 5,
             borderRadius: 10,
             width: 250,
+    },
+    darkerButton:{
+        backgroundColor: "rgba(0,0,0,0.1)",
+        position: 'absolute',
+        zIndex: 2,
+        marginTop: 128,
+        marginLeft: 80,
+        marginBottom: 5,
+        borderRadius: 10,
+        width: 250,
+        height: 58
     },
     botaoTexto:{
         fontWeight: 'bold',
