@@ -23,6 +23,9 @@ import Configs from "../screens/configs";
 import AccountConfig from "../screens/accountConfig"
 import AlterPassword from "../screens/accountConfig/alterPassword"
 import AlterEmail from "../screens/accountConfig/alterEmail"
+import Store from '../screens/store'
+import Community from '../screens/community'
+import Book from '../screens/book'
 
 import Preparo from "../components/preparo";
 import Passos from "../components/passos";
@@ -118,6 +121,22 @@ export default function Routes() {
         component={Parabens}
         options={{ headerShown: false }}
       />
+      <Stack.Screen
+        name="Store"
+        component={Store}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Community"
+        component={Community}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Book"
+        component={Book}
+        options={{ headerShown: false }}
+      />
+      
     </Stack.Navigator>
     
   );
@@ -131,7 +150,7 @@ export function TabNavigatior() {
     screenOptions={{
       tabBarShowLabel: false,
       tabBarStyle:{
-        backgroundColor: '#427643',
+        backgroundColor: 'white',
         height: 70,
         borderTopStartRadius: 20,
         borderTopEndRadius: 20,
@@ -144,31 +163,31 @@ export function TabNavigatior() {
       headerShown: false,
       backgroundColor: 'red',
       tabBarIcon: ({focused})=>(
-      <Ionicons name="person-sharp" size={32} color={focused ? "white" : "black"} />
+      <Ionicons name="person-sharp" size={34} color={focused ? "#7eb77f" : "black"} />
     )}}/>
     
-    <Tab.Screen name = "Chat" component={Home} options={{
+    <Tab.Screen name = "Community" component={Community} options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <Ionicons name="chatbubble-ellipses-outline" size={32} color={focused ? "white" : "black"} />
+      <Ionicons name="chatbubble-ellipses-outline" size={34} color={focused ? "#7eb77f" : "black"} />
     )}}/>
 
     <Tab.Screen name = "Home" component={Home}  options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <Ionicons name="home" size={32} color={focused ? "white" : "black"} />
+      <Ionicons name="home" size={34} color={focused ? "#7eb77f" : "black"} />
     )}}/>
     
-    <Tab.Screen name = "Lolja" component={Profile} options={{
+    <Tab.Screen name = "Store" component={Store} options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <Ionicons name="cart-outline" size={32} color={focused ? "white" : "black"} />
+      <Ionicons name="cart-outline" size={34} color={focused ? "#7eb77f" : "black"} />
     )}}/>
     
-    <Tab.Screen name = "Livro de Receitas" component={Profile} options={{
+    <Tab.Screen name = "Book" component={Book} options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <FontAwesome name="book" size={32} color={focused ? "white" : "black"} />
+      <FontAwesome name="book" size={34} color={focused ? "#7eb77f" : "black"} />
     )}}/>
 
     {/*<Tab.Screen name = "Trilhas" component={Fetch}options={{headerShown: false}}/>*/}
