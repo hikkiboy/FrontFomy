@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, Alert, TextInput, ActivityIndicator, KeyboardAvoidingView, ImageBackground, ScrollView } from 'react-native';
-import React, {useState} from 'react'
+import { StyleSheet, Text, View, Image, TouchableOpacity, Alert, TextInput, ActivityIndicator, Dimensions } from 'react-native';
+import React, { useState, useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { app, app_DB, app_auth } from '../../../firebaseConfig'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
@@ -12,14 +12,35 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 
 
-const Cadastro = () => {
+const Cadastro = ({ navigation }) => {
+
+    const height = Dimensions.get("window").height
+    const [stuffHeight, setStuffHeight] = useState(70)
+    const [imageHeight, setImageHeight] = useState(180.04)
+    const [imageWidth, setImageWidth] = useState(165.76)
+    const [fontSize, setFontSize] = useState(20)
+    const [googleHeight, setGoogleHeight] = useState(32)
+    const [googleWidth, setGoogleWidth] = useState(32)
+
+    const [euOdeioIsso, setEuOdeioIsso] = useState(0)
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
     const [nome, setNome] = useState('')
     const [loading, setLoading] = useState(false)
     const auth = app_auth;
 
-    const height = useHeaderHeight()
+    useEffect(() => {
+      if(height <= 700){
+        console.log("tela pequena")
+        setStuffHeight(65)
+        setImageHeight(144.032)
+        setImageWidth(132.608)
+        setFontSize(16)
+        setGoogleHeight(26)
+        setGoogleWidth(26)
+      }
+    })
+
     const SignIn = async () => {
       setLoading(true)
       try{
@@ -59,7 +80,7 @@ const Cadastro = () => {
 
           
    
-          alert('Usuário Criado com sucesso !')
+          navigation.navigate("Home")
   
         } catch (error) {
           console.log(error)
@@ -70,28 +91,27 @@ const Cadastro = () => {
     }
   
    return (
-        <KeyboardAwareScrollView style = {styles.fundo}>
-        
-        <View style={styles.container}>
+        <KeyboardAwareScrollView contentContainerStyle={styles.container} >
+        {/* scroll views are fucking STUPID, specially keyboard avoiding ones */}
+        {/* nvm, I found a way using (minHeight: "100%", width: "100%") instead of (flex: 1) */}
+        <Image style={[styles.logo, { width: imageWidth, height: imageHeight }]} source={require("../../assets/logo-full.png")} />
 
-        <TextInput value= {nome} style={styles.input} placeholder=' Nome' autoCapitalize='none' onChangeText={(text) => setNome(text)}></TextInput>
-        <TextInput value={email} style = {styles.input} placeholder=' Email' autoCapitalize='none'
+        <TextInput value= {nome} style={[styles.input, { fontSize: (fontSize - 2), height: (stuffHeight - 7) }]} placeholder='Nome' autoCapitalize='none' onChangeText={(text) => setNome(text)}></TextInput>
+        <TextInput value={email} style = {[styles.input, { fontSize: (fontSize - 2), height: (stuffHeight - 7) }]} placeholder='Email' autoCapitalize='none'
         onChangeText={(text) => setEmail(text)}></TextInput>
-         <TextInput value={senha} style = {styles.input} placeholder=' Senha' autoCapitalize='none'
-        onChangeText={(text) => setSenha(text)} secureTextEntry={true}></TextInput>
-        <TextInput value={senha} style = {styles.input} placeholder=' Confirmar Senha' autoCapitalize='none'
+         <TextInput value={senha} style = {[styles.input, { fontSize: (fontSize - 2), height: (stuffHeight - 7) }]} placeholder='Senha' autoCapitalize='none'
         onChangeText={(text) => setSenha(text)} secureTextEntry={true}></TextInput>
 
           {loading ? (
             <ActivityIndicator size="30" color="#7EB77F" />
           ) : (
             <>
-          <TouchableOpacity style = {styles.buttonLogin} title = 'Registrar' onPress={SignUp}>
-          <Text style={styles.text}>Começar jornada!</Text>
+          <TouchableOpacity style = {[styles.buttonLogin, { height: stuffHeight }]} title = 'Registrar' onPress={SignUp}>
+          <Text style={[styles.text, {fontSize: fontSize}]}>Começar jornada!</Text>
           </TouchableOpacity>
             </>
           )}
-          </View>
+
         </KeyboardAwareScrollView>
 
   );
@@ -100,69 +120,40 @@ export default Cadastro;
 
 const styles = StyleSheet.create({
   container:{
-    flex: 1,
-    marginTop: '60%',
-    display: "flex",
+    minHeight: "100%",
+    width: "100%",
+    justifyContent: 'center', 
     alignItems: 'center',
-    justifyContent: 'center',
-  },
-  fundo:{
     backgroundColor: "#FFF"
   },
+  logo:{
+    marginBottom: "10%",
+    resizeMode: 'stretch'
+  },
   input: {
-    marginTop: 0,
     backgroundColor: "#FFFFFF",
-    margin: 10,
     borderRadius: 15,
     borderColor: '#dbdbdb',
     borderBottomWidth: 7,
     borderWidth: 4,
-    width: 300,
+    width: "85%",
     alignSelf: "center",
-    padding: 15,
-    marginBottom: 15
-  },
-  buttonRegistro: {
-    alignSelf: "center",
-    fontSize: 20,
-    fontWeight: "bold",
-    padding: 13,
-    paddingLeft: 42,
-    paddingRight: 42,
-    borderRadius: 20,
-    borderColor: "black",
-    borderBottomWidth: 7,
-    borderWidth: 3,
-    margin: 3,
-    width: 250,
-    borderTopStartRadius: 0,
-    borderTopEndRadius: 0,
+    paddingHorizontal: 20,
+    marginBottom: 15,
   },
   buttonLogin: {
-    alignSelf: "center",
-    fontSize: 20,
-    fontWeight: "bold",
-    
-    paddingLeft: 40,
-    paddingRight: 40,
-    //borderBottomStartRadius: 0,
-    //borderBottomEndRadius: 0,
-    
+    marginTop: "7%",
     backgroundColor: '#A4CCA4',
-    padding: 12,
     width: "85%",
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 15,
     borderColor: '#8eb28e',
     borderBottomWidth: 8,
-    borderWidth: 5,
-    marginTop: 20,
-    marginBottom: 5,
-    height: 60,
+    borderWidth: 5
   },
   text: {
-    fontWeight: "bold",
-    fontSize: 18,
-    textAlign: "center",
+    fontWeight: 'bold',
     opacity: 0.5,
   },
   forgotPassword:{

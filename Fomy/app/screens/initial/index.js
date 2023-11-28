@@ -41,7 +41,7 @@ const Login = ({navigation}) => {
             <Text style={[styles.login, {fontSize: fontSize}]}>Login</Text>
           </TouchableOpacity>
     
-          <Image style={{width: "50%", height: "0.9%", resizeMode: "stretch", marginVertical: "7%"}} source={require("../../assets/lines-detail.png")} />
+          <Image style={{width: "50%", height: "0.9%", resizeMode: "stretch", marginVertical: "8%"}} source={require("../../assets/lines-detail.png")} />
           {/*<Text style={[styles.otherOptions, { fontSize: (fontSize - 1) }]}>-- ou entre com --</Text>*/}
 
           <TouchableOpacity style={[styles.buttonCadastroGoogle, { height: (stuffHeight - 15) }]} onPress={ () => navigation.navigate('Loginpage')}>

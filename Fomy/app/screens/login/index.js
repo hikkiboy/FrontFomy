@@ -34,7 +34,7 @@ const LoginPage = () => {
     setLoading(true);
     try {
       const response = await signInWithEmailAndPassword(auth, email, senha);
-      navigation.navigate("Profile");
+      navigation.navigate("Home");
     } catch (error) {
       console.log(error);
       alert("deu erro");
@@ -51,39 +51,39 @@ const LoginPage = () => {
 
       
         <KeyboardAvoidingView style={styles.container} behavior="padding">
-        <Image style={styles.logo} source={require("../../assets/logo-full.png")} />
-          <TextInput
-            value={email}
-            style={styles.input}
-            placeholder="Email"
-            autoCapitalize="none"
-            onChangeText={(text) => setEmail(text)}
-          ></TextInput>
-          <TextInput
-            value={senha}
-            style={styles.input}
-            placeholder="Senha"
-            autoCapitalize="none"
-            onChangeText={(text) => setSenha(text)}
-            secureTextEntry={true}
-          ></TextInput>
-          <TouchableOpacity style={styles.forgotPassword} onPress={ () => navigation.navigate('PasswordResets')}>
-            <Text>Esqueci minha senha</Text>
-          </TouchableOpacity>
+          <Image style={styles.logo} source={require("../../assets/logo-full.png")} />
+            <TextInput
+              value={email}
+              style={styles.input}
+              placeholder="Email"
+              autoCapitalize="none"
+              onChangeText={(text) => setEmail(text)}
+            ></TextInput>
+            <TextInput
+              value={senha}
+              style={styles.input}
+              placeholder="Senha"
+              autoCapitalize="none"
+              onChangeText={(text) => setSenha(text)}
+              secureTextEntry={true}
+            ></TextInput>
+            <TouchableOpacity style={styles.forgotPassword} onPress={ () => navigation.navigate('PasswordResets')}>
+              <Text>Esqueci minha senha</Text>
+            </TouchableOpacity>
 
-          {loading ? (
-            <ActivityIndicator size="large" color="#0000ff" />
-          ) : (
-            <>
-              <TouchableOpacity
-                title="Entrar"
-                style={styles.buttonLogin}
-                onPress={SignIn}
-              >
-                <Text style={styles.text}>Entrar</Text>
-              </TouchableOpacity>
-            </>
-          )}
+            {loading ? (
+              <ActivityIndicator size="30" color="#7EB77F" />
+            ) : (
+              <>
+                <TouchableOpacity
+                  title="Entrar"
+                  style={styles.buttonLogin}
+                  onPress={SignIn}
+                >
+                  <Text style={styles.text}>Entrar</Text>
+                </TouchableOpacity>
+              </>
+            )}
         </KeyboardAvoidingView>
         
 
