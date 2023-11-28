@@ -101,6 +101,7 @@ let arrayporc = []
             <Text style={{opacity: 0, position: 'absolute'}}>{arrayprep.push(item.PassosSimp)}</Text>
             <Text style={{opacity: 0, position: 'absolute'}}>{arrayporc.push(item.Porcoes)}</Text>
         <View style={styles.IngredientesContain}>
+            
             <FlatList
             data={arrayIng[0]}
             scrollEnabled = {true}
@@ -115,9 +116,12 @@ let arrayporc = []
                 </View>
               </View>
             )}
-            
+           
             />
-            <View>
+             {arrayBon.includes(undefined) != true && (
+              <>
+              <View>
+                <Button title= 'debug' onPress={() => console.log(arrayBon)}></Button>
               <View style={{display: 'flex', flexDirection: 'row', marginTop: 30}}>
               <Image style={styles.Ovo} source={require('../../assets/Ovo_leite.png')}/>
               <View style={styles.BonusBg}>
@@ -128,6 +132,7 @@ let arrayporc = []
               <Text style={styles.BonusSubTit}>Ingredientes adicionais para aprimorar sua receita!! Desbloqueio ápos fazer a versão simples da receita</Text>
               </View>
             </View>
+
              <FlatList
             data={arrayBon[0]}
             scrollEnabled = {true}
@@ -139,6 +144,9 @@ let arrayporc = []
                 </View>
             )}
             />
+            </>
+              )}
+            
             <View style={{display: 'flex', flexDirection: 'row', marginTop: 30}}>
             <Image style={styles.Ovo} source={require('../../assets/Uten.png')}/>
               <View style={styles.UtilBG}>
