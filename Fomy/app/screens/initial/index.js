@@ -12,19 +12,19 @@ const Login = ({navigation}) => {
   const [stuffHeight, setStuffHeight] = useState(90)
   const [imageHeight, setImageHeight] = useState(225.05)
   const [imageWidth, setImageWidth] = useState(207.2)
-  const [fontSize, setFontSize] = useState(22)
-  const [googleHeight, setGoogleHeight] = useState(32.64)
-  const [googleWidth, setGoogleWidth] = useState(99.14)
+  const [fontSize, setFontSize] = useState(23)
+  const [googleHeight, setGoogleHeight] = useState(32)
+  const [googleWidth, setGoogleWidth] = useState(32)
   
   useEffect(() => {
-    if(height <= 680){
+    if(height <= 700){
       console.log("tela pequena")
       setStuffHeight(75)
       setImageHeight(180.04)
       setImageWidth(165.76)
       setFontSize(18)
-      setGoogleHeight(26.112)
-      setGoogleWidth(79.312)
+      setGoogleHeight(26)
+      setGoogleWidth(26)
     }
   })
 
@@ -41,10 +41,12 @@ const Login = ({navigation}) => {
             <Text style={[styles.login, {fontSize: fontSize}]}>Login</Text>
           </TouchableOpacity>
     
-          <Text style={[styles.otherOptions, { fontSize: (fontSize - 1) }]}>-- ou entre com --</Text>
+          <Image style={{width: "50%", height: "0.9%", resizeMode: "stretch", marginVertical: "7%"}} source={require("../../assets/lines-detail.png")} />
+          {/*<Text style={[styles.otherOptions, { fontSize: (fontSize - 1) }]}>-- ou entre com --</Text>*/}
 
-          <TouchableOpacity style={styles.buttonCadastroGoogle} onPress={ () => navigation.navigate('Loginpage')}>
-            <Image tintColor={"#FFF"} style={[{ width: googleWidth, height: googleHeight }]} source={require("../../assets/fullLogoGoogle.png")} />
+          <TouchableOpacity style={[styles.buttonCadastroGoogle, { height: (stuffHeight - 15) }]} onPress={ () => navigation.navigate('Loginpage')}>
+            <Image tintColor={"#FFF"} style={[{ width: googleWidth, height: googleHeight, resizeMode: "contain", marginRight: "8%" }]} source={require("../../assets/logoGoogle.png")} />
+            <Text style={{ color: "#FFF", fontSize: fontSize, fontWeight: "bold" }} >Entrar com Google</Text>
           </TouchableOpacity>
   
         
@@ -102,7 +104,6 @@ const styles = StyleSheet.create({
   },
   buttonCadastroGoogle: {
     backgroundColor: '#F68F92',
-    padding: 11,
     width: "85%",
     borderRadius: 15,
     borderColor: '#e88689',
