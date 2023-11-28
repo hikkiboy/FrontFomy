@@ -27,6 +27,7 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
+          <string>Fomy</string>
           <string>com.grupostationary.Fomy</string>
         </array>
       </dict>

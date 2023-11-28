@@ -7,7 +7,7 @@ import Ionicons from '@expo/vector-icons/Ionicons'
 
 
 
-const Login = ({navigation}) => {
+const Login = ({ navigation, promptAsync }) => {
 
     return (
         <SafeAreaView>
@@ -24,7 +24,7 @@ const Login = ({navigation}) => {
         <Text style={styles.otherOptions}>-- ou entre com --</Text>
         
         <View style={styles.loginsDiff}>
-        <TouchableOpacity style={styles.buttonCadastroGoogle}>
+        <TouchableOpacity onPress={() => promptAsync()} style={styles.buttonCadastroGoogle}>
         
         <Image source={require('../../assets/logoGoogle.png')}  resizeMode='center' style={styles.loginGoogle}/>
         </TouchableOpacity>
