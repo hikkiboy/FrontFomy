@@ -8,6 +8,7 @@ import { Button, ListItem } from 'react-native-elements';
 import { center } from '@shopify/react-native-skia';
 import { Feather } from 'react-native-vector-icons'
 import { SafeAreaView } from 'react-native-safe-area-context';
+import VideoPassos from '../videopasso';
 
 
 export default function Passos({route, props, navigation}) {
@@ -17,6 +18,7 @@ export default function Passos({route, props, navigation}) {
   const [visible, setVisible] = useState(false)
   const [Passo, setPasso] = useState([])
   const [calcula, setCalcula] = useState(1)
+  const [ViPasso, setVideo] = useState()
 
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -59,6 +61,14 @@ export default function Passos({route, props, navigation}) {
   
   },[])
 
+  useEffect(() => {
+    try {
+      setVideo(Receitas[0].VideoPasso)
+    } catch (error) {
+      console.log('erros')
+    }
+  },[Receitas])
+
 function pa(i, fwd){
   if(i < Receitas.length && fwd == true){
     i++;
@@ -80,6 +90,7 @@ function pa(i, fwd){
   }
 }
 
+
   return (
        <SafeAreaView style={styles.container}>
         <ScrollView>
@@ -89,8 +100,8 @@ function pa(i, fwd){
               <Text style={styles.titulopasso}> Passo {Passo.Sequencia}:  {Passo.Titulo}</Text>
               
             </View>
-            <View style={styles.video}>
-            
+            <View>
+            <VideoPassos idVideo={ViPasso} style={styles.videofromyt}/>
             </View>
           </ImageBackground>
           <View style={styles.belowimage} >
@@ -144,6 +155,13 @@ const styles = StyleSheet.create({
   },
   video:{
     backgroundColor: 'black',
+    height: 200,
+    width: '90%',
+    alignSelf: 'center',
+    borderRadius: 20,
+    marginTop: 20
+  },
+  videofromyt:{
     height: 200,
     width: '90%',
     alignSelf: 'center',
