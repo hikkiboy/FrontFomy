@@ -70,7 +70,7 @@ const Cadastro = () => {
     }
   
    return (
-        <KeyboardAwareScrollView>
+        <KeyboardAwareScrollView style = {styles.fundo}>
         
         <View style={styles.container}>
 
@@ -83,7 +83,7 @@ const Cadastro = () => {
         onChangeText={(text) => setSenha(text)} secureTextEntry={true}></TextInput>
 
           {loading ? (
-            <ActivityIndicator size="large" color="#0000ff" />
+            <ActivityIndicator size="30" color="#7EB77F" />
           ) : (
             <>
           <TouchableOpacity style = {styles.buttonLogin} title = 'Registrar' onPress={SignUp}>
@@ -101,17 +101,26 @@ export default Cadastro;
 const styles = StyleSheet.create({
   container:{
     flex: 1,
-    marginTop: '60%'
+    marginTop: '60%',
+    display: "flex",
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  fundo:{
+    backgroundColor: "#FFF"
   },
   input: {
     marginTop: 0,
     backgroundColor: "#FFFFFF",
     margin: 10,
-    borderWidth: 2,
-    borderRadius: 10,
+    borderRadius: 15,
+    borderColor: '#dbdbdb',
+    borderBottomWidth: 7,
+    borderWidth: 4,
     width: 300,
     alignSelf: "center",
     padding: 15,
+    marginBottom: 15
   },
   buttonRegistro: {
     alignSelf: "center",
@@ -130,26 +139,31 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 0,
   },
   buttonLogin: {
-    backgroundColor: "#7EB77F",
     alignSelf: "center",
     fontSize: 20,
     fontWeight: "bold",
-    padding: 13,
+    
     paddingLeft: 40,
     paddingRight: 40,
     //borderBottomStartRadius: 0,
     //borderBottomEndRadius: 0,
-    borderColor: "black",
-    borderWidth: 3,
+    
+    backgroundColor: '#A4CCA4',
+    padding: 12,
+    width: "85%",
+    borderRadius: 15,
+    borderColor: '#8eb28e',
+    borderBottomWidth: 8,
+    borderWidth: 5,
     marginTop: 20,
     marginBottom: 5,
-    borderRadius: 10,
-    width: 250,
+    height: 60,
   },
   text: {
     fontWeight: "bold",
     fontSize: 18,
     textAlign: "center",
+    opacity: 0.5,
   },
   forgotPassword:{
     alignSelf: "center",

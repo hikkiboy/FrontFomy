@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Alert } 
 import React, {useState} from 'react'
 import { app_auth } from '../../../firebaseConfig'
 import { Logo } from '../../components/logo';
-import Ionicons from '@expo/vector-icons/Ionicons'
+import {AntDesign} from '@expo/vector-icons'; 
 
 
 
@@ -10,30 +10,25 @@ import Ionicons from '@expo/vector-icons/Ionicons'
 const Login = ({navigation}) => {
 
     return (
-        <SafeAreaView>
-        <Logo/>
-  
-        <TouchableOpacity style={styles.buttonCadastro} onPress={() => navigation.navigate('Cadastro')}>
-        <Text style={styles.loginCadastro}>Cadastro</Text>
-        </TouchableOpacity>
-  
-        <TouchableOpacity style={styles.buttonLogin} onPress={ () => navigation.navigate('Loginpage')}>
-        <Text style={styles.login}>Login</Text>
-        </TouchableOpacity>
-  
-        <Text style={styles.otherOptions}>-- ou entre com --</Text>
-        
-        <View style={styles.loginsDiff}>
-        <TouchableOpacity style={styles.buttonCadastroGoogle}>
-        
-        <Image source={require('../../assets/logoGoogle.png')}  resizeMode='center' style={styles.loginGoogle}/>
-        </TouchableOpacity>
-  
-        <TouchableOpacity>
-        <Ionicons name='logo-facebook' size={70} color='blue' style={styles.loginFacebook} onPress={ () => {Alert.alert('Cadastro com Facebook feito com sucesso')}}/>
-        </TouchableOpacity>
-  
-        </View>
+        <SafeAreaView style={styles.container} >
+
+          <Image style={styles.logo} source={require("../../assets/logo-full.png")} />
+    
+          <TouchableOpacity style={styles.buttonCadastro} onPress={() => navigation.navigate('Cadastro')}>
+            <Text style={styles.loginCadastro}>Cadastro</Text>
+          </TouchableOpacity>
+    
+          <TouchableOpacity style={styles.buttonLogin} onPress={ () => navigation.navigate('Loginpage')}>
+            <Text style={styles.login}>Login</Text>
+          </TouchableOpacity>
+    
+          <Text style={styles.otherOptions}>-- ou entre com --</Text>
+
+            <TouchableOpacity style={styles.buttonCadastroGoogle} onPress={ () => navigation.navigate('Loginpage')}>
+              <AntDesign style={styles.iconeGoogle} name="google" size={28} />
+              <Text style={[styles.loginGoogle]}>oogle</Text>
+            
+            </TouchableOpacity>
   
         
       </SafeAreaView>
@@ -46,80 +41,80 @@ export default Login
 
 
 const styles = StyleSheet.create({
+  container:{
+    flex: 1,
+    display: "flex",
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: "#FFF"
+
+  },
+  logo:{
+    width: 207.2,
+    height: 225.05,
+    marginBottom: 45,
+    resizeMode: 'stretch'
+  },
   buttonCadastro: {
-    alignSelf: 'center',
-    backgroundColor: '#7EB77F',
-    fontSize: 20,
-    fontWeight: 'bold',
+    backgroundColor: '#A4CCA4',
     padding: 12,
-    paddingLeft: 42,
-    paddingRight: 42,
+    width: "85%",
     borderRadius: 15,
-    borderColor: 'black',
-    borderBottomWidth: 7,
-    borderWidth: 3,
-    margin: 3,
+    borderColor: '#8eb28e',
+    borderBottomWidth: 8,
+    borderWidth: 5
   },
   loginCadastro:{
     alignSelf: 'center',
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
-    padding: 12,
+    padding: 10,
     paddingLeft: 40,
     paddingRight: 40,
+    opacity: 0.5,
   },
   buttonLogin: {
-    alignSelf: 'center',
-    fontSize: 20,
-    fontWeight: 'bold',
+    backgroundColor: '#FFF',
     padding: 12,
-    paddingLeft: 40,
-    paddingRight: 40,
-    borderColor: 'black',
-    borderWidth: 3,
-    marginTop: 5,
-    marginBottom: 5,
-    borderRadius: 15
+    width: "85%",
+    borderRadius: 15,
+    borderColor: '#dbdbdb',
+    borderBottomWidth: 8,
+    borderWidth: 5,
+    marginTop: 20
     
   },
   login:{
     alignSelf: 'center',
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
     padding: 12,
     paddingLeft: 57,
     paddingRight: 57,
+    opacity: 0.5,
   },
   loginGoogle:{
-    alignSelf: 'center',
-    width: 60,
-    height: 60,
-    padding: 10,
-    paddingLeft: 1,
-    paddingRight: 1,
-    marginTop: 15,
-    marginLeft: 20
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: "#FFF"
   },
   buttonCadastroGoogle: {
-    alignSelf: 'center',
-    fontSize: 20,
-    fontWeight: 'bold',
-    paddingLeft: 42,
-    paddingRight: 42,
-    marginBottom: 15
+    backgroundColor: '#F68F92',
+    padding: 10,
+    width: "85%",
+    borderRadius: 15,
+    borderColor: '#e88689',
+    borderBottomWidth: 8,
+    borderWidth: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   loginsDiff:{
-    display: 'flex',
     flexDirection: 'row',
     alignSelf: 'center',
-    gap: 30
-  },
-  loginFacebook:{
-    textAlign:'center',
-    width: 100,
-    paddingTop: 10,
-    paddingBottom: 10,
-    marginRight: 20
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   otherOptions:{
     top: 30,
@@ -129,6 +124,9 @@ const styles = StyleSheet.create({
     width:'100%',
     marginBottom: 50
     },
+    iconeGoogle:{
+      color: "#FFF"
+    }
   
 });
 

@@ -51,7 +51,7 @@ const LoginPage = () => {
 
       
         <KeyboardAvoidingView style={styles.container} behavior="padding">
-        <Logo/>
+        <Image style={styles.logo} source={require("../../assets/logo-full.png")} />
           <TextInput
             value={email}
             style={styles.input}
@@ -95,17 +95,30 @@ export default LoginPage;
 
 const styles = StyleSheet.create({
   container:{
-    flex: 1
+    flex: 1,
+    display: "flex",
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: "#FFF"
+  },
+  logo:{
+    width: 207.2,
+    height: 225.05,
+    marginBottom: 45,
+    resizeMode: 'stretch'
   },
   input: {
     marginTop: 0,
     backgroundColor: "#FFFFFF",
     margin: 10,
-    borderWidth: 2,
-    borderRadius: 10,
+    borderRadius: 15,
+    borderColor: '#dbdbdb',
+    borderBottomWidth: 7,
+    borderWidth: 4,
     width: 300,
     alignSelf: "center",
     padding: 15,
+    marginBottom: 15
   },
   buttonRegistro: {
     alignSelf: "center",
@@ -125,30 +138,39 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 0,
   },
   buttonLogin: {
-    backgroundColor: "#7EB77F",
+    
     alignSelf: "center",
     fontSize: 20,
     fontWeight: "bold",
-    padding: 13,
+    
     paddingLeft: 40,
     paddingRight: 40,
     //borderBottomStartRadius: 0,
     //borderBottomEndRadius: 0,
-    borderColor: "black",
-    borderWidth: 3,
+    
+    backgroundColor: '#A4CCA4',
+    padding: 12,
+    width: "85%",
+    borderRadius: 15,
+    borderColor: '#8eb28e',
+    borderBottomWidth: 8,
+    borderWidth: 5,
     marginTop: 20,
     marginBottom: 5,
-    borderRadius: 15,
-    borderRadius: 15,
-    width: 250,
+    height: 60,
+    
+    
+    
   },
   text: {
     fontWeight: "bold",
     fontSize: 18,
     textAlign: "center",
+    opacity: 0.5,
   },
   forgotPassword:{
     alignSelf: "center",
-    opacity: 0.4
+    opacity: 0.4,
+    marginBottom: 25
   }
 });
