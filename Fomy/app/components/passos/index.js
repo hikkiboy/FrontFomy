@@ -112,6 +112,7 @@ function pa(i, fwd){
             </View>
             <View style={styles.buttons} >
               <TouchableOpacity style={styles.stepbak} onPress={() => pa(calcula, false) } ><Feather name={"arrow-left"} size={40} /></TouchableOpacity>
+              <Button title='debug' onPress={() => console.log(ViPasso)}></Button>
               <TouchableOpacity style={styles.stepfwd} onPress={() => pa(calcula, true) } ><Feather name={"arrow-right"} size={40} /></TouchableOpacity>
             </View>
           </View>
