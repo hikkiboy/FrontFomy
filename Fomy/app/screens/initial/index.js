@@ -9,7 +9,7 @@ import { AntDesign } from '@expo/vector-icons';
 
 const Login = ({navigation}) => {
   const height = Dimensions.get("window").height
-  const [stuffHeight, setStuffHeight] = useState(90)
+  const [stuffHeight, setStuffHeight] = useState(85)
   const [imageHeight, setImageHeight] = useState(225.05)
   const [imageWidth, setImageWidth] = useState(207.2)
   const [fontSize, setFontSize] = useState(23)
@@ -19,6 +19,7 @@ const Login = ({navigation}) => {
   useEffect(() => {
     if(height <= 700){
       console.log("tela pequena")
+      console.log(height)
       setStuffHeight(75)
       setImageHeight(180.04)
       setImageWidth(165.76)
@@ -41,10 +42,10 @@ const Login = ({navigation}) => {
             <Text style={[styles.login, {fontSize: fontSize}]}>Login</Text>
           </TouchableOpacity>
     
-          <Image style={{width: "50%", height: "0.9%", resizeMode: "stretch", marginVertical: "8%"}} source={require("../../assets/lines-detail.png")} />
+          <Image style={{width: "50%", height: "0.9%", resizeMode: "stretch", marginVertical: "10%"}} source={require("../../assets/lines-detail.png")} />
           {/*<Text style={[styles.otherOptions, { fontSize: (fontSize - 1) }]}>-- ou entre com --</Text>*/}
 
-          <TouchableOpacity style={[styles.buttonCadastroGoogle, { height: (stuffHeight - 15) }]} onPress={ () => navigation.navigate('Loginpage')}>
+          <TouchableOpacity style={[styles.buttonCadastroGoogle, { height: (stuffHeight - 10) }]} onPress={ () => navigation.navigate('Loginpage')}>
             <Image tintColor={"#FFF"} style={[{ width: googleWidth, height: googleHeight, resizeMode: "contain", marginRight: "8%" }]} source={require("../../assets/logoGoogle.png")} />
             <Text style={{ color: "#FFF", fontSize: fontSize, fontWeight: "bold" }} >Entrar com Google</Text>
           </TouchableOpacity>
@@ -119,12 +120,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  otherOptions:{
-    textAlign: 'center',
-    opacity: 0.3,
-    width:'100%',
-    marginVertical: "7%"
-    },
   
 });
 

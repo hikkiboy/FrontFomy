@@ -91,10 +91,11 @@ const OnboardingItem = ({item, navigation, index, x}) => {
             <Text style = {styles.description}>{item.Descricao}</Text>
         
         {/* <Progress.Bar style={styles.barra} unfilledColor='white' borderColor='black'   progress={Usuarios[0].ProgressoTrilhas[item.indexTrilha]}  width={250} height={20} color='#32a852'><Text style={{position:'absolute', flex:0, alignSelf: 'center'}}>{Usuarios[0].ProgressoTrilhas[item.indexTrilha] * 10} / {item.NumeroReceitas}</Text></Progress.Bar> */}
-        <TouchableOpacity onPress={ () => navigation.navigate("Trilha", {paramKey:[item.NomeTrilha, item.Descricao, item.Cor]})} style={styles.darkerButton}><Text></Text></TouchableOpacity>
-                <View style = {[styles.buttonRegistro, {backgroundColor: item.Cor}]} title = 'Registrar' >
+        {/* <TouchableOpacity onPress={ () => navigation.navigate("Trilha", {paramKey:[item.NomeTrilha, item.Descricao, item.Cor]})} style={styles.darkerButton}><Text></Text></TouchableOpacity>  */}
+                
+                <TouchableOpacity onPress={ () => navigation.navigate("Trilha", {paramKey:[item.NomeTrilha, item.Descricao, item.Cor]})} style = {[styles.buttonRegistro, {backgroundColor: item.Cor, backgroundColor: "rgba(0,0,0,0.1)"}]} title = 'Registrar' >
                     <Text style={[styles.botaoTexto]}>Entrar</Text>
-                </View>
+                </TouchableOpacity>
         </View>
     
     <View style={styles.separate}><Text></Text></View>

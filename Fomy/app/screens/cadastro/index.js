@@ -6,6 +6,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'fire
 import { useHeaderHeight } from '@react-navigation/elements'
 import { doc, setDoc } from "firebase/firestore"; 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { Feather } from 'react-native-vector-icons'
 
 
 
@@ -22,7 +23,6 @@ const Cadastro = ({ navigation }) => {
     const [googleHeight, setGoogleHeight] = useState(32)
     const [googleWidth, setGoogleWidth] = useState(32)
 
-    const [euOdeioIsso, setEuOdeioIsso] = useState(0)
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
     const [nome, setNome] = useState('')
@@ -32,6 +32,7 @@ const Cadastro = ({ navigation }) => {
     useEffect(() => {
       if(height <= 700){
         console.log("tela pequena")
+        console.log(height)
         setStuffHeight(65)
         setImageHeight(144.032)
         setImageWidth(132.608)
@@ -80,7 +81,7 @@ const Cadastro = ({ navigation }) => {
 
           
    
-          navigation.navigate("Home")
+          navigation.navigate("HomeStart")
   
         } catch (error) {
           console.log(error)
@@ -96,11 +97,20 @@ const Cadastro = ({ navigation }) => {
         {/* nvm, I found a way using (minHeight: "100%", width: "100%") instead of (flex: 1) */}
         <Image style={[styles.logo, { width: imageWidth, height: imageHeight }]} source={require("../../assets/logo-full.png")} />
 
-        <TextInput value= {nome} style={[styles.input, { fontSize: (fontSize - 2), height: (stuffHeight - 7) }]} placeholder='Nome' autoCapitalize='none' onChangeText={(text) => setNome(text)}></TextInput>
-        <TextInput value={email} style = {[styles.input, { fontSize: (fontSize - 2), height: (stuffHeight - 7) }]} placeholder='Email' autoCapitalize='none'
-        onChangeText={(text) => setEmail(text)}></TextInput>
-         <TextInput value={senha} style = {[styles.input, { fontSize: (fontSize - 2), height: (stuffHeight - 7) }]} placeholder='Senha' autoCapitalize='none'
-        onChangeText={(text) => setSenha(text)} secureTextEntry={true}></TextInput>
+        <View style={[styles.inputArea, {height: (stuffHeight - 7)} ]} >
+          <TextInput value= {nome} style={[styles.input, { fontSize: (fontSize - 2) }]} placeholder='Nome' autoCapitalize='none' onChangeText={(text) => setNome(text)}/>
+          <Feather name="user" size={27} color={"rgba(0,0,0,0.5)"} />
+        </View>
+        <View style={[styles.inputArea, {height: (stuffHeight - 7)} ]} >
+          <TextInput value={email} style = {[styles.input, { fontSize: (fontSize - 2) }]} placeholder='Email' autoCapitalize='none'
+          onChangeText={(text) => setEmail(text)}/>
+          <Feather name="mail" size={27} color={"rgba(0,0,0,0.5)"} />
+        </View>
+        <View style={[styles.inputArea, {height: (stuffHeight - 7)} ]} >
+          <TextInput value={senha} style = {[styles.input, { fontSize: (fontSize - 2) }]} placeholder='Senha' autoCapitalize='none'
+          onChangeText={(text) => setSenha(text)} secureTextEntry={true}/>
+          <Feather name="lock" size={27} color={"rgba(0,0,0,0.5)"} />
+        </View>
 
           {loading ? (
             <ActivityIndicator size="30" color="#7EB77F" />
@@ -130,16 +140,23 @@ const styles = StyleSheet.create({
     marginBottom: "10%",
     resizeMode: 'stretch'
   },
-  input: {
+  inputArea:{
     backgroundColor: "#FFFFFF",
     borderRadius: 15,
     borderColor: '#dbdbdb',
     borderBottomWidth: 7,
     borderWidth: 4,
     width: "85%",
-    alignSelf: "center",
-    paddingHorizontal: 20,
     marginBottom: 15,
+    paddingHorizontal: 15,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+
+  },
+  input: {
+    height: "100%",
+    width: "80%",
   },
   buttonLogin: {
     marginTop: "7%",

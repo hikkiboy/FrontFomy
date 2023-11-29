@@ -35,7 +35,7 @@ export default function Routes() {
     <Stack.Navigator initialRouteName="Login">
       <Stack.Screen
         name="Profile"
-        component={TabNavigatior}
+        component={Profile}
         options={{ headerShown: false }}
       />
       {<Stack.Screen
@@ -59,8 +59,8 @@ export default function Routes() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="Home"
-        component={Home}
+        name="HomeStart"
+        component={TabNavigatior}
         options={{ headerShown: false }}
       />
        <Stack.Screen
@@ -127,11 +127,12 @@ const Tab = createBottomTabNavigator();
 
 export function TabNavigatior() {
   return(
-   <Tab.Navigator 
+   <Tab.Navigator
+    initialRouteName="Home"
     screenOptions={{
       tabBarShowLabel: false,
       tabBarStyle:{
-        backgroundColor: '#427643',
+        backgroundColor: '#FFF',
         height: 70,
         borderTopStartRadius: 20,
         borderTopEndRadius: 20,
@@ -144,31 +145,31 @@ export function TabNavigatior() {
       headerShown: false,
       backgroundColor: 'red',
       tabBarIcon: ({focused})=>(
-      <Ionicons name="person-sharp" size={32} color={focused ? "white" : "black"} />
+      <Ionicons name="person-sharp" size={32} color={focused ? "#7EB77F" : "black"} />
     )}}/>
     
     <Tab.Screen name = "Chat" component={Home} options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <Ionicons name="chatbubble-ellipses-outline" size={32} color={focused ? "white" : "black"} />
+      <Ionicons name="chatbubble-ellipses-outline" size={32} color={focused ? "#7EB77F" : "black"} />
     )}}/>
 
     <Tab.Screen name = "Home" component={Home}  options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <Ionicons name="home" size={32} color={focused ? "white" : "black"} />
+      <Ionicons name="home" size={32} color={focused ? "#7EB77F" : "black"} />
     )}}/>
     
     <Tab.Screen name = "Lolja" component={Profile} options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <Ionicons name="cart-outline" size={32} color={focused ? "white" : "black"} />
+      <Ionicons name="cart-outline" size={32} color={focused ? "#7EB77F" : "black"} />
     )}}/>
     
     <Tab.Screen name = "Livro de Receitas" component={Profile} options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <FontAwesome name="book" size={32} color={focused ? "white" : "black"} />
+      <FontAwesome name="book" size={32} color={focused ? "#7EB77F" : "black"} />
     )}}/>
 
     {/*<Tab.Screen name = "Trilhas" component={Fetch}options={{headerShown: false}}/>*/}
