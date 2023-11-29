@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, Alert, TextInput, ActivityIndicator, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Alert, TextInput, ActivityIndicator, Dimensions, Modal } from 'react-native';
 import React, { useState, useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { app, app_DB, app_auth } from '../../../firebaseConfig'
@@ -7,6 +7,8 @@ import { useHeaderHeight } from '@react-navigation/elements'
 import { doc, setDoc } from "firebase/firestore"; 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Feather } from 'react-native-vector-icons'
+import { FontAwesome } from 'react-native-vector-icons'
+import { Overlay } from 'react-native-elements';
 
 
 
@@ -15,79 +17,85 @@ import { Feather } from 'react-native-vector-icons'
 
 const Cadastro = ({ navigation }) => {
 
-    const height = Dimensions.get("window").height
-    const [stuffHeight, setStuffHeight] = useState(70)
-    const [imageHeight, setImageHeight] = useState(180.04)
-    const [imageWidth, setImageWidth] = useState(165.76)
-    const [fontSize, setFontSize] = useState(20)
-    const [googleHeight, setGoogleHeight] = useState(32)
-    const [googleWidth, setGoogleWidth] = useState(32)
+    const height = Dimensions.get("window").height;
+    const [stuffHeight, setStuffHeight] = useState(70);
+    const [imageHeight, setImageHeight] = useState(180.04);
+    const [imageWidth, setImageWidth] = useState(165.76);
+    const [fontSize, setFontSize] = useState(20);
+    const [googleHeight, setGoogleHeight] = useState(32);
+    const [googleWidth, setGoogleWidth] = useState(32);
 
-    const [email, setEmail] = useState('')
-    const [senha, setSenha] = useState('')
-    const [nome, setNome] = useState('')
-    const [loading, setLoading] = useState(false)
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+    const [nome, setNome] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [created, setCreated] = useState(false);
+    const [problem, setProblem] = useState(false);
+    const [whatError, setWhatError] = useState("");
     const auth = app_auth;
 
     useEffect(() => {
       if(height <= 700){
-        console.log("tela pequena")
-        console.log(height)
-        setStuffHeight(65)
-        setImageHeight(144.032)
-        setImageWidth(132.608)
-        setFontSize(16)
-        setGoogleHeight(26)
-        setGoogleWidth(26)
+        console.log("tela pequena");
+        console.log(height);
+        setStuffHeight(65);
+        setImageHeight(144.032);
+        setImageWidth(132.608);
+        setFontSize(16);
+        setGoogleHeight(26);
+        setGoogleWidth(26);
       }
     })
 
-    const SignIn = async () => {
-      setLoading(true)
-      try{
-        const response = await signInWithEmailAndPassword(auth, email, senha)
-        
-
-      } catch (error) {
-        console.log(error)
-        alert('deu erro')
-      } finally{
-        setLoading(false)
-      }
-    }
-
       const SignUp = async () => {
         setLoading(true)
-        try{
-          
-          const response = await createUserWithEmailAndPassword(auth, email, senha)
- 
-          const Other = setNome(nome)
-          const docRef = await setDoc(doc(app_DB, "Usuarios", response.user.uid), {
-            Alergias:[],
-            Exp : 0,
-            Foto : "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Default-Profile-Picture-PNG-Photo-3895174684.png?alt=media&token=f70e36af-2857-405f-b307-5e7abe35f347",
-            Itens: [],
-            Moedas: 0,
-            Nivel: 1,
-            Nome : nome,
-            Premium: false,
-            ProgressoTrilhas: [],
-            ReceitasFeitas: [],
-            Insignias: ["Beta"],
-            Titulo: "Iniciante"
-
-          })
-
-          
-   
-          navigation.navigate("HomeStart")
+        setCreated(false)
+        if(nome == "" || senha == "" || email == "" ){
+            setWhatError("Preencha todos os campos!")
+            setProblem(true)
+            setLoading(false)
+        } else {
+          try{
+            
+            const response = await createUserWithEmailAndPassword(auth, email, senha)
   
-        } catch (error) {
-          console.log(error)
-          alert('Faio, Erro : ' + error)
-        } finally{
-          setLoading(false)
+            const Other = setNome(nome)
+            const docRef = await setDoc(doc(app_DB, "Usuarios", response.user.uid), {
+              Alergias:[],
+              Exp : 0,
+              Foto : "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Default-Profile-Picture-PNG-Photo-3895174684.png?alt=media&token=f70e36af-2857-405f-b307-5e7abe35f347",
+              Itens: [],
+              Moedas: 0,
+              Nivel: 1,
+              Nome : nome,
+              Premium: false,
+              ProgressoTrilhas: [],
+              ReceitasFeitas: [],
+              Insignias: ["Beta"],
+              Titulo: "Iniciante"
+
+            })
+
+            setCreated(true)
+            setTimeout(() => {
+              setLoading(false);
+              navigation.navigate("HomeStart");
+            }, 500);      
+    
+          } catch (error) {
+            setProblem(true)
+            setLoading(false)
+            console.log("erro: "+error)
+            if(error == "FirebaseError: Firebase: Error (auth/invalid-email)."){
+              setWhatError("Email inválido!")
+            } else if(error == "FirebaseError: Firebase: Password should be at least 6 characters (auth/weak-password)."){
+              setWhatError("Senha fraca, coloque uma com pelo menos 6 caractéres.")
+            } else if(error == "FirebaseError: Firebase: Error (auth/email-already-in-use)."){
+              setWhatError("O email já está em uso.")
+            } else {
+              setWhatError("Ocorreu um erro com seu cadastro: " + error)
+            }
+          }
         }
     }
   
@@ -95,6 +103,53 @@ const Cadastro = ({ navigation }) => {
         <KeyboardAwareScrollView contentContainerStyle={styles.container} >
         {/* scroll views are fucking STUPID, specially keyboard avoiding ones */}
         {/* nvm, I found a way using (minHeight: "100%", width: "100%") instead of (flex: 1) */}
+
+        <Modal
+          visible={loading}
+          animationType="fade"
+          transparent={true}
+        >
+          <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', backgroundColor: "rgba(0,0,0,0.10)", zIndex: 98 }} ></View>
+        </Modal>
+        <Modal
+          visible={loading}
+          animationType="slide"
+          transparent={true}
+        >
+          <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', zIndex: 99, alignItems: 'center' }} >
+            <View style={{ backgroundColor: "#FFF", height: "30%", width: "100%", borderTopLeftRadius: 25, borderTopRightRadius: 25, alignItems: 'center' }} >
+              <View style={{ alignItems: 'center', width: "100%", height: "25%", justifyContent: 'center'  }} >
+                <Text style={{ textAlign: 'center', fontSize: 25, fontWeight: '800' }} >{ created ?  ("Perfil criado!") : ("Criando perfil...")}</Text>
+              </View>
+              <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'center' }} >
+                { created ?  (
+                    <Feather name="check" size={120} color="#7EB77F" />
+                  ) : (
+                    <ActivityIndicator size={90} color="#7EB77F" />
+                  )
+                }
+              </View>
+
+            </View>
+          </View>
+        </Modal>
+
+        <Modal
+          visible={problem}
+          transparent={true}
+          animationType='fade'
+        >
+          <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "rgba(0,0,0,0.2)" }} >
+            <View style={{ alignItems: 'center', backgroundColor: '#FFF', borderRadius: 15, width: "90%", paddingVertical: 20, paddingBottom: 30 }} >
+              <Feather name="alert-triangle" size={80} color="#F68F92" />
+              <Text style={{ fontSize: 19, fontWeight: 'bold', marginBottom: "12%", marginTop: "3%", width: "90%", textAlign: 'center' }} >{whatError}</Text>
+              <TouchableOpacity style={{ backgroundColor: "#F68F92", width: "90%", alignItems: 'center', justifyContent: 'center', borderRadius: 15, height: 40 }} onPress={() => setProblem(false)} >
+                <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'white' }} >Beleza, foi mal!</Text>
+              </TouchableOpacity>
+            </View>
+          </SafeAreaView>
+        </Modal>
+
         <Image style={[styles.logo, { width: imageWidth, height: imageHeight }]} source={require("../../assets/logo-full.png")} />
 
         <View style={[styles.inputArea, {height: (stuffHeight - 7)} ]} >
@@ -111,16 +166,9 @@ const Cadastro = ({ navigation }) => {
           onChangeText={(text) => setSenha(text)} secureTextEntry={true}/>
           <Feather name="lock" size={27} color={"rgba(0,0,0,0.5)"} />
         </View>
-
-          {loading ? (
-            <ActivityIndicator size="30" color="#7EB77F" />
-          ) : (
-            <>
-          <TouchableOpacity style = {[styles.buttonLogin, { height: stuffHeight }]} title = 'Registrar' onPress={SignUp}>
+        <TouchableOpacity style = {[styles.buttonLogin, { height: stuffHeight }]} title = 'Registrar' onPress={SignUp}>
           <Text style={[styles.text, {fontSize: fontSize}]}>Começar jornada!</Text>
-          </TouchableOpacity>
-            </>
-          )}
+        </TouchableOpacity>
 
         </KeyboardAwareScrollView>
 
