@@ -161,7 +161,6 @@ export function TabNavigatior() {
    >
     <Tab.Screen name = "Perfil" component={Profile} options={{
       headerShown: false,
-      backgroundColor: 'red',
       tabBarIcon: ({focused})=>(
       <Ionicons name="person-sharp" size={34} color={focused ? "#7eb77f" : "black"} />
     )}}/>

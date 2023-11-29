@@ -2,17 +2,18 @@ import {SafeAreaView, View, Image, StyleSheet, Text} from 'react-native'
 
 const Store = ({navigation}) => {
 
-return(
+    return(
 
-    <SafeAreaView>
-
-        <View>
-            <Image style={styles.placeholder} source={require('../../assets/cssource.png')}/>
-        </View>
-        
-    </SafeAreaView>    
-)
-
+        <SafeAreaView>
+    
+            <View style={styles.placeholder}>
+                <Image  style={styles.engiberto} source={require('../../assets/anengiberto.png')}/>
+                <Text style={styles.textoTemporario}>Feature em Desenvolvimento</Text>
+            </View>
+            
+        </SafeAreaView>    
+    )
+    
 }
 
 export default Store
@@ -20,7 +21,21 @@ export default Store
 const styles = StyleSheet.create({
 
     placeholder:{
-        width: '100%', 
-        height: '100%'
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingTop: 200,
+
+    },
+    engiberto:{
+        width: '80%',
+        height: '80%',
+        resizeMode: 'contain',
+    },
+    textoTemporario:{        
+        fontSize: 27,
+        fontWeight: '500',
+        textAlign: 'center',
+        marginTop: -10
+        
     }
 })
