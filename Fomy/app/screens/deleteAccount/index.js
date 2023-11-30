@@ -102,7 +102,7 @@ export default function DeleteAccount({ navigation }){
     <SafeAreaView style={styles.container}>
 
         <Image style={styles.depressoberto} source={require('../../assets/adepressoberto.png')}/>
-        <Text style={styles.depressoDialogue}>Vamos sentir sua faltar</Text>
+        <Text style={styles.depressoDialogue}>Vamos sentir sua faltar...</Text>
         <View style={styles.content} >
        
             <View style={styles.inputarea} >
@@ -140,12 +140,15 @@ container:{
 },
 depressoberto:{
     width: '60%',
-    height: '60%',
+    height: '40%',
     marginLeft: '25%',
     resizeMode: 'contain',
 },
 depressoDialogue:{
-    fontSize: 18,
+    fontSize: 24,
+    fontWeight: 'bold',
+    paddingTop: 10,
+    paddingBottom: 50,
     fontWeight: '500',
     textAlign: 'center',
     
