@@ -28,7 +28,7 @@ export function ActionModal({ handleAction, navigation, handleName, pickIt }){
                         <Feather name="settings" size={26} />
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.leave} activeOpacity={0.9} onPress={() => {app_auth.signOut(); navigation.navigate('Login')}} >
+                    <TouchableOpacity style={styles.leave} activeOpacity={0.9} onPress={() => {handleAction(); app_auth.signOut()}} >
                         <Text style={styles.action} >Sair</Text>
                         <Feather name="log-out" size={26} />
                     </TouchableOpacity>

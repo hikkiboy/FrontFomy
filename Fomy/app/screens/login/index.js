@@ -28,8 +28,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 import { useNavigation } from "@react-navigation/native";
 
-const LoginPage = () => {
-  const navigation = useNavigation();
+const LoginPage = ({ navigation }) => {
 
   const height = Dimensions.get("window").height;
   const [stuffHeight, setStuffHeight] = useState(70);
@@ -68,7 +67,7 @@ const LoginPage = () => {
       setEntered(true);
       setTimeout(() => {
         setLoading(false);
-        navigation.navigate("HomeStart");
+        navigation.navigate("HomeStart")
       }, 500);
 
     } catch (error) {

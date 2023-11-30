@@ -69,17 +69,19 @@ const Cadastro = ({ navigation }) => {
               Nivel: 1,
               Nome : nome,
               Premium: false,
-              ProgressoTrilhas: [],
               ReceitasFeitas: [],
               Insignias: ["Beta"],
-              Titulo: "Iniciante"
+              Titulo: "Iniciante",
+              Basico: 0,
+              Doces: 0,
+              Gourmet: 0,
+              Refeições: 0
 
             })
 
             setCreated(true)
             setTimeout(() => {
               setLoading(false);
-              navigation.navigate("HomeStart");
             }, 500);      
     
           } catch (error) {

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 //import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { Entypo } from '@expo/vector-icons';
+import { useNavigation } from "@react-navigation/native";
 
 import { FontAwesome } from '@expo/vector-icons';
 import { View } from "react-native";
@@ -23,6 +24,7 @@ import Configs from "../screens/configs";
 import AccountConfig from "../screens/accountConfig"
 import AlterPassword from "../screens/accountConfig/alterPassword"
 import AlterEmail from "../screens/accountConfig/alterEmail"
+import Loading from "../components/loading";
 
 import Preparo from "../components/preparo";
 import Passos from "../components/passos";
@@ -30,9 +32,32 @@ import Parabens from "../components/parabens";
 
 const Stack = createNativeStackNavigator();
 
-export default function Routes() {
+export default function Routes({ loggedIn, loading }) {
+
+  const navigation = useNavigation();
+  const [initialRoute, setInitialRoute] = React.useState("Loading")
+
+  React.useEffect(() => {
+    if(loading == false) {
+      if(loggedIn){
+        console.log("Logged in for Routes")
+        navigation.navigate("HomeStart")
+        setInitialRoute("HomeStart")
+      } else {
+        console.log("Not logged in for Routes")
+        navigation.navigate("Login")
+        setInitialRoute("Login")
+      }
+    }
+  },[loggedIn, loading])
   return (
-    <Stack.Navigator initialRouteName="Login">
+    <Stack.Navigator initialRouteName={initialRoute} >
+
+      <Stack.Screen
+        name="Loading"
+        component={Loading}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="Profile"
         component={Profile}
@@ -145,31 +170,31 @@ export function TabNavigatior() {
       headerShown: false,
       backgroundColor: 'red',
       tabBarIcon: ({focused})=>(
-      <Ionicons name="person-sharp" size={32} color={focused ? "#7EB77F" : "black"} />
+      <Ionicons name="person-sharp" size={32} color={focused ? "#70d872" : "black"} />
     )}}/>
     
     <Tab.Screen name = "Chat" component={Home} options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <Ionicons name="chatbubble-ellipses-outline" size={32} color={focused ? "#7EB77F" : "black"} />
+      <Ionicons name="chatbubble-ellipses-outline" size={32} color={focused ? "#70d872" : "black"} />
     )}}/>
 
     <Tab.Screen name = "Home" component={Home}  options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <Ionicons name="home" size={32} color={focused ? "#7EB77F" : "black"} />
+      <Ionicons name="home" size={32} color={focused ? "#70d872" : "black"} />
     )}}/>
     
     <Tab.Screen name = "Lolja" component={Profile} options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <Ionicons name="cart-outline" size={32} color={focused ? "#7EB77F" : "black"} />
+      <Ionicons name="cart-outline" size={32} color={focused ? "#70d872" : "black"} />
     )}}/>
     
     <Tab.Screen name = "Livro de Receitas" component={Profile} options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <FontAwesome name="book" size={32} color={focused ? "#7EB77F" : "black"} />
+      <FontAwesome name="book" size={32} color={focused ? "#70d872" : "black"} />
     )}}/>
 
     {/*<Tab.Screen name = "Trilhas" component={Fetch}options={{headerShown: false}}/>*/}
