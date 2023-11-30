@@ -123,9 +123,9 @@ const Cadastro = ({ navigation }) => {
               </View>
               <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'center' }} >
                 { created ?  (
-                    <Feather name="check" size={120} color="#7EB77F" />
+                    <Feather name="check" size={120} color="#70d872" />
                   ) : (
-                    <ActivityIndicator size={90} color="#7EB77F" />
+                    <ActivityIndicator size={90} color="#70d872" />
                   )
                 }
               </View>
@@ -141,10 +141,10 @@ const Cadastro = ({ navigation }) => {
         >
           <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "rgba(0,0,0,0.2)" }} >
             <View style={{ alignItems: 'center', backgroundColor: '#FFF', borderRadius: 15, width: "90%", paddingVertical: 20, paddingBottom: 30 }} >
-              <Feather name="alert-triangle" size={80} color="#F68F92" />
+              <Feather name="alert-triangle" size={80} color="#fa787d" />
               <Text style={{ fontSize: 19, fontWeight: 'bold', marginBottom: "12%", marginTop: "3%", width: "90%", textAlign: 'center' }} >{whatError}</Text>
-              <TouchableOpacity style={{ backgroundColor: "#F68F92", width: "90%", alignItems: 'center', justifyContent: 'center', borderRadius: 15, height: 40 }} onPress={() => setProblem(false)} >
-                <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'white' }} >Beleza, foi mal!</Text>
+              <TouchableOpacity style={{ backgroundColor: "#fa787d", width: "90%", alignItems: 'center', justifyContent: 'center', borderRadius: 15, height: 45, borderWidth: 4, borderBottomWidth: 6, borderColor: '#f1555a' }} onPress={() => setProblem(false)} >
+                <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#000', opacity: 0.7 }} >Beleza, foi mal!</Text>
               </TouchableOpacity>
             </View>
           </SafeAreaView>
@@ -208,18 +208,18 @@ const styles = StyleSheet.create({
   },
   buttonLogin: {
     marginTop: "7%",
-    backgroundColor: '#A4CCA4',
+    backgroundColor: '#70d872',
     width: "85%",
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 15,
-    borderColor: '#8eb28e',
+    borderColor: '#62bc63',
     borderBottomWidth: 8,
     borderWidth: 5
   },
   text: {
     fontWeight: 'bold',
-    opacity: 0.5,
+    opacity: 0.7,
   },
   forgotPassword:{
     alignSelf: "center",

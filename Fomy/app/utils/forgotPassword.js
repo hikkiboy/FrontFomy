@@ -76,15 +76,15 @@ const PasswordResets = () => {
                 </View>
                   { sent ?  (
                       <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'flex-start' }} >
-                        <Feather style={{ marginTop: "-5%" }}  name="check" size={100} color="#7EB77F" />
+                        <Feather style={{ marginTop: "-5%" }}  name="check" size={100} color="#70d872" />
                         <Text style={{ width: "90%", fontSize: 18, textAlign: 'center', fontWeight: 'bold', marginBottom: "9%", marginTop: "1%" }} >Siga as instruções que enviamos</Text>
-                        <TouchableOpacity onPress={() => {setLoading(false); navigation.navigate("Loginpage")}} style={{ width: "90%", alignItems: 'center', height: "20%", justifyContent: 'center', borderRadius: 15, backgroundColor: "#7EB77F" }} >
-                          <Text style={{ fontSize: (fontSize + 1), opacity: 0.6, fontWeight: 'bold' }} >Voltar ao login</Text>
+                        <TouchableOpacity onPress={() => {setLoading(false); navigation.navigate("Loginpage")}} style={{ width: "90%", alignItems: 'center', height: (stuffHeight - 5), justifyContent: 'center', borderRadius: 15, backgroundColor: '#70d872', borderWidth: 4, borderBottomWidth: 6, borderColor: '#62bc63' }} >
+                          <Text style={{ fontSize: (fontSize + 1), opacity: 0.7, fontWeight: 'bold' }} >Voltar ao login</Text>
                         </TouchableOpacity>
                       </View>
                     ) : (
                       <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'center' }} >
-                        <ActivityIndicator size={90} color="#7EB77F" />
+                        <ActivityIndicator size={90} color="#70d872" />
                       </View>
                     )
                   }
@@ -101,10 +101,10 @@ const PasswordResets = () => {
           >
             <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "rgba(0,0,0,0.2)" }} >
               <View style={{ alignItems: 'center', backgroundColor: '#FFF', borderRadius: 15, width: "90%", paddingVertical: 20, paddingBottom: 30 }} >
-                <Feather name="alert-triangle" size={80} color="#F68F92" />
+                <Feather name="alert-triangle" size={80} color="#fa787d" />
                 <Text style={{ fontSize: 19, fontWeight: 'bold', marginBottom: "12%", marginTop: "3%", width: "90%", textAlign: 'center' }} >{whatError}</Text>
-                <TouchableOpacity style={{ backgroundColor: "#F68F92", width: "90%", alignItems: 'center', justifyContent: 'center', borderRadius: 15, height: 40 }} onPress={() => setProblem(false)} >
-                  <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'white' }} >Beleza, foi mal!</Text>
+                <TouchableOpacity style={{ backgroundColor: "#fa787d", width: "90%", alignItems: 'center', justifyContent: 'center', borderRadius: 15, height: 45, borderWidth: 4, borderBottomWidth: 6, borderColor: '#f1555a' }} onPress={() => setProblem(false)} >
+                  <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#000', opacity: 0.7 }} >Beleza, foi mal!</Text>
                 </TouchableOpacity>
               </View>
             </SafeAreaView>
@@ -163,18 +163,18 @@ const styles = StyleSheet.create({
   
   buttonLogin: {
     marginTop: "7%",
-    backgroundColor: '#F68F92',
+    backgroundColor: '#70d872',
     width: "85%",
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 15,
-    borderColor: '#e88689',
+    borderColor: '#62bc63',
     borderBottomWidth: 8,
     borderWidth: 5 
   },
   text: {
     fontWeight: 'bold',
-    color: "#FFF"
+    color: "rgba(0,0,0,0.7)"
   },
 });
 

@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react'
 import { app_auth } from '../../../firebaseConfig'
 import { Logo } from '../../components/logo';
 import { AntDesign } from '@expo/vector-icons'; 
+import { Octicons } from '@expo/vector-icons'; 
+
 
 
 
@@ -15,6 +17,7 @@ const Login = ({navigation}) => {
   const [fontSize, setFontSize] = useState(23)
   const [googleHeight, setGoogleHeight] = useState(32)
   const [googleWidth, setGoogleWidth] = useState(32)
+  const [ tinyText, setTinyText ] = useState(23);
   
   useEffect(() => {
     if(height <= 700){
@@ -26,6 +29,7 @@ const Login = ({navigation}) => {
       setFontSize(18)
       setGoogleHeight(26)
       setGoogleWidth(26)
+      setTinyText(21)
     }
   })
 
@@ -42,12 +46,24 @@ const Login = ({navigation}) => {
             <Text style={[styles.login, {fontSize: fontSize}]}>Login</Text>
           </TouchableOpacity>
     
-          <Image style={{width: "50%", height: "0.9%", resizeMode: "stretch", marginVertical: "10%"}} source={require("../../assets/lines-detail.png")} />
-          {/*<Text style={[styles.otherOptions, { fontSize: (fontSize - 1) }]}>-- ou entre com --</Text>*/}
+          
+          {/* <Image style={{width: "50%", height: "0.9%", resizeMode: "stretch", marginVertical: "10%"}} source={require("../../assets/lines-detail.png")} /> */}
+          
+          <View style={{flexDirection:"row", justifyContent: "center", alignItems: 'center'}}>
+            <Octicons name="dash" size={80} color="#dbdbdb" />
+            <Text style={[styles.otherOptions, { fontSize: tinyText }]}> ou </Text>
+            <Octicons name="dash" size={80} color="#dbdbdb" />
+          </View>
 
           <TouchableOpacity style={[styles.buttonCadastroGoogle, { height: (stuffHeight - 10) }]} onPress={ () => navigation.navigate('Loginpage')}>
-            <Image tintColor={"#FFF"} style={[{ width: googleWidth, height: googleHeight, resizeMode: "contain", marginRight: "8%" }]} source={require("../../assets/logoGoogle.png")} />
-            <Text style={{ color: "#FFF", fontSize: fontSize, fontWeight: "bold" }} >Entrar com Google</Text>
+            
+            <Text style={[ styles.login ,{ fontSize: fontSize }]} >Entre com </Text>
+            <Text style={{ color: "#4285f4", fontSize: fontSize, fontWeight: "bold" }} >G</Text>
+            <Text style={{ color: "#ea4335", fontSize: fontSize, fontWeight: "bold" }} >o</Text>
+            <Text style={{ color: "#fbbc05", fontSize: fontSize, fontWeight: "bold" }} >o</Text>
+            <Text style={{ color: "#4285f4", fontSize: fontSize, fontWeight: "bold" }} >g</Text>
+            <Text style={{ color: "#34a853", fontSize: fontSize, fontWeight: "bold" }} >l</Text>
+            <Text style={{ color: "#ea4335", fontSize: fontSize, fontWeight: "bold" }} >e</Text>
           </TouchableOpacity>
   
         
@@ -74,22 +90,22 @@ const styles = StyleSheet.create({
     resizeMode: 'stretch'
   },
   buttonCadastro: {
-    backgroundColor: '#A4CCA4',
+    backgroundColor: '#70d872',
     width: "85%",
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 15,
-    borderColor: '#8eb28e',
+    borderColor: '#62bc63',
     borderBottomWidth: 8,
     borderWidth: 5
   },
   buttonLogin: {
-    backgroundColor: '#FFF',
+    backgroundColor: '#fab151',
     width: "85%",
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 15,
-    borderColor: '#dbdbdb',
+    borderColor: '#ed8a07',
     borderBottomWidth: 8,
     borderWidth: 5,
     marginTop: "5%"
@@ -97,17 +113,17 @@ const styles = StyleSheet.create({
   },
   login:{
     fontWeight: 'bold',
-    opacity: 0.5,
+    opacity: 0.7,
   },
   loginGoogle:{
     fontSize: 28,
     color: "#FFF"
   },
   buttonCadastroGoogle: {
-    backgroundColor: '#F68F92',
+    backgroundColor: '#FFF',
     width: "85%",
     borderRadius: 15,
-    borderColor: '#e88689',
+    borderColor: '#dbdbdb',
     borderBottomWidth: 8,
     borderWidth: 5,
     flexDirection: 'row',
@@ -120,6 +136,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  otherOptions:{
+    marginHorizontal: 10,
+    marginBottom: 5,
+    color: "rgba(0,0,0,0.7)",
+    fontWeight: "bold"
+    
+  },
+
+  
   
 });
 
