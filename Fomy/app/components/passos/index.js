@@ -101,9 +101,9 @@ function pa(i, fwd){
               
             </View>
             <View>
-            <VideoPassos idVideo={ViPasso} style={styles.videofromyt}/>
             </View>
           </ImageBackground>
+          <VideoPassos idVideo={ViPasso} style={styles.videofromyt}/>
           <View style={styles.belowimage} >
             <View style={styles.teacharea} >
               <Text style={styles.descpasso} >{Passo.Passo}</Text>
@@ -112,7 +112,6 @@ function pa(i, fwd){
             </View>
             <View style={styles.buttons} >
               <TouchableOpacity style={styles.stepbak} onPress={() => pa(calcula, false) } ><Feather name={"arrow-left"} size={40} /></TouchableOpacity>
-              <Button title='debug' onPress={() => console.log(ViPasso)}></Button>
               <TouchableOpacity style={styles.stepfwd} onPress={() => pa(calcula, true) } ><Feather name={"arrow-right"} size={40} /></TouchableOpacity>
             </View>
           </View>
@@ -154,27 +153,19 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
 
   },
-  video:{
-    backgroundColor: 'black',
-    height: 200,
-    width: '90%',
-    alignSelf: 'center',
-    borderRadius: 20,
-    marginTop: 20
-  },
   videofromyt:{
     height: 200,
     width: '90%',
     alignSelf: 'center',
     borderRadius: 20,
-    marginTop: 20
+    marginTop: -20
   },
   belowimage:{
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-end',
-    marginTop: 150,
-    backgroundColor: "#FFF"
+    backgroundColor: "#FFF",
+    marginTop: -100
   },
   teacharea:{
     width: '90%',
@@ -205,7 +196,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center', 
     flexDirection: 'row',
     marginTop: 35
-
   },
   stepbak:{
     marginBottom: 35,

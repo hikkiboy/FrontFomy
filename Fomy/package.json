@@ -20,7 +20,6 @@
     "@react-navigation/native-stack": "^6.9.14",
     "@shopify/react-native-skia": "0.1.196",
     "expo": "~49.0.12",
-    "expo-av": "^13.6.0",
     "expo-image-picker": "~14.3.2",
     "expo-screen-orientation": "~6.0.6",
     "expo-status-bar": "~1.6.0",

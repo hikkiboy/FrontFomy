@@ -35,7 +35,7 @@ export default function VideoPassos({idVideo}) {
         initialPlayerParams={{loop: true}}
         onFullScreenChange={onFullScreenChange}
         onChangeState={onChangeState}
-        playList={id}
+        playList={[id]} 
         volume={0}
         
         />
@@ -47,11 +47,9 @@ const styles = StyleSheet.create({
     container:{
         flex: 1,
         alignSelf: 'center',
-        marginTop: 17,
-        borderRadius: 10
+        marginTop: -90
     },
     video:{
         flex: 1,
-        alignSelf: 'stretch'
     }
 })
