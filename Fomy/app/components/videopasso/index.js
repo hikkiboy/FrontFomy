@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useRef } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import YoutubeIframe from 'react-native-youtube-iframe'
 import * as Screen from 'expo-screen-orientation'
@@ -10,6 +10,9 @@ export default function VideoPassos({idVideo}) {
     const [videoReady, setVideoReady] = useState(false)
     const [playing, setplaying] = useState(true)
     const id = idVideo
+
+    const playerRef = useRef()
+
     const onFullScreenChange = useCallback((isfullscreen) => {
         if (isfullscreen){
             Screen.lockAsync(Screen.OrientationLock.LANDSCAPE)
@@ -20,7 +23,7 @@ export default function VideoPassos({idVideo}) {
     
     const onChangeState = useCallback((state) => {
         if(state == PLAYER_STATES.ENDED){
-            setplaying(false)
+            playerRef.current?.seekTo("0")
         }
     }, [])
 
@@ -30,13 +33,14 @@ export default function VideoPassos({idVideo}) {
         videoId = {id}
         height={400}
         width={400}
-        play
+        play = {true}
+        
         onReady={() => setVideoReady(true)}
         initialPlayerParams={{loop: true}}
         onFullScreenChange={onFullScreenChange}
         onChangeState={onChangeState}
         playList={[id]} 
-        volume={0}
+        volume={50}
         
         />
      </View>
