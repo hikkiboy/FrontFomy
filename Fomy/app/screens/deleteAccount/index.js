@@ -102,7 +102,7 @@ export default function DeleteAccount({ navigation }){
     <SafeAreaView style={styles.container}>
 
         <Image style={styles.depressoberto} source={require('../../assets/adepressoberto.png')}/>
-        <Text style={styles.depressoDialogue}>Vamos sentir sua faltar...</Text>
+        <Text style={styles.depressoDialogue}>Vamos sentir sua falta...</Text>
         <View style={styles.content} >
        
             <View style={styles.inputarea} >
