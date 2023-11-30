@@ -61,13 +61,7 @@ export default function Passos({route, props, navigation}) {
   
   },[])
 
-  useEffect(() => {
-    try {
-      setVideo(Receitas[0].VideoPasso)
-    } catch (error) {
-      console.log('erros')
-    }
-  },[Receitas])
+
 
 function pa(i, fwd){
   if(i < Receitas.length && fwd == true){
@@ -98,22 +92,23 @@ function pa(i, fwd){
             <TouchableOpacity onPress={ () => navigation.goBack() } style={styles.goback} ><Feather name="chevron-left" color={"black"} size={40} /></TouchableOpacity>
             <View style={styles.areatitulo}>
               <Text style={styles.titulopasso}> Passo {Passo.Sequencia}:  {Passo.Titulo}</Text>
-              
             </View>
             <View>
             </View>
           </ImageBackground>
-          <VideoPassos idVideo={ViPasso} style={styles.videofromyt}/>
+          <VideoPassos idVideo={Passo.VideoPasso} style={styles.videofromyt}/>
           <View style={styles.belowimage} >
+          <View style={styles.buttons} >
+            <Button title='debug' onPress={() => console.log(Passo.VideoPasso)}></Button>
+              <TouchableOpacity style={styles.stepbak} onPress={() => pa(calcula, false) } ><Feather name={"arrow-left"} size={40} /></TouchableOpacity>
+              <TouchableOpacity style={styles.stepfwd} onPress={() => pa(calcula, true) } ><Feather name={"arrow-right"} size={40} /></TouchableOpacity>
+            </View>
             <View style={styles.teacharea} >
               <Text style={styles.descpasso} >{Passo.Passo}</Text>
               <Image style={styles.bubbleimage} source={require("../../assets/bubbleTriangle.png")} />
               <Image style={styles.charimage} source={require("../../assets/betterAlberto.png")} />
             </View>
-            <View style={styles.buttons} >
-              <TouchableOpacity style={styles.stepbak} onPress={() => pa(calcula, false) } ><Feather name={"arrow-left"} size={40} /></TouchableOpacity>
-              <TouchableOpacity style={styles.stepfwd} onPress={() => pa(calcula, true) } ><Feather name={"arrow-right"} size={40} /></TouchableOpacity>
-            </View>
+
           </View>
         </ScrollView>
        </SafeAreaView>  
@@ -165,11 +160,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
     backgroundColor: "#FFF",
-    marginTop: -100
+    marginTop: -130
   },
   teacharea:{
     width: '90%',
-    alignItems: 'center'
+    alignItems: 'center',
+    
     
   },
   descpasso:{
@@ -195,7 +191,6 @@ const styles = StyleSheet.create({
   buttons:{
     justifyContent: 'center', 
     flexDirection: 'row',
-    marginTop: 35
   },
   stepbak:{
     marginBottom: 35,

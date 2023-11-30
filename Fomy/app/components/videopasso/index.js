@@ -10,6 +10,7 @@ export default function VideoPassos({idVideo}) {
     const [videoReady, setVideoReady] = useState(false)
     const [playing, setplaying] = useState(true)
     const id = idVideo
+    console.log(id)
 
     const playerRef = useRef()
 
@@ -40,7 +41,7 @@ export default function VideoPassos({idVideo}) {
         onFullScreenChange={onFullScreenChange}
         onChangeState={onChangeState}
         playList={[id]} 
-        volume={50}
+        volume={0}
         
         />
      </View>
