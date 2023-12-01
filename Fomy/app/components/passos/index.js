@@ -8,6 +8,7 @@ import { Button, ListItem } from 'react-native-elements';
 import { center } from '@shopify/react-native-skia';
 import { Feather } from 'react-native-vector-icons'
 import { SafeAreaView } from 'react-native-safe-area-context';
+import VideoPassos from '../videopasso';
 
 
 export default function Passos({route, props, navigation}) {
@@ -17,6 +18,7 @@ export default function Passos({route, props, navigation}) {
   const [visible, setVisible] = useState(false)
   const [Passo, setPasso] = useState([])
   const [calcula, setCalcula] = useState(1)
+  const [ViPasso, setVideo] = useState()
 
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -59,6 +61,8 @@ export default function Passos({route, props, navigation}) {
   
   },[])
 
+
+
 function pa(i, fwd){
   if(i < Receitas.length && fwd == true){
     i++;
@@ -80,6 +84,7 @@ function pa(i, fwd){
   }
 }
 
+
   return (
        <SafeAreaView style={styles.container}>
         <ScrollView>
@@ -87,22 +92,23 @@ function pa(i, fwd){
             <TouchableOpacity onPress={ () => navigation.goBack() } style={styles.goback} ><Feather name="chevron-left" color={"black"} size={40} /></TouchableOpacity>
             <View style={styles.areatitulo}>
               <Text style={styles.titulopasso}> Passo {Passo.Sequencia}:  {Passo.Titulo}</Text>
-              
             </View>
-            <View style={styles.video}>
-            
+            <View>
             </View>
           </ImageBackground>
+          <VideoPassos idVideo={Passo.VideoPasso} style={styles.videofromyt}/>
           <View style={styles.belowimage} >
+          <View style={styles.buttons} >
+            <Button title='debug' onPress={() => console.log(Passo.VideoPasso)}></Button>
+              <TouchableOpacity style={styles.stepbak} onPress={() => pa(calcula, false) } ><Feather name={"arrow-left"} size={40} /></TouchableOpacity>
+              <TouchableOpacity style={styles.stepfwd} onPress={() => pa(calcula, true) } ><Feather name={"arrow-right"} size={40} /></TouchableOpacity>
+            </View>
             <View style={styles.teacharea} >
               <Text style={styles.descpasso} >{Passo.Passo}</Text>
               <Image style={styles.bubbleimage} source={require("../../assets/bubbleTriangle.png")} />
               <Image style={styles.charimage} source={require("../../assets/betterAlberto.png")} />
             </View>
-            <View style={styles.buttons} >
-              <TouchableOpacity style={styles.stepbak} onPress={() => pa(calcula, false) } ><Feather name={"arrow-left"} size={40} /></TouchableOpacity>
-              <TouchableOpacity style={styles.stepfwd} onPress={() => pa(calcula, true) } ><Feather name={"arrow-right"} size={40} /></TouchableOpacity>
-            </View>
+
           </View>
         </ScrollView>
        </SafeAreaView>  
@@ -142,24 +148,24 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
 
   },
-  video:{
-    backgroundColor: 'black',
+  videofromyt:{
     height: 200,
     width: '90%',
     alignSelf: 'center',
     borderRadius: 20,
-    marginTop: 20
+    marginTop: -20
   },
   belowimage:{
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-end',
-    marginTop: 150,
-    backgroundColor: "#FFF"
+    backgroundColor: "#FFF",
+    marginTop: -130
   },
   teacharea:{
     width: '90%',
-    alignItems: 'center'
+    alignItems: 'center',
+    
     
   },
   descpasso:{
@@ -185,8 +191,6 @@ const styles = StyleSheet.create({
   buttons:{
     justifyContent: 'center', 
     flexDirection: 'row',
-    marginTop: 35
-
   },
   stepbak:{
     marginBottom: 35,

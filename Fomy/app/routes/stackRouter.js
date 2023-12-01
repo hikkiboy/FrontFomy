@@ -25,6 +25,9 @@ import AccountConfig from "../screens/accountConfig"
 import AlterPassword from "../screens/accountConfig/alterPassword"
 import AlterEmail from "../screens/accountConfig/alterEmail"
 import Loading from "../components/loading";
+import Store from '../screens/store'
+import Community from '../screens/community'
+import Book from '../screens/book'
 
 import Preparo from "../components/preparo";
 import Passos from "../components/passos";
@@ -143,6 +146,22 @@ export default function Routes({ loggedIn, loading }) {
         component={Parabens}
         options={{ headerShown: false }}
       />
+      <Stack.Screen
+        name="Store"
+        component={Store}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Community"
+        component={Community}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Book"
+        component={Book}
+        options={{ headerShown: false }}
+      />
+      
     </Stack.Navigator>
     
   );
@@ -169,12 +188,11 @@ export function TabNavigatior() {
    >
     <Tab.Screen name = "Perfil" component={Profile} options={{
       headerShown: false,
-      backgroundColor: 'red',
       tabBarIcon: ({focused})=>(
       <Ionicons name="person-sharp" size={32} color={focused ? "#70d872" : "black"} />
     )}}/>
     
-    <Tab.Screen name = "Chat" component={Home} options={{
+    <Tab.Screen name = "Community" component={Community} options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
       <Ionicons name="chatbubble-ellipses-outline" size={32} color={focused ? "#70d872" : "black"} />
@@ -186,13 +204,13 @@ export function TabNavigatior() {
       <Ionicons name="home" size={32} color={focused ? "#70d872" : "black"} />
     )}}/>
     
-    <Tab.Screen name = "Lolja" component={Profile} options={{
+    <Tab.Screen name = "Store" component={Store} options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
       <Ionicons name="cart-outline" size={32} color={focused ? "#70d872" : "black"} />
     )}}/>
     
-    <Tab.Screen name = "Livro de Receitas" component={Profile} options={{
+    <Tab.Screen name = "Book" component={Book} options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
       <FontAwesome name="book" size={32} color={focused ? "#70d872" : "black"} />
