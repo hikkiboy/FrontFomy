@@ -51,7 +51,7 @@ export default function Routes({ loggedIn, loading }) {
     }
   },[loggedIn, loading])
   return (
-    <Stack.Navigator initialRouteName={initialRoute} >
+    <Stack.Navigator initialRouteName={initialRoute} backBehavior="initialRoute" >
 
       <Stack.Screen
         name="Loading"
@@ -153,6 +153,7 @@ const Tab = createBottomTabNavigator();
 export function TabNavigatior() {
   return(
    <Tab.Navigator
+   backBehavior="initialRoute"
     initialRouteName="Home"
     screenOptions={{
       tabBarShowLabel: false,
