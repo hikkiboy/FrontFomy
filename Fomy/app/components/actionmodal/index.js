@@ -1,7 +1,7 @@
 import { View, SafeAreaView, Text, TouchableOpacity, StyleSheet, useState } from "react-native"
 import { app_auth } from '../../../firebaseConfig'
 import Feather from 'react-native-vector-icons/Feather'
-import { LoadProfile, destroyModal } from "../loadprofile"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 
 
@@ -28,7 +28,7 @@ export function ActionModal({ handleAction, navigation, handleName, pickIt }){
                         <Feather name="settings" size={26} />
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.leave} activeOpacity={0.9} onPress={() => {handleAction(); app_auth.signOut()}} >
+                    <TouchableOpacity style={styles.leave} activeOpacity={0.9} onPress={() => {handleAction(); app_auth.signOut(); AsyncStorage.clear()}} >
                         <Text style={styles.action} >Sair</Text>
                         <Feather name="log-out" size={26} />
                     </TouchableOpacity>
