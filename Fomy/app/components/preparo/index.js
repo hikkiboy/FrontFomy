@@ -9,7 +9,6 @@ import { Button, ListItem } from 'react-native-elements';
 
 export default function Preparo({route, props, navigation}) {
 
-
   const [Receitas, setReceitas] = useState([]);
   const [visible, setVisible] = useState(false)
 
@@ -33,7 +32,7 @@ export default function Preparo({route, props, navigation}) {
     const q = query(
       receitaRef,
       where("Nome", "==", route.params.paramKey[0]), 
-    )
+    ) 
       const subscriver = onSnapshot(q, {
         next : (snapshot) => {
           const receitas = []
@@ -77,6 +76,9 @@ let arrayporc = []
       {/* <View style={styles.linha}></View> */}
 {/* fazer um flat list pra gerar as fases  */}
 <View style={styles.bgpfp} >
+
+  <Image style={{ width: 120, height: 120 }} source={{ uri: route.params.paramKey[1]}}/>
+
     </View>
       <FlatList
       data={Receitas}
