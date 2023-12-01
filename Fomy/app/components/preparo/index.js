@@ -142,7 +142,6 @@ let arrayporc = []
              {arrayBon.includes(undefined) != true && (
               <>
               <View>
-              
               <View style={{display: 'flex', flexDirection: 'row', marginTop: 30}}>
               <Image style={styles.Ovo} source={require('../../assets/Ovo_leite.png')}/>
               <View style={styles.BonusBg}>

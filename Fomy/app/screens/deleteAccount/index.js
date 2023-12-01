@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet, TextInput, Pressable } from "react-native"
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, Image } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { app_auth, app_BKT, app_DB} from '../../../firebaseConfig'
 import { getAuth, reauthenticateWithCredential, EmailAuthProvider, deleteUser } from "firebase/auth";
@@ -101,8 +101,8 @@ export default function DeleteAccount({ navigation }){
 
     <SafeAreaView style={styles.container}>
 
-
-
+        <Image style={styles.depressoberto} source={require('../../assets/adepressoberto.png')}/>
+        <Text style={styles.depressoDialogue}>Vamos sentir sua falta...</Text>
         <View style={styles.content} >
        
             <View style={styles.inputarea} >
@@ -138,6 +138,21 @@ container:{
     backgroundColor: "#FFF"
 
 },
+depressoberto:{
+    width: '60%',
+    height: '40%',
+    marginLeft: '25%',
+    resizeMode: 'contain',
+},
+depressoDialogue:{
+    fontSize: 24,
+    fontWeight: 'bold',
+    paddingTop: 10,
+    paddingBottom: 50,
+    fontWeight: '500',
+    textAlign: 'center',
+    
+},
 inputarea:{
     marginStart: 6,
     marginEnd: 6,
@@ -165,7 +180,6 @@ input: {
 content:{
     paddingLeft: 15,
     paddingRight: 15,
-    marginTop: 65
 },
 action:{
     fontSize: 20,
