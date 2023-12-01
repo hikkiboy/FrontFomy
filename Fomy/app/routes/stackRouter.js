@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 //import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { Entypo } from '@expo/vector-icons';
+import { useNavigation } from "@react-navigation/native";
 
 import { FontAwesome } from '@expo/vector-icons';
 import { View } from "react-native";
@@ -23,6 +24,7 @@ import Configs from "../screens/configs";
 import AccountConfig from "../screens/accountConfig"
 import AlterPassword from "../screens/accountConfig/alterPassword"
 import AlterEmail from "../screens/accountConfig/alterEmail"
+import Loading from "../components/loading";
 import Store from '../screens/store'
 import Community from '../screens/community'
 import Book from '../screens/book'
@@ -33,12 +35,35 @@ import Parabens from "../components/parabens";
 
 const Stack = createNativeStackNavigator();
 
-export default function Routes() {
+export default function Routes({ loggedIn, loading }) {
+
+  const navigation = useNavigation();
+  const [initialRoute, setInitialRoute] = React.useState("Loading")
+
+  React.useEffect(() => {
+    if(loading == false) {
+      if(loggedIn){
+        console.log("Logged in for Routes")
+        navigation.navigate("HomeStart")
+        setInitialRoute("HomeStart")
+      } else {
+        console.log("Not logged in for Routes")
+        navigation.navigate("Login")
+        setInitialRoute("Login")
+      }
+    }
+  },[loggedIn, loading])
   return (
-    <Stack.Navigator initialRouteName="Login">
+    <Stack.Navigator initialRouteName={initialRoute} backBehavior="initialRoute" >
+
+      <Stack.Screen
+        name="Loading"
+        component={Loading}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="Profile"
-        component={TabNavigatior}
+        component={Profile}
         options={{ headerShown: false }}
       />
       {<Stack.Screen
@@ -62,8 +87,8 @@ export default function Routes() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="Home"
-        component={Home}
+        name="HomeStart"
+        component={TabNavigatior}
         options={{ headerShown: false }}
       />
        <Stack.Screen
@@ -146,11 +171,13 @@ const Tab = createBottomTabNavigator();
 
 export function TabNavigatior() {
   return(
-   <Tab.Navigator 
+   <Tab.Navigator
+   backBehavior="initialRoute"
+    initialRouteName="Home"
     screenOptions={{
       tabBarShowLabel: false,
       tabBarStyle:{
-        backgroundColor: 'white',
+        backgroundColor: '#FFF',
         height: 70,
         borderTopStartRadius: 20,
         borderTopEndRadius: 20,
@@ -162,31 +189,31 @@ export function TabNavigatior() {
     <Tab.Screen name = "Perfil" component={Profile} options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <Ionicons name="person-sharp" size={34} color={focused ? "#7eb77f" : "black"} />
+      <Ionicons name="person-sharp" size={32} color={focused ? "#70d872" : "black"} />
     )}}/>
     
     <Tab.Screen name = "Community" component={Community} options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <Ionicons name="chatbubble-ellipses-outline" size={34} color={focused ? "#7eb77f" : "black"} />
+      <Ionicons name="chatbubble-ellipses-outline" size={32} color={focused ? "#70d872" : "black"} />
     )}}/>
 
     <Tab.Screen name = "Home" component={Home}  options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <Ionicons name="home" size={34} color={focused ? "#7eb77f" : "black"} />
+      <Ionicons name="home" size={32} color={focused ? "#70d872" : "black"} />
     )}}/>
     
     <Tab.Screen name = "Store" component={Store} options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <Ionicons name="cart-outline" size={34} color={focused ? "#7eb77f" : "black"} />
+      <Ionicons name="cart-outline" size={32} color={focused ? "#70d872" : "black"} />
     )}}/>
     
     <Tab.Screen name = "Book" component={Book} options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <FontAwesome name="book" size={34} color={focused ? "#7eb77f" : "black"} />
+      <FontAwesome name="book" size={32} color={focused ? "#70d872" : "black"} />
     )}}/>
 
     {/*<Tab.Screen name = "Trilhas" component={Fetch}options={{headerShown: false}}/>*/}
