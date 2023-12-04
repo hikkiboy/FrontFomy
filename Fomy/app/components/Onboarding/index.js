@@ -12,11 +12,9 @@ const OnboardingItem = ({item, navigation, index, x}) => {
 
     
     const [Usuarios, setUsuarios] = useState([]);
+    const [Trilha, setTrilha] = useState([]);
 
-    useEffect(()=>{
-
-        
-    
+    useEffect(()=>{    
         const receitaRef = collection(app_DB, 'Usuarios')
     
         const q = query(
@@ -24,9 +22,6 @@ const OnboardingItem = ({item, navigation, index, x}) => {
             where(documentId(), '==', app_auth.currentUser.uid)
             
         )
-    
-        
-    
         const subscriver = onSnapshot(q, {
             next : (snapshot) => {
                 const receitas = []
@@ -41,14 +36,13 @@ const OnboardingItem = ({item, navigation, index, x}) => {
                 setUsuarios(receitas)
                 //console.log(receitas)
                 //console.log(receitaRef)
-
-    
             }
         })
-    
         return() => subscriver()
     
     },[])
+
+    
     
     //console.log(Usuarios[0].ProgressoTrilhas);
 
@@ -69,7 +63,7 @@ const OnboardingItem = ({item, navigation, index, x}) => {
         }
     })
 
-    const [prem, setPrem] = useState()    
+    const [prem, setPrem] = useState() 
 
 useEffect(() => {
         try {
@@ -96,7 +90,7 @@ useEffect(() => {
 
         {/* a estilização acontece daqui pra baixo */}
 
-        <Image source={require("../../assets/alberto.png")} style={[styles.mascote, {width, resizeMode:'center'}]}/>
+        <Image source={require("../../assets/betterAlberto.png")} style={[styles.mascote, {width, resizeMode:'center'}]}/>
 
         <View style={{flex: 0.3}}>
             <Text style = {styles.title}>{item.NomeTrilha}</Text>
@@ -109,17 +103,17 @@ useEffect(() => {
 
         {item.NomeTrilha == "Gourmet" && prem == true &&  (
             <>
-              <TouchableOpacity onPress={ () => navigation.navigate("Trilha", {paramKey:[item.NomeTrilha, item.Descricao, item.Cor]})} style = {[styles.buttonRegistro, {backgroundColor: item.Cor, backgroundColor: "rgba(0,0,0,0.1)"}]} title = 'Registrar' >
+              <TouchableOpacity onPress={ () => navigation.navigate("Trilha", {paramKey:[item.NomeTrilha, item.Descricao, item.Cor]})} style = {[styles.buttonRegistro, {borderColor: item.CorBorda, backgroundColor: item.CorFill}]} title = 'Registrar' >
                 <Text style={[styles.botaoTexto]}>Entrar</Text>
               </TouchableOpacity>
-            </>
+            </> 
             )}
 
             {/* SE A TRILHA NÃO FOR A GOURMET RENDERIZA O BOTÃO*/}
 
         {item.NomeTrilha != "Gourmet" &&  (
             <>
-              <TouchableOpacity onPress={ () => navigation.navigate("Trilha", {paramKey:[item.NomeTrilha, item.Descricao, item.Cor]})} style = {[styles.buttonRegistro, {backgroundColor: item.Cor, backgroundColor: "rgba(0,0,0,0.1)"}]} title = 'Registrar' >
+              <TouchableOpacity onPress={ () => navigation.navigate("Trilha", {paramKey:[item.NomeTrilha, item.Descricao, item.Cor]})} style = {[styles.buttonRegistro, {borderColor: item.CorBorda, backgroundColor: item.CorFill }]} title = 'Registrar' >
                 <Text style={[styles.botaoTexto]}>Entrar</Text>
               </TouchableOpacity>
             </>
@@ -193,28 +187,17 @@ const styles = StyleSheet.create({
             padding: 13,
             paddingLeft: 40,
             paddingRight: 40,
-            borderColor: "black",
             borderWidth: 3,
             marginTop: 20,
             marginBottom: 5,
             borderRadius: 10,
             width: 250,
     },
-    darkerButton:{
-        backgroundColor: "rgba(0,0,0,0.1)",
-        position: 'absolute',
-        zIndex: 2,
-        marginTop: 128,
-        marginLeft: 80,
-        marginBottom: 5,
-        borderRadius: 10,
-        width: 250,
-        height: 58
-    },
     botaoTexto:{
         fontWeight: 'bold',
         fontSize: 18,
-        textAlign: 'center'
+        textAlign: 'center',
+        color: "#FFF"
     },
     barra:{
         alignSelf: 'center',
