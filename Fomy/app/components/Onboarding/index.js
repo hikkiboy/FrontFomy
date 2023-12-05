@@ -89,15 +89,26 @@ useEffect(() => {
         </View>
 
         {/* a estilização acontece daqui pra baixo */}
-        <View style={styles.imageContainer} >
-            <Image source={require("../../assets/betterAlberto.png")} style={[styles.mascote]}/>
-            { item.Imagem == "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Icones-Trilhas%2Fpalela2.png?alt=media&token=cf307cc6-f909-4491-b133-607cfc151b3d" ? (
-                <Image source={{uri: item.Imagem}} style={[styles.acessorio, { height: 175, width: 175 }]}/>
-            ) : (
-                <Image source={{uri: item.Imagem}} style={[styles.acessorio, { height: 135, width: 135 }]}/>
+            { item.Imagem == "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Icones-Trilhas%2Fpalela2.png?alt=media&token=cf307cc6-f909-4491-b133-607cfc151b3d" && (
+                
+                <View style={styles.imageContainer} >
+                    <Image source={require("../../assets/betterAlberto.png")} style={[styles.mascote]}/>
+                    <Image source={{uri: item.Imagem}} style={[styles.acessorio, { height: 175, width: 175 }]}/>
+                </View>
+            )}
+            { item.Imagem != "" && item.Imagem != "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Icones-Trilhas%2Fpalela2.png?alt=media&token=cf307cc6-f909-4491-b133-607cfc151b3d" && (
+                <View style={styles.imageContainer} >
+                    <Image source={require("../../assets/betterAlberto.png")} style={[styles.mascote]}/>
+                    <Image source={{uri: item.Imagem}} style={[styles.acessorio, { height: 135, width: 135 }]}/>
+                </View>
+            )}
+            { item.Imagem == "" && (
+                <View style={[styles.imageContainer, {justifyContent: 'center'}]} >
+                    <Image source={require("../../assets/betterAlberto.png")} style={[styles.mascote]}/>
+                </View>
             )}
             
-        </View>
+        
         <View style={{flex: 0.3}}>
             <Text style = {styles.title}>{item.NomeTrilha}</Text>
             <Text style = {styles.description}>{item.Descricao}</Text>
@@ -173,7 +184,8 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         paddingEnd: 20,
         paddingStart: 20,
-        flexDirection: 'row-reverse'
+        flexDirection: 'row-reverse',
+        marginBottom: 30
     },
     mascote:{
         height: 241,
