@@ -26,6 +26,11 @@ import AlterEmail from "../screens/accountConfig/alterEmail"
 import Store from '../screens/store'
 import Community from '../screens/community'
 import Book from '../screens/book'
+import TwoStep from '../screens/accountConfig/twoStep'
+import Notification from '../screens/configs/notification'
+import Privacy from '../screens/configs/privacy'
+import PremiumConfig from '../screens/configs/premiumConfig'
+import Support from '../screens/configs/support'
 
 import Preparo from "../components/preparo";
 import Passos from "../components/passos";
@@ -134,6 +139,31 @@ export default function Routes() {
       <Stack.Screen
         name="Book"
         component={Book}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="TwoStep"
+        component={TwoStep}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Notification"
+        component={Notification}
+        options={{ headerShown: false }}
+      />      
+      <Stack.Screen
+        name="Privacy"
+        component={Privacy}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Premium"
+        component={PremiumConfig}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Support"
+        component={Support}
         options={{ headerShown: false }}
       />
       

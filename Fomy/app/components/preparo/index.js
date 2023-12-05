@@ -5,6 +5,7 @@ import { app, app_DB } from '../../../firebaseConfig'
 import { collection, onSnapshot, query, where, orderBy,documentId } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { Button, ListItem } from 'react-native-elements';
+import Carousel from '../carousel';
 
 
 export default function Preparo({route, props, navigation}) {
@@ -75,10 +76,13 @@ let arrayporc = []
    
       {/* <View style={styles.linha}></View> */}
 {/* fazer um flat list pra gerar as fases  */}
-<View style={styles.bgpfp} >
-
-  <Image style={{ width: 120, height: 120 }} source={{ uri: route.params.paramKey[1]}}/>
-
+<View style={[styles.bgpfp, {backgroundColor: route.params.paramKey[1],}]} >
+    
+      <Image 
+      tintColor={"#FFF"}
+      source={{ uri: route.params.paramKey[2] }} 
+      style={{height: 100, width: 100, marginTop: 50}}
+      />
     </View>
       <FlatList
       data={Receitas}
@@ -208,6 +212,14 @@ const styles = StyleSheet.create({
     display: 'flex',
     
   },
+  circle: {
+    width: 150,
+    height: 150,
+    borderRadius: 88,
+    marginTop: '10%',
+    backgroundColor: 'white',
+    alignItems: 'center'
+ },
   descricaoReceita:{
     alignSelf :'center',
     position: 'absolute',
@@ -222,10 +234,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   bgpfp:{
-    height: '30%',
-    backgroundColor: "#7EB77F",
+    height: 170,
+    width: 393,
     alignItems: 'center',
-    paddingBottom: 40,
     borderBottomStartRadius: 20,
     borderBottomEndRadius: 20
 },
@@ -257,7 +268,7 @@ fontWeight: 'bold'
 nomeTexto:{
     fontWeight: 'bold',
     fontSize: 25,
-    color: '#365336',
+    color: 'white',
     textAlign: 'center'
 },
 IngredientesContain:{
