@@ -1,4 +1,4 @@
-import {View,StyleSheet,FlatList} from 'react-native'
+import {View,StyleSheet,FlatList, BackHandler, Alert} from 'react-native'
 import {  app_DB } from '../../../firebaseConfig'
 import { collection, onSnapshot} from 'firebase/firestore'
 import { useEffect, useState,useRef} from 'react'
@@ -6,14 +6,32 @@ import Animated, { useAnimatedScrollHandler, useAnimatedRef, useSharedValue } fr
 import auth from '@react-native-firebase/auth'
 import OnboardingItem from '../../components/Onboarding'
 import paginator from '../../components/paginator'
+import { useIsFocused } from '@react-navigation/native'
 const Home = ({navigation}) => {
 
  
 
     const [Receitas, setReceitas] = useState([]);
+    const isFocused = useIsFocused();
 
 
+useEffect(() => {
+    if(isFocused){
+        console.log("focado")
+        const backAction = () => {
+            BackHandler.exitApp()
+            return true;
+        };
     
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            backAction,
+        );
+    
+        return () => backHandler.remove();
+    }
+
+},[isFocused])
 
 useEffect(()=>{
     const receitaRef = collection(app_DB, 'Trilhas')

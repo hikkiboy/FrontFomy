@@ -12,11 +12,9 @@ const OnboardingItem = ({item, navigation, index, x}) => {
 
     
     const [Usuarios, setUsuarios] = useState([]);
+    const [Trilha, setTrilha] = useState([]);
 
-    useEffect(()=>{
-
-        
-    
+    useEffect(()=>{    
         const receitaRef = collection(app_DB, 'Usuarios')
     
         const q = query(
@@ -24,9 +22,6 @@ const OnboardingItem = ({item, navigation, index, x}) => {
             where(documentId(), '==', app_auth.currentUser.uid)
             
         )
-    
-        
-    
         const subscriver = onSnapshot(q, {
             next : (snapshot) => {
                 const receitas = []
@@ -41,14 +36,13 @@ const OnboardingItem = ({item, navigation, index, x}) => {
                 setUsuarios(receitas)
                 //console.log(receitas)
                 //console.log(receitaRef)
-
-    
             }
         })
-    
         return() => subscriver()
     
     },[])
+
+    
     
     //console.log(Usuarios[0].ProgressoTrilhas);
 
@@ -69,7 +63,7 @@ const OnboardingItem = ({item, navigation, index, x}) => {
         }
     })
 
-    const [prem, setPrem] = useState()    
+    const [prem, setPrem] = useState() 
 
 useEffect(() => {
         try {
@@ -95,38 +89,50 @@ useEffect(() => {
         </View>
 
         {/* a estilização acontece daqui pra baixo */}
-
-        <Image source={require("../../assets/alberto.png")} style={[styles.mascote, {width, resizeMode:'center'}]}/>
-
+            { item.Imagem == "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Icones-Trilhas%2Fpalela2.png?alt=media&token=cf307cc6-f909-4491-b133-607cfc151b3d" && (
+                
+                <View style={styles.imageContainer} >
+                    <Image source={require("../../assets/betterAlberto.png")} style={[styles.mascote]}/>
+                    <Image source={{uri: item.Imagem}} style={[styles.acessorio, { height: 175, width: 175 }]}/>
+                </View>
+            )}
+            { item.Imagem != "" && item.Imagem != "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Icones-Trilhas%2Fpalela2.png?alt=media&token=cf307cc6-f909-4491-b133-607cfc151b3d" && (
+                <View style={styles.imageContainer} >
+                    <Image source={require("../../assets/betterAlberto.png")} style={[styles.mascote]}/>
+                    <Image source={{uri: item.Imagem}} style={[styles.acessorio, { height: 135, width: 135 }]}/>
+                </View>
+            )}
+            { item.Imagem == "" && (
+                <View style={[styles.imageContainer, {justifyContent: 'center'}]} >
+                    <Image source={require("../../assets/betterAlberto.png")} style={[styles.mascote]}/>
+                </View>
+            )}
+            
+        
         <View style={{flex: 0.3}}>
             <Text style = {styles.title}>{item.NomeTrilha}</Text>
             <Text style = {styles.description}>{item.Descricao}</Text>
         
         {/* <Progress.Bar style={styles.barra} unfilledColor='white' borderColor='black'   progress={Usuarios[0].ProgressoTrilhas[item.indexTrilha]}  width={250} height={20} color='#32a852'><Text style={{position:'absolute', flex:0, alignSelf: 'center'}}>{Usuarios[0].ProgressoTrilhas[item.indexTrilha] * 10} / {item.NumeroReceitas}</Text></Progress.Bar> */}
+
         
         {/* SE TIVER PREMIUM RENDERIZA O BOTÃO*/}
 
         {item.NomeTrilha == "Gourmet" && prem == true &&  (
             <>
-        <TouchableOpacity onPress={ () => navigation.navigate("Trilha", {paramKey:[item.NomeTrilha, item.Descricao, item.Cor]})} style={styles.darkerButton}>
-            <Text></Text></TouchableOpacity>
-        
-                <View style = {[styles.buttonRegistro, {backgroundColor: item.Cor}]} title = 'Registrar' >
-                    <Text style={[styles.botaoTexto]}>Entrar</Text>
-                </View>
-            </>
+              <TouchableOpacity onPress={ () => navigation.navigate("Trilha", {paramKey:[item.NomeTrilha, item.Descricao, item.Cor]})} style = {[styles.buttonRegistro, {borderColor: item.CorBorda, backgroundColor: item.CorFill}]} title = 'Registrar' >
+                <Text style={[styles.botaoTexto]}>Entrar</Text>
+              </TouchableOpacity>
+            </> 
             )}
 
             {/* SE A TRILHA NÃO FOR A GOURMET RENDERIZA O BOTÃO*/}
 
         {item.NomeTrilha != "Gourmet" &&  (
             <>
-        <TouchableOpacity onPress={ () => navigation.navigate("Trilha", {paramKey:[item.NomeTrilha, item.Descricao, item.Cor]})} style={styles.darkerButton}>
-            <Text></Text></TouchableOpacity>
-        
-                <View style = {[styles.buttonRegistro, {backgroundColor: item.Cor}]} title = 'Registrar' >
-                    <Text style={[styles.botaoTexto]}>Entrar</Text>
-                </View>
+              <TouchableOpacity onPress={ () => navigation.navigate("Trilha", {paramKey:[item.NomeTrilha, item.Descricao, item.Cor]})} style = {[styles.buttonRegistro, {borderColor: item.CorBorda, backgroundColor: item.CorFill }]} title = 'Registrar' >
+                <Text style={[styles.botaoTexto]}>Entrar</Text>
+              </TouchableOpacity>
             </>
             )}
             {/* SE FOR A GOURMET E NAO TIVER PREMIUM RENDERIZA O TEXTO*/}
@@ -135,9 +141,8 @@ useEffect(() => {
              <Text style={styles.premiumDesc}>Você Precisa obter o premium para ter acesso a essa trilha</Text>
             </>
             )}
+            
         </View>
-    
-    <View style={styles.separate}><Text></Text></View>
     
     </View>
 
@@ -150,9 +155,8 @@ export default OnboardingItem
 const styles = StyleSheet.create({
     container:{
         flex: 1,
-    },
-    separate:{
-        height: 150
+        justifyContent: 'center',
+        display: 'flex'
     },
     title:{
         fontWeight: '800',
@@ -173,16 +177,28 @@ const styles = StyleSheet.create({
         marginTop: 18,
         paddingHorizontal: 64
     },
+    imageContainer:{
+        height: 241, 
+        width: '100%',
+        alignItems: 'flex-end',
+        justifyContent: 'flex-start',
+        paddingEnd: 20,
+        paddingStart: 20,
+        flexDirection: 'row-reverse',
+        marginBottom: 30
+    },
     mascote:{
-        flex: 0.7,
-        justifyContent: 'center',
+        height: 241,
+        width: 199
+    },
+    acessorio:{
+        marginRight: -50,
+        resizeMode: 'contain'
     },
     itemContainer:{
         flex: 0.3,
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 120,
-        marginTop: 200
     },
     circleContainer:{
         ...StyleSheet.absoluteFillObject,
@@ -197,34 +213,24 @@ const styles = StyleSheet.create({
             padding: 13,
             paddingLeft: 40,
             paddingRight: 40,
-            borderColor: "black",
-            borderWidth: 3,
+            borderWidth: 4,
+            borderBottomWidth: 8,
             marginTop: 20,
             marginBottom: 5,
-            borderRadius: 10,
+            borderRadius: 15,
             width: 250,
-    },
-    darkerButton:{
-        backgroundColor: "rgba(0,0,0,0.1)",
-        position: 'absolute',
-        zIndex: 2,
-        marginTop: 128,
-        marginLeft: 80,
-        marginBottom: 5,
-        borderRadius: 10,
-        width: 250,
-        height: 58
     },
     botaoTexto:{
         fontWeight: 'bold',
-        fontSize: 18,
-        textAlign: 'center'
+        fontSize: 25,
+        textAlign: 'center',
+        color: "#FFF"
     },
     barra:{
         alignSelf: 'center',
         marginBottom:10
 
-    }
+    },
 
 })
 

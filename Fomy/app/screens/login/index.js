@@ -9,9 +9,11 @@ import {
   TextInput,
   ActivityIndicator,
   KeyboardAvoidingView,
-  ImageBackground
+  ImageBackground,
+  Dimensions,
+  Modal
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { app_auth } from "../../../firebaseConfig";
 import { Logo } from "../../components/logo";
 import {
@@ -20,74 +22,151 @@ import {
   signInWithRedirect,
 } from "firebase/auth";
 
+import { Feather } from 'react-native-vector-icons'
+
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 import { useNavigation } from "@react-navigation/native";
 
-const LoginPage = () => {
-  const navigation = useNavigation();
+const LoginPage = ({ navigation }) => {
+
+  const height = Dimensions.get("window").height;
+  const [stuffHeight, setStuffHeight] = useState(70);
+  const [imageHeight, setImageHeight] = useState(180.04);
+  const [imageWidth, setImageWidth] = useState(165.76);
+  const [fontSize, setFontSize] = useState(20);
+  const [ tinyText, setTinyText ] = useState(17);
+
   const [email, setEmail] = useState("coralinegaming93@gmail.com");
   const [senha, setSenha] = useState("1234567");
   
   const [loading, setLoading] = useState(false);
+  const [entered, setEntered] = useState(false);
+  const [problem, setProblem] = useState(false);
+  const [whatError, setWhatError] = useState("");
   const auth = app_auth;
+
+  useEffect(() => {
+    if(height <= 700){
+      console.log("tela pequena")
+      console.log(height)
+      setStuffHeight(65)
+      setImageHeight(144.032)
+      setImageWidth(132.608)
+      setFontSize(16)
+      setTinyText(15)
+    }
+  })
 
   const SignIn = async () => {
     setLoading(true);
+    setEntered(false);
     try {
       const response = await signInWithEmailAndPassword(auth, email, senha);
-      navigation.navigate("Profile");
+
+      setEntered(true);
+      setTimeout(() => {
+        setLoading(false);
+        navigation.navigate("HomeStart")
+      }, 500);
+
     } catch (error) {
-      console.log(error);
-      alert("deu erro");
-      alert("deu erro");
-    } finally {
       setLoading(false);
+      setProblem(true);
+      console.log("erro: " + error);
+      if(error == "FirebaseError: Firebase: Error (auth/invalid-email)."){
+        setWhatError("Email inválido!");
+      } else if(error == "FirebaseError: Firebase: Error (auth/invalid-login-credentials)."){
+        setWhatError("Email ou senha errada!");
+      } else{
+        setWhatError("Ocorreu um erro com seu login: " + error);
+      }
     }
   };
 
   return (
-    
-    
-<>
 
-      
-        <KeyboardAvoidingView style={styles.container} behavior="padding">
-        <Logo/>
-          <TextInput
-            value={email}
-            style={styles.input}
-            placeholder="Email"
-            autoCapitalize="none"
-            onChangeText={(text) => setEmail(text)}
-          ></TextInput>
-          <TextInput
-            value={senha}
-            style={styles.input}
-            placeholder="Senha"
-            autoCapitalize="none"
-            onChangeText={(text) => setSenha(text)}
-            secureTextEntry={true}
-          ></TextInput>
-          <TouchableOpacity style={styles.forgotPassword} onPress={ () => navigation.navigate('PasswordResets')}>
-            <Text>Esqueci minha senha</Text>
-          </TouchableOpacity>
+        <KeyboardAwareScrollView contentContainerStyle={styles.container}>
 
-          {loading ? (
-            <ActivityIndicator size="large" color="#0000ff" />
-          ) : (
-            <>
-              <TouchableOpacity
-                title="Entrar"
-                style={styles.buttonLogin}
-                onPress={SignIn}
-              >
-                <Text style={styles.text}>Entrar</Text>
-              </TouchableOpacity>
-            </>
-          )}
-        </KeyboardAvoidingView>
-        
+          <Modal
+            visible={loading}
+            animationType="fade"
+            transparent={true}
+          >
+            <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', backgroundColor: "rgba(0,0,0,0.10)", zIndex: 98 }} ></View>
+          </Modal>
+          <Modal
+            visible={loading}
+            animationType="slide"
+            transparent={true}
+          >
+            <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', zIndex: 99, alignItems: 'center' }} >
+              <View style={{ backgroundColor: "#FFF", height: 275, width: "100%", borderTopLeftRadius: 25, borderTopRightRadius: 25, alignItems: 'center' }} >
+                <View style={{ alignItems: 'center', width: "100%", height: "25%", justifyContent: 'center'  }} >
+                  <Text style={{ textAlign: 'center', fontSize: 25, fontWeight: '800' }} >{ entered ?  ("Sucesso!") : ("Entrando...")}</Text>
+                </View>
+                <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'center' }} >
+                  { entered ?  (
+                      <Feather name="check" size={120} color="#fab151" />
+                    ) : (
+                      <ActivityIndicator size={90} color="#fab151" />
+                    )
+                  }
+                </View>
 
-        </>
+              </View>
+            </View>
+          </Modal>
+
+          <Modal
+            visible={problem}
+            transparent={true}
+            animationType='fade'
+          >
+            <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "rgba(0,0,0,0.2)" }} >
+              <View style={{ alignItems: 'center', backgroundColor: '#FFF', borderRadius: 15, width: "90%", paddingVertical: 20, paddingBottom: 30 }} >
+                <Feather name="alert-triangle" size={80} color="#fa787d" />
+                <Text style={{ fontSize: 19, fontWeight: 'bold', marginBottom: "12%", marginTop: "3%", width: "90%", textAlign: 'center' }} >{whatError}</Text>
+                <TouchableOpacity style={{ backgroundColor: "#fa787d", width: "90%", alignItems: 'center', justifyContent: 'center', borderRadius: 15, height: 45, borderWidth: 4, borderBottomWidth: 6, borderColor: '#f1555a' }} onPress={() => setProblem(false)} >
+                  <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#000', opacity: 0.7 }} >Beleza, foi mal!</Text>
+                </TouchableOpacity>
+              </View>
+            </SafeAreaView>
+          </Modal>
+
+          <Image style={[styles.logo, { width: imageWidth, height: imageHeight }]} source={require("../../assets/logo-full.png")} />
+            <View style={[styles.inputArea, {height: (stuffHeight - 7)} ]} >
+              <TextInput
+                value={email}
+                style={[styles.input, { fontSize: (fontSize - 2) }]}
+                placeholder="Email"
+                autoCapitalize="none"
+                onChangeText={(text) => setEmail(text)}
+              />
+              <Feather name="mail" size={27} color={"rgba(0,0,0,0.5)"} />
+            </View>
+            <View style={[styles.inputArea, {height: (stuffHeight - 7)} ]} >
+              <TextInput
+                value={senha}
+                style={[styles.input, { fontSize: (fontSize - 2) }]}
+                placeholder="Senha"
+                autoCapitalize="none"
+                onChangeText={(text) => setSenha(text)}
+                secureTextEntry={true}
+              />
+              <Feather name="lock" size={27} color={"rgba(0,0,0,0.5)"} />
+            </View>
+            <TouchableOpacity style={ styles.forgotPassword } onPress={ () => navigation.navigate('PasswordResets')}>
+              <Text style={[styles.textForgor, { fontSize: tinyText }]} >Esqueci minha senha</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              title="Entrar"
+              style={[styles.buttonLogin, { height: stuffHeight }]}
+              onPress={SignIn}
+            >
+              <Text style={[styles.text, { fontSize: fontSize }]}>Entrar</Text>
+            </TouchableOpacity>
+        </KeyboardAwareScrollView>
 
   );
 };
@@ -95,60 +174,55 @@ export default LoginPage;
 
 const styles = StyleSheet.create({
   container:{
-    flex: 1
+    minHeight: "100%",
+    width: "100%",
+    justifyContent: 'center', 
+    alignItems: 'center',
+    backgroundColor: "#FFF"
+  },
+  logo:{
+    marginBottom: "10%",
+    resizeMode: 'stretch'
+  },
+  inputArea:{
+    backgroundColor: "#FFFFFF",
+    borderRadius: 15,
+    borderColor: '#dbdbdb',
+    borderBottomWidth: 7,
+    borderWidth: 4,
+    width: "85%",
+    marginBottom: 15,
+    paddingHorizontal: 15,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+
   },
   input: {
-    marginTop: 0,
-    backgroundColor: "#FFFFFF",
-    margin: 10,
-    borderWidth: 2,
-    borderRadius: 10,
-    width: 300,
-    alignSelf: "center",
-    padding: 15,
-  },
-  buttonRegistro: {
-    alignSelf: "center",
-    fontSize: 20,
-    fontWeight: "bold",
-    padding: 13,
-    paddingLeft: 42,
-    paddingRight: 42,
-    borderRadius: 15,
-    borderRadius: 15,
-    borderColor: "black",
-    borderBottomWidth: 7,
-    borderWidth: 3,
-    margin: 3,
-    width: 250,
-    borderTopStartRadius: 0,
-    borderTopEndRadius: 0,
+    height: "100%",
+    width: "80%",
   },
   buttonLogin: {
-    backgroundColor: "#7EB77F",
-    alignSelf: "center",
-    fontSize: 20,
-    fontWeight: "bold",
-    padding: 13,
-    paddingLeft: 40,
-    paddingRight: 40,
-    //borderBottomStartRadius: 0,
-    //borderBottomEndRadius: 0,
-    borderColor: "black",
-    borderWidth: 3,
-    marginTop: 20,
-    marginBottom: 5,
+    marginTop: "7%",
+    backgroundColor: '#fab151',
+    width: "85%",
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 15,
-    borderRadius: 15,
-    width: 250,
+    borderColor: '#ed8a07',
+    borderBottomWidth: 8,
+    borderWidth: 5 
+    
   },
   text: {
-    fontWeight: "bold",
-    fontSize: 18,
-    textAlign: "center",
+    fontWeight: 'bold',
+    opacity: 0.7,
+  },
+  textForgor: {
+    fontWeight: 'bold',
   },
   forgotPassword:{
     alignSelf: "center",
-    opacity: 0.4
+    opacity: 0.4,
   }
 });
