@@ -89,9 +89,15 @@ useEffect(() => {
         </View>
 
         {/* a estilização acontece daqui pra baixo */}
-
-        <Image source={require("../../assets/betterAlberto.png")} style={[styles.mascote, {width, resizeMode:'center'}]}/>
-
+        <View style={styles.imageContainer} >
+            <Image source={require("../../assets/betterAlberto.png")} style={[styles.mascote]}/>
+            { item.Imagem == "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Icones-Trilhas%2Fpalela2.png?alt=media&token=cf307cc6-f909-4491-b133-607cfc151b3d" ? (
+                <Image source={{uri: item.Imagem}} style={[styles.acessorio, { height: 175, width: 175 }]}/>
+            ) : (
+                <Image source={{uri: item.Imagem}} style={[styles.acessorio, { height: 135, width: 135 }]}/>
+            )}
+            
+        </View>
         <View style={{flex: 0.3}}>
             <Text style = {styles.title}>{item.NomeTrilha}</Text>
             <Text style = {styles.description}>{item.Descricao}</Text>
@@ -127,8 +133,6 @@ useEffect(() => {
             
         </View>
     
-    <View style={styles.separate}><Text></Text></View>
-    
     </View>
 
     
@@ -140,9 +144,8 @@ export default OnboardingItem
 const styles = StyleSheet.create({
     container:{
         flex: 1,
-    },
-    separate:{
-        height: 150
+        justifyContent: 'center',
+        display: 'flex'
     },
     title:{
         fontWeight: '800',
@@ -163,16 +166,27 @@ const styles = StyleSheet.create({
         marginTop: 18,
         paddingHorizontal: 64
     },
+    imageContainer:{
+        height: 241, 
+        width: '100%',
+        alignItems: 'flex-end',
+        justifyContent: 'flex-start',
+        paddingEnd: 20,
+        paddingStart: 20,
+        flexDirection: 'row-reverse'
+    },
     mascote:{
-        flex: 0.7,
-        justifyContent: 'center',
+        height: 241,
+        width: 199
+    },
+    acessorio:{
+        marginRight: -50,
+        resizeMode: 'contain'
     },
     itemContainer:{
         flex: 0.3,
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 120,
-        marginTop: 200
     },
     circleContainer:{
         ...StyleSheet.absoluteFillObject,
@@ -187,15 +201,16 @@ const styles = StyleSheet.create({
             padding: 13,
             paddingLeft: 40,
             paddingRight: 40,
-            borderWidth: 3,
+            borderWidth: 4,
+            borderBottomWidth: 8,
             marginTop: 20,
             marginBottom: 5,
-            borderRadius: 10,
+            borderRadius: 15,
             width: 250,
     },
     botaoTexto:{
         fontWeight: 'bold',
-        fontSize: 18,
+        fontSize: 25,
         textAlign: 'center',
         color: "#FFF"
     },
@@ -203,7 +218,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginBottom:10
 
-    }
+    },
 
 })
 
