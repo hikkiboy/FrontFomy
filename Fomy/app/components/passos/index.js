@@ -19,6 +19,10 @@ export default function Passos({route, props, navigation}) {
   const [Passo, setPasso] = useState([])
   const [calcula, setCalcula] = useState(1)
   const [ViPasso, setVideo] = useState()
+  const [min, setMin] = useState(0)
+  const [sec, setSec] = useState(0)
+  const [customInterval, setCustomInterval] = useState()
+  const [maxTime, setMaxTime] = useState()
 
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -54,6 +58,7 @@ export default function Passos({route, props, navigation}) {
           //isso pode causar problemas quando a pessoa estiver fazendo e ocorrer uma atualização no banco de dados,
           //porque reiniciará a posição dela, talvez depois fazer uma outra variavel que define se isso carregou pela primeira vez
           setPasso(receitas[0])
+          setMaxTime(Passo.Timer)
         }
       })
       return() => subscriver()
@@ -61,7 +66,41 @@ export default function Passos({route, props, navigation}) {
   
   },[])
 
+const startTimer = () => {
+  setCustomInterval(
+    setInterval(() => {
+      changeTime()
+    }, 1000)
+  )
+}
 
+const stopTimer = () => {
+  if(customInterval) {
+    clearInterval(customInterval)
+  }
+}
+
+const clear = () => {
+  stopTimer()
+  setSec(0)
+  setMin(0)
+}
+
+const changeTime = () => {
+  if(min != maxTime){
+    setSec((prevState) => {
+      if(prevState + 1 == 60){
+        setMin(min + 1)
+        return 0
+      }
+      return prevState + 1
+    })
+  }
+  else{
+    stopTimer;
+  }
+
+}
 
 function pa(i, fwd){
   if(i < Receitas.length && fwd == true){
@@ -96,10 +135,23 @@ function pa(i, fwd){
             <View>
             </View>
           </ImageBackground>
-          <VideoPassos idVideo={Passo.VideoPasso} style={styles.videofromyt}/>
+          {Passo.Timer != null && (
+            <View style={styles.videofromyt}>
+              <Text>
+                {min < maxTime ? "0" + min : min } :
+                {sec < 10 ? "0" + sec : sec }
+              </Text>
+              <Button title="start" onPress={startTimer}></Button>
+              <Button title="stop" onPress={stopTimer}></Button>
+            </View>
+          )}
+          {Passo.Timer == null &&(
+            <VideoPassos idVideo={Passo.VideoPasso} style={styles.videofromyt}/>
+          )}
+          
           <View style={styles.belowimage} >
           <View style={styles.buttons} >
-            <Button title='debug' onPress={() => console.log(Passo.VideoPasso)}></Button>
+            <Button title='debug' onPress={() => console.log(min)}></Button>
               <TouchableOpacity style={styles.stepbak} onPress={() => pa(calcula, false) } ><Feather name={"arrow-left"} size={40} /></TouchableOpacity>
               <TouchableOpacity style={styles.stepfwd} onPress={() => pa(calcula, true) } ><Feather name={"arrow-right"} size={40} /></TouchableOpacity>
             </View>
