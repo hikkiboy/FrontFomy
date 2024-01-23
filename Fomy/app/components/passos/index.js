@@ -99,7 +99,7 @@ function pa(i, fwd){
           <VideoPassos idVideo={Passo.VideoPasso} style={styles.videofromyt}/>
           <View style={styles.belowimage} >
           <View style={styles.buttons} >
-            {/* <Button title='debug' onPress={() => console.log(Passo.VideoPasso)}></Button> */}
+            {/* <Button title='debug' onPress={() => console.log(Passo.VideoPasso)}></Button> isso eh um teste eba */}
               <TouchableOpacity style={styles.stepbak} onPress={() => pa(calcula, false) } ><Feather name={"arrow-left"} size={40} /></TouchableOpacity>
               <TouchableOpacity style={styles.stepfwd} onPress={() => pa(calcula, true) } ><Feather name={"arrow-right"} size={40} /></TouchableOpacity>
             </View>
