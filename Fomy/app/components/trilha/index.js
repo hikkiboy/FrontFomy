@@ -227,7 +227,7 @@ handleTrilha()
                  {onde +1 >= Receitas[Receitas.indexOf(item)].Posicao && (
                 <View style={[{ marginTop: 20, backgroundColor: route.params.paramKey[2], marginBottom: 15, width: '85%', height: 37, borderRadius: 15, zIndex: 4 }]} >
                  
-                 
+
                   <TouchableOpacity style={[{
                     backgroundColor:route.params.paramKey[2],
                     height: '83%',
@@ -246,17 +246,21 @@ handleTrilha()
 
                   </View>
                 </View>
-                  )}
+
+                )}
                   {onde +1 < Receitas[Receitas.indexOf(item)].Posicao && (
                     <FontAwesome style={styles.cadeado} name="lock" size={58} color="black" />
                    )}
               </View>
+            
             </View>
-            <View style={styles.linha}>
+            {Receitas[Receitas.indexOf(item)].Posicao < Receitas.length && <View>
+              <View style={styles.linha}>
               <Image tintColor={route.params.paramKey[2]} style={{ height: 97.2, width: 19.2 }} source={require('../../assets/seta_default.png')} />
             </View>
-            
-          </View>
+            </View>
+             }
+            </View> 
         )}
         />
       </ScrollView>
@@ -274,6 +278,7 @@ const styles = StyleSheet.create({
     flex: 1,
     display: 'flex',
     backgroundColor: "#EFEFEF",
+    marginBottom:20
   },
   row:{
     flexDirection: 'row', 
@@ -312,9 +317,6 @@ const styles = StyleSheet.create({
     fontSize: 42,
     fontWeight: "700",
     color: "black",
-
-  
-    
     //fontFamily: FontFamily.leagueSpartanBold
   },
   textoTrilha:{
@@ -336,11 +338,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 97.2,
     width: '100%',
-    marginVertical: '4%'
-    
+    marginVertical: '4%',
+    marginBottom: -10
   },
   fase:{
-    
     width: 112,
     height: 88,
     borderRadius: 15,
