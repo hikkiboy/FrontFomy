@@ -227,6 +227,7 @@ handleTrilha()
                  {onde +1 >= Receitas[Receitas.indexOf(item)].Posicao && (
                 <View style={[{ marginTop: 20, backgroundColor: route.params.paramKey[2], marginBottom: 15, width: '85%', height: 37, borderRadius: 15, zIndex: 4 }]} >
                  
+
                   <TouchableOpacity style={[{
                     backgroundColor:route.params.paramKey[2],
                     height: '83%',
