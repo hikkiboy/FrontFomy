@@ -341,7 +341,6 @@ const styles = StyleSheet.create({
     marginBottom: -10
   },
   fase:{
-
     width: 112,
     height: 88,
     borderRadius: 15,
