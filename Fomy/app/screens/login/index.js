@@ -67,7 +67,6 @@ const LoginPage = ({ navigation }) => {
       setEntered(true);
       setTimeout(() => {
         setLoading(false);
-        navigation.navigate("HomeStart")
       }, 500);
 
     } catch (error) {

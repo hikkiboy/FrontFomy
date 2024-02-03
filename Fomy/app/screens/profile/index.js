@@ -4,6 +4,7 @@ import { doc , collection, query, where, onSnapshot, Firestore, documentId} from
 import { useEffect, useState} from 'react'
 import auth from '@react-native-firebase/auth'
 import { LoadProfile } from '../../components/loadprofile'
+import { useIsFocused } from '@react-navigation/native'
 
 
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -11,41 +12,50 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 const Profile = ({navigation}) => {
 
     const [Receitas, setReceitas] = useState([]);
+    const [user, setUser] = useState();
+    const isFocused = useIsFocused();
 
     useEffect(()=>{
-
-        
-    
-        const receitaRef = collection(app_DB, 'Usuarios')
-    
-        const q = query(
-            receitaRef,
-            where(documentId(), '==', app_auth.currentUser.uid)
-        )
-    
-        
-    
-        const subscriver = onSnapshot(q, {
-            next : (snapshot) => {
-                const receitas = []
+            //this try is only here so that a problem with app_auth.currentUser.uid being undefined doesn't happen
+            try{
+                    //the setUser works as a way to make the dependecy (app_auth.currentUser.uid) actually make useEffect happen
+                    //don't know exactly why it works like that, but it works
+                    //there's still the problem that it flashes the old user for a sec when working through asyncstorage
+                    //but I think this is better than updating the profile each time the user accesses it
+                    setUser(app_auth.currentUser.uid)
+                    const receitaRef = collection(app_DB, 'Usuarios')
                 
-                snapshot.docs.forEach(doc =>{   
-                    receitas.push({
-                        key : doc.id,
-                        ...doc.data(),
-                       
+                    const q = query(
+                        receitaRef,
+                        where(documentId(), '==', app_auth.currentUser.uid)
+                    )
+                
+                    
+                
+                    const subscriver = onSnapshot(q, {
+                        next : (snapshot) => {
+                            const receitas = []
+                            
+                            snapshot.docs.forEach(doc =>{   
+                                receitas.push({
+                                    key : doc.id,
+                                    ...doc.data(),
+                                
+                                })
+                            })
+                            setReceitas(receitas)
+                            console.log("Queried the profile, reason: update.")
+
+
+                
+                        }
                     })
-                })
-                setReceitas(receitas)
-
-
-    
+                
+                    return() => subscriver()
+            } catch(error){
+                console.log("User uid error, probably logged off")
             }
-        })
-    
-        return() => subscriver()
-    
-    },[])
+    },[app_auth.currentUser])
     
 
     return (
