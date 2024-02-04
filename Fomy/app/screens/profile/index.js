@@ -2,7 +2,6 @@ import {View, Text, Button, FlatList, TouchableOpacity, StyleSheet, Image} from 
 import { app_auth, app_DB } from '../../../firebaseConfig'
 import { doc , collection, query, where, onSnapshot, Firestore, documentId} from 'firebase/firestore'
 import { useEffect, useState} from 'react'
-import auth from '@react-native-firebase/auth'
 import { LoadProfile } from '../../components/loadprofile'
 import { useIsFocused } from '@react-navigation/native'
 
