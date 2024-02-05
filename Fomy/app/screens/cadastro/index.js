@@ -55,9 +55,11 @@ const Cadastro = ({ navigation }) => {
         }, 250)
         setCreated(false)
         if(nome == "" || senha == "" || email == "" ){
-            setBg();
+            setTimeout(() => {
+              setBg();
+              setLoading(false);
+            }, 200);
             setWhatError("Preencha todos os campos!")
-            setLoading(false)
             setTimeout(() => {
               setProblem(true);
             }, 200);

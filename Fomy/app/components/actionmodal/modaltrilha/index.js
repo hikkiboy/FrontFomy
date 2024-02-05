@@ -9,12 +9,12 @@ import { Feather } from "react-native-vector-icons"
 
 
 
-export function ModalTrilha({ handleAction, data, navigation, cor }){
+export function ModalTrilha({ handleAction, data, navigation, cor, bg, setBg }){
     console.log(data)
 
     return(
-        <SafeAreaView style={styles.container} >
-            <TouchableOpacity style={{ flex: 1, zIndex: 9 }} onPress={handleAction} ></TouchableOpacity>
+        <SafeAreaView style={[styles.container, {backgroundColor: bg}]} >
+            <TouchableOpacity style={{ flex: 1, zIndex: 9 }} onPress={() => {setTimeout(() => {setBg()}, 100); setTimeout(() => {handleAction()}, 120)}} ></TouchableOpacity>
 
             <View style={styles.content} >
                 <View style={styles.title} >
