@@ -15,6 +15,7 @@ const PasswordResets = () => {
   const [senha, setSenha] = useState("");
 
 
+  const [bg, setBg] = useState();
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
   const [problem, setProblem] = useState(false);
@@ -41,15 +42,23 @@ const PasswordResets = () => {
 
   const PasswordReset = async () => {
     setLoading(true);
+    setTimeout(() => {
+      setBg("rgba(0,0,0,0.1)");
+    }, 250);
     setSent(false);
     try {
       await sendPasswordResetEmail(auth, email);
       setSent(true)
     } catch (error) {
-      setLoading(false);
       console.log(error);
       setWhatError("Email inválido.");
-      setProblem(true)
+      setTimeout(() => {
+        setBg();
+        setLoading(false);
+      }, 200);
+      setTimeout(() => {
+        setProblem(true);
+      }, 200);
     }
   };
 
@@ -57,13 +66,79 @@ const PasswordResets = () => {
   return (
     <KeyboardAwareScrollView contentContainerStyle={styles.container}>
 
-          <Modal
-            visible={loading}
-            animationType="fade"
-            transparent={true}
-          >
-            <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', backgroundColor: "rgba(0,0,0,0.10)", zIndex: 98 }} ></View>
-          </Modal>
+{ Platform.OS === 'ios' ? (
+          <>
+              <Modal
+                visible={loading}
+                animationType="slide"
+                transparent={true}
+              >
+                <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', zIndex: 99, alignItems: 'center', backgroundColor: bg }} >
+                  <View style={{ backgroundColor: "#FFF", height: 325, width: "100%", borderTopLeftRadius: 25, borderTopRightRadius: 25, alignItems: 'center' }} >
+                    <View style={{ alignItems: 'center', width: "100%", height: "25%", justifyContent: 'center'  }} >
+                      <Text style={{ textAlign: 'center', fontSize: 25, fontWeight: '800' }} >{ sent ?  ("Email enviado!") : ("Enviando Email...")}</Text>
+                    </View>
+                      { sent ?  (
+                          <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'flex-start' }} >
+                            <Feather style={{ marginTop: "-5%" }}  name="check" size={100} color="#70d872" />
+                            <Text style={{ width: "90%", fontSize: 18, textAlign: 'center', fontWeight: 'bold', marginBottom: "9%", marginTop: "1%" }} >Siga as instruções que enviamos</Text>
+                            <TouchableOpacity onPress={() => {setTimeout(() => {setBg();}, 100); setTimeout(() => {setLoading(false);navigation.navigate("Loginpage")}, 120)}} style={{ width: "90%", alignItems: 'center', height: (stuffHeight - 5), justifyContent: 'center', borderRadius: 15, backgroundColor: '#70d872', borderWidth: 4, borderBottomWidth: 6, borderColor: '#62bc63' }} >
+                              <Text style={{ fontSize: (fontSize + 1), opacity: 0.7, fontWeight: 'bold' }} >Voltar ao login</Text>
+                            </TouchableOpacity>
+                          </View>
+                        ) : (
+                          <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'center' }} >
+                            <ActivityIndicator size={90} color="#70d872" />
+                          </View>
+                        )
+                      }
+                    
+
+                  </View>
+                </View>
+              </Modal>
+          </>
+          ) : (
+            <>
+            <Modal
+              visible={loading}
+              animationType="fade"
+              transparent={true}
+            >
+              <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', backgroundColor: "rgba(0,0,0,0.10)", zIndex: 98 }} ></View>
+            </Modal>
+            <Modal
+              visible={loading}
+              animationType="slide"
+              transparent={true}
+            >
+              <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', zIndex: 99, alignItems: 'center' }} >
+                <View style={{ backgroundColor: "#FFF", height: 325, width: "100%", borderTopLeftRadius: 25, borderTopRightRadius: 25, alignItems: 'center' }} >
+                  <View style={{ alignItems: 'center', width: "100%", height: "25%", justifyContent: 'center'  }} >
+                    <Text style={{ textAlign: 'center', fontSize: 25, fontWeight: '800' }} >{ sent ?  ("Email enviado!") : ("Enviando Email...")}</Text>
+                  </View>
+                    { sent ?  (
+                        <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'flex-start' }} >
+                          <Feather style={{ marginTop: "-5%" }}  name="check" size={100} color="#70d872" />
+                          <Text style={{ width: "90%", fontSize: 18, textAlign: 'center', fontWeight: 'bold', marginBottom: "9%", marginTop: "1%" }} >Siga as instruções que enviamos</Text>
+                          <TouchableOpacity onPress={() => {setLoading(false); navigation.navigate("Loginpage")}} style={{ width: "90%", alignItems: 'center', height: (stuffHeight - 5), justifyContent: 'center', borderRadius: 15, backgroundColor: '#70d872', borderWidth: 4, borderBottomWidth: 6, borderColor: '#62bc63' }} >
+                            <Text style={{ fontSize: (fontSize + 1), opacity: 0.7, fontWeight: 'bold' }} >Voltar ao login</Text>
+                          </TouchableOpacity>
+                        </View>
+                      ) : (
+                        <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'center' }} >
+                          <ActivityIndicator size={90} color="#70d872" />
+                        </View>
+                      )
+                    }
+                  
+
+                </View>
+              </View>
+            </Modal>
+          </>
+          )
+          }
           <Modal
             visible={loading}
             animationType="slide"

@@ -1,5 +1,6 @@
 import {
   StyleSheet,
+  Platform,
   Text,
   View,
   Image,
@@ -38,8 +39,9 @@ const LoginPage = ({ navigation }) => {
   const [ tinyText, setTinyText ] = useState(17);
 
   const [email, setEmail] = useState("coralinegaming93@gmail.com");
-  const [senha, setSenha] = useState("1234567");
+  const [senha, setSenha] = useState("123456");
   
+  const [bg, setBg] = useState();
   const [loading, setLoading] = useState(false);
   const [entered, setEntered] = useState(false);
   const [problem, setProblem] = useState(false);
@@ -60,23 +62,34 @@ const LoginPage = ({ navigation }) => {
 
   const SignIn = async () => {
     setLoading(true);
+    setTimeout(() => {
+      setBg("rgba(0,0,0,0.1)");
+    }, 250)
     setEntered(false);
     try {
       const response = await signInWithEmailAndPassword(auth, email, senha);
 
       setEntered(true);
+      setBg();
       setTimeout(() => {
         setLoading(false);
       }, 500);
 
     } catch (error) {
-      setLoading(false);
-      setProblem(true);
+      setTimeout(() => {
+        setBg();
+        setLoading(false);
+      }, 200);
+      setTimeout(() => {
+        setProblem(true);
+      }, 200);
       console.log("erro: " + error);
       if(error == "FirebaseError: Firebase: Error (auth/invalid-email)."){
         setWhatError("Email inválido!");
       } else if(error == "FirebaseError: Firebase: Error (auth/invalid-login-credentials)."){
         setWhatError("Email ou senha errada!");
+      } else if(error == "FirebaseError: Firebase: Error (auth/missing-password)."){
+        setWhatError("Coloque uma senha!");
       } else{
         setWhatError("Ocorreu um erro com seu login: " + error);
       }
@@ -86,37 +99,65 @@ const LoginPage = ({ navigation }) => {
   return (
 
         <KeyboardAwareScrollView contentContainerStyle={styles.container}>
+          { Platform.OS === 'ios' ? (
+          <>
+              <Modal
+                visible={loading}
+                animationType="slide"
+                transparent={true}
+              >
+                <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', zIndex: 99, alignItems: 'center', backgroundColor: bg }} >
+                  <View style={{ backgroundColor: "#FFF", height: 275, width: "100%", borderTopLeftRadius: 25, borderTopRightRadius: 25, alignItems: 'center' }} >
+                    <View style={{ alignItems: 'center', width: "100%", height: "25%", justifyContent: 'center'  }} >
+                      <Text style={{ textAlign: 'center', fontSize: 25, fontWeight: '800' }} >{ entered ?  ("Sucesso!") : ("Entrando...")}</Text>
+                    </View>
+                    <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'center' }} >
+                      { entered ?  (
+                          <Feather name="check" size={120} color="#fab151" />
+                        ) : (
+                          <ActivityIndicator color="#fab151" />
+                        )
+                      }
+                    </View>
 
-          <Modal
-            visible={loading}
-            animationType="fade"
-            transparent={true}
-          >
-            <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', backgroundColor: "rgba(0,0,0,0.10)", zIndex: 98 }} ></View>
-          </Modal>
-          <Modal
-            visible={loading}
-            animationType="slide"
-            transparent={true}
-          >
-            <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', zIndex: 99, alignItems: 'center' }} >
-              <View style={{ backgroundColor: "#FFF", height: 275, width: "100%", borderTopLeftRadius: 25, borderTopRightRadius: 25, alignItems: 'center' }} >
-                <View style={{ alignItems: 'center', width: "100%", height: "25%", justifyContent: 'center'  }} >
-                  <Text style={{ textAlign: 'center', fontSize: 25, fontWeight: '800' }} >{ entered ?  ("Sucesso!") : ("Entrando...")}</Text>
+                  </View>
                 </View>
-                <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'center' }} >
-                  { entered ?  (
-                      <Feather name="check" size={120} color="#fab151" />
-                    ) : (
-                      <ActivityIndicator size={90} color="#fab151" />
-                    )
-                  }
-                </View>
+              </Modal>
+          </>
+          ) : (
+            <>
+            <Modal
+              visible={loading}
+              animationType="fade"
+              transparent={true}
+            >
+              <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', backgroundColor: "rgba(0,0,0,0.10)", zIndex: 98 }} ></View>
+            </Modal>
+            <Modal
+              visible={loading}
+              animationType="slide"
+              transparent={true}
+            >
+              <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', zIndex: 99, alignItems: 'center' }} >
+                <View style={{ backgroundColor: "#FFF", height: 275, width: "100%", borderTopLeftRadius: 25, borderTopRightRadius: 25, alignItems: 'center' }} >
+                  <View style={{ alignItems: 'center', width: "100%", height: "25%", justifyContent: 'center'  }} >
+                    <Text style={{ textAlign: 'center', fontSize: 25, fontWeight: '800' }} >{ entered ?  ("Sucesso!") : ("Entrando...")}</Text>
+                  </View>
+                  <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'center' }} >
+                    { entered ?  (
+                        <Feather name="check" size={120} color="#fab151" />
+                      ) : (
+                        <ActivityIndicator size={90} color="#fab151" />
+                      )
+                    }
+                  </View>
 
+                </View>
               </View>
-            </View>
-          </Modal>
-
+            </Modal>
+          </>
+          )
+          }
           <Modal
             visible={problem}
             transparent={true}
