@@ -16,8 +16,8 @@ export default function Parabens({navigation, route}){
   const [DocesQ, setDocesQ] = useState()
   const [MAtual, setMAtual] = useState()
   const [Moeda, setMoeda] = useState()
-  console.log("Current recipe key: ",route?.params.paramKey[1])
-  console.log("Current Trilha: ", route?.params.paramKey[2])
+  //console.log("Current recipe key: ",route?.params.paramKey[1])
+  //console.log("Current Trilha: ", route?.params.paramKey[2])
   
   useEffect(()=>{
     handleUpdate()
@@ -48,12 +48,20 @@ export default function Parabens({navigation, route}){
             setReceitasFeitas(userq[0].ReceitasFeitas)
             setDocesQ(userq)
             setMAtual(userq[0].Moedas)
+            console.log("------------------ LOGS DE SET DO USER ATUAL ---------------------")
             console.log()
             console.log("Current XP: ", userq[0].Exp)
+            console.log("Current XP: ", ExpAtual)
+            
             console.log()
             console.log("Recipes that the user did before: ", userq[0].ReceitasFeitas)
             console.log()
-            console.log("Moedas do usuario:", MAtual)
+            console.log("Moedas do usuario antes do set:", userq[0].Moedas)
+            console.log("                                  ")
+            console.log("Moedas do usuario depois do set:", MAtual)
+            console.log()
+
+            console.log()
         }
     })
 
@@ -80,11 +88,13 @@ export default function Parabens({navigation, route}){
                    
                 })
             })
-            setXP(exp[0].Exp)
+            
+            console.log("------------------ LOGS DE SET DA RECEITA ---------------------")
             setMoeda(exp[0].Moedas)
+            setXP(exp[0].Exp)
+            console.log(exp)
             console.log()
-            console.log("JOAO",typeof exp[0].Moedas)
-            console.log("jorge:", typeof Moeda)
+            console.log("Moedas pra receber: ", Moeda)
             console.log()
             console.log("Recipe xp: ", XP)
         }
@@ -112,7 +122,7 @@ function handleTrilha (){
       console.log("Deu errado :(")
     }
   } catch (error) {
-    console.log("deu errado dog")
+    console.log("")
   }
 
 }
@@ -122,7 +132,7 @@ handleTrilha()
 
   const handleUpdate = async () => {
     //checa se tem algo para não atualizar o xp da pessoa com NaN ou undefined
-    if (ExpAtual != undefined && XP != undefined && ExpAtual != NaN && XP != NaN){
+    if (ExpAtual != undefined && XP != undefined && ExpAtual != NaN && XP != NaN && MAtual != undefined && Moeda != undefined && MAtual != NaN && Moeda != NaN) {
       try{
         //checa se dentro do "mapa" de ReceitasFeitas tem a Receita que acabou de fazer
         var checkIfDid = false
@@ -141,8 +151,8 @@ handleTrilha()
             //Coloquei em uma variavel prq tava dando erro colocando dentro do UpdateDoc
             //Ou só foi um pequeno bug e isso n arrumou nada mas whatever quem liga
             var addExp = (ExpAtual + XP)
-            let addMoeda = (MAtual + Moeda)
-            console.log("poggers",addMoeda)
+            var addMoeda = (MAtual + Moeda)
+            console.log("poggers",MAtual, Moeda)
             try{
                 console.log("------atualizou xp do perfil------\n\n")
                 const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);

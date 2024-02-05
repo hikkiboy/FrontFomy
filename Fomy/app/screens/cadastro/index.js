@@ -36,8 +36,8 @@ const Cadastro = ({ navigation }) => {
 
     useEffect(() => {
       if(height <= 700){
-        console.log("tela pequena");
-        console.log(height);
+        //console.log("tela pequena");
+        //console.log(height);
         setStuffHeight(65);
         setImageHeight(144.032);
         setImageWidth(132.608);
@@ -87,7 +87,7 @@ const Cadastro = ({ navigation }) => {
           } catch (error) {
             setProblem(true)
             setLoading(false)
-            console.log("erro: "+error)
+            //console.log("erro: "+error)
             if(error == "FirebaseError: Firebase: Error (auth/invalid-email)."){
               setWhatError("Email inválido!")
             } else if(error == "FirebaseError: Firebase: Password should be at least 6 characters (auth/weak-password)."){

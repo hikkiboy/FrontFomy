@@ -71,14 +71,14 @@ export default function AlterEmail({ navigation }){
                 updateEmail(auth.currentUser, novoEmail).then(() => {
                     // Email updated!
                     // ...
-                    console.log('Hell yeah')
+                    //console.log('Hell yeah')
                     alert('E-mail alterado com sucesso!')
                   })
             
           }).catch((error) => {
             // An error ocurred
             // ...
-            console.log('E-mail ou Senha errados')
+            //console.log('E-mail ou Senha errados')
             alert('E-mail ou Senha errado!!! >:(')
           });
 
