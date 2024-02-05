@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, Vibration } from 'react-native';
 
 export function Logo() {
+  console.log('Se leu, seu cu é meu');
   return (
     
       <View style={styles.container}>
