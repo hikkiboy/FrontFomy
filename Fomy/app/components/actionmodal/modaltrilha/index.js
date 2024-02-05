@@ -7,14 +7,12 @@ import { Feather } from "react-native-vector-icons"
 
  
 
-
-
-export function ModalTrilha({ handleAction, data, navigation, cor }){
-    //console.log(data)
+export function ModalTrilha({ handleAction, data, navigation, cor, bg, setBg }){
+    console.log(data)
 
     return(
-        <SafeAreaView style={styles.container} >
-            <TouchableOpacity style={{ flex: 1, zIndex: 9 }} onPress={handleAction} ></TouchableOpacity>
+        <SafeAreaView style={[styles.container, {backgroundColor: bg}]} >
+            <TouchableOpacity style={{ flex: 1, zIndex: 9 }} onPress={() => {setTimeout(() => {setBg()}, 100); setTimeout(() => {handleAction()}, 120)}} ></TouchableOpacity>
 
             <View style={styles.content} >
                 <View style={styles.title} >
@@ -52,7 +50,7 @@ export function ModalTrilha({ handleAction, data, navigation, cor }){
                         borderColor: "rgba(0,0,0,0.01)", 
                         borderWidth: 4
                         }]}  
-                        onPress={ () => navigation.navigate('Preparo',{paramKey:[data.Nome, cor, data.Icone]})}
+                        onPress={ () => {setBg(); setTimeout(() => {handleAction(); navigation.navigate('Preparo',{paramKey:[data.Nome, cor, data.Icone]})}, 1)}}
                     >
                         <Text style={styles.buttonsee} >Começar!</Text>
                     </TouchableOpacity>

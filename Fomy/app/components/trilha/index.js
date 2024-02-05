@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Alert, Modal, Pressable, StyleSheet, Text, View, Image, ScrollView, FlatList, useWindowDimensions, TouchableOpacity} from 'react-native';
+import { Platform, Alert, Modal, Pressable, StyleSheet, Text, View, Image, ScrollView, FlatList, useWindowDimensions, TouchableOpacity} from 'react-native';
 import { app, app_DB, app_auth } from '../../../firebaseConfig'
 import { collection, onSnapshot, query, where, orderBy,documentId } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
@@ -15,6 +15,7 @@ export default  function Trilha({ route, navigation }) {
   const [Receitas, setReceitas] = useState([]);
   const [modal, setModal] = useState([])
   const [onde, setOnde] = useState()
+  const [bg, setBg] = useState();
 
   
 
@@ -92,7 +93,17 @@ export default  function Trilha({ route, navigation }) {
   const [visible, setVisible] = useState(false)
 
   const handleModal = (item) => {
-    setVisible(!visible);
+    if(visible == false){
+      setVisible(!visible);
+      if(Platform.OS === 'ios'){
+        setTimeout(() => {
+          setBg("rgba(0,0,0,0.1)");
+        }, 300)
+      }
+    } else {
+      setBg();
+      setVisible(!visible);
+    }
     setModal(item)
 }
 
@@ -152,30 +163,55 @@ handleTrilha()
         {/* <View style={styles.linha}></View> */}
         {/* fazer um flat list pra gerar as fases  */}
         {/* INICIO DO MODAL */}
-        <Modal visible={visible}
-            onRequestClose={handleModal}
-            transparent={true}
-            animationType='fade'
-            style={{ zIndex: 100 }}
-            >
-                <View style={{ flex: 1, display: 'flex', backgroundColor: 'rgba(0, 0, 0, 0.3)' }} >
+        { Platform.OS === 'ios' ? (
+          <>
+            <Modal visible={visible}
+                onRequestClose={handleModal} 
+                animationType="slide"
+                transparent={true}
+                style={{ zIndex: 101 }}
+                >
+                    <ModalTrilha
+                        handleAction={handleModal}
+                        data={modal}
+                        navigation={navigation}
+                        cor={route.params.paramKey[2]}
+                        bg={bg}
+                        setBg={setBg}
+                    
+                    />
+            </Modal>
+          </>
+        ) : (
+          <>
+            <Modal visible={visible}
+                onRequestClose={handleModal}
+                transparent={true}
+                animationType='fade'
+                style={{ zIndex: 100 }}
+                >
+                    <View style={{ flex: 1, display: 'flex', backgroundColor: 'rgba(0, 0, 0, 0.1)' }} >
 
-                </View>
-        </Modal>
-        <Modal visible={visible}
-            onRequestClose={handleModal} 
-            animationType="slide"
-            transparent={true}
-            style={{ zIndex: 101 }}
-            >
-                <ModalTrilha
-                    handleAction={handleModal}
-                    data={modal}
-                    navigation={navigation}
-                    cor={route.params.paramKey[2]}
-                
-                />
-        </Modal>
+                    </View>
+            </Modal>
+            <Modal visible={visible}
+                onRequestClose={handleModal} 
+                animationType="slide"
+                transparent={true}
+                style={{ zIndex: 101 }}
+                >
+                    <ModalTrilha
+                        handleAction={handleModal}
+                        data={modal}
+                        navigation={navigation}
+                        cor={route.params.paramKey[2]}
+                        bg={bg}
+                        setBg={setBg}
+                    
+                    />
+            </Modal>
+          </>
+        )}
         {/* FIM DO MODAL */}
       
         <FlatList

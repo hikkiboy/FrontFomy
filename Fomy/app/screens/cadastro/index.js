@@ -28,6 +28,7 @@ const Cadastro = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [nome, setNome] = useState('');
+    const [bg, setBg] = useState();
     const [loading, setLoading] = useState(false);
     const [created, setCreated] = useState(false);
     const [problem, setProblem] = useState(false);
@@ -49,11 +50,19 @@ const Cadastro = ({ navigation }) => {
 
       const SignUp = async () => {
         setLoading(true)
+        setTimeout(() => {
+          setBg("rgba(0,0,0,0.1)");
+        }, 250)
         setCreated(false)
         if(nome == "" || senha == "" || email == "" ){
+            setTimeout(() => {
+              setBg();
+              setLoading(false);
+            }, 200);
             setWhatError("Preencha todos os campos!")
-            setProblem(true)
-            setLoading(false)
+            setTimeout(() => {
+              setProblem(true);
+            }, 200);
         } else {
           try{
             
@@ -79,15 +88,21 @@ const Cadastro = ({ navigation }) => {
 
             })
 
-            setCreated(true)
+            setCreated(true);
             setTimeout(() => {
-              setLoading(false);
-            }, 500);      
+              setBg();
+              setTimeout(() => {setLoading(false);}, 20);
+            }, 185);     
     
           } catch (error) {
-            setProblem(true)
-            setLoading(false)
-            //console.log("erro: "+error)
+            setTimeout(() => {
+              setBg();
+              setLoading(false);
+            }, 200);
+            setTimeout(() => {
+              setProblem(true);
+            }, 200);
+            console.log("erro: "+error)
             if(error == "FirebaseError: Firebase: Error (auth/invalid-email)."){
               setWhatError("Email inválido!")
             } else if(error == "FirebaseError: Firebase: Password should be at least 6 characters (auth/weak-password)."){
@@ -106,35 +121,65 @@ const Cadastro = ({ navigation }) => {
         {/* scroll views are fucking STUPID, specially keyboard avoiding ones */}
         {/* nvm, I found a way using (minHeight: "100%", width: "100%") instead of (flex: 1) */}
 
-        <Modal
-          visible={loading}
-          animationType="fade"
-          transparent={true}
-        >
-          <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', backgroundColor: "rgba(0,0,0,0.10)", zIndex: 98 }} ></View>
-        </Modal>
-        <Modal
-          visible={loading}
-          animationType="slide"
-          transparent={true}
-        >
-          <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', zIndex: 99, alignItems: 'center' }} >
-            <View style={{ backgroundColor: "#FFF", height: "30%", width: "100%", borderTopLeftRadius: 25, borderTopRightRadius: 25, alignItems: 'center' }} >
-              <View style={{ alignItems: 'center', width: "100%", height: "25%", justifyContent: 'center'  }} >
-                <Text style={{ textAlign: 'center', fontSize: 25, fontWeight: '800' }} >{ created ?  ("Perfil criado!") : ("Criando perfil...")}</Text>
-              </View>
-              <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'center' }} >
-                { created ?  (
-                    <Feather name="check" size={120} color="#70d872" />
-                  ) : (
-                    <ActivityIndicator size={90} color="#70d872" />
-                  )
-                }
-              </View>
+        { Platform.OS === 'ios' ? (
+          <>
+              <Modal
+                visible={loading}
+                animationType="slide"
+                transparent={true}
+              >
+                <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', zIndex: 99, alignItems: 'center', backgroundColor: bg }} >
+                  <View style={{ backgroundColor: "#FFF", height: 275, width: "100%", borderTopLeftRadius: 25, borderTopRightRadius: 25, alignItems: 'center' }} >
+                    <View style={{ alignItems: 'center', width: "100%", height: "25%", justifyContent: 'center'  }} >
+                      <Text style={{ textAlign: 'center', fontSize: 25, fontWeight: '800' }} >{ created ?  ("Perfil criado!") : ("Criando perfil...")}</Text>
+                    </View>
+                    <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'center' }} >
+                      { created ?  (
+                          <Feather name="check" size={120} color="#70d872" />
+                        ) : (
+                          <ActivityIndicator color="#70d872" />
+                        )
+                      }
+                    </View>
 
-            </View>
-          </View>
-        </Modal>
+                  </View>
+                </View>
+              </Modal>
+          </>
+          ) : (
+            <>
+            <Modal
+              visible={loading}
+              animationType="fade"
+              transparent={true}
+            >
+              <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', backgroundColor: "rgba(0,0,0,0.10)", zIndex: 98 }} ></View>
+            </Modal>
+            <Modal
+              visible={loading}
+              animationType="slide"
+              transparent={true}
+            >
+              <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', zIndex: 99, alignItems: 'center' }} >
+                <View style={{ backgroundColor: "#FFF", height: 275, width: "100%", borderTopLeftRadius: 25, borderTopRightRadius: 25, alignItems: 'center' }} >
+                  <View style={{ alignItems: 'center', width: "100%", height: "25%", justifyContent: 'center'  }} >
+                    <Text style={{ textAlign: 'center', fontSize: 25, fontWeight: '800' }} >{ created ?  ("Perfil criado!") : ("Criando perfil...")}</Text>
+                  </View>
+                  <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'center' }} >
+                    { created ?  (
+                        <Feather name="check" size={120} color="#70d872" />
+                      ) : (
+                        <ActivityIndicator size={90} color="#70d872" />
+                      )
+                    }
+                  </View>
+
+                </View>
+              </View>
+            </Modal>
+          </>
+          )
+          }
 
         <Modal
           visible={problem}
