@@ -10,7 +10,7 @@ export default function VideoPassos({idVideo}) {
     const [videoReady, setVideoReady] = useState(false)
     const [playing, setplaying] = useState(true)
     const id = idVideo
-    console.log(id)
+    //console.log(id)
 
     const playerRef = useRef()
 

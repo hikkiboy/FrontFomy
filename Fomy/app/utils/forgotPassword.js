@@ -31,8 +31,8 @@ const PasswordResets = () => {
 
   useEffect(() => {
     if(height <= 700){
-      console.log("tela pequena")
-      console.log(height)
+      //console.log("tela pequena")
+      //console.log(height)
       setStuffHeight(65)
       setImageHeight(180.04)
       setImageWidth(165.76)
@@ -50,7 +50,6 @@ const PasswordResets = () => {
       await sendPasswordResetEmail(auth, email);
       setSent(true)
     } catch (error) {
-      console.log(error);
       setWhatError("Email inválido.");
       setTimeout(() => {
         setBg();
@@ -61,7 +60,7 @@ const PasswordResets = () => {
       }, 200);
     }
   };
-
+as
 
   return (
     <KeyboardAwareScrollView contentContainerStyle={styles.container}>

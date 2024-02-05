@@ -16,7 +16,7 @@ const Home = ({navigation}) => {
 
 useEffect(() => {
     if(isFocused){
-        console.log("focado")
+        //console.log("focado")
         const backAction = () => {
             BackHandler.exitApp()
             return true;

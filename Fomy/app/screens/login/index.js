@@ -50,8 +50,8 @@ const LoginPage = ({ navigation }) => {
 
   useEffect(() => {
     if(height <= 700){
-      console.log("tela pequena")
-      console.log(height)
+      //console.log("tela pequena")
+      //console.log(height)
       setStuffHeight(65)
       setImageHeight(144.032)
       setImageWidth(132.608)

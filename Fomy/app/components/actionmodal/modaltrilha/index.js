@@ -7,8 +7,6 @@ import { Feather } from "react-native-vector-icons"
 
  
 
-
-
 export function ModalTrilha({ handleAction, data, navigation, cor, bg, setBg }){
     console.log(data)
 

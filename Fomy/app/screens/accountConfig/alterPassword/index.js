@@ -85,14 +85,14 @@ export default function AlterPassword({ navigation }){
             // User re-authenticated.
                 updatePassword(auth.currentUser, novaSenha).then(() => {
                     // Changes password to the one typed.
-                    console.log('hell yeah')
+                    //console.log('hell yeah')
                     alert('Senha alterada com sucesso!')
                   })
             
           }).catch((error) => {
             // An error ocurred
             // ...
-            console.log('Senha Errada')
+            //console.log('Senha Errada')
             alert('Senha errada!!! >:(')
           });
 

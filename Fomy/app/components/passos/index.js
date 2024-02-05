@@ -68,13 +68,13 @@ function pa(i, fwd){
     i++;
     setCalcula(i);
     setPasso(Receitas[(i - 1)]);
-    console.log("Valor: "+ i + "Valor2: "+calcula);
+    //console.log("Valor: "+ i + "Valor2: "+calcula);
 
   } else if(fwd == false && i - 1 != 0){
     i--;
     setCalcula(i);
     setPasso(Receitas[(i - 1)]);
-    console.log("Valor: "+ i + "Valor2: "+calcula);
+    //console.log("Valor: "+ i + "Valor2: "+calcula);
 
   } else if( i - 1 == 0 && fwd == false ){
     navigation.goBack()

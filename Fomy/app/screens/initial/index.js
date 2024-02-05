@@ -24,7 +24,7 @@ const Login = ({navigation}) => {
 
   useEffect(() => {
     if(isFocused){
-        console.log("focado inicial")
+        //console.log("focado inicial")
         const backAction = () => {
             BackHandler.exitApp()
             return true;
@@ -42,8 +42,8 @@ const Login = ({navigation}) => {
   
   useEffect(() => {
     if(height <= 700){
-      console.log("tela pequena")
-      console.log(height)
+      //console.log("tela pequena")
+      //console.log(height)
       setStuffHeight(75)
       setImageHeight(180.04)
       setImageWidth(165.76)
