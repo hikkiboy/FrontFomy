@@ -44,8 +44,8 @@ export default function Routes({ loggedIn, loading }) {
     if(loading == false) {
       if(loggedIn){
         console.log("Logged in for Routes")
-        navigation.navigate("HomeStart", { screen: "Home" })
         setInitialRoute("HomeStart")
+        setTimeout(() => {navigation.navigate("HomeStart", { screen: "Home" })}, 220)
       } else {
         console.log("Not logged in for Routes")
         navigation.navigate("Login")

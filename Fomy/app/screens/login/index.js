@@ -70,10 +70,10 @@ const LoginPage = ({ navigation }) => {
       const response = await signInWithEmailAndPassword(auth, email, senha);
 
       setEntered(true);
-      setBg();
       setTimeout(() => {
-        setLoading(false);
-      }, 500);
+        setBg();
+        setTimeout(() => {setLoading(false);}, 20);
+      }, 185);
 
     } catch (error) {
       setTimeout(() => {

@@ -89,10 +89,10 @@ const Cadastro = ({ navigation }) => {
             })
 
             setCreated(true);
-            setBg();
             setTimeout(() => {
-              setLoading(false);
-            }, 500);      
+              setBg();
+              setTimeout(() => {setLoading(false);}, 20);
+            }, 185);     
     
           } catch (error) {
             setTimeout(() => {
