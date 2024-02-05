@@ -97,8 +97,9 @@ export default  function Trilha({ route, navigation }) {
       setVisible(!visible);
       setTimeout(() => {
         setBg("rgba(0,0,0,0.1)");
-      }, 275)
+      }, 300)
     } else {
+      setBg();
       setVisible(!visible);
     }
     setModal(item)
