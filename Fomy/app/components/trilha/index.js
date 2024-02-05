@@ -95,9 +95,11 @@ export default  function Trilha({ route, navigation }) {
   const handleModal = (item) => {
     if(visible == false){
       setVisible(!visible);
-      setTimeout(() => {
-        setBg("rgba(0,0,0,0.1)");
-      }, 300)
+      if(Platform.OS === 'ios'){
+        setTimeout(() => {
+          setBg("rgba(0,0,0,0.1)");
+        }, 300)
+      }
     } else {
       setBg();
       setVisible(!visible);
@@ -188,7 +190,7 @@ handleTrilha()
                 animationType='fade'
                 style={{ zIndex: 100 }}
                 >
-                    <View style={{ flex: 1, display: 'flex', backgroundColor: 'rgba(0, 0, 0, 0.3)' }} >
+                    <View style={{ flex: 1, display: 'flex', backgroundColor: 'rgba(0, 0, 0, 0.1)' }} >
 
                     </View>
             </Modal>
@@ -203,6 +205,8 @@ handleTrilha()
                         data={modal}
                         navigation={navigation}
                         cor={route.params.paramKey[2]}
+                        bg={bg}
+                        setBg={setBg}
                     
                     />
             </Modal>
