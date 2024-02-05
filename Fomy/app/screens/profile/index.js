@@ -44,7 +44,7 @@ const Profile = ({navigation}) => {
                                 })
                             })
                             setReceitas(receitas)
-                            console.log("Queried the profile, reason: update.")
+                            //console.log("Queried the profile, reason: update.")
 
 
                 
@@ -53,7 +53,7 @@ const Profile = ({navigation}) => {
                 
                     return() => subscriver()
             } catch(error){
-                console.log("User uid error, probably logged off")
+                //console.log("User uid error, probably logged off")
             }
     },[app_auth.currentUser])
     

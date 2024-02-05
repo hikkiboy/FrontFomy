@@ -23,11 +23,11 @@ export default function App() {
     const login = onAuthStateChanged(app_auth, (user) => {
       if(user) {
         setLoggedIn(true);
-        console.log("logado");
+        //console.log("logado");
         setLoading(false);
       } else {
         setLoggedIn(false);
-        console.log("não tá logado");
+        //console.log("não tá logado");
         setLoading(false);
       }
      

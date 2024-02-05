@@ -92,7 +92,7 @@ export default function DeleteAccount({ navigation }){
           }).catch((error) => {
             // An error ocurred
             // ...
-            console.log('Não foi dessa vez :(')
+            //console.log('Não foi dessa vez :(')
           });
 
     }

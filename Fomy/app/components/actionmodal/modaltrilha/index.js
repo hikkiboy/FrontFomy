@@ -10,7 +10,7 @@ import { Feather } from "react-native-vector-icons"
 
 
 export function ModalTrilha({ handleAction, data, navigation, cor }){
-    console.log(data)
+    //console.log(data)
 
     return(
         <SafeAreaView style={styles.container} >

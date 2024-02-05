@@ -49,14 +49,14 @@ export function LoadProfile({ data, navigation }){
         uploadTask.on("state_changed",
         (snapshot) => {
             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-            console.log("Progress: " + progress + "%")
+            //console.log("Progress: " + progress + "%")
         },
         (error) => {
             alert("Ocorreu um erro: "+error)
         },
         (complete) => {
             getDownloadURL(uploadTask.snapshot.ref).then(async (downloadUrl) => {
-                console.log("File available at: " + downloadUrl)
+                //console.log("File available at: " + downloadUrl)
                 try{
                     if(data.Foto != "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Default-Profile-Picture-PNG-Photo-3895174684.png?alt=media&token=f70e36af-2857-405f-b307-5e7abe35f347"){
                         deleteObject(ref(app_BKT, data.Foto))
@@ -66,7 +66,7 @@ export function LoadProfile({ data, navigation }){
                     });
                     alert("Foto alterada com sucesso!")
                 } catch (error){
-                    console.log(error)
+                    //console.log(error)
                     alert("Ocorreu um erro: "+error)
                 }
             })

@@ -48,8 +48,8 @@ const LoginPage = ({ navigation }) => {
 
   useEffect(() => {
     if(height <= 700){
-      console.log("tela pequena")
-      console.log(height)
+      //console.log("tela pequena")
+      //console.log(height)
       setStuffHeight(65)
       setImageHeight(144.032)
       setImageWidth(132.608)
@@ -72,7 +72,7 @@ const LoginPage = ({ navigation }) => {
     } catch (error) {
       setLoading(false);
       setProblem(true);
-      console.log("erro: " + error);
+      //console.log("erro: " + error);
       if(error == "FirebaseError: Firebase: Error (auth/invalid-email)."){
         setWhatError("Email inválido!");
       } else if(error == "FirebaseError: Firebase: Error (auth/invalid-login-credentials)."){

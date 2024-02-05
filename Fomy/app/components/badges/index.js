@@ -31,7 +31,7 @@ export function Badges({ data }) {
                     })
                 })
                 setInsignias(insignias)
-                console.log(Insignias)
+                //console.log(Insignias)
 
 
     

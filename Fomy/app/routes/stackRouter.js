@@ -43,11 +43,11 @@ export default function Routes({ loggedIn, loading }) {
   React.useEffect(() => {
     if(loading == false) {
       if(loggedIn){
-        console.log("Logged in for Routes")
+        //console.log("Logged in for Routes")
         navigation.navigate("HomeStart", { screen: "Home" })
         setInitialRoute("HomeStart")
       } else {
-        console.log("Not logged in for Routes")
+        //console.log("Not logged in for Routes")
         navigation.navigate("Login")
         setInitialRoute("Login")
       }

@@ -20,7 +20,7 @@ export default  function Trilha({ route, navigation }) {
 
   
   const NomeTrilha = route.params.paramKey
-    console.log(route.params.paramKey)
+    //console.log(route.params.paramKey)
   useEffect(()=>{
     
     const receitaRef = collection(app_DB, 'Receitas')
@@ -31,7 +31,7 @@ export default  function Trilha({ route, navigation }) {
       
       orderBy('Posicao', 'asc')
       )
-      console.log(NomeTrilha)     
+      //console.log(NomeTrilha)     
       const subscriver = onSnapshot(q, {
         next : (snapshot) => {
           const receitas = []
@@ -100,26 +100,26 @@ function handleTrilha (){
   try {
     if (route?.params.paramKey[0] == "Refeições"){
       setOnde(onde[0].Refeições)
-      console.log(onde)
+      //console.log(onde)
     }
     else if(route?.params.paramKey[0] == "Basico"){
       setOnde(onde[0].Basico)
-      console.log(onde)
+      //console.log(onde)
     }
     else if(route?.params.paramKey[0] == "Doces"){
       setOnde(onde[0].Doces)
-      console.log(onde)
+      //console.log(onde)
     }
     else if(route?.params.paramKey[0] == "Gourmet"){
       setOnde(onde[0].Gourmet)
-      console.log(onde)
+      //console.log(onde)
     }
 
     else{
-      console.log("Deu errado :(")
+      //console.log("Deu errado :(")
     }
   } catch (error) {
-    console.log("deu errado dog")
+    //console.log("deu errado dog")
   }
 
 }
