@@ -52,7 +52,7 @@ export function ModalTrilha({ handleAction, data, navigation, cor, bg, setBg }){
                         borderColor: "rgba(0,0,0,0.01)", 
                         borderWidth: 4
                         }]}  
-                        onPress={ () => navigation.navigate('Preparo',{paramKey:[data.Nome, cor, data.Icone]})}
+                        onPress={ () => {setBg(); setTimeout(() => {handleAction(); navigation.navigate('Preparo',{paramKey:[data.Nome, cor, data.Icone]})}, 1)}}
                     >
                         <Text style={styles.buttonsee} >Começar!</Text>
                     </TouchableOpacity>
