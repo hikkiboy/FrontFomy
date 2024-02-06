@@ -32,17 +32,15 @@ export default function VideoPassos({idVideo}) {
     <View style={styles.container}>
         <YoutubeIframe
         videoId = {id}
-        height={400}
-        width={400}
+        height={300}
+        width={320}
         play = {true}
-        
         onReady={() => setVideoReady(true)}
         initialPlayerParams={{loop: true}}
         onFullScreenChange={onFullScreenChange}
         onChangeState={onChangeState}
         playList={[id]} 
         volume={0}
-        
         />
      </View>
   );
@@ -50,11 +48,9 @@ export default function VideoPassos({idVideo}) {
 
 const styles = StyleSheet.create({
     container:{
-        flex: 1,
+        alignItems: 'center',
         alignSelf: 'center',
-        marginTop: -90
+        marginTop: 100,
+        position: 'absolute'
     },
-    video:{
-        flex: 1,
-    }
 })

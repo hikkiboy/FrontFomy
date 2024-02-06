@@ -6,7 +6,7 @@ import { collection, onSnapshot, query, where, orderBy,documentId, collectionGro
 import React, { useEffect, useState } from 'react'
 import { Button, ListItem } from 'react-native-elements';
 import { center } from '@shopify/react-native-skia';
-import { Feather } from 'react-native-vector-icons'
+import { Feather, FontAwesome } from 'react-native-vector-icons'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import VideoPassos from '../videopasso';
 
@@ -88,25 +88,26 @@ function pa(i, fwd){
   return (
        <SafeAreaView style={styles.container}>
         <ScrollView>
-          <ImageBackground style={styles.imagebak} source={require('../../assets/Group171.png')}>
             <TouchableOpacity onPress={ () => navigation.goBack() } style={styles.goback} ><Feather name="chevron-left" color={"black"} size={40} /></TouchableOpacity>
             <View style={styles.areatitulo}>
-              <Text style={styles.titulopasso}> Passo {Passo.Sequencia}:  {Passo.Titulo}</Text>
+              <View style={styles.titulopasso}>
+              <Text style={styles.titulopassotexto}> Passo {Passo.Sequencia}:  {Passo.Titulo}</Text>
             </View>
+            </View>
+          <View style={styles.imagebak}/>
             <View>
             </View>
-          </ImageBackground>
+
           <VideoPassos idVideo={Passo.VideoPasso} style={styles.videofromyt}/>
           <View style={styles.belowimage} >
           <View style={styles.buttons} >
             {/* <Button title='debug' onPress={() => console.log(Passo.VideoPasso)}></Button> isso eh um teste eba */}
-              <TouchableOpacity style={styles.stepbak} onPress={() => pa(calcula, false) } ><Feather name={"arrow-left"} size={40} /></TouchableOpacity>
-              <TouchableOpacity style={styles.stepfwd} onPress={() => pa(calcula, true) } ><Feather name={"arrow-right"} size={40} /></TouchableOpacity>
+              <TouchableOpacity style={styles.stepbak} onPress={() => pa(calcula, false) } ><FontAwesome name={"refresh"} size={40} /></TouchableOpacity>
+              <TouchableOpacity style={styles.stepfwd} onPress={() => pa(calcula, true) } ><FontAwesome name={"check"} size={40} /></TouchableOpacity>
+              <Image style={styles.charimage} source={require("../../assets/betterAlberto.png")} />
             </View>
             <View style={styles.teacharea} >
               <Text style={styles.descpasso} >{Passo.Passo}</Text>
-              <Image style={styles.bubbleimage} source={require("../../assets/bubbleTriangle.png")} />
-              <Image style={styles.charimage} source={require("../../assets/betterAlberto.png")} />
             </View>
 
           </View>
@@ -127,81 +128,98 @@ const styles = StyleSheet.create({
     marginLeft: 3
   },
   imagebak:{
-    height: 210, 
-    zIndex: 0,
-    backgroundColor: 'white'
+    height: 300, 
+    borderRadius: 20,
+    backgroundColor: '#62BC63',
+    borderColor: '#4A8E4B',
+    borderBottomWidth: 10,
+    borderBottomRightRadius: 20,
+    borderTopStartRadius: 0,
+    borderTopEndRadius: 0,
+    borderStartWidth: 4,
+    borderEndWidth: 4,
+    borderTopWidth: 4,
+    
   },
   areatitulo:{
-    width: '90%',
-    height:30,
-    borderRadius: 20,
-    backgroundColor: '#5D875D',
+      marginTop: 30,
+      paddingStart: 40,
+      paddingEnd: 40,
+      width: '100%',
+      alignSelf: 'center',
+      position: 'absolute'
+  },
+  titulopasso:{
+    zIndex: 99,
+    backgroundColor: "#4A8E4B",
+    borderRadius: 50,
+    padding: 10,
+    borderWidth: 5,
+    borderBottomWidth: 10,
+    borderColor: "#356635",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingBottom: 10,
     alignSelf: 'center',
-    marginTop: 65,
     alignItems: 'center',
     justifyContent: 'center'
   },
-  titulopasso:{
+  titulopassotexto:{
     fontSize: 20,
-    textAlign: 'center',
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-
-  },
-  videofromyt:{
-    height: 200,
-    width: '90%',
-    alignSelf: 'center',
-    borderRadius: 20,
-    marginTop: -20
+    fontWeight: '600',
+    color: "white",
+    
   },
   belowimage:{
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-end',
     backgroundColor: "#FFF",
-    marginTop: -130
+    marginTop: 10
   },
   teacharea:{
     width: '90%',
-    alignItems: 'center',
-    
-    
+    alignItems: 'center'
   },
   descpasso:{
     fontSize: 18,
     textAlign: 'center',
     fontWeight: '600',
     color: '#000000',
+    borderColor: '#62BC63',
     width: '100%',
-    borderRadius: 15,
-    borderWidth: 2,
-    padding: 5
+    borderRadius: 20,
+    borderWidth: 8,
+    padding: 5,
   },
   charimage:{
     height: 144,
     width: 119,
-    marginTop: 15
+    marginTop: 15,
+    alignSelf: 'center'
   },
   bubbleimage:{
     height: 75,
     width: 59,
-    marginTop: -30
+    marginTop: -40
   },
   buttons:{
     justifyContent: 'center', 
     flexDirection: 'row',
+    height: 115,
+    marginBottom: 120
   },
   stepbak:{
-    marginBottom: 35,
-    marginHorizontal: 35,
+    marginTop: 30,
+    marginHorizontal: 20,
     padding: 20,
     backgroundColor: "#F68F92",
     borderRadius: 15
   },
   stepfwd:{
-    marginBottom: 35,
-    marginHorizontal: 35,
+    marginTop: 30,
+    marginHorizontal: 20,
     padding: 20,
     backgroundColor: "#7EB77F",
     borderRadius: 15
