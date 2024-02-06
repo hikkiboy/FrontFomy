@@ -19,8 +19,11 @@ export default function Passos({route, props, navigation}) {
   const [Passo, setPasso] = useState([])
   const [calcula, setCalcula] = useState(1)
   const [ViPasso, setVideo] = useState()
+  const [totalPassos, settotalPassos] = useState([])
 
   const [selectedItem, setSelectedItem] = useState(null);
+
+  let arr = []
 
   const handleOnSelectItem = (item) => {
     setSelectedItem(item);
@@ -85,9 +88,13 @@ function pa(i, fwd){
 }
 
 
+const aaaaa = arr.push(Receitas)
+console.log(arr.indexOf(key))
+
   return (
        <SafeAreaView style={styles.container}>
         <ScrollView>
+        <Button title='debug' onPress={() => console.log(arr)}></Button> 
             <TouchableOpacity onPress={ () => navigation.goBack() } style={styles.goback} ><Feather name="chevron-left" color={"black"} size={40} /></TouchableOpacity>
             <View style={styles.areatitulo}>
               <View style={styles.titulopasso}>
@@ -101,7 +108,7 @@ function pa(i, fwd){
           <VideoPassos idVideo={Passo.VideoPasso} style={styles.videofromyt}/>
           <View style={styles.belowimage} >
           <View style={styles.buttons} >
-            {/* <Button title='debug' onPress={() => console.log(Passo.VideoPasso)}></Button> isso eh um teste eba */}
+            
               <TouchableOpacity style={styles.stepbak} onPress={() => pa(calcula, false) } ><Foundation name="refresh" size={30} color="black" /></TouchableOpacity>
               <TouchableOpacity style={styles.stepfwd} onPress={() => pa(calcula, true) } ><FontAwesome name={"check"} size={30} /></TouchableOpacity>
               <Image style={styles.charimage} source={require("../../assets/betterAlberto.png")} />
@@ -110,7 +117,9 @@ function pa(i, fwd){
               <Text style={styles.descpasso} >{Passo.Passo}</Text>
               <View style={styles.descpassoBehind} ></View>
             </View>
-
+          </View>
+          <View style={styles.passoAtual}>
+            {/* <Text>{arr[0].indexOf(Sequencia)}</Text> */}
           </View>
         </ScrollView>
        </SafeAreaView>  
@@ -239,6 +248,12 @@ const styles = StyleSheet.create({
     borderColor: '#4A8E4B',
     borderWidth: 4,
     borderBottomWidth: 10
+  },
+  passoAtual:{
+    marginLeft: 10,
+    height: '90%',
+    width: '100%',
+    backgroundColor: 'red'
   }
  
 
