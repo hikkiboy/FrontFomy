@@ -20,6 +20,7 @@ export default function Passos({route, props, navigation}) {
   const [calcula, setCalcula] = useState(1)
   const [ViPasso, setVideo] = useState()
   const [totalPassos, settotalPassos] = useState([])
+  
 
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -57,6 +58,7 @@ export default function Passos({route, props, navigation}) {
           //isso pode causar problemas quando a pessoa estiver fazendo e ocorrer uma atualização no banco de dados,
           //porque reiniciará a posição dela, talvez depois fazer uma outra variavel que define se isso carregou pela primeira vez
           setPasso(receitas[0])
+          
         }
       })
       return() => subscriver()
@@ -88,13 +90,19 @@ function pa(i, fwd){
 }
 
 
-const aaaaa = arr.push(Receitas)
-console.log(arr.indexOf(key))
+
+const aaaa = Receitas.length
+
+for(i = 1; i <= aaaa; i++)
+{
+  arr.push(i)
+}
+
 
   return (
        <SafeAreaView style={styles.container}>
         <ScrollView>
-        <Button title='debug' onPress={() => console.log(arr)}></Button> 
+        {/* <Button title='debug' onPress={() => console.log(arr)}></Button>  */}
             <TouchableOpacity onPress={ () => navigation.goBack() } style={styles.goback} ><Feather name="chevron-left" color={"black"} size={40} /></TouchableOpacity>
             <View style={styles.areatitulo}>
               <View style={styles.titulopasso}>
@@ -118,9 +126,22 @@ console.log(arr.indexOf(key))
               <View style={styles.descpassoBehind} ></View>
             </View>
           </View>
-          <View style={styles.passoAtual}>
-            {/* <Text>{arr[0].indexOf(Sequencia)}</Text> */}
-          </View>
+          <View style={styles.passoAtualArea}>
+          <FlatList nestedScrollEnabled
+            horizontal
+            data={arr}
+            scrollEnabled = {true}
+            showsVerticalScrollIndicator = {false}
+            renderItem={({item}) => (
+              
+                <View>
+                <Text>{item}</Text>
+                </View>
+              
+            )}
+           
+            />
+            </View>
         </ScrollView>
        </SafeAreaView>  
       )} 
@@ -249,11 +270,13 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     borderBottomWidth: 10
   },
-  passoAtual:{
-    marginLeft: 10,
-    height: '90%',
+  passoAtualArea:{
     width: '100%',
-    backgroundColor: 'red'
+    height: '20%',
+    backgroundColor: 'white',
+    borderColor: '#E5E5E5',
+    borderWidth: 5,
+    borderRadius: 6
   }
  
 
