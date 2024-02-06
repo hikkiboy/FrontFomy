@@ -9,7 +9,7 @@ import { center } from '@shopify/react-native-skia';
 import { Feather, FontAwesome } from 'react-native-vector-icons'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import VideoPassos from '../videopasso';
-
+import { Foundation } from '@expo/vector-icons';
 
 export default function Passos({route, props, navigation}) {
 
@@ -102,12 +102,13 @@ function pa(i, fwd){
           <View style={styles.belowimage} >
           <View style={styles.buttons} >
             {/* <Button title='debug' onPress={() => console.log(Passo.VideoPasso)}></Button> isso eh um teste eba */}
-              <TouchableOpacity style={styles.stepbak} onPress={() => pa(calcula, false) } ><FontAwesome name={"refresh"} size={40} /></TouchableOpacity>
-              <TouchableOpacity style={styles.stepfwd} onPress={() => pa(calcula, true) } ><FontAwesome name={"check"} size={40} /></TouchableOpacity>
+              <TouchableOpacity style={styles.stepbak} onPress={() => pa(calcula, false) } ><Foundation name="refresh" size={30} color="black" /></TouchableOpacity>
+              <TouchableOpacity style={styles.stepfwd} onPress={() => pa(calcula, true) } ><FontAwesome name={"check"} size={30} /></TouchableOpacity>
               <Image style={styles.charimage} source={require("../../assets/betterAlberto.png")} />
             </View>
             <View style={styles.teacharea} >
               <Text style={styles.descpasso} >{Passo.Passo}</Text>
+              <View style={styles.descpassoBehind} ></View>
             </View>
 
           </View>
@@ -156,6 +157,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 5,
     borderBottomWidth: 10,
+    borderTopWidth: 4,
     borderColor: "#356635",
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -169,29 +171,34 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
     color: "white",
+    fontWeight: 'bold'
     
   },
-  belowimage:{
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    backgroundColor: "#FFF",
-    marginTop: 10
-  },
-  teacharea:{
-    width: '90%',
-    alignItems: 'center'
-  },
   descpasso:{
+    zIndex: 2,
     fontSize: 18,
     textAlign: 'center',
     fontWeight: '600',
     color: '#000000',
-    borderColor: '#62BC63',
+    borderColor: '#62BC63', 
     width: '100%',
+    alignSelf: 'center',
     borderRadius: 20,
     borderWidth: 8,
-    padding: 5,
+    padding: 10,
+    paddingBottom: -5,
+    backgroundColor: 'white',
+    marginTop: 50
+  },
+  descpassoBehind:{
+    zIndex: 0,
+    borderColor: '#4A8E4B', 
+    width: '100%',
+    height: 35,
+    alignSelf: 'center',
+    borderRadius: 20,
+    borderWidth: 10,
+    marginTop: -28
   },
   charimage:{
     height: 144,
@@ -199,30 +206,39 @@ const styles = StyleSheet.create({
     marginTop: 15,
     alignSelf: 'center'
   },
-  bubbleimage:{
-    height: 75,
-    width: 59,
-    marginTop: -40
-  },
   buttons:{
     justifyContent: 'center', 
     flexDirection: 'row',
-    height: 115,
-    marginBottom: 120
+    height: '19%',
+    marginBottom: 40,
+    marginTop: 40,
+    alignItems: 'center',
   },
   stepbak:{
     marginTop: 30,
     marginHorizontal: 20,
     padding: 20,
-    backgroundColor: "#F68F92",
-    borderRadius: 15
+    backgroundColor: "#F1555A",
+    borderRadius: 15,
+    borderColor: '#BC4246',
+    borderWidth: 4,
+    borderBottomWidth: 10,
+    height: 80,
+    width: 80,
+    alignItems: 'center'
   },
   stepfwd:{
     marginTop: 30,
     marginHorizontal: 20,
     padding: 20,
-    backgroundColor: "#7EB77F",
-    borderRadius: 15
+    backgroundColor: "#62BC63",
+    borderRadius: 15,
+    height: 80,
+    width: 80,
+    alignItems: 'center',
+    borderColor: '#4A8E4B',
+    borderWidth: 4,
+    borderBottomWidth: 10
   }
  
 
