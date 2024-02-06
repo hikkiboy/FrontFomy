@@ -36,6 +36,8 @@
     "react-native-screens": "~3.22.0",
     "react-native-shadow": "^1.2.2",
     "react-native-snap-carousel": "^3.9.1",
+    "react-native-sound": "^0.11.2",
+    "react-native-sound-player": "^0.13.2",
     "react-native-svg": "^13.9.0",
     "react-native-webview": "13.2.2",
     "react-native-youtube": "^2.0.2",

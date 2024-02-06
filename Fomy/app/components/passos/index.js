@@ -9,6 +9,7 @@ import { center } from '@shopify/react-native-skia';
 import { Feather } from 'react-native-vector-icons'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import VideoPassos from '../videopasso';
+import Timer from '../timer';
 
 
 export default function Passos({route, props, navigation}) {
@@ -108,7 +109,7 @@ function pa(i, fwd){
               <Image style={styles.bubbleimage} source={require("../../assets/bubbleTriangle.png")} />
               <Image style={styles.charimage} source={require("../../assets/betterAlberto.png")} />
             </View>
-
+              <Timer></Timer>
           </View>
         </ScrollView>
        </SafeAreaView>  
