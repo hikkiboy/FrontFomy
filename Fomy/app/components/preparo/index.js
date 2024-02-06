@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView, Image,FlatList,TouchableWithoutFeedback, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image,FlatList,TouchableWithoutFeedback, TouchableOpacity, ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Modal from "react-native-modal";
 import { app, app_DB } from '../../../firebaseConfig'
 import { collection, onSnapshot, query, where, orderBy,documentId } from '@firebase/firestore'
@@ -63,87 +64,84 @@ let arrayporc = []
   return (
     <SafeAreaView style={styles.container} >
       <ScrollView>
-    {/* //   <View style={{backgroundColor: route.params.paramKey[2],marginTop: 14, width: 378, height: 219, borderRadius:15 }}>
-    //   <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
-    //     <Image style={{width:109, height:109, marginTop: 18}} source={require('../../assets/fogao.png')}/>
-    //     <Image  style={{width:108, height:139}} source={require('../../assets/alberto.png')}/>
-    //     <StatusBar style="auto" />
-    //     </View>
-    //       <Text style={styles.trilhaTit}></Text>
-    //       <Text style={styles.textoTrilha}></Text>
-    //     </View>
-         */}
+        {/* //   <View style={{backgroundColor: route.params.paramKey[2],marginTop: 14, width: 378, height: 219, borderRadius:15 }}>
+        //   <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
+        //     <Image style={{width:109, height:109, marginTop: 18}} source={require('../../assets/fogao.png')}/>
+        //     <Image  style={{width:108, height:139}} source={require('../../assets/alberto.png')}/>
+        //     <StatusBar style="auto" />
+        //     </View>
+        //       <Text style={styles.trilhaTit}></Text>
+        //       <Text style={styles.textoTrilha}></Text>
+        //     </View>
+        */}
 
    
-      {/* <View style={styles.linha}></View> */}
-{/* fazer um flat list pra gerar as fases  */}
-<View style={[styles.bgpfp, {backgroundColor: route.params.paramKey[1],}]} >
+        {/* <View style={styles.linha}></View> */}
+        {/* fazer um flat list pra gerar as fases  */}
+        <View style={[styles.bgpfp, {backgroundColor: route.params.paramKey[1],}]} >
     
-      <Image 
-      tintColor={"#FFF"}
-      source={{ uri: route.params.paramKey[2] }} 
-      style={{height: 100, width: 100, marginTop: 50}}
-      />
-    </View>
+          <Image 
+            source={{ uri: route.params.paramKey[2] }} 
+            style={{height: 100, width: 100, marginTop: 50}}
+          />
+        </View>
       
-      <FlatList nestedScrollEnabled
-
-
-      data={Receitas}
-      scrollEnabled = {true}
-      showsVerticalScrollIndicator ={false}
-      
-      
-      renderItem={({item}) => (
-    <SafeAreaView style={styles.container}>
+        <FlatList nestedScrollEnabled
+          data={Receitas}
+          scrollEnabled = {true}
+          showsVerticalScrollIndicator ={false}
+          renderItem={({item}) => (
+            <View style={styles.container}>
 
 
     
-      {/* <Button onPress={() => console.log(item)}></Button> */}
-        <View style={[{
-              backgroundColor: route.params.paramKey[1],
-              width: '70%',
-              borderRadius: 100,
-              marginTop: '3%',
-              marginBottom: '2%',
-              alignSelf: 'center'
-        }]}>
-        <Text style={styles.nomeTexto}>{item.Nome}</Text>
-        </View>
-        <View style={styles.ContainTextAndIcon}>
-        <Image style={styles.Cesta} source={require('../../assets/Cesta.png')}/>
-        <View style={styles.Ingredientesbg}>
-        <Text style={styles.IngredientesTexto}>Ingredientes</Text>
-        </View>
-        </View>
-            <Text style={{opacity: 0, position: 'absolute'}}>{arrayIng.push(item.Ingredientes)}</Text>
-            <Text style={{opacity: 0, position: 'absolute'}}>{arrayBon.push(item.Bonus)}</Text>
-            <Text style={{opacity: 0, position: 'absolute'}}>{arrayUtil.push(item.Utensilios)}</Text>
-            <Text style={{opacity: 0, position: 'absolute'}}>{arrayprep.push(item.PassosSimp)}</Text>
-            <Text style={{opacity: 0, position: 'absolute'}}>{arrayporc.push(item.Porcoes)}</Text>
-        <View style={styles.IngredientesContain}>
-            
-            <FlatList nestedScrollEnabled
-            data={arrayIng[0]}
-            scrollEnabled = {true}
-            showsVerticalScrollIndicator = {false}
-            renderItem={({item}) => (
-              <View>
-                <View style={styles.IngredientesNumContain}>
-                <Text style={styles.NumeroIngrediente}>{arrayIng[0].indexOf(item) + 1}-</Text>
-                    <Text style={{fontSize: 25, fontWeight: 'bold', marginRight:-5}}>
-                      </Text>
-                    <Text style = {styles.Ingredientes}> {item}</Text>
+              {/* <Button onPress={() => console.log(item)}></Button> */}
+              <View style={[{
+                backgroundColor: route.params.paramKey[1],
+                width: '70%',
+                borderRadius: 100,
+                marginTop: '3%',
+                marginBottom: '2%',
+                alignSelf: 'center'
+              }]}>
+                <Text style={styles.nomeTexto}>{item.Nome}</Text>
+              </View>
+              <View style={styles.ContainTextAndIcon}>
+                <Image style={styles.Cesta} source={require('../../assets/Cesta.png')}/>
+                <View style={styles.Ingredientesbg}>
+                  <Text style={styles.IngredientesTexto}>Ingredientes</Text>
                 </View>
               </View>
-            )}
-           
-            />
-             {arrayBon.includes(undefined) != true && (
+
+              <Text style={{opacity: 0, position: 'absolute'}}>{arrayIng.push(item.Ingredientes)}</Text>
+              <Text style={{opacity: 0, position: 'absolute'}}>{arrayBon.push(item.Bonus)}</Text>
+              <Text style={{opacity: 0, position: 'absolute'}}>{arrayUtil.push(item.Utensilios)}</Text>
+              <Text style={{opacity: 0, position: 'absolute'}}>{arrayprep.push(item.PassosSimp)}</Text>
+              <Text style={{opacity: 0, position: 'absolute'}}>{arrayporc.push(item.Porcoes)}</Text>
+
+              <View style={styles.IngredientesContain}>
+            
+              <FlatList nestedScrollEnabled
+                data={arrayIng[0]}
+                scrollEnabled = {true}
+                showsVerticalScrollIndicator = {false}
+                renderItem={({item}) => (
+                  <View>
+                    <View style={styles.IngredientesNumContain}>
+                      <Text style={styles.NumeroIngrediente}>{arrayIng[0].indexOf(item) + 1}-</Text>
+                        <Text style={{fontSize: 25, fontWeight: 'bold', marginRight:-5}}>
+                        </Text>
+                        <Text style = {styles.Ingredientes}> {item}</Text>
+                    </View>
+                  </View>
+              )}
+              />
+
+              {arrayBon.includes(undefined) != true && (
               <>
-              <View>
-              <View style={{display: 'flex', flexDirection: 'row', marginTop: 30}}>
-              <Image style={styles.Ovo} source={require('../../assets/Ovo_leite.png')}/>
+                <View>
+                  <View style={{display: 'flex', flexDirection: 'row', marginTop: 30}}>
+                  <Image style={styles.Ovo} source={require('../../assets/Ovo_leite.png')}/>
               <View style={styles.BonusBg}>
               <Text style={styles.BonusTexto}>Bônus</Text>
               </View> 
@@ -153,17 +151,17 @@ let arrayporc = []
               </View>
             </View>
 
-             <FlatList nestedScrollEnabled
-            data={arrayBon[0]}
-            scrollEnabled = {true}
-            showsVerticalScrollIndicator = {false}
-            renderItem={({item}) => (
-                <View style={styles.BonusNumContain}>
-                    <Text style={styles.NumeroBonus}>{arrayBon[0].indexOf(item) + 1}-</Text>
-                    <Text style = {styles.Ingredientes}> {item}</Text>
-                </View>
-            )}
-            />
+              <FlatList nestedScrollEnabled
+                data={arrayBon[0]}
+                scrollEnabled = {true}
+                showsVerticalScrollIndicator = {false}
+                renderItem={({item}) => (
+                    <View style={styles.BonusNumContain}>
+                        <Text style={styles.NumeroBonus}>{arrayBon[0].indexOf(item) + 1}-</Text>
+                        <Text style = {styles.Ingredientes}> {item}</Text>
+                    </View>
+                )}
+              />
             </>
               )}
             
@@ -210,9 +208,7 @@ let arrayporc = []
             )}
             />
         </View>
-        
-     </SafeAreaView>
-     
+        </View>
       )}
       /></ScrollView>
        </SafeAreaView>
@@ -242,7 +238,7 @@ const styles = StyleSheet.create({
   },
   bgpfp:{
     height: 170,
-    width: 393,
+    width: "100%",
     alignItems: 'center',
     paddingBottom: 40,
     borderBottomStartRadius: 20,
