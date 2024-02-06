@@ -126,6 +126,9 @@ for(i = 1; i <= aaaa; i++)
               <View style={styles.descpassoBehind} ></View>
             </View>
           </View>
+          <View style={styles.spaceinbetween}>
+
+          </View>
           <View style={styles.passoAtualArea}>
           <FlatList nestedScrollEnabled
             horizontal
@@ -134,12 +137,11 @@ for(i = 1; i <= aaaa; i++)
             showsVerticalScrollIndicator = {false}
             renderItem={({item}) => (
               
-                <View>
-                <Text>{item}</Text>
+                <View style={styles.passoAtual}>
+                <Text style={styles.passoAtualTexto}>{item}</Text>
                 </View>
               
             )}
-           
             />
             </View>
         </ScrollView>
@@ -272,12 +274,40 @@ const styles = StyleSheet.create({
   },
   passoAtualArea:{
     width: '100%',
-    height: '20%',
+    height: 125,
     backgroundColor: 'white',
     borderColor: '#E5E5E5',
     borderWidth: 5,
-    borderRadius: 6
+    borderRadius: 6,
+    alignItems: 'center',
+    zIndex: 9
+  },
+  passoAtual:{
+    width: 70,
+    height: 70,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#62BC63',
+    borderRadius: 10,
+    margin: 40,
+    borderColor: '#4A8E4B',
+    borderWidth: 4,
+    borderBottomWidth: 8
+
+  },
+  passoAtualTexto:{
+    color: 'white',
+    fontSize: 40,
+    fontWeight: 'bold'  
+  },
+  spaceinbetween:{
+    backgroundColor: '#F2F2F2',
+    zIndex: 0,
+    width: '100%',
   }
+
  
 
 });
