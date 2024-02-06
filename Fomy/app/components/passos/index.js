@@ -10,6 +10,7 @@ import { Feather, FontAwesome } from 'react-native-vector-icons'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import VideoPassos from '../videopasso';
 import { Foundation } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 export default function Passos({route, props, navigation}) {
 
@@ -103,7 +104,7 @@ for(i = 1; i <= aaaa; i++)
        <SafeAreaView style={styles.container}>
         <ScrollView>
         {/* <Button title='debug' onPress={() => console.log(arr)}></Button>  */}
-            <TouchableOpacity onPress={ () => navigation.goBack() } style={styles.goback} ><Feather name="chevron-left" color={"black"} size={40} /></TouchableOpacity>
+            <TouchableOpacity onPress={ () => navigation.goBack() } style={styles.goback} ><FontAwesome5 name="arrow-left" size={32} color="white" /></TouchableOpacity>
             <View style={styles.areatitulo}>
               <View style={styles.titulopasso}>
               <Text style={styles.titulopassotexto}> Passo {Passo.Sequencia}:  {Passo.Titulo}</Text>
