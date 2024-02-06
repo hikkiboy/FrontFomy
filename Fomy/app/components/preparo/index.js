@@ -6,6 +6,8 @@ import { app, app_DB } from '../../../firebaseConfig'
 import { collection, onSnapshot, query, where, orderBy,documentId } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { Button, ListItem } from 'react-native-elements';
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 
 
 export default function Preparo({route, props, navigation}) {
@@ -63,6 +65,9 @@ let arrayporc = []
 
   return (
     <SafeAreaView style={styles.container} >
+      <TouchableOpacity onPress={() => navigation.goBack()} style={{ zIndex: 99 }}>
+        <FontAwesome size={30} color={"#FFF"} name='arrow-left' style={[styles.backicon, { backgroundColor: route.params.paramKey[1] }]} />
+      </TouchableOpacity>
       <ScrollView>
         {/* //   <View style={{backgroundColor: route.params.paramKey[2],marginTop: 14, width: 378, height: 219, borderRadius:15 }}>
         //   <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
@@ -78,12 +83,21 @@ let arrayporc = []
    
         {/* <View style={styles.linha}></View> */}
         {/* fazer um flat list pra gerar as fases  */}
-        <View style={[styles.bgpfp, {backgroundColor: route.params.paramKey[1],}]} >
-    
+        <View style={[styles.bgimg, {backgroundColor: route.params.paramKey[1]}]} >
+          <View style={ styles.titlearea }>
+            <View style={ styles.title }>
+              <Text style={styles.titletxt}>{route.params.paramKey[0]}</Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }} >
+                <Text style={[styles.titletxt, {marginRight: 11,}]}>1</Text>
+                <FontAwesome5 name='user-alt' size={17} color={"#FFF"} />
+              </View>
+            </View>
+          </View>
           <Image 
             source={{ uri: route.params.paramKey[2] }} 
-            style={{height: 100, width: 100, marginTop: 50}}
+            style={styles.image}
           />
+          <View style={[{ height: '100%', width: '100%', borderBottomLeftRadius: 15, borderBottomRightRadius: 15, zIndex: 1, position: 'absolute', borderBottomWidth: 8, borderWidth: 5, borderColor: "rgba(0,0,0,0.25)" }]} ></View>
         </View>
       
         <FlatList nestedScrollEnabled
@@ -96,21 +110,8 @@ let arrayporc = []
 
     
               {/* <Button onPress={() => console.log(item)}></Button> */}
-              <View style={[{
-                backgroundColor: route.params.paramKey[1],
-                width: '70%',
-                borderRadius: 100,
-                marginTop: '3%',
-                marginBottom: '2%',
-                alignSelf: 'center'
-              }]}>
-                <Text style={styles.nomeTexto}>{item.Nome}</Text>
-              </View>
-              <View style={styles.ContainTextAndIcon}>
-                <Image style={styles.Cesta} source={require('../../assets/Cesta.png')}/>
-                <View style={styles.Ingredientesbg}>
-                  <Text style={styles.IngredientesTexto}>Ingredientes</Text>
-                </View>
+              <View style={styles.Ingredientesbg}>
+                <Text style={styles.IngredientesTexto}>Ingredientes</Text>
               </View>
 
               <Text style={{opacity: 0, position: 'absolute'}}>{arrayIng.push(item.Ingredientes)}</Text>
@@ -120,98 +121,95 @@ let arrayporc = []
               <Text style={{opacity: 0, position: 'absolute'}}>{arrayporc.push(item.Porcoes)}</Text>
 
               <View style={styles.IngredientesContain}>
-            
-              <FlatList nestedScrollEnabled
-                data={arrayIng[0]}
-                scrollEnabled = {true}
-                showsVerticalScrollIndicator = {false}
-                renderItem={({item}) => (
-                  <View>
-                    <View style={styles.IngredientesNumContain}>
-                      <Text style={styles.NumeroIngrediente}>{arrayIng[0].indexOf(item) + 1}-</Text>
-                        <Text style={{fontSize: 25, fontWeight: 'bold', marginRight:-5}}>
-                        </Text>
-                        <Text style = {styles.Ingredientes}> {item}</Text>
-                    </View>
-                  </View>
-              )}
-              />
+                  <Image style={styles.Cesta} source={require('../../assets/Cesta.png')}/>
+                  <FlatList nestedScrollEnabled
+                    data={arrayIng[0]}
+                    scrollEnabled = {true}
+                    showsVerticalScrollIndicator = {false}
+                    renderItem={({item}) => (
+                      <View>
+                        <View style={styles.IngredientesNumContain}>
+                          <Text style={styles.NumeroIngrediente}>*</Text>
+                          <Text style = {styles.Ingredientes}>{item}</Text>
+                        </View>
+                        <View style={{marginStart: 50, marginBottom: 10, marginTop: -12, backgroundColor: '#2F8CE4', borderRadius: 20, width: "80%", height: 7 }} />
+                      </View>
+                    )}
+                  />
 
-              {arrayBon.includes(undefined) != true && (
-              <>
-                <View>
-                  <View style={{display: 'flex', flexDirection: 'row', marginTop: 30}}>
-                  <Image style={styles.Ovo} source={require('../../assets/Ovo_leite.png')}/>
-              <View style={styles.BonusBg}>
-              <Text style={styles.BonusTexto}>Bônus</Text>
-              </View> 
+                {arrayBon.includes(undefined) != true && (
+                  <>
+                    <View style={styles.BonusBg}>
+                      <Text style={styles.BonusTexto}>Bônus</Text>
+                    </View>
+
+                    <Image style={styles.Ovo} source={require('../../assets/Ovo_leite.png')}/>
+                    <FlatList nestedScrollEnabled
+                      data={arrayBon[0]}
+                      scrollEnabled = {true}
+                      showsVerticalScrollIndicator = {false}
+                      renderItem={({item}) => (
+                        <View>
+                          <View style={styles.BonusNumContain}>
+                            <Text style={styles.NumeroBonus}>*</Text>
+                            <Text style = {styles.Ingredientes}>{item}</Text>
+                          </View>
+                          <View style={{marginStart: 50, marginBottom: 10, marginTop: -12, backgroundColor: '#FAB151', borderRadius: 20, width: "80%", height: 7 }} />
+                        </View>
+                      )}
+                    />
+                  </>
+                )}
+              
+      
+                <View style={styles.UtilBG}>
+                  <Text style={styles.UtilTexto}>Utensílios</Text>
+                </View>
+                <Image style={styles.Ovo} source={require('../../assets/Uten.png')}/>
+                <FlatList nestedScrollEnabled
+                  data={arrayUtil[0]}
+                  scrollEnabled = {true}
+                  showsVerticalScrollIndicator = {false}
+                  renderItem={({item}) => (
+                    <View>
+                      <View style={styles.BonusNumContain}>
+                          <Text style={styles.NumeroIngrediente}>*</Text>
+                          <Text style = {styles.Ingredientes}>{item}</Text>
+                      </View>
+                      <View style={{marginStart: 50, marginBottom: 10, marginTop: -12, backgroundColor: '#2F8CE4', borderRadius: 20, width: "80%", height: 7 }} />
+                    </View>
+                  )}
+                />
               </View>
               <View>
-              <Text style={styles.BonusSubTit}>Ingredientes adicionais para aprimorar sua receita!! Desbloqueio ápos fazer a versão simples da receita</Text>
-              </View>
-            </View>
-
-              <FlatList nestedScrollEnabled
-                data={arrayBon[0]}
-                scrollEnabled = {true}
-                showsVerticalScrollIndicator = {false}
-                renderItem={({item}) => (
-                    <View style={styles.BonusNumContain}>
-                        <Text style={styles.NumeroBonus}>{arrayBon[0].indexOf(item) + 1}-</Text>
-                        <Text style = {styles.Ingredientes}> {item}</Text>
+                <View>
+                  <Image style={styles.Pote} source={require('../../assets/Pote_preparo.png')}/>
+                    <View style={{display: 'flex', flexDirection: 'row', alignContent:'center'}}>
+                      <View style={styles.ModoPreparoBG}>
+                        <Text style={styles.ModoPreparo}>MODO DE FAZER</Text>
+                      </View>
+                      <TouchableOpacity onPress={() => navigation.navigate('Passos',{paramKey:[item.key]})}>
+                        <Image style={styles.ButtonPlay} source={require('../../assets/playbutt.png')}/>
+                      </TouchableOpacity>
                     </View>
-                )}
-              />
-            </>
-              )}
-            
-            <View style={{display: 'flex', flexDirection: 'row', marginTop: 30}}>
-            <Image style={styles.Ovo} source={require('../../assets/Uten.png')}/>
-              <View style={styles.UtilBG}>
-              <Text style={styles.UtilTexto}>Utensílios</Text>
+                </View>
+                <FlatList nestedScrollEnabled
+                  data={arrayprep[0]}
+                  scrollEnabled = {true}
+                  showsVerticalScrollIndicator = {false}
+                  renderItem={({item}) => (
+                    <View style={styles.ModoPreparoContain}>
+                        <Text style={styles.Passo}>• </Text>
+                        <Text style = {styles.PassoDesc}> {item}</Text>
+                    </View>
+                  )}
+                />
               </View>
             </View>
-             <FlatList nestedScrollEnabled
-            data={arrayUtil[0]}
-            scrollEnabled = {true}
-            showsVerticalScrollIndicator = {false}
-            renderItem={({item}) => (
-                <View style={styles.BonusNumContain}>
-                    <Text style={styles.NumeroIngrediente}>{arrayUtil[0].indexOf(item) + 1}-</Text>
-                    <Text style = {styles.Ingredientes}> {item}</Text>
-                </View>
-            )}
-            />
-        </View>
-        <View>
-        <View>
-        <Image style={styles.Pote} source={require('../../assets/Pote_preparo.png')}/>
-        <View style={{display: 'flex', flexDirection: 'row', alignContent:'center'}}>
-          <View style={styles.ModoPreparoBG}>
-          <Text style={styles.ModoPreparo}>MODO DE FAZER</Text>
-          </View>
-        
-          <TouchableOpacity onPress={() => navigation.navigate('Passos',{paramKey:[item.key]})}>
-          <Image style={styles.ButtonPlay} source={require('../../assets/playbutt.png')}/>
-          </TouchableOpacity>
-        </View>
-        </View>
-          <FlatList nestedScrollEnabled
-            data={arrayprep[0]}
-            scrollEnabled = {true}
-            showsVerticalScrollIndicator = {false}
-            renderItem={({item}) => (
-                <View style={styles.ModoPreparoContain}>
-                    <Text style={styles.Passo}>• </Text>
-                    <Text style = {styles.PassoDesc}> {item}</Text>
-                </View>
-            )}
-            />
-        </View>
-        </View>
-      )}
-      /></ScrollView>
-       </SafeAreaView>
+          )}
+        />
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
@@ -221,7 +219,56 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     display: 'flex',
+    backgroundColor: '#FFF'
     
+  },
+  backicon:{
+    padding: 7, 
+    paddingHorizontal: 9, 
+    position: 'absolute', 
+    zIndex: 99, 
+    top: 10, 
+    left: 8, 
+    borderRadius: 100
+  },
+  bgimg:{
+    width: "100%",
+    alignItems: 'center',
+    borderBottomStartRadius: 15,
+    borderBottomEndRadius: 15,
+    marginBottom: 49
+  },
+  titlearea:{
+    width: '100%',
+    paddingStart: 30,
+    paddingEnd: 30,
+    marginTop: 55,
+    zIndex: 98
+  },
+  title:{
+    borderRadius: 25,
+    borderWidth: 4,
+    borderBottomWidth: 8,
+    paddingVertical: 3,
+    borderColor: "rgba(0,0,0,0.25)",
+    backgroundColor: "rgba(0,0,0,0.1)",
+    paddingStart: 17,
+    paddingEnd: 17,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  titletxt:{
+    maxWidth: '75%',
+    fontWeight: 'bold',
+    fontSize: 22,
+    color: "#FFF"
+  },
+  image:{
+    height: 100, 
+    width: 100,
+    marginVertical: 34,
+    zIndex: 98
   },
   descricaoReceita:{
     alignSelf :'center',
@@ -236,119 +283,92 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center'
   },
-  bgpfp:{
-    height: 170,
-    width: "100%",
-    alignItems: 'center',
-    paddingBottom: 40,
-    borderBottomStartRadius: 20,
-    borderBottomEndRadius: 20
-},
-nomebg:{
-    backgroundColor: "#7EB77F",
-    width: '70%',
-    borderRadius: 100,
-    marginTop: '3%',
-    marginBottom: '2%',
-    alignSelf: 'center'
-},
 Ingredientesbg:{
-    backgroundColor: "#DBEBFA",
-    width: '33%',
+    backgroundColor: "#2F8CE4",
+    width: '90%',
     borderRadius: 100,
-    marginLeft: -5,
-    marginTop: '3%',
-    alignSelf: 'flex-start',
-    borderColor: '#2F8CE4',
-    borderWidth: 3
+    borderColor: '#296CAA',
+    borderWidth: 5,
+    borderBottomWidth: 9,
+    paddingVertical: 4,
+    alignSelf: 'center'
 
 },
 IngredientesTexto:{
-fontSize: 20,
-textAlign: 'center',
-color: '#1877D1',
-fontWeight: 'bold'
-},
-nomeTexto:{
-    fontWeight: 'bold',
-    fontSize: 25,
-    color: '#365336',
-    textAlign: 'center'
+    fontSize: 22,
+    textAlign: 'center',
+    color: '#FFF',
+    fontWeight: 'bold'
 },
 IngredientesContain:{
-    width: '30%',
-    marginLeft: '20%',
-    marginLeft: 14
+    width: '100%',
 },
 IngredientesNumContain:{
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
   width: '100%',
-  marginLeft: 0,
+  paddingStart: 20
+},
+NumeroIngrediente:{
+  fontSize: 30,
+  fontWeight: 'bold',
+  color: '#2F8CE4'
+},
+Ingredientes:{
+    fontWeight: 'bold',
+    fontSize: 20,
+    maxWidth: '80%',
+    height: '100%',
+    marginTop: 30,
+    marginLeft: 15,
+    textDecorationColor: '#2F8CE4'
+},
+Cesta:{
+  height: 100,
+  width: 100,
+  alignSelf: 'center',
+  marginTop: 40,
+  marginBottom: 20
+},
+BonusBg:{
+  backgroundColor: "#FAB151",
+  width: '90%',
+  borderRadius: 100,
+  borderColor: '#ED8A07',
+  borderWidth: 5,
+  borderBottomWidth: 9,
+  paddingVertical: 4,
+  marginTop: 60,
+  alignSelf: 'center'
   
+},
+BonusTexto:{
+  fontSize: 22,
+  textAlign: 'center',
+  color: '#FFF',
+  fontWeight: 'bold'
+
+},
+Ovo:{
+  height: 100,
+  width: 100,
+  alignSelf: 'center',
+  marginTop: 40,
+  marginBottom: 20
 },
 BonusNumContain:{
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
   width: '100%',
-  marginLeft: 0,
+  paddingStart: 20
   
 },
-NumeroIngrediente:{
-  fontSize: 40,
+NumeroBonus:{
+  fontSize: 30,
   fontWeight: 'bold',
-  color: '#1877D1',
-  marginLeft: 10
-},
-Ingredientes:{
-    fontWeight: 'bold',
-    fontSize: 20,
-    width: 300,
-    height: '100%',
-    marginTop: 30,
-    marginLeft: 10
-},
-Cesta:{
-  marginRight: 10,
-  marginLeft: 10,
-  height: 55,
-  width: 55
-},
-ContainTextAndIcon:{
-  display: 'flex',
-  flexDirection: 'row'
-},
-BonusBg:{
-  backgroundColor: "#f1e3cf",
-  width: '77%',
-  borderRadius: 100,
-  marginLeft: -5,
-  marginTop: '3%',
-  alignSelf: 'flex-start',
-  borderColor: '#FAB151',
-  borderWidth: 3,
-  marginTop:25
-  
-},
-BonusTexto:{
-  fontSize: 20,
-textAlign: 'center',
-color: '#FAB151',
-fontWeight: 'bold',
-
-},
-BonusSubTit:{
-  width: 400,
-  opacity: .5
-},
-Ovo:{
-  width: 50,
-  height: 50,
-  marginRight: 10,
-  marginLeft: 5,
-  marginTop:20
+  color: '#FAB151'
 },
 ModoPreparo:{
 textAlign: 'center',
@@ -376,21 +396,21 @@ Pote:{
   marginTop: 45
 },
 UtilTexto:{
-  fontSize: 24,
+  fontSize: 22,
   textAlign: 'center',
-  color: '#1877D1',
-  fontWeight: 'bold',
+  color: '#FFF',
+  fontWeight: 'bold'
 },
 UtilBG:{
-  backgroundColor: "#DBEBFA",
+  backgroundColor: "#2F8CE4",
+  width: '90%',
   borderRadius: 100,
-  marginLeft: -5,
-  marginTop: '3%',
-  alignSelf: 'flex-start',
-  borderColor: '#2F8CE4',
-  borderWidth: 3,
-  marginTop:25,
-  width: 150
+  borderColor: '#296CAA',
+  borderWidth: 5,
+  borderBottomWidth: 9,
+  paddingVertical: 4,
+  marginTop: 60,
+  alignSelf: 'center'
 },
 ModoPreparoContain:{
   marginLeft: 30,
@@ -417,12 +437,6 @@ ButtonPlay:{
   marginLeft: 10,
   marginTop:25,
 },
-NumeroBonus:{
-  fontSize: 40,
-  fontWeight: 'bold',
-  color: '#FAB151',
-  marginLeft: 10
-}
 
 });
 

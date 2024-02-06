@@ -142,6 +142,9 @@ handleTrilha()
 
   return (
     <SafeAreaView style={styles.status} >
+      <TouchableOpacity onPress={() => navigation.goBack()} style={{ zIndex: 99 }}>
+        <FontAwesome size={30} color={"#FFF"} name='arrow-left' style={[styles.backicon, { backgroundColor: route.params.paramKey[2] }]} />
+      </TouchableOpacity>
       <ScrollView contentInsetAdjustmentBehavior="automatic" style ={{ flexGrow: 1, paddingBottom: 300 }}>
 
         <View style={{backgroundColor: route.params.paramKey[2],marginTop: '5%', width: width - 20, height: 285, borderRadius:15, alignSelf: "center", marginBottom: 40, zIndex: 1 }}>
@@ -315,6 +318,15 @@ const styles = StyleSheet.create({
     display: 'flex',
     backgroundColor: "#EFEFEF",
     marginBottom:20
+  },
+  backicon:{
+    padding: 7, 
+    paddingHorizontal: 9, 
+    position: 'absolute', 
+    zIndex: 99, 
+    top: 25, 
+    left: 15, 
+    borderRadius: 100
   },
   row:{
     flexDirection: 'row', 
