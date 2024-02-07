@@ -24,7 +24,7 @@ export default function Passos({route, props, navigation}) {
   const [totalPassos, settotalPassos] = useState([])
   const [current, setCurrent] = useState(0)
   const {width} = Dimensions.get('window')
-  const scrollX = useRef(new Animated.Value(0)).current
+  const [scrollX, setscrollX] = useState(0)
   const itemWidth = width
 
 
@@ -141,13 +141,13 @@ for(i = 1; i <= aaaa; i++)
             scrollEnabled = {true}
             keyExtractor={(item) => item.key}
             bounces = {false}
-            pagingEnabled
-            showsHorizontalScrollIndicator = {false}
-            onScroll={Animated.event([{nativeEvent: {contentOffset: {x: scrollX} } } ], {
-              useNativeDriver: false,
 
-            })}
-            renderItem={({item}) => (
+            showsHorizontalScrollIndicator = {false}
+            onScroll={(event) => {
+              setscrollX(event.nativeEvent.contentOffset.x)
+            }}
+
+            renderItem={({item, index}) => (
               
               
 
@@ -155,7 +155,11 @@ for(i = 1; i <= aaaa; i++)
                 {Receitas[Receitas.indexOf(item)].Sequencia != 1 &&
                 <View style={styles.traco}/>
                 }
-                  <View style={styles.passoAtual}>
+                {/* <Button onPress={() => console.log(index )}/> */}
+                  <View style={[styles.passoAtual,{
+                    marginLeft: index == 0 ? 122 : 10,
+                    marginRight: index  == Receitas.length - 1 ? 122 : 10
+                  }]}>
                     
                     <Text style={styles.passoAtualTexto}>{item.Sequencia}
                     
