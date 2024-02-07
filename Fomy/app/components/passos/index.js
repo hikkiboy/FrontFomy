@@ -1,9 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image,FlatList,TouchableWithoutFeedback, TouchableOpacity, ImageBackground, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image,FlatList,TouchableWithoutFeedback, TouchableOpacity, ImageBackground, ScrollView, Animated } from 'react-native';
 import Modal from "react-native-modal";
 import { app, app_DB } from '../../../firebaseConfig'
 import { collection, onSnapshot, query, where, orderBy,documentId, collectionGroup } from '@firebase/firestore'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Button, ListItem } from 'react-native-elements';
 import { center } from '@shopify/react-native-skia';
 import { Feather, FontAwesome } from 'react-native-vector-icons'
@@ -11,17 +11,22 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import VideoPassos from '../videopasso';
 import { Foundation } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { Dimensions } from 'react-native';
 
 export default function Passos({route, props, navigation}) {
 
-
+  //tintColor={route.params.paramKey[2]} style={{ height: 97.2, width: 19.2 }}
   const [Receitas, setReceitas] = useState([]);
   const [visible, setVisible] = useState(false)
   const [Passo, setPasso] = useState([])
   const [calcula, setCalcula] = useState(1)
   const [ViPasso, setVideo] = useState()
   const [totalPassos, settotalPassos] = useState([])
-  
+  const [current, setCurrent] = useState(0)
+  const {width} = Dimensions.get('window')
+  const scrollX = useRef(new Animated.Value(0)).current
+  const itemWidth = width
+
 
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -92,6 +97,7 @@ function pa(i, fwd){
 
 
 
+
 const aaaa = Receitas.length
 
 for(i = 1; i <= aaaa; i++)
@@ -127,24 +133,42 @@ for(i = 1; i <= aaaa; i++)
               <View style={styles.descpassoBehind} ></View>
             </View>
           </View>
-          <View style={styles.spaceinbetween}>
 
-          </View>
           <View style={styles.passoAtualArea}>
-          <FlatList nestedScrollEnabled
+          <Animated.FlatList nestedScrollEnabled
             horizontal
-            data={arr}
+            data={Receitas}
             scrollEnabled = {true}
-            showsVerticalScrollIndicator = {false}
+            keyExtractor={(item) => item.key}
+            bounces = {false}
+            pagingEnabled
+            showsHorizontalScrollIndicator = {false}
+            onScroll={Animated.event([{nativeEvent: {contentOffset: {x: scrollX} } } ], {
+              useNativeDriver: false,
+
+            })}
             renderItem={({item}) => (
               
-                <View style={styles.passoAtual}>
-                <Text style={styles.passoAtualTexto}>{item}</Text>
+              
+
+                <View style={styles.containtraco}> 
+                {Receitas[Receitas.indexOf(item)].Sequencia != 1 &&
+                <View style={styles.traco}/>
+                }
+                  <View style={styles.passoAtual}>
+                    
+                    <Text style={styles.passoAtualTexto}>{item.Sequencia}
+                    
+                    </Text>
+                  </View>
+                  
                 </View>
+                
               
             )}
             />
             </View>
+            <View style={styles.spaceinbetween}/>
         </ScrollView>
        </SafeAreaView>  
       )} 
@@ -224,7 +248,7 @@ const styles = StyleSheet.create({
     marginTop: 50
   },
   descpassoBehind:{
-    zIndex: 0,
+    zIndex: 1,
     borderColor: '#4A8E4B', 
     width: '100%',
     height: 35,
@@ -275,13 +299,17 @@ const styles = StyleSheet.create({
   },
   passoAtualArea:{
     width: '100%',
-    height: 125,
+    height: 130,
     backgroundColor: 'white',
     borderColor: '#E5E5E5',
     borderWidth: 5,
     borderRadius: 6,
     alignItems: 'center',
-    zIndex: 9
+    zIndex: 9,
+    borderTopWidth: 8,
+    borderRightWidth: 0,
+    borderLeftWidth: 0,
+    borderBottomWidth: 0
   },
   passoAtual:{
     width: 70,
@@ -292,21 +320,37 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#62BC63',
     borderRadius: 10,
-    margin: 40,
+    margin: 10,
     borderColor: '#4A8E4B',
     borderWidth: 4,
-    borderBottomWidth: 8
+    borderBottomWidth: 8,
+
 
   },
   passoAtualTexto:{
     color: 'white',
     fontSize: 40,
-    fontWeight: 'bold'  
+    fontWeight: 'bold' ,
+    zIndex: 9
   },
   spaceinbetween:{
     backgroundColor: '#F2F2F2',
     zIndex: 0,
     width: '100%',
+    height: '25%',
+    top: -250,
+    position: 'relative'
+  },
+  traco:{
+    backgroundColor: '#F2F2F2',
+    width: 90,
+    height: 10,
+    borderRadius: 90,
+    alignSelf: 'center'
+  },
+  containtraco:{
+    justifyContent: 'center',
+    flexDirection: 'row'
   }
 
  
