@@ -217,12 +217,12 @@ let arrayporc = []
               <View style={[styles.bgimg, {backgroundColor: route.params.paramKey[1], marginBottom: 0}]} >
                 <View style={ styles.titlearea }>
                   <View style={[ styles.title, { flexDirection: 'row', justifyContent: 'space-between'} ]}>
-                    <Text style={styles.titletxt}>Passos</Text>
+                    <Text style={[styles.titletxt]}>Passos</Text>
                     <TouchableOpacity onPress={() => navigation.navigate('Passos',{paramKey:[item.key]})} activeOpacity={0.8}>
                       <FontAwesome5 name='play' color={"#FFF"} size={32} />
                     </TouchableOpacity>
                   </View>
-                  <Image tintColor={"#FFF"} style={styles.image} source={require('../../assets/Pote_preparo.png')}/>
+                  <Image tintColor={"#FFF"} style={styles.image} source={require('../../assets/canvas.png')}/>
                 </View>
                 <View style={[{ height: '100%', width: '100%',borderRadius: 20, zIndex: 1, position: 'absolute', borderBottomWidth: 11, borderWidth: 8, borderColor: "rgba(0,0,0,0.10)" }]} />
                 <View style={ styles.stepslist } >
@@ -293,7 +293,7 @@ const styles = StyleSheet.create({
   },
   titletxt:{
     fontWeight: 'bold',
-    fontSize: 23,
+    fontSize: 25,
     color: "#FFF",
     textAlign: 'center',
     textAlignVertical: 'center'
