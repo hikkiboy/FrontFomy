@@ -105,6 +105,44 @@ for(i = 1; i <= aaaa; i++)
   arr.push(i)
 }
 
+function Goingcrazyrn({index}) {
+  const size = useSharedValue(0.8);
+
+  const inputRange = [
+    (index -1) * 80,
+    index * 80,
+    (index + 1) * 80
+  ]
+
+  size.value = interpolate(
+    scrollX,
+    inputRange,
+    [0.8, 1, 0.8],
+    Extrapolate.CLAMP,
+  )
+
+
+  const opacity = useSharedValue(1);
+  const opacityInputRange = [
+    (index - 1) * 80,
+    index * 80,
+    (index + 1) * 80,
+  ];
+  opacity.value = interpolate(
+    scrollX,
+    opacityInputRange,
+    [0.5, 1, 0.5],
+    Extrapolate.CLAMP
+  );
+  const cardStyle = useAnimatedStyle(()=>{
+    return{
+      transform: [{scaleY: size.value}],
+      opacity: opacity.value,
+    }
+  })
+  return cardStyle
+}
+
 
   return (
        <SafeAreaView style={styles.container}>
@@ -141,7 +179,7 @@ for(i = 1; i <= aaaa; i++)
             scrollEnabled = {true}
             keyExtractor={(item) => item.key}
             bounces = {false}
-
+            snapToInterval={80 + (100)}
             showsHorizontalScrollIndicator = {false}
             onScroll={(event) => {
               setscrollX(event.nativeEvent.contentOffset.x)
@@ -152,20 +190,19 @@ for(i = 1; i <= aaaa; i++)
               
 
                 <View style={styles.containtraco}> 
+                <Goingcrazyrn index={index}/>
                 {Receitas[Receitas.indexOf(item)].Sequencia != 1 &&
                 <View style={styles.traco}/>
                 }
                 {/* <Button onPress={() => console.log(index )}/> */}
-                  <View style={[styles.passoAtual,{
+                
+                  <View style={[styles.passoAtual, cardStyle,{
                     marginLeft: index == 0 ? 122 : 10,
                     marginRight: index  == Receitas.length - 1 ? 122 : 10
                   }]}>
-                    
                     <Text style={styles.passoAtualTexto}>{item.Sequencia}
-                    
                     </Text>
                   </View>
-                  
                 </View>
                 
               
