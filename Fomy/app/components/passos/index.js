@@ -12,6 +12,8 @@ import VideoPassos from '../videopasso';
 import { Foundation } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
+import { useSharedValue, Extrapolate, interpolate, useAnimatedStyle } from 'react-native-reanimated';
+
 
 export default function Passos({route, props, navigation}) {
 
@@ -190,13 +192,13 @@ function Goingcrazyrn({index}) {
               
 
                 <View style={styles.containtraco}> 
-                <Goingcrazyrn index={index}/>
+                
                 {Receitas[Receitas.indexOf(item)].Sequencia != 1 &&
                 <View style={styles.traco}/>
                 }
                 {/* <Button onPress={() => console.log(index )}/> */}
                 
-                  <View style={[styles.passoAtual, cardStyle,{
+                  <View style={[styles.passoAtual,{
                     marginLeft: index == 0 ? 122 : 10,
                     marginRight: index  == Receitas.length - 1 ? 122 : 10
                   }]}>
