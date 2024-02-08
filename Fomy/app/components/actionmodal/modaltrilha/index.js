@@ -21,7 +21,7 @@ export function ModalTrilha({ handleAction, data, navigation, cor, bg, setBg }){
                 </View>
                 <View style={styles.blwtitle} >
                     <View style={styles.iconarea} >
-                        <Image style={styles.icon} tintColor={cor} source={{uri : data.Icone}}/>
+                        <Image style={styles.icon} source={{uri : data.Icone}}/>
                     </View>
                     <View style={styles.stats} >
                         <View style={styles.statarea} >
