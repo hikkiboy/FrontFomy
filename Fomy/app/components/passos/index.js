@@ -141,8 +141,32 @@ function Goingcrazyrn({index}) {
       transform: [{scaleY: size.value}],
       opacity: opacity.value,
     }
+
+    
   })
-  return cardStyle
+  
+  return (
+        
+              
+
+    <View style={styles.containtraco}> 
+              
+    {/* {Receitas[Receitas.indexOf(item)].Sequencia != 1 &&
+    <View style={styles.traco}/>
+    } */}
+    {/* <Button onPress={() => console.log(index )}/> */}
+    
+      <View style={[styles.passoAtual,Goingcrazyrn(), {
+        marginLeft: index == 0 ? 122 : 10,
+        marginRight: index  == Receitas.length - 1 ? 122 : 10
+      }]}>
+        <Text style={styles.passoAtualTexto}>{Receitas[0].Sequencia}
+        </Text>
+      </View>
+    </View>
+    
+  
+  )
 }
 
 
@@ -188,26 +212,7 @@ function Goingcrazyrn({index}) {
             }}
 
             renderItem={({item, index}) => (
-              
-              
-
-                <View style={styles.containtraco}> 
-                
-                {Receitas[Receitas.indexOf(item)].Sequencia != 1 &&
-                <View style={styles.traco}/>
-                }
-                {/* <Button onPress={() => console.log(index )}/> */}
-                
-                  <View style={[styles.passoAtual,{
-                    marginLeft: index == 0 ? 122 : 10,
-                    marginRight: index  == Receitas.length - 1 ? 122 : 10
-                  }]}>
-                    <Text style={styles.passoAtualTexto}>{item.Sequencia}
-                    </Text>
-                  </View>
-                </View>
-                
-              
+              <Goingcrazyrn index={index}/>
             )}
             />
             </View>
