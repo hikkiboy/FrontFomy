@@ -118,9 +118,9 @@ let arrayporc = []
                       <Text style={[styles.titletxt, {marginHorizontal: 11, marginRight: 25 , fontSize: 22}]}>1</Text>
                       <FontAwesome5 name='user-alt' size={20} color={"#FFF"} />
                     </View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', flex: 1 }} >
+                    <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }} >
                       <Text style={[styles.titletxt, {fontSize: 22}]} >Porções</Text>
-                      <FontAwesome5 name='angle-down' size={40} color={"#FFF"} />
+                      {/*<FontAwesome5 name='angle-down' size={40} color={"#FFF"} />*/}
                     </View>
                   </View>
                   <View style={[{ height: '100%', width: '100%',borderRadius: 20, zIndex: 1, position: 'absolute', borderBottomWidth: 10, borderWidth: 7, borderColor: "rgba(0,0,0,0.10)" }]} />
@@ -296,7 +296,8 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: "#FFF",
     textAlign: 'center',
-    textAlignVertical: 'center'
+    textAlignVertical: 'center',
+    alignSelf: 'center',
   },
   seeimgbtn:{
     borderRadius: 20,
