@@ -13,8 +13,7 @@ import { Foundation } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
 import { useSharedValue, Extrapolate, interpolate, useAnimatedStyle } from 'react-native-reanimated';
-import PassoBottomIndicator from './passosBottomIndicator';
-import Element from './passosBottomIndicator/BottomIndicatorElement';
+
 
 
 export default function Passos({route, props, navigation}) {
@@ -137,14 +136,38 @@ for(i = 1; i <= aaaa; i++)
               <Text style={styles.descpasso} >{Passo.Passo}</Text>
               <View style={styles.descpassoBehind}></View>
               <Button onPress={() => console.log(key)}/>
-              <View style={styles.spaceinbetween}/>
-              <Element data = {Receitas} scrollX = {scrollX} />
+              
+          <View style={styles.passoAtualArea}>
+          <FlatList 
+            horizontal
+            scrollEnabled = {false}
+            data={Receitas}
+            keyExtractor={(item) => item.key}
+            bounces = {false}
+            showsHorizontalScrollIndicator = {false}
+            scrollEventThrottle={32}
+            renderItem={({item, index}) => (
+                <View style={styles.containtraco}> 
+                {Receitas[Receitas.indexOf(item)].Sequencia != 1 &&
+                   <View style={styles.traco}/>
+                }
+                  <View style={[styles.passoAtual, {
+                    marginLeft: index == 0 ? 125 : 10,
+                    marginRight: index  == Receitas.length - 1 ? 122 : 10
+                  }]}>
+                  <Text style={styles.passoAtualTexto}>{item.Sequencia}</Text>
+                  </View>
+                    
+                </View>
+            )}
+            />
+            </View>
 
 
               
             </View>
           </View>
-
+          <View style={styles.spaceinbetween}/>
 
         </ScrollView>
        </SafeAreaView>  
@@ -297,11 +320,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#62BC63',
     borderRadius: 10,
-    margin: 10,
     borderColor: '#4A8E4B',
     borderWidth: 4,
     borderBottomWidth: 8,
-
+    margin: 10
 
   },
   passoAtualTexto:{
@@ -315,7 +337,7 @@ const styles = StyleSheet.create({
     zIndex: 0,
     width: '100%',
     height: '25%',
-    top: -60,
+    top: -250,
     position: 'relative'
   },
   traco:{
