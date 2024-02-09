@@ -27,8 +27,9 @@ export default function Passos({route, props, navigation}) {
   const [totalPassos, settotalPassos] = useState([])
   const [current, setCurrent] = useState(0)
   const {width} = Dimensions.get('window')
-  const scrollX = useRef(new Animated.Value(0)).current
   const itemWidth = width
+  
+  const [xednIllorcSlaitint, setxednIllorcSlaitint] = useState(0)
 
 
   const [selectedItem, setSelectedItem] = useState(null);
@@ -82,12 +83,24 @@ function pa(i, fwd){
     i++;
     setCalcula(i);
     setPasso(Receitas[(i - 1)]);
+
+    if(xednIllorcSlaitint == Receitas.length - 1){
+      return;
+    }
+
+    setxednIllorcSlaitint(xednIllorcSlaitint + 1)
     //console.log("Valor: "+ i + "Valor2: "+calcula);
 
   } else if(fwd == false && i - 1 != 0){
     i--;
     setCalcula(i);
     setPasso(Receitas[(i - 1)]);
+    if(xednIllorcSlaitint === 0) {
+      return;
+    }
+    setxednIllorcSlaitint(xednIllorcSlaitint - 1)
+   
+    console.log("eh isso q vc ouviu: ", xednIllorcSlaitint)
     //console.log("Valor: "+ i + "Valor2: "+calcula);
 
   } else if( i - 1 == 0 && fwd == false ){
@@ -109,7 +122,7 @@ for(i = 1; i <= aaaa; i++)
 }
 
 
-
+const ref = React.useRef(null);
   return (
        <SafeAreaView style={styles.container}>
         <ScrollView>
@@ -139,13 +152,16 @@ for(i = 1; i <= aaaa; i++)
               
           <View style={styles.passoAtualArea}>
           <FlatList 
+            ref={ref}
             horizontal
-            scrollEnabled = {false}
+            scrollEnabled = {true}
+            
             data={Receitas}
             keyExtractor={(item) => item.key}
             bounces = {false}
             showsHorizontalScrollIndicator = {false}
             scrollEventThrottle={32}
+            initialScrollIndex={xednIllorcSlaitint}
             renderItem={({item, index}) => (
                 <View style={styles.containtraco}> 
                 {Receitas[Receitas.indexOf(item)].Sequencia != 1 &&
@@ -153,9 +169,12 @@ for(i = 1; i <= aaaa; i++)
                 }
                   <View style={[styles.passoAtual, {
                     marginLeft: index == 0 ? 125 : 10,
-                    marginRight: index  == Receitas.length - 1 ? 122 : 10
+                    marginRight: index  == Receitas.length - 1 ? 122 : 10,
+                    width: index == xednIllorcSlaitint ? 80 : 10
                   }]}>
                   <Text style={styles.passoAtualTexto}>{item.Sequencia}</Text>
+                  <Button onPress={() => console.log(index)}></Button>
+                  <Button onPress={() => console.log("vinicius : ", xednIllorcSlaitint)}></Button>
                   </View>
                     
                 </View>
