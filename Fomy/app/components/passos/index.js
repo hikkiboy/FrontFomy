@@ -13,6 +13,8 @@ import { Foundation } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
 import { useSharedValue, Extrapolate, interpolate, useAnimatedStyle } from 'react-native-reanimated';
+import PassoBottomIndicator from './passosBottomIndicator';
+import Element from './passosBottomIndicator/BottomIndicatorElement';
 
 
 export default function Passos({route, props, navigation}) {
@@ -26,7 +28,7 @@ export default function Passos({route, props, navigation}) {
   const [totalPassos, settotalPassos] = useState([])
   const [current, setCurrent] = useState(0)
   const {width} = Dimensions.get('window')
-  const [scrollX, setscrollX] = useState(0)
+  const scrollX = useRef(new Animated.Value(0)).current
   const itemWidth = width
 
 
@@ -107,67 +109,6 @@ for(i = 1; i <= aaaa; i++)
   arr.push(i)
 }
 
-function Goingcrazyrn({index}) {
-  const size = useSharedValue(0.8);
-
-  const inputRange = [
-    (index -1) * 80,
-    index * 80,
-    (index + 1) * 80
-  ]
-
-  size.value = interpolate(
-    scrollX,
-    inputRange,
-    [0.8, 1, 0.8],
-    Extrapolate.CLAMP,
-  )
-
-
-  const opacity = useSharedValue(1);
-  const opacityInputRange = [
-    (index - 1) * 80,
-    index * 80,
-    (index + 1) * 80,
-  ];
-  opacity.value = interpolate(
-    scrollX,
-    opacityInputRange,
-    [0.5, 1, 0.5],
-    Extrapolate.CLAMP
-  );
-  const cardStyle = useAnimatedStyle(()=>{
-    return{
-      transform: [{scaleY: size.value}],
-      opacity: opacity.value,
-    }
-
-    
-  })
-  
-  return (
-        
-              
-
-    <View style={styles.containtraco}> 
-              
-    {/* {Receitas[Receitas.indexOf(item)].Sequencia != 1 &&
-    <View style={styles.traco}/>
-    } */}
-    {/* <Button onPress={() => console.log(index )}/> */}
-    
-      <View style={[styles.passoAtual,Goingcrazyrn(), {
-        marginLeft: index == 0 ? 122 : 10,
-        marginRight: index  == Receitas.length - 1 ? 122 : 10
-      }]}>
-        <Text style={styles.passoAtualTexto}>{Receitas[0].Sequencia}
-        </Text>
-      </View>
-    </View>
-    
-  
-  )
-}
 
 
   return (
@@ -194,29 +135,17 @@ function Goingcrazyrn({index}) {
             </View>
             <View style={styles.teacharea} >
               <Text style={styles.descpasso} >{Passo.Passo}</Text>
-              <View style={styles.descpassoBehind} ></View>
+              <View style={styles.descpassoBehind}></View>
+              <Button onPress={() => console.log(key)}/>
+              <View style={styles.spaceinbetween}/>
+              <Element data = {Receitas} scrollX = {scrollX} />
+
+
+              
             </View>
           </View>
 
-          <View style={styles.passoAtualArea}>
-          <Animated.FlatList nestedScrollEnabled
-            horizontal
-            data={Receitas}
-            scrollEnabled = {true}
-            keyExtractor={(item) => item.key}
-            bounces = {false}
-            snapToInterval={80 + (100)}
-            showsHorizontalScrollIndicator = {false}
-            onScroll={(event) => {
-              setscrollX(event.nativeEvent.contentOffset.x)
-            }}
 
-            renderItem={({item, index}) => (
-              <Goingcrazyrn index={index}/>
-            )}
-            />
-            </View>
-            <View style={styles.spaceinbetween}/>
         </ScrollView>
        </SafeAreaView>  
       )} 
@@ -386,7 +315,7 @@ const styles = StyleSheet.create({
     zIndex: 0,
     width: '100%',
     height: '25%',
-    top: -250,
+    top: -60,
     position: 'relative'
   },
   traco:{
