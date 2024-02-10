@@ -192,8 +192,8 @@ let arrayporc = []
           <View style={styles.ModoPreparoBG}>
           <Text style={styles.ModoPreparo}>MODO DE FAZER</Text>
           </View>
-        
-          <TouchableOpacity onPress={() => navigation.navigate('Passos',{paramKey:[item.key]})}>
+            <Button onPress={() => console.log(route.params.paramKey[3])}></Button>
+          <TouchableOpacity onPress={() => navigation.navigate('Passos',{paramKey:[item.key, route.params.paramKey[1]]})}>
           <Image style={styles.ButtonPlay} source={require('../../assets/playbutt.png')}/>
           </TouchableOpacity>
         </View>

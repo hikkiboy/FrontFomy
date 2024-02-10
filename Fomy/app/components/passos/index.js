@@ -29,7 +29,9 @@ export default function Passos({route, props, navigation}) {
   const {width} = Dimensions.get('window')
   const itemWidth = width
   
-
+  const corDinamica = route.params.paramKey[1]
+  console.log("-------------COR---------------")
+  console.log(route.params.paramKey[1])
   
   const [xednIllorcSlaitint, setxednIllorcSlaitint] = useState(0)
   
@@ -46,7 +48,7 @@ export default function Passos({route, props, navigation}) {
     setSelectedItem(null);
   };
 
-  const key = route.params.paramKey
+  const key = route.params.paramKey[0]
   
   //   const NomeTrilha = route.params.paramKey
   //     console.log(route.params.paramKey)
@@ -78,7 +80,10 @@ export default function Passos({route, props, navigation}) {
   
   },[])
 
-
+const _colors = {
+  ativo : `#62BC63`,
+  inativo : `#F2F2F2`
+}
 
 function pa(i, fwd){
   if(i < Receitas.length && fwd == true){
@@ -134,8 +139,9 @@ try {
       ref.current?.scrollToIndex({
         index: xednIllorcSlaitint,
         animated: true,
+        viewPosition: 0.3
       })
-    }, 200);
+    }, 400);
 }, [xednIllorcSlaitint])
 } catch (error) {
   console.log(error)
@@ -148,9 +154,13 @@ try {
         <ScrollView>
         {/* <Button title='debug' onPress={() => console.log(arr)}></Button>  */}
             <TouchableOpacity onPress={ () => navigation.goBack() } style={styles.goback} ><FontAwesome5 name="arrow-left" size={32} color="white" /></TouchableOpacity>
-          <View style={styles.imagebak}>
+          <View style={[styles.imagebak, {
+            backgroundColor: corDinamica
+          }]}>
             <View style={styles.areatitulo}>
-              <View style={styles.titulopasso}>
+              <View style={[styles.titulopasso,{
+                backgroundColor: corDinamica,
+              }]}>
               <Text style={styles.titulopassotexto}> Passo {Passo.Sequencia}:  {Passo.Titulo}</Text>
             </View>
             </View>
@@ -159,23 +169,25 @@ try {
             </View>
 
           <VideoPassos idVideo={Passo.VideoPasso} style={styles.videofromyt}/>
-          <View style={styles.belowimage} >
           <View style={styles.buttons} >
-            
               <TouchableOpacity style={styles.stepbak} onPress={() => pa(calcula, false) } ><Foundation name="refresh" size={30} color="black" /></TouchableOpacity>
+               <Image style={styles.charimage} source={require("../../assets/betterAlberto.png")} />
               <TouchableOpacity style={styles.stepfwd} onPress={() => pa(calcula, true) } ><FontAwesome name={"check"} size={30} /></TouchableOpacity>
-              <Image style={styles.charimage} source={require("../../assets/betterAlberto.png")} />
             </View>
-            <View style={styles.teacharea} >
-              <Text style={styles.descpasso} >{Passo.Passo}</Text>
+            
+            <View style={styles.descpassoarea}>
+              <Text style={[styles.descpasso, {
+                borderColor: corDinamica
+              }]} >{Passo.Passo}</Text>
               <View style={styles.descpassoBehind}></View>
+            </View>
               
               
           <View style={styles.passoAtualArea}>
           <FlatList 
             ref={ref}
             horizontal
-            scrollEnabled = {true}
+            scrollEnabled = {false}
             
             data={Receitas}
             keyExtractor={(item) => item.key}
@@ -186,15 +198,22 @@ try {
             renderItem={({item, index}) => (
                 <View style={styles.containtraco}> 
                 {Receitas[Receitas.indexOf(item)].Sequencia != 1 &&
-                   <View style={styles.traco}/>
+                  <View style={[styles.traco, {
+                    backgroundColor: index <= xednIllorcSlaitint ? _colors.ativo : _colors.inativo
+                  }]} />
                 }
+                
                   <View style={[styles.passoAtual, {
                     marginLeft: index == 0 ? 125 : 10,
-                    marginRight: index  == Receitas.length - 1 ? 122 : 10,
-                    width: index == xednIllorcSlaitint ? 80 : 30,
-                    height: index == xednIllorcSlaitint ? 80 : 30
+                    marginRight: index  == Receitas.length - 1 ? 125 : 10,
+                    opacity: index == xednIllorcSlaitint ? 1 : 0.6,
+                    height: index == xednIllorcSlaitint ? 76 : 60,
+                    width: index == xednIllorcSlaitint ? 72 : 60,
+                    backgroundColor: corDinamica
                   }]}>
-                  <Text style={styles.passoAtualTexto}>{item.Sequencia}</Text>
+                  <Text style={[styles.passoAtualTexto,{
+                    fontSize: index == xednIllorcSlaitint ? 50 : 30,
+                  }]}>{item.Sequencia}</Text>
                   </View>
                     
                 </View>
@@ -203,9 +222,7 @@ try {
             </View>
 
 
-              
-            </View>
-          </View>
+              <Button onPress={() => console.log(Receitas)}></Button>
           <View style={styles.spaceinbetween}/>
 
         </ScrollView>
@@ -271,6 +288,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
     
   },
+  descpassoarea:{
+    marginTop: -80,
+    marginBottom: 30
+  },
   descpasso:{
     zIndex: 2,
     fontSize: 18,
@@ -285,7 +306,7 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingBottom: -5,
     backgroundColor: 'white',
-    marginTop: 50
+    marginTop: 45
   },
   descpassoBehind:{
     zIndex: 1,
@@ -300,7 +321,6 @@ const styles = StyleSheet.create({
   charimage:{
     height: 144,
     width: 119,
-    marginTop: 15,
     alignSelf: 'center'
   },
   buttons:{
@@ -308,11 +328,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: '19%',
     marginBottom: 40,
-    marginTop: 40,
+    marginTop: -70,
     alignItems: 'center',
   },
   stepbak:{
-    marginTop: 30,
     marginHorizontal: 20,
     padding: 20,
     backgroundColor: "#F1555A",
@@ -325,7 +344,6 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   stepfwd:{
-    marginTop: 30,
     marginHorizontal: 20,
     padding: 20,
     backgroundColor: "#62BC63",
@@ -349,7 +367,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 8,
     borderRightWidth: 0,
     borderLeftWidth: 0,
-    borderBottomWidth: 0
+    borderBottomWidth: 0,
   },
   passoAtual:{
     width: 70,
@@ -368,8 +386,9 @@ const styles = StyleSheet.create({
   },
   passoAtualTexto:{
     color: 'white',
-    fontSize: 40,
+    fontSize: 50,
     fontWeight: 'bold' ,
+    textAlign: 'center',
     zIndex: 9
   },
   spaceinbetween:{
@@ -377,11 +396,10 @@ const styles = StyleSheet.create({
     zIndex: 0,
     width: '100%',
     height: '25%',
-    top: -250,
+    top: -205,
     position: 'relative'
   },
   traco:{
-    backgroundColor: '#F2F2F2',
     width: 90,
     height: 10,
     borderRadius: 90,
