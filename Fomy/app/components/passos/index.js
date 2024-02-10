@@ -161,20 +161,20 @@ try {
           }]}>
             <View style={styles.areatitulo}>
               <View style={[styles.titulopasso,{
-                backgroundColor: corDinamica,
-                borderColor: route.params.paramKey[2]
+                borderColor: "rgba(0,0,0,0.25)",
+                backgroundColor: "rgba(0,0,0,0.1)",
               }]}>
-                <Text style={styles.titulopassotexto}> Passo {Passo.Sequencia}:  {Passo.Titulo}</Text>
+                <Text style={styles.titulopassotexto}>{Passo.Titulo}</Text>
               </View>
             </View>
-            <VideoPassos idVideo={Passo.VideoPasso} style={styles.videofromyt}/>
+            <VideoPassos idVideo={Passo.VideoPasso}/>
           </View>
 
 
           <View style={styles.buttons} >
-            <TouchableOpacity style={styles.stepbak} onPress={() => pa(calcula, false) } ><Foundation name="refresh" size={30} color="black" /></TouchableOpacity>
+            <TouchableOpacity style={styles.stepbak} onPress={() => pa(calcula, false) } ><Foundation name="refresh" size={49} color="#FFF" /></TouchableOpacity>
               <Image style={styles.charimage} source={require("../../assets/betterAlberto.png")} />
-            <TouchableOpacity style={styles.stepfwd} onPress={() => pa(calcula, true) } ><FontAwesome name={"check"} size={30} /></TouchableOpacity>
+            <TouchableOpacity style={styles.stepfwd} onPress={() => pa(calcula, true) } ><FontAwesome name={"check"} size={45} color="#FFF" /></TouchableOpacity>
           </View>
             
           <View style={styles.descpassoarea}>
@@ -186,48 +186,47 @@ try {
             }]}/>
             <View style={styles.spaceinbetween}/>
           </View>
-          
-          <View style={styles.passoAtualArea}>
-            <FlatList 
-              ref={ref}
-              horizontal
-              scrollEnabled = {false}
-              data={Receitas}
-              keyExtractor={(item) => item.key}
-              bounces = {false}
-              showsHorizontalScrollIndicator = {false}
-              scrollEventThrottle={32}
-              initialScrollIndex={xednIllorcSlaitint}
-              renderItem={({item, index}) => (
-                  <View style={styles.containtraco}> 
-                    {Receitas[Receitas.indexOf(item)].Sequencia != 1 &&
-                      <View style={[styles.traco, {
-                        backgroundColor: index <= xednIllorcSlaitint ? _colors.ativo : _colors.inativo
-                      }]} />
-                    }
-                  
-                    <View style={[styles.passoAtual, {
-                      marginLeft: index == 0 ? (width/2) - 38 : 10,
-                      marginRight: index  == Receitas.length - 1 ? 125 : 10,
-                      opacity: index == xednIllorcSlaitint ? 1 : 0.6,
-                      paddingVertical: index == xednIllorcSlaitint ? 0 : 4,
-                      width: index == xednIllorcSlaitint ? 75 : 60,
-                      backgroundColor: corDinamica,
-                      borderColor: route.params.paramKey[2]
-                    }]}>
-                      <Text style={[styles.passoAtualTexto,{
-                        fontSize: index == xednIllorcSlaitint ? 50 : 30,
-                      }]}>{item.Sequencia}</Text>
-                    </View>
-                      
-                  </View>
-              )}
-              />
-          </View>
-            
-          
+          <View style={styles.spaceinbetween2}/>
 
         </ScrollView>
+
+        <View style={styles.passoAtualArea}>
+          <FlatList 
+            ref={ref}
+            horizontal
+            scrollEnabled = {false}
+            data={Receitas}
+            keyExtractor={(item) => item.key}
+            bounces = {false}
+            showsHorizontalScrollIndicator = {false}
+            scrollEventThrottle={32}
+            initialScrollIndex={xednIllorcSlaitint}
+            renderItem={({item, index}) => (
+              <View style={styles.containtraco}> 
+                {Receitas[Receitas.indexOf(item)].Sequencia != 1 &&
+                  <View style={[styles.traco, {
+                    backgroundColor: index <= xednIllorcSlaitint ? _colors.ativo : _colors.inativo
+                  }]} />
+                }
+                  
+                <View style={[styles.passoAtual, {
+                  marginLeft: index == 0 ? (width/2) - 38.5 : 10, //pega metade da tela menos metade do bloco
+                  marginRight: index  == Receitas.length - 1 ? (width/2) - 38.5 : 10,
+                  opacity: index == xednIllorcSlaitint ? 1 : 0.6,
+                  paddingVertical: index == xednIllorcSlaitint ? 0 : 4,
+                  width: index == xednIllorcSlaitint ? 77 : 56,
+                  backgroundColor: corDinamica,
+                  borderColor: route.params.paramKey[2]
+                }]}>
+                  <Text style={[styles.passoAtualTexto,{
+                    fontSize: index == xednIllorcSlaitint ? 50 : 30,
+                  }]}>{item.Sequencia}</Text>
+                </View>
+                      
+              </View>
+            )}
+          />
+        </View>
         
        </SafeAreaView>  
       )} 
@@ -250,7 +249,6 @@ const styles = StyleSheet.create({
     borderRadius: 100
   },
   imagebak:{
-    height: 350, 
     borderRadius: 20,
     backgroundColor: '#62BC63',
     borderColor: '#4A8E4B',
@@ -265,18 +263,18 @@ const styles = StyleSheet.create({
     
   },
   areatitulo:{
-      marginTop: 30,
-      paddingStart: 40,
-      paddingEnd: 40,
+      marginTop: 50,
+      paddingStart: 20,
+      paddingEnd: 20,
       width: '100%',
       alignSelf: 'center',
-      marginBottom: 10
+      marginBottom: 20
       //position: 'absolute'
   },
   titulopasso:{
     zIndex: 99,
     backgroundColor: "#4A8E4B",
-    borderRadius: 50,
+    borderRadius: 30,
     padding: 10,
     borderWidth: 5,
     borderBottomWidth: 10,
@@ -294,11 +292,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
     color: "white",
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    textAlign: 'center'
     
   },
   descpassoarea:{
-    marginBottom: 70
+    marginBottom: 40
   },
   descpasso:{
     zIndex: 2,
@@ -343,23 +342,21 @@ const styles = StyleSheet.create({
   },
   stepbak:{
     marginHorizontal: 20,
-    padding: 20,
+    padding: 8,
+    paddingHorizontal: 17,
     backgroundColor: "#F1555A",
     borderRadius: 15,
     borderColor: '#BC4246',
     borderWidth: 4,
     borderBottomWidth: 10,
-    height: 80,
-    width: 80,
     alignItems: 'center'
   },
   stepfwd:{
     marginHorizontal: 20,
-    padding: 20,
+    padding: 10,
+    paddingHorizontal: 11,
     backgroundColor: "#62BC63",
     borderRadius: 15,
-    height: 80,
-    width: 80,
     alignItems: 'center',
     borderColor: '#4A8E4B',
     borderWidth: 4,
@@ -373,6 +370,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     zIndex: 9,
     borderTopWidth: 8,
+    height: 140
   },
   passoAtual:{
     alignSelf: 'center',
@@ -403,6 +401,12 @@ const styles = StyleSheet.create({
     marginTop: 20,
     position: 'absolute'
   },
+  spaceinbetween2:{
+    backgroundColor: '#F2F2F2',
+    zIndex: 0,
+    width: '100%',
+    height: 20,
+  },
   traco:{
     width: 90,
     height: 10,
@@ -413,7 +417,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     alignItems: 'center',
-    height: 140
   },
 
  
