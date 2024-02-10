@@ -14,6 +14,7 @@ export default function Preparo({route, props, navigation}) {
   const [visible, setVisible] = useState(false)
 
   const [selectedItem, setSelectedItem] = useState(null);
+  console.log(route.params.paramKey[3]);
 
   const handleOnSelectItem = (item) => {
     setSelectedItem(item);
@@ -192,7 +193,7 @@ let arrayporc = []
           <View style={styles.ModoPreparoBG}>
           <Text style={styles.ModoPreparo}>MODO DE FAZER</Text>
           </View>
-          <TouchableOpacity onPress={() => navigation.navigate('Passos',{paramKey:[item.key, route.params.paramKey[1]]})}>
+          <TouchableOpacity onPress={() => navigation.navigate('Passos',{paramKey:[item.key, route.params.paramKey[1], route.params.paramKey[3]]})}>
           <Image style={styles.ButtonPlay} source={require('../../assets/playbutt.png')}/>
           </TouchableOpacity>
         </View>

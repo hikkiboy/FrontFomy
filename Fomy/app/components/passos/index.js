@@ -26,12 +26,13 @@ export default function Passos({route, props, navigation}) {
   const [ViPasso, setVideo] = useState()
   const [totalPassos, settotalPassos] = useState([])
   const [current, setCurrent] = useState(0)
-  const {width} = Dimensions.get('window')
-  const itemWidth = width
+  const {width} = Dimensions.get('window');
+  console.log(width);
   
   const corDinamica = route.params.paramKey[1]
   console.log("-------------COR---------------")
   console.log(route.params.paramKey[1])
+  console.log(route.params.paramKey[2])
   
   const [xednIllorcSlaitint, setxednIllorcSlaitint] = useState(0)
   
@@ -141,7 +142,7 @@ try {
         animated: true,
         viewPosition: 0.3
       })
-    }, 400);
+    }, 50);
 }, [xednIllorcSlaitint])
 } catch (error) {
   console.log(error)
@@ -153,79 +154,81 @@ try {
        <SafeAreaView style={styles.container}>
         <ScrollView>
         {/* <Button title='debug' onPress={() => console.log(arr)}></Button>  */}
-            <TouchableOpacity onPress={ () => navigation.goBack() } style={styles.goback} ><FontAwesome5 name="arrow-left" size={32} color="white" /></TouchableOpacity>
+            <TouchableOpacity onPress={ () => navigation.goBack() } style={styles.goback} ><FontAwesome name="arrow-left" size={30} color="white" /></TouchableOpacity>
           <View style={[styles.imagebak, {
-            backgroundColor: corDinamica
+            backgroundColor: corDinamica,
+            borderColor: route.params.paramKey[2]
           }]}>
             <View style={styles.areatitulo}>
               <View style={[styles.titulopasso,{
                 backgroundColor: corDinamica,
+                borderColor: route.params.paramKey[2]
               }]}>
-              <Text style={styles.titulopassotexto}> Passo {Passo.Sequencia}:  {Passo.Titulo}</Text>
+                <Text style={styles.titulopassotexto}> Passo {Passo.Sequencia}:  {Passo.Titulo}</Text>
+              </View>
             </View>
-            </View>
-          <VideoPassos idVideo={Passo.VideoPasso} style={styles.videofromyt}/>
-            <View>
-            </View>
-            </View>
+            <VideoPassos idVideo={Passo.VideoPasso} style={styles.videofromyt}/>
+          </View>
 
 
           <View style={styles.buttons} >
-              <TouchableOpacity style={styles.stepbak} onPress={() => pa(calcula, false) } ><Foundation name="refresh" size={30} color="black" /></TouchableOpacity>
-               <Image style={styles.charimage} source={require("../../assets/betterAlberto.png")} />
-              <TouchableOpacity style={styles.stepfwd} onPress={() => pa(calcula, true) } ><FontAwesome name={"check"} size={30} /></TouchableOpacity>
-            </View>
+            <TouchableOpacity style={styles.stepbak} onPress={() => pa(calcula, false) } ><Foundation name="refresh" size={30} color="black" /></TouchableOpacity>
+              <Image style={styles.charimage} source={require("../../assets/betterAlberto.png")} />
+            <TouchableOpacity style={styles.stepfwd} onPress={() => pa(calcula, true) } ><FontAwesome name={"check"} size={30} /></TouchableOpacity>
+          </View>
             
-            <View style={styles.descpassoarea}>
-              <Text style={[styles.descpasso, {
-                borderColor: corDinamica
-              }]} >{Passo.Passo}</Text>
-              <View style={styles.descpassoBehind}></View>
-            </View>
-              
-              
+          <View style={styles.descpassoarea}>
+            <Text style={[styles.descpasso, {
+              borderColor: corDinamica,
+            }]} >{Passo.Passo}</Text>
+            <View style={[styles.descpassoBehind, {
+              borderColor: route.params.paramKey[2],
+            }]}/>
+            <View style={styles.spaceinbetween}/>
+          </View>
+          
           <View style={styles.passoAtualArea}>
-          <FlatList 
-            ref={ref}
-            horizontal
-            scrollEnabled = {false}
-            
-            data={Receitas}
-            keyExtractor={(item) => item.key}
-            bounces = {false}
-            showsHorizontalScrollIndicator = {false}
-            scrollEventThrottle={32}
-            initialScrollIndex={xednIllorcSlaitint}
-            renderItem={({item, index}) => (
-                <View style={styles.containtraco}> 
-                {Receitas[Receitas.indexOf(item)].Sequencia != 1 &&
-                  <View style={[styles.traco, {
-                    backgroundColor: index <= xednIllorcSlaitint ? _colors.ativo : _colors.inativo
-                  }]} />
-                }
-                
-                  <View style={[styles.passoAtual, {
-                    marginLeft: index == 0 ? 125 : 10,
-                    marginRight: index  == Receitas.length - 1 ? 125 : 10,
-                    opacity: index == xednIllorcSlaitint ? 1 : 0.6,
-                    height: index == xednIllorcSlaitint ? 76 : 60,
-                    width: index == xednIllorcSlaitint ? 72 : 60,
-                    backgroundColor: corDinamica
-                  }]}>
-                  <Text style={[styles.passoAtualTexto,{
-                    fontSize: index == xednIllorcSlaitint ? 50 : 30,
-                  }]}>{item.Sequencia}</Text>
+            <FlatList 
+              ref={ref}
+              horizontal
+              scrollEnabled = {false}
+              data={Receitas}
+              keyExtractor={(item) => item.key}
+              bounces = {false}
+              showsHorizontalScrollIndicator = {false}
+              scrollEventThrottle={32}
+              initialScrollIndex={xednIllorcSlaitint}
+              renderItem={({item, index}) => (
+                  <View style={styles.containtraco}> 
+                    {Receitas[Receitas.indexOf(item)].Sequencia != 1 &&
+                      <View style={[styles.traco, {
+                        backgroundColor: index <= xednIllorcSlaitint ? _colors.ativo : _colors.inativo
+                      }]} />
+                    }
+                  
+                    <View style={[styles.passoAtual, {
+                      marginLeft: index == 0 ? (width/2) - 38 : 10,
+                      marginRight: index  == Receitas.length - 1 ? 125 : 10,
+                      opacity: index == xednIllorcSlaitint ? 1 : 0.6,
+                      paddingVertical: index == xednIllorcSlaitint ? 0 : 4,
+                      width: index == xednIllorcSlaitint ? 75 : 60,
+                      backgroundColor: corDinamica,
+                      borderColor: route.params.paramKey[2]
+                    }]}>
+                      <Text style={[styles.passoAtualTexto,{
+                        fontSize: index == xednIllorcSlaitint ? 50 : 30,
+                      }]}>{item.Sequencia}</Text>
+                    </View>
+                      
                   </View>
-                    
-                </View>
-            )}
-            />
-            </View>
-
-
-          <View style={styles.spaceinbetween}/>
+              )}
+              />
+          </View>
+            
+          
 
         </ScrollView>
+        
        </SafeAreaView>  
       )} 
 const styles = StyleSheet.create({
@@ -236,10 +239,15 @@ const styles = StyleSheet.create({
     
   },
   goback:{
+    padding: 7, 
+    paddingHorizontal: 9, 
     position: 'absolute', 
     zIndex: 99, 
-    marginTop: 10, 
-    marginLeft: 3
+    top: 10, 
+    left: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 100
   },
   imagebak:{
     height: 350, 
@@ -253,7 +261,6 @@ const styles = StyleSheet.create({
     borderStartWidth: 4,
     borderEndWidth: 4,
     borderTopWidth: 4,
-    marginBottom: 110
 
     
   },
@@ -291,8 +298,7 @@ const styles = StyleSheet.create({
     
   },
   descpassoarea:{
-    marginTop: -80,
-    marginBottom: 30
+    marginBottom: 70
   },
   descpasso:{
     zIndex: 2,
@@ -306,10 +312,10 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 8,
     padding: 10,
-    paddingBottom: -5,
+    paddingBottom: 10,
     backgroundColor: 'white',
-    marginTop: 45,
     paddingHorizontal: 30,
+    paddingTop: 25,
     //marginVertical: 100
     
   },
@@ -317,11 +323,12 @@ const styles = StyleSheet.create({
     zIndex: 1,
     borderColor: '#4A8E4B', 
     width: '100%',
-    height: 35,
+    height: '100%',
+    marginTop: 9,
     alignSelf: 'center',
+    position: 'absolute',
     borderRadius: 20,
     borderWidth: 10,
-    marginTop: -28
   },
   charimage:{
     height: 144,
@@ -331,9 +338,7 @@ const styles = StyleSheet.create({
   buttons:{
     justifyContent: 'center', 
     flexDirection: 'row',
-    height: '19%',
-    marginBottom: 40,
-    marginTop: -70,
+    marginVertical: 30,
     alignItems: 'center',
   },
   stepbak:{
@@ -362,31 +367,23 @@ const styles = StyleSheet.create({
   },
   passoAtualArea:{
     width: '100%',
-    height: 130,
-    backgroundColor: 'white',
+    backgroundColor: '#FFF',
     borderColor: '#E5E5E5',
-    borderWidth: 5,
-    borderRadius: 6,
     alignItems: 'center',
+    justifyContent: 'center',
     zIndex: 9,
     borderTopWidth: 8,
-    borderRightWidth: 0,
-    borderLeftWidth: 0,
-    borderBottomWidth: 0,
   },
   passoAtual:{
-    width: 70,
-    height: 70,
     alignSelf: 'center',
     justifyContent: 'center',
-    flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#62BC63',
-    borderRadius: 10,
+    borderRadius: 15,
     borderColor: '#4A8E4B',
     borderWidth: 4,
     borderBottomWidth: 8,
-    margin: 10
+    marginHorizontal: 10
 
   },
   passoAtualTexto:{
@@ -394,15 +391,17 @@ const styles = StyleSheet.create({
     fontSize: 50,
     fontWeight: 'bold' ,
     textAlign: 'center',
+    textAlignVertical: 'center',
+    alignSelf: 'center',
     zIndex: 9
   },
   spaceinbetween:{
     backgroundColor: '#F2F2F2',
     zIndex: 0,
     width: '100%',
-    height: '25%',
-    top: -205,
-    position: 'relative'
+    height: '600%',
+    marginTop: 20,
+    position: 'absolute'
   },
   traco:{
     width: 90,
@@ -412,11 +411,10 @@ const styles = StyleSheet.create({
   },
   containtraco:{
     justifyContent: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: 140
   },
-  videofromyt:{
-    marginTop: 120
-  }
 
  
 

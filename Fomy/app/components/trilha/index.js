@@ -173,6 +173,7 @@ handleTrilha()
                     data={modal}
                     navigation={navigation}
                     cor={route.params.paramKey[2]}
+                    borderColor={route.params.paramKey[3]}
                 
                 />
         </Modal>

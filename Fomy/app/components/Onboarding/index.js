@@ -120,7 +120,7 @@ useEffect(() => {
 
         {item.NomeTrilha == "Gourmet" && prem == true &&  (
             <>
-              <TouchableOpacity onPress={ () => navigation.navigate("Trilha", {paramKey:[item.NomeTrilha, item.Descricao, item.Cor]})} style = {[styles.buttonRegistro, {borderColor: item.CorBorda, backgroundColor: item.CorFill}]} title = 'Registrar' >
+              <TouchableOpacity onPress={ () => navigation.navigate("Trilha", {paramKey:[item.NomeTrilha, item.Descricao, item.Cor, item.CorBorda,]})} style = {[styles.buttonRegistro, {borderColor: item.CorBorda, backgroundColor: item.CorFill}]} title = 'Registrar' >
                 <Text style={[styles.botaoTexto]}>Entrar</Text>
               </TouchableOpacity>
             </> 
