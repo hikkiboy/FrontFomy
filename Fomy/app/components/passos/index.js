@@ -81,7 +81,7 @@ export default function Passos({route, props, navigation}) {
   },[])
 
 const _colors = {
-  ativo : `#62BC63`,
+  ativo : corDinamica,
   inativo : `#F2F2F2`
 }
 
@@ -164,11 +164,12 @@ try {
               <Text style={styles.titulopassotexto}> Passo {Passo.Sequencia}:  {Passo.Titulo}</Text>
             </View>
             </View>
+          <VideoPassos idVideo={Passo.VideoPasso} style={styles.videofromyt}/>
             <View>
             </View>
             </View>
 
-          <VideoPassos idVideo={Passo.VideoPasso} style={styles.videofromyt}/>
+
           <View style={styles.buttons} >
               <TouchableOpacity style={styles.stepbak} onPress={() => pa(calcula, false) } ><Foundation name="refresh" size={30} color="black" /></TouchableOpacity>
                <Image style={styles.charimage} source={require("../../assets/betterAlberto.png")} />
@@ -222,7 +223,6 @@ try {
             </View>
 
 
-              <Button onPress={() => console.log(Receitas)}></Button>
           <View style={styles.spaceinbetween}/>
 
         </ScrollView>
@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
     marginLeft: 3
   },
   imagebak:{
-    height: 300, 
+    height: 350, 
     borderRadius: 20,
     backgroundColor: '#62BC63',
     borderColor: '#4A8E4B',
@@ -253,6 +253,7 @@ const styles = StyleSheet.create({
     borderStartWidth: 4,
     borderEndWidth: 4,
     borderTopWidth: 4,
+    marginBottom: 110
 
     
   },
@@ -262,6 +263,7 @@ const styles = StyleSheet.create({
       paddingEnd: 40,
       width: '100%',
       alignSelf: 'center',
+      marginBottom: 10
       //position: 'absolute'
   },
   titulopasso:{
@@ -408,6 +410,9 @@ const styles = StyleSheet.create({
   containtraco:{
     justifyContent: 'center',
     flexDirection: 'row'
+  },
+  videofromyt:{
+    marginTop: 120
   }
 
  

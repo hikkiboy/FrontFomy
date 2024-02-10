@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
     container:{
         alignItems: 'center',
         alignSelf: 'center',
-        marginTop: -s,
         //position: 'absolute'
     },
 })
