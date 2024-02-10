@@ -152,7 +152,7 @@ let arrayporc = []
                       <View style={{paddingStart: 5,paddingEnd: 5}}>
                         <View style={styles.IngredientesNumContain}>
                           <View style={styles.checkmark}/>
-                          <Entypo name='check' color={'#2F8CE4'} size={38} style={{ position: 'absolute', paddingBottom: 18 }} />
+                          <Entypo name='check' color={'#3B98EF'} size={38} style={{ position: 'absolute', paddingBottom: 18 }} />
                           
                           <View style={{ flex: 1, marginLeft: 10, }}>
                             <Text style = {styles.Ingredientes}>{item}</Text>
@@ -339,10 +339,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
 Ingredientesbg:{
-    backgroundColor: "#2F8CE4",
+    backgroundColor: "#3B98EF",
     width: '100%',
     borderRadius: 20,
-    borderColor: '#296CAA',
+    borderColor: '#2985DB',
     borderWidth: 7,
     borderBottomWidth: 10,
     paddingVertical: 15,
@@ -381,7 +381,7 @@ IngredientesNumContain:{
 NumeroIngrediente:{
   fontSize: 30,
   fontWeight: 'bold',
-  color: '#2F8CE4'
+  color: '#3B98EF'
 },
 checkmark:{
   width: 30, 
