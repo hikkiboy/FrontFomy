@@ -29,9 +29,11 @@ export default function Passos({route, props, navigation}) {
   const {width} = Dimensions.get('window')
   const itemWidth = width
   
+
+  
   const [xednIllorcSlaitint, setxednIllorcSlaitint] = useState(0)
-
-
+  
+  
   const [selectedItem, setSelectedItem] = useState(null);
 
   let arr = []
@@ -39,15 +41,15 @@ export default function Passos({route, props, navigation}) {
   const handleOnSelectItem = (item) => {
     setSelectedItem(item);
   };
-
+  
   const handleOnCloseModal = () => {
     setSelectedItem(null);
   };
 
   const key = route.params.paramKey
   
-//   const NomeTrilha = route.params.paramKey
-//     console.log(route.params.paramKey)
+  //   const NomeTrilha = route.params.paramKey
+  //     console.log(route.params.paramKey)
   useEffect(()=>{
     
     const receitaRef = collection(app_DB,`Receitas/${key}/Passos`)
@@ -121,20 +123,39 @@ for(i = 1; i <= aaaa; i++)
   arr.push(i)
 }
 
+console.log()
 
 const ref = React.useRef(null);
+
+try {
+  useEffect(() => {
+    console.log(Receitas.length)
+    setTimeout(() => {
+      ref.current?.scrollToIndex({
+        index: xednIllorcSlaitint,
+        animated: true,
+      })
+    }, 200);
+}, [xednIllorcSlaitint])
+} catch (error) {
+  console.log(error)
+  console.log("asldmçlsadm")
+}
+
+
   return (
        <SafeAreaView style={styles.container}>
         <ScrollView>
         {/* <Button title='debug' onPress={() => console.log(arr)}></Button>  */}
             <TouchableOpacity onPress={ () => navigation.goBack() } style={styles.goback} ><FontAwesome5 name="arrow-left" size={32} color="white" /></TouchableOpacity>
+          <View style={styles.imagebak}>
             <View style={styles.areatitulo}>
               <View style={styles.titulopasso}>
               <Text style={styles.titulopassotexto}> Passo {Passo.Sequencia}:  {Passo.Titulo}</Text>
             </View>
             </View>
-          <View style={styles.imagebak}/>
             <View>
+            </View>
             </View>
 
           <VideoPassos idVideo={Passo.VideoPasso} style={styles.videofromyt}/>
@@ -148,7 +169,7 @@ const ref = React.useRef(null);
             <View style={styles.teacharea} >
               <Text style={styles.descpasso} >{Passo.Passo}</Text>
               <View style={styles.descpassoBehind}></View>
-              <Button onPress={() => console.log(key)}/>
+              
               
           <View style={styles.passoAtualArea}>
           <FlatList 
@@ -170,11 +191,10 @@ const ref = React.useRef(null);
                   <View style={[styles.passoAtual, {
                     marginLeft: index == 0 ? 125 : 10,
                     marginRight: index  == Receitas.length - 1 ? 122 : 10,
-                    width: index == xednIllorcSlaitint ? 80 : 10
+                    width: index == xednIllorcSlaitint ? 80 : 30,
+                    height: index == xednIllorcSlaitint ? 80 : 30
                   }]}>
                   <Text style={styles.passoAtualTexto}>{item.Sequencia}</Text>
-                  <Button onPress={() => console.log(index)}></Button>
-                  <Button onPress={() => console.log("vinicius : ", xednIllorcSlaitint)}></Button>
                   </View>
                     
                 </View>
@@ -216,6 +236,7 @@ const styles = StyleSheet.create({
     borderStartWidth: 4,
     borderEndWidth: 4,
     borderTopWidth: 4,
+
     
   },
   areatitulo:{
@@ -224,7 +245,7 @@ const styles = StyleSheet.create({
       paddingEnd: 40,
       width: '100%',
       alignSelf: 'center',
-      position: 'absolute'
+      //position: 'absolute'
   },
   titulopasso:{
     zIndex: 99,
