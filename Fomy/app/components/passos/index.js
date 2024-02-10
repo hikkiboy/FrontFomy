@@ -308,7 +308,10 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingBottom: -5,
     backgroundColor: 'white',
-    marginTop: 45
+    marginTop: 45,
+    paddingHorizontal: 30,
+    //marginVertical: 100
+    
   },
   descpassoBehind:{
     zIndex: 1,
