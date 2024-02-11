@@ -12,7 +12,6 @@ export default function VideoPassos({idVideo}) {
     const id = idVideo
     const width = Dimensions.get('window').width
     const height = (((width - 50)/16)*9)
-    console.log(height);
 
     const playerRef = useRef()
 

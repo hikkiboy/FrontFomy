@@ -27,7 +27,6 @@ export default function Passos({route, props, navigation}) {
   const [totalPassos, settotalPassos] = useState([])
   const [current, setCurrent] = useState(0)
   const {width} = Dimensions.get('window');
-  console.log(width);
   
   const corDinamica = route.params.paramKey[1]
   console.log("-------------COR---------------")
@@ -35,6 +34,8 @@ export default function Passos({route, props, navigation}) {
   console.log(route.params.paramKey[2])
   
   const [xednIllorcSlaitint, setxednIllorcSlaitint] = useState(0)
+  console.log("-----------INDEXES-------------")
+  console.log("index: ", xednIllorcSlaitint);
   
   
   const [selectedItem, setSelectedItem] = useState(null);
@@ -129,20 +130,22 @@ for(i = 1; i <= aaaa; i++)
   arr.push(i)
 }
 
-console.log()
-
 const ref = React.useRef(null);
 
 try {
   useEffect(() => {
-    console.log(Receitas.length)
-    setTimeout(() => {
-      ref.current?.scrollToIndex({
-        index: xednIllorcSlaitint,
-        animated: true,
-        viewPosition: 0.3
-      })
-    }, 50);
+    console.log("tamanho: ", Receitas.length)
+    if(Receitas.length != 0){
+      setTimeout(() => {
+        ref.current.scrollToIndex({
+          index: xednIllorcSlaitint,
+          animated: true,
+          viewPosition: 0.3
+        })
+      }, 50);
+    } else {
+      console.log("Im blue dabadee dabadaa  (o tamanho tava 0)");
+    }
 }, [xednIllorcSlaitint])
 } catch (error) {
   console.log(error)
