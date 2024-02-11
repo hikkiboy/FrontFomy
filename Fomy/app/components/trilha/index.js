@@ -183,6 +183,7 @@ handleTrilha()
                         cor={route.params.paramKey[2]}
                         bg={bg}
                         setBg={setBg}
+                        borderColor={route.params.paramKey[3]}
                     
                     />
             </Modal>
@@ -212,6 +213,7 @@ handleTrilha()
                         cor={route.params.paramKey[2]}
                         bg={bg}
                         setBg={setBg}
+                        borderColor={route.params.paramKey[3]}
                     
                     />
             </Modal>

@@ -1,39 +1,59 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image,FlatList,TouchableWithoutFeedback, TouchableOpacity, ImageBackground, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image,FlatList,TouchableWithoutFeedback, TouchableOpacity, ImageBackground, ScrollView, Animated } from 'react-native';
 import Modal from "react-native-modal";
 import { app, app_DB } from '../../../firebaseConfig'
 import { collection, onSnapshot, query, where, orderBy,documentId, collectionGroup } from '@firebase/firestore'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Button, ListItem } from 'react-native-elements';
 import { center } from '@shopify/react-native-skia';
-import { Feather } from 'react-native-vector-icons'
+import { Feather, FontAwesome } from 'react-native-vector-icons'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import VideoPassos from '../videopasso';
+import { Foundation } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { Dimensions } from 'react-native';
+import { useSharedValue, Extrapolate, interpolate, useAnimatedStyle } from 'react-native-reanimated';
+
 
 
 export default function Passos({route, props, navigation}) {
 
-
+  //tintColor={route.params.paramKey[2]} style={{ height: 97.2, width: 19.2 }}
   const [Receitas, setReceitas] = useState([]);
   const [visible, setVisible] = useState(false)
   const [Passo, setPasso] = useState([])
   const [calcula, setCalcula] = useState(1)
   const [ViPasso, setVideo] = useState()
-
+  const [totalPassos, settotalPassos] = useState([])
+  const [current, setCurrent] = useState(0)
+  const {width} = Dimensions.get('window');
+  
+  const corDinamica = route.params.paramKey[1]
+  console.log("-------------COR---------------")
+  console.log(route.params.paramKey[1])
+  console.log(route.params.paramKey[2])
+  
+  const [xednIllorcSlaitint, setxednIllorcSlaitint] = useState(0)
+  console.log("-----------INDEXES-------------")
+  console.log("index: ", xednIllorcSlaitint);
+  
+  
   const [selectedItem, setSelectedItem] = useState(null);
+
+  let arr = []
 
   const handleOnSelectItem = (item) => {
     setSelectedItem(item);
   };
-
+  
   const handleOnCloseModal = () => {
     setSelectedItem(null);
   };
 
-  const key = route.params.paramKey
+  const key = route.params.paramKey[0]
   
-//   const NomeTrilha = route.params.paramKey
-//     console.log(route.params.paramKey)
+  //   const NomeTrilha = route.params.paramKey
+  //     console.log(route.params.paramKey)
   useEffect(()=>{
     
     const receitaRef = collection(app_DB,`Receitas/${key}/Passos`)
@@ -54,6 +74,7 @@ export default function Passos({route, props, navigation}) {
           //isso pode causar problemas quando a pessoa estiver fazendo e ocorrer uma atualização no banco de dados,
           //porque reiniciará a posição dela, talvez depois fazer uma outra variavel que define se isso carregou pela primeira vez
           setPasso(receitas[0])
+          
         }
       })
       return() => subscriver()
@@ -61,19 +82,34 @@ export default function Passos({route, props, navigation}) {
   
   },[])
 
-
+const _colors = {
+  ativo : corDinamica,
+  inativo : `#F2F2F2`
+}
 
 function pa(i, fwd){
   if(i < Receitas.length && fwd == true){
     i++;
     setCalcula(i);
     setPasso(Receitas[(i - 1)]);
+
+    if(xednIllorcSlaitint == Receitas.length - 1){
+      return;
+    }
+
+    setxednIllorcSlaitint(xednIllorcSlaitint + 1)
     //console.log("Valor: "+ i + "Valor2: "+calcula);
 
   } else if(fwd == false && i - 1 != 0){
     i--;
     setCalcula(i);
     setPasso(Receitas[(i - 1)]);
+    if(xednIllorcSlaitint === 0) {
+      return;
+    }
+    setxednIllorcSlaitint(xednIllorcSlaitint - 1)
+   
+    console.log("eh isso q vc ouviu: ", xednIllorcSlaitint)
     //console.log("Valor: "+ i + "Valor2: "+calcula);
 
   } else if( i - 1 == 0 && fwd == false ){
@@ -85,32 +121,117 @@ function pa(i, fwd){
 }
 
 
+
+
+const aaaa = Receitas.length
+
+for(i = 1; i <= aaaa; i++)
+{
+  arr.push(i)
+}
+
+const ref = React.useRef(null);
+
+try {
+  useEffect(() => {
+    console.log("tamanho: ", Receitas.length)
+    if(Receitas.length != 0){
+      setTimeout(() => {
+        ref.current.scrollToIndex({
+          index: xednIllorcSlaitint,
+          animated: true,
+          viewPosition: 0.3
+        })
+      }, 50);
+    } else {
+      console.log("Im blue dabadee dabadaa  (o tamanho tava 0)");
+    }
+}, [xednIllorcSlaitint])
+} catch (error) {
+  console.log(error)
+  console.log("asldmçlsadm")
+}
+
+
   return (
        <SafeAreaView style={styles.container}>
         <ScrollView>
-          <ImageBackground style={styles.imagebak} source={require('../../assets/Group171.png')}>
-            <TouchableOpacity onPress={ () => navigation.goBack() } style={styles.goback} ><Feather name="chevron-left" color={"black"} size={40} /></TouchableOpacity>
+        {/* <Button title='debug' onPress={() => console.log(arr)}></Button>  */}
+            <TouchableOpacity onPress={ () => navigation.goBack() } style={styles.goback} ><FontAwesome name="arrow-left" size={30} color="white" /></TouchableOpacity>
+          <View style={[styles.imagebak, {
+            backgroundColor: corDinamica,
+            borderColor: route.params.paramKey[2]
+          }]}>
             <View style={styles.areatitulo}>
-              <Text style={styles.titulopasso}> Passo {Passo.Sequencia}:  {Passo.Titulo}</Text>
+              <View style={[styles.titulopasso,{
+                borderColor: "rgba(0,0,0,0.25)",
+                backgroundColor: "rgba(0,0,0,0.1)",
+              }]}>
+                <Text style={styles.titulopassotexto}>{Passo.Titulo}</Text>
+              </View>
             </View>
-            <View>
-            </View>
-          </ImageBackground>
-          <VideoPassos idVideo={Passo.VideoPasso} style={styles.videofromyt}/>
-          <View style={styles.belowimage} >
-          <View style={styles.buttons} >
-            {/* <Button title='debug' onPress={() => console.log(Passo.VideoPasso)}></Button> isso eh um teste eba */}
-              <TouchableOpacity style={styles.stepbak} onPress={() => pa(calcula, false) } ><Feather name={"arrow-left"} size={40} /></TouchableOpacity>
-              <TouchableOpacity style={styles.stepfwd} onPress={() => pa(calcula, true) } ><Feather name={"arrow-right"} size={40} /></TouchableOpacity>
-            </View>
-            <View style={styles.teacharea} >
-              <Text style={styles.descpasso} >{Passo.Passo}</Text>
-              <Image style={styles.bubbleimage} source={require("../../assets/bubbleTriangle.png")} />
-              <Image style={styles.charimage} source={require("../../assets/betterAlberto.png")} />
-            </View>
-
+            <VideoPassos idVideo={Passo.VideoPasso}/>
           </View>
+
+
+          <View style={styles.buttons} >
+            <TouchableOpacity style={styles.stepbak} onPress={() => pa(calcula, false) } ><Foundation name="refresh" size={49} color="#FFF" /></TouchableOpacity>
+              <Image style={styles.charimage} source={require("../../assets/betterAlberto.png")} />
+            <TouchableOpacity style={styles.stepfwd} onPress={() => pa(calcula, true) } ><FontAwesome name={"check"} size={45} color="#FFF" /></TouchableOpacity>
+          </View>
+            
+          <View style={styles.descpassoarea}>
+            <Image style={styles.triangle} tintColor={corDinamica} source={require("../../assets/little_triangle_thing.png")} />
+            <Text style={[styles.descpasso, {
+              borderColor: corDinamica,
+            }]} >{Passo.Passo}</Text>
+            <View style={[styles.descpassoBehind, {
+              borderColor: route.params.paramKey[2],
+            }]}/>
+            <View style={styles.spaceinbetween}/>
+          </View>
+          <View style={styles.spaceinbetween2}/>
+
         </ScrollView>
+
+        <View style={styles.passoAtualArea}>
+          <FlatList 
+            ref={ref}
+            horizontal
+            scrollEnabled = {false}
+            data={Receitas}
+            keyExtractor={(item) => item.key}
+            bounces = {false}
+            showsHorizontalScrollIndicator = {false}
+            scrollEventThrottle={32}
+            initialScrollIndex={xednIllorcSlaitint}
+            renderItem={({item, index}) => (
+              <View style={styles.containtraco}> 
+                {Receitas[Receitas.indexOf(item)].Sequencia != 1 &&
+                  <View style={[styles.traco, {
+                    backgroundColor: index <= xednIllorcSlaitint ? _colors.ativo : _colors.inativo
+                  }]} />
+                }
+                  
+                <View style={[styles.passoAtual, {
+                  marginLeft: index == 0 ? (width/2) - 38.5 : 10, //pega metade da tela menos metade do bloco
+                  marginRight: index  == Receitas.length - 1 ? (width/2) - 38.5 : 10,
+                  opacity: index == xednIllorcSlaitint ? 1 : 0.6,
+                  paddingVertical: index == xednIllorcSlaitint ? 0 : 4,
+                  width: index == xednIllorcSlaitint ? 77 : 56,
+                  backgroundColor: corDinamica,
+                  borderColor: route.params.paramKey[2]
+                }]}>
+                  <Text style={[styles.passoAtualTexto,{
+                    fontSize: index == xednIllorcSlaitint ? 50 : 30,
+                  }]}>{item.Sequencia}</Text>
+                </View>
+                      
+              </View>
+            )}
+          />
+        </View>
+        
        </SafeAreaView>  
       )} 
 const styles = StyleSheet.create({
@@ -121,91 +242,195 @@ const styles = StyleSheet.create({
     
   },
   goback:{
+    padding: 7, 
+    paddingHorizontal: 9, 
     position: 'absolute', 
     zIndex: 99, 
-    marginTop: 10, 
-    marginLeft: 3
+    top: 10, 
+    left: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 100
   },
   imagebak:{
-    height: 210, 
-    zIndex: 0,
-    backgroundColor: 'white'
+    borderRadius: 20,
+    backgroundColor: '#62BC63',
+    borderColor: '#4A8E4B',
+    borderBottomWidth: 10,
+    borderBottomRightRadius: 20,
+    borderTopStartRadius: 0,
+    borderTopEndRadius: 0,
+    borderStartWidth: 4,
+    borderEndWidth: 4,
+    borderTopWidth: 4,
+
+    
   },
   areatitulo:{
-    width: '90%',
-    height:30,
-    borderRadius: 20,
-    backgroundColor: '#5D875D',
+      marginTop: 50,
+      paddingStart: 20,
+      paddingEnd: 20,
+      width: '100%',
+      alignSelf: 'center',
+      marginBottom: 20
+      //position: 'absolute'
+  },
+  titulopasso:{
+    zIndex: 99,
+    backgroundColor: "#4A8E4B",
+    borderRadius: 30,
+    padding: 10,
+    borderWidth: 5,
+    borderBottomWidth: 10,
+    borderTopWidth: 4,
+    borderColor: "#356635",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingBottom: 10,
     alignSelf: 'center',
-    marginTop: 65,
     alignItems: 'center',
     justifyContent: 'center'
   },
-  titulopasso:{
+  titulopassotexto:{
     fontSize: 20,
-    textAlign: 'center',
+    fontWeight: '600',
+    color: "white",
     fontWeight: 'bold',
-    color: '#FFFFFF',
-
-  },
-  videofromyt:{
-    height: 200,
-    width: '90%',
-    alignSelf: 'center',
-    borderRadius: 20,
-    marginTop: -20
-  },
-  belowimage:{
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    backgroundColor: "#FFF",
-    marginTop: -130
-  },
-  teacharea:{
-    width: '90%',
-    alignItems: 'center',
+    textAlign: 'center'
     
-    
+  },
+  descpassoarea:{
+    marginBottom: 40
   },
   descpasso:{
+    zIndex: 2,
     fontSize: 18,
     textAlign: 'center',
     fontWeight: '600',
     color: '#000000',
+    borderColor: '#62BC63', 
     width: '100%',
-    borderRadius: 15,
-    borderWidth: 2,
-    padding: 5
+    alignSelf: 'center',
+    borderRadius: 20,
+    borderWidth: 8,
+    padding: 10,
+    paddingBottom: 10,
+    backgroundColor: 'white',
+    paddingHorizontal: 30,
+    paddingTop: 25,
+    //marginVertical: 100
+    
+  },
+  descpassoBehind:{
+    zIndex: 1,
+    borderColor: '#4A8E4B', 
+    width: '100%',
+    height: '100%',
+    marginTop: 9,
+    alignSelf: 'center',
+    position: 'absolute',
+    borderRadius: 20,
+    borderWidth: 10,
   },
   charimage:{
     height: 144,
     width: 119,
-    marginTop: 15
+    alignSelf: 'center'
   },
-  bubbleimage:{
-    height: 75,
-    width: 59,
-    marginTop: -30
+  triangle:{
+    height: 27.6,
+    width: 46.2,
+    alignSelf: 'center',
+    position: 'absolute',
+    marginTop: -21,
+    zIndex: 99
   },
   buttons:{
     justifyContent: 'center', 
     flexDirection: 'row',
+    marginVertical: 30,
+    alignItems: 'center',
   },
   stepbak:{
-    marginBottom: 35,
-    marginHorizontal: 35,
-    padding: 20,
-    backgroundColor: "#F68F92",
-    borderRadius: 15
+    marginHorizontal: 20,
+    padding: 8,
+    paddingHorizontal: 17,
+    backgroundColor: "#F1555A",
+    borderRadius: 15,
+    borderColor: '#BC4246',
+    borderWidth: 4,
+    borderBottomWidth: 10,
+    alignItems: 'center'
   },
   stepfwd:{
-    marginBottom: 35,
-    marginHorizontal: 35,
-    padding: 20,
-    backgroundColor: "#7EB77F",
-    borderRadius: 15
-  }
+    marginHorizontal: 20,
+    padding: 10,
+    paddingHorizontal: 11,
+    backgroundColor: "#62BC63",
+    borderRadius: 15,
+    alignItems: 'center',
+    borderColor: '#4A8E4B',
+    borderWidth: 4,
+    borderBottomWidth: 10
+  },
+  passoAtualArea:{
+    width: '100%',
+    backgroundColor: '#FFF',
+    borderColor: '#E5E5E5',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 9,
+    borderTopWidth: 8,
+    height: 140
+  },
+  passoAtual:{
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#62BC63',
+    borderRadius: 15,
+    borderColor: '#4A8E4B',
+    borderWidth: 4,
+    borderBottomWidth: 8,
+    marginHorizontal: 10
+
+  },
+  passoAtualTexto:{
+    color: 'white',
+    fontSize: 50,
+    fontWeight: 'bold' ,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    alignSelf: 'center',
+    zIndex: 9
+  },
+  spaceinbetween:{
+    backgroundColor: '#F2F2F2',
+    zIndex: 0,
+    width: '100%',
+    height: '600%',
+    marginTop: 20,
+    position: 'absolute'
+  },
+  spaceinbetween2:{
+    backgroundColor: '#F2F2F2',
+    zIndex: 0,
+    width: '100%',
+    height: 20,
+  },
+  traco:{
+    width: 90,
+    height: 10,
+    borderRadius: 90,
+    alignSelf: 'center'
+  },
+  containtraco:{
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
  
 
 });

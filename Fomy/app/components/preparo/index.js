@@ -18,6 +18,7 @@ export default function Preparo({route, props, navigation}) {
   const [visible, setVisible] = useState(false)
 
   const [selectedItem, setSelectedItem] = useState(null);
+  console.log(route.params.paramKey[3]);
 
   const handleOnSelectItem = (item) => {
     setSelectedItem(item);
@@ -218,7 +219,7 @@ let arrayporc = []
                 <View style={ styles.titlearea }>
                   <View style={[ styles.title, { flexDirection: 'row', justifyContent: 'space-between'} ]}>
                     <Text style={[styles.titletxt]}>Passos</Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('Passos',{paramKey:[item.key]})} activeOpacity={0.8}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Passos',{paramKey:[item.key, route.params.paramKey[1], route.params.paramKey[3]]})} activeOpacity={0.8}>
                       <FontAwesome5 name='play' color={"#FFF"} size={32} />
                     </TouchableOpacity>
                   </View>

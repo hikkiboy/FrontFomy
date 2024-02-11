@@ -5,10 +5,8 @@ import { useEffect, useState } from "react";
 import { collection, onSnapshot, query, where, orderBy,documentId } from "firebase/firestore";
 import { Feather } from "react-native-vector-icons"
 
- 
 
-export function ModalTrilha({ handleAction, data, navigation, cor, bg, setBg }){
-    console.log(data)
+export function ModalTrilha({ handleAction, data, navigation, cor, bg, setBg, borderColor }){
 
     return(
         <SafeAreaView style={[styles.container, {backgroundColor: bg}]} >
@@ -50,7 +48,7 @@ export function ModalTrilha({ handleAction, data, navigation, cor, bg, setBg }){
                         borderColor: "rgba(0,0,0,0.01)", 
                         borderWidth: 4
                         }]}  
-                        onPress={ () => {setBg(); setTimeout(() => {handleAction(); navigation.navigate('Preparo',{paramKey:[data.Nome, cor, data.Icone]})}, 1)}}
+                        onPress={ () => {setBg(); setTimeout(() => {handleAction(); navigation.navigate('Preparo',{paramKey:[data.Nome, cor, data.Icone, borderColor]})}, 1)}}
                     >
                         <Text style={styles.buttonsee} >Começar!</Text>
                     </TouchableOpacity>
