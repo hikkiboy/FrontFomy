@@ -181,6 +181,7 @@ try {
           </View>
             
           <View style={styles.descpassoarea}>
+            <Image style={styles.triangle} tintColor={corDinamica} source={require("../../assets/little_triangle_thing.png")} />
             <Text style={[styles.descpasso, {
               borderColor: corDinamica,
             }]} >{Passo.Passo}</Text>
@@ -336,6 +337,14 @@ const styles = StyleSheet.create({
     height: 144,
     width: 119,
     alignSelf: 'center'
+  },
+  triangle:{
+    height: 27.6,
+    width: 46.2,
+    alignSelf: 'center',
+    position: 'absolute',
+    marginTop: -21,
+    zIndex: 99
   },
   buttons:{
     justifyContent: 'center', 
