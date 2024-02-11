@@ -5,15 +5,12 @@ import { useEffect, useState } from "react";
 import { collection, onSnapshot, query, where, orderBy,documentId } from "firebase/firestore";
 import { Feather } from "react-native-vector-icons"
 
- 
 
-
-
-export function ModalTrilha({ handleAction, data, navigation, cor, borderColor }){
+export function ModalTrilha({ handleAction, data, navigation, cor, bg, setBg, borderColor }){
 
     return(
-        <SafeAreaView style={styles.container} >
-            <TouchableOpacity style={{ flex: 1, zIndex: 9 }} onPress={handleAction} ></TouchableOpacity>
+        <SafeAreaView style={[styles.container, {backgroundColor: bg}]} >
+            <TouchableOpacity style={{ flex: 1, zIndex: 9 }} onPress={() => {setTimeout(() => {setBg()}, 100); setTimeout(() => {handleAction()}, 120)}} ></TouchableOpacity>
 
             <View style={styles.content} >
                 <View style={styles.title} >
@@ -22,7 +19,7 @@ export function ModalTrilha({ handleAction, data, navigation, cor, borderColor }
                 </View>
                 <View style={styles.blwtitle} >
                     <View style={styles.iconarea} >
-                        <Image style={styles.icon} tintColor={cor} source={{uri : data.Icone}}/>
+                        <Image style={styles.icon} source={{uri : data.Icone}}/>
                     </View>
                     <View style={styles.stats} >
                         <View style={styles.statarea} >
@@ -51,7 +48,7 @@ export function ModalTrilha({ handleAction, data, navigation, cor, borderColor }
                         borderColor: "rgba(0,0,0,0.01)", 
                         borderWidth: 4
                         }]}  
-                        onPress={ () => navigation.navigate('Preparo',{paramKey:[data.Nome, cor, data.Icone, borderColor]})}
+                        onPress={ () => {setBg(); setTimeout(() => {handleAction(); navigation.navigate('Preparo',{paramKey:[data.Nome, cor, data.Icone, borderColor]})}, 1)}}
                     >
                         <Text style={styles.buttonsee} >Começar!</Text>
                     </TouchableOpacity>
