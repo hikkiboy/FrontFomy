@@ -37,7 +37,8 @@
     "react-native-svg": "^13.9.0",
     "react-native-webview": "13.2.2",
     "react-native-youtube": "^2.0.2",
-    "react-native-youtube-iframe": "^2.3.0"
+    "react-native-youtube-iframe": "^2.3.0",
+    "expo-navigation-bar": "~2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

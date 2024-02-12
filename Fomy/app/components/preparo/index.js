@@ -219,7 +219,7 @@ let arrayporc = []
                 <View style={ styles.titlearea }>
                   <View style={[ styles.title, { flexDirection: 'row', justifyContent: 'space-between'} ]}>
                     <Text style={[styles.titletxt]}>Passos</Text>
-                    <TouchableOpacity style={[styles.stepsbtn, {backgroundColor: route.params.paramKey[4], borderColor: route.params.paramKey[3]}]} onPress={() => navigation.navigate('Passos',{paramKey:[item.key, route.params.paramKey[1], route.params.paramKey[3]]})} activeOpacity={0.8}>
+                    <TouchableOpacity style={[styles.stepsbtn, {backgroundColor: route.params.paramKey[4], borderColor: route.params.paramKey[3]}]} onPress={() => navigation.navigate('Passos',{paramKey:[item.key, route.params.paramKey[1], route.params.paramKey[3], route.params.paramKey[4]]})} activeOpacity={0.8}>
                       <FontAwesome5 name='play' color={"#FFF"} size={32} />
                     </TouchableOpacity>
                   </View>

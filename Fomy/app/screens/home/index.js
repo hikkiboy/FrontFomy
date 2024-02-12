@@ -1,4 +1,4 @@
-import {View,StyleSheet,FlatList, BackHandler, Alert} from 'react-native'
+import {View,StyleSheet,FlatList, BackHandler, Alert, Platform} from 'react-native'
 import {  app_DB } from '../../../firebaseConfig'
 import { collection, onSnapshot} from 'firebase/firestore'
 import { useEffect, useState,useRef} from 'react'
@@ -6,12 +6,18 @@ import Animated, { useAnimatedScrollHandler, useAnimatedRef, useSharedValue } fr
 import OnboardingItem from '../../components/Onboarding'
 import paginator from '../../components/paginator'
 import { useIsFocused } from '@react-navigation/native'
+import * as NavigationBar from 'expo-navigation-bar'
+import { StatusBar } from 'expo-status-bar'
+
 const Home = ({navigation}) => {
 
  
 
     const [Receitas, setReceitas] = useState([]);
     const isFocused = useIsFocused();
+    if(Platform.OS === 'android'){
+        NavigationBar.setBackgroundColorAsync('#FFF');
+    }
 
 
 useEffect(() => {
@@ -69,6 +75,14 @@ const onScroll = useAnimatedScrollHandler({
 
 return (
     <View style={styles.container}>
+        { Platform.OS === 'ios' ? (
+            <>
+              <StatusBar style='auto'/>
+            </>
+          ):(
+            <>
+            </>
+          )}
       <Animated.FlatList 
       ref={flatListRef}
       onScroll={onScroll}

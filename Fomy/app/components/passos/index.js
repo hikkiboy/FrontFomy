@@ -1,5 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image,FlatList,TouchableWithoutFeedback, TouchableOpacity, ImageBackground, ScrollView, Animated } from 'react-native';
+import { StyleSheet, Text, View, Image,FlatList,TouchableWithoutFeedback, TouchableOpacity, ImageBackground, ScrollView, Animated, Platform } from 'react-native';
 import Modal from "react-native-modal";
 import { app, app_DB } from '../../../firebaseConfig'
 import { collection, onSnapshot, query, where, orderBy,documentId, collectionGroup } from '@firebase/firestore'
@@ -167,12 +166,12 @@ try {
             <TouchableOpacity onPress={ () => navigation.goBack() } style={styles.goback} ><FontAwesome name="arrow-left" size={30} color="white" /></TouchableOpacity>
           <View style={[styles.imagebak, {
             backgroundColor: corDinamica,
-            borderColor: route.params.paramKey[2]
+            borderColor: route.params.paramKey[3]
           }]}>
             <View style={styles.areatitulo}>
               <View style={[styles.titulopasso,{
-                borderColor: "rgba(0,0,0,0.25)",
-                backgroundColor: "rgba(0,0,0,0.1)",
+                borderColor: route.params.paramKey[2],
+                backgroundColor: route.params.paramKey[3],
               }]}>
                 <Text style={styles.titulopassotexto}>{Passo.Titulo}</Text>
               </View>
@@ -189,12 +188,14 @@ try {
             
           <View style={styles.descpassoarea}>
             <Image style={styles.triangle} tintColor={corDinamica} source={require("../../assets/little_triangle_thing.png")} />
-            <Text style={[styles.descpasso, {
-              borderColor: corDinamica,
-            }]} >{Passo.Passo}</Text>
-            <View style={[styles.descpassoBehind, {
-              borderColor: route.params.paramKey[2],
-            }]}/>
+            <View style={{ width: '100%', zIndex: 2 }} >
+              <View style={[styles.viewpasso, {borderColor: corDinamica }]} >
+                <Text style={styles.descpasso} >{Passo.Passo}</Text>
+              </View>
+              <View style={[styles.descpassoBehind, {
+                borderColor: route.params.paramKey[3],
+              }]}/>
+            </View>
             <View style={styles.spaceinbetween}/>
           </View>
           <View style={styles.spaceinbetween2}/>
@@ -229,7 +230,7 @@ try {
                   paddingVertical: index == xednIllorcSlaitint ? 0 : 4,
                   width: index == xednIllorcSlaitint ? 77 : 56,
                   backgroundColor: corDinamica,
-                  borderColor: route.params.paramKey[2]
+                  borderColor: route.params.paramKey[3]
                 }]}>
                   <Text style={[styles.passoAtualTexto,{
                     fontSize: index == xednIllorcSlaitint ? 50 : 30,
@@ -310,7 +311,7 @@ const styles = StyleSheet.create({
     
   },
   descpassoarea:{
-    marginBottom: 40
+    marginBottom: 40,
   },
   descpasso:{
     zIndex: 2,
@@ -318,18 +319,18 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: '600',
     color: '#000000',
-    borderColor: '#62BC63', 
-    width: '100%',
+    //marginVertical: 100
+    
+  },
+  viewpasso:{
+    zIndex: 3,
     alignSelf: 'center',
     borderRadius: 20,
     borderWidth: 8,
-    padding: 10,
-    paddingBottom: 10,
+    paddingVertical: 15,
     backgroundColor: 'white',
     paddingHorizontal: 30,
-    paddingTop: 25,
-    //marginVertical: 100
-    
+    width: '100%',
   },
   descpassoBehind:{
     zIndex: 1,
