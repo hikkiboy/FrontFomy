@@ -280,12 +280,11 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingStart: 25,
     paddingEnd: 25,
-    marginTop: 40,
+    marginVertical: 40,
     zIndex: 98,
     flexDirection: 'row-reverse',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 40,
 
   },
   title:{
@@ -314,7 +313,7 @@ const styles = StyleSheet.create({
     height: 110, 
     width: 110,
     zIndex: 98,
-    marginRight: 25
+    marginRight: 20
   },
   portionarea:{
     width: '100%',
@@ -323,7 +322,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginVertical: 15
+    marginVertical: 20
 
   },
   descricaoReceita:{
