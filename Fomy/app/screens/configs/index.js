@@ -92,7 +92,7 @@ content:{
     paddingLeft: 15,
     paddingRight: 15,
     paddingBottom: 35,
-    marginTop: 40,
+    marginTop: 50,
 },
 title:{
     marginStart: 7,

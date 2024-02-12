@@ -236,7 +236,7 @@ handleTrilha()
                   backgroundColor:route.params.paramKey[2],
                   borderColor: route.params.paramKey[4],
                   borderWidth: 7,
-                  width: "32%",
+                  width: 120,
                   height: "100%",
                   borderRadius: 20,
                   borderBottomLeftRadius: 20,
@@ -330,7 +330,7 @@ const styles = StyleSheet.create({
   },
   bgimg:{
     width: "100%",
-    borderRadius: 25,
+    borderRadius: 20,
     marginBottom: 40
   },
   booklet:{
@@ -343,7 +343,7 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingStart: 30,
     paddingEnd: 30,
-    marginVertical: 40,
+    marginVertical: 35,
     zIndex: 98,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -359,7 +359,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
   },
   rightRow:{
-    width: '68%',
+    flex: 1,
     height: '100%',
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
@@ -430,7 +430,6 @@ const styles = StyleSheet.create({
     fontSize: 70,
     fontWeight: 'bold',
     color: "rgba(0,0,0,0.6)",
-    position: 'absolute'
   },
   descricaoReceita:{
     alignSelf :'center',

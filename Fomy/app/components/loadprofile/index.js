@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     bgpfp:{
-        backgroundColor: "#7EB77F", 
+        backgroundColor: "#70D872", 
         width: '100%', 
         height: 130, 
         position: "absolute"
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     nameinput:{
-        backgroundColor: "#7EB77F",
+        backgroundColor: "#70D872",
         paddingHorizontal: 12,
         borderRadius: 15,
         textAlign: 'center',
@@ -313,7 +313,7 @@ const styles = StyleSheet.create({
     badgetitlearea:{
         alignSelf: 'center',
         marginTop: 15,
-        backgroundColor: "#7EB77F",
+        backgroundColor: "#70D872",
         borderRadius: 22,
         padding: 5,
         paddingHorizontal: 20
