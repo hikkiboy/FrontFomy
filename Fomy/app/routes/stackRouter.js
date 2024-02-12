@@ -9,8 +9,6 @@ import { useNavigation } from "@react-navigation/native";
 import { FontAwesome } from '@expo/vector-icons';
 import { Platform } from "react-native";
 import Profile from "../screens/profile";
-import Doces from "../screens/Trilhas/Doces";
-import Basico from "../screens/Trilhas/Basico";
 import Login from "../screens/initial";
 import LoginPage from "../screens/login";
 import Cadastro from "../screens/cadastro";

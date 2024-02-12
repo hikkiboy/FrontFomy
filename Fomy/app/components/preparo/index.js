@@ -100,7 +100,7 @@ let arrayporc = []
                 <View style={ styles.titlearea }>
                   <View style={ styles.title }>
                     <Text style={styles.titletxt}>{route.params.paramKey[0]}</Text>
-                    <TouchableOpacity activeOpacity={0.8} style={styles.seeimgbtn} >
+                    <TouchableOpacity activeOpacity={0.8} style={[styles.seeimgbtn, {borderColor: route.params.paramKey[3], backgroundColor: route.params.paramKey[4]}]} >
                       <Text style={[styles.titletxt, {fontSize: 20}]} >Ver foto</Text>
                     </TouchableOpacity>
                   </View>
@@ -109,7 +109,7 @@ let arrayporc = []
                     style={styles.image}
                   />
                 </View>
-                <View style={[{ height: '100%', width: '100%',borderRadius: 20, zIndex: 1, position: 'absolute', borderBottomWidth: 11, borderWidth: 8, borderColor: "rgba(0,0,0,0.10)" }]} />
+                <View style={[{ height: '100%', width: '100%',borderRadius: 20, zIndex: 1, position: 'absolute', borderBottomWidth: 11, borderWidth: 8, borderColor: route.params.paramKey[4] }]} />
               </View>
               
               <View style={{ paddingStart: 25, paddingEnd: 25 }} >
@@ -124,7 +124,7 @@ let arrayporc = []
                       {/*<FontAwesome5 name='angle-down' size={40} color={"#FFF"} />*/}
                     </View>
                   </View>
-                  <View style={[{ height: '100%', width: '100%',borderRadius: 20, zIndex: 1, position: 'absolute', borderBottomWidth: 10, borderWidth: 7, borderColor: "rgba(0,0,0,0.10)" }]} />
+                  <View style={[{ height: '100%', width: '100%',borderRadius: 20, zIndex: 1, position: 'absolute', borderBottomWidth: 10, borderWidth: 7, borderColor: route.params.paramKey[4] }]} />
                 </View>
               </View>
 
@@ -219,13 +219,13 @@ let arrayporc = []
                 <View style={ styles.titlearea }>
                   <View style={[ styles.title, { flexDirection: 'row', justifyContent: 'space-between'} ]}>
                     <Text style={[styles.titletxt]}>Passos</Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('Passos',{paramKey:[item.key, route.params.paramKey[1], route.params.paramKey[3]]})} activeOpacity={0.8}>
+                    <TouchableOpacity style={[styles.stepsbtn, {backgroundColor: route.params.paramKey[4], borderColor: route.params.paramKey[3]}]} onPress={() => navigation.navigate('Passos',{paramKey:[item.key, route.params.paramKey[1], route.params.paramKey[3]]})} activeOpacity={0.8}>
                       <FontAwesome5 name='play' color={"#FFF"} size={32} />
                     </TouchableOpacity>
                   </View>
                   <Image tintColor={"#FFF"} style={styles.image} source={require('../../assets/canvas.png')}/>
                 </View>
-                <View style={[{ height: '100%', width: '100%',borderRadius: 20, zIndex: 1, position: 'absolute', borderBottomWidth: 11, borderWidth: 8, borderColor: "rgba(0,0,0,0.10)" }]} />
+                <View style={[{ height: '100%', width: '100%',borderRadius: 20, zIndex: 1, position: 'absolute', borderBottomWidth: 11, borderWidth: 8, borderColor: route.params.paramKey[4] }]} />
                 <View style={ styles.stepslist } >
                   <FlatList nestedScrollEnabled
                     data={arrayprep[0]}
@@ -280,12 +280,11 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingStart: 25,
     paddingEnd: 25,
-    marginTop: 40,
+    marginVertical: 40,
     zIndex: 98,
     flexDirection: 'row-reverse',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 40,
 
   },
   title:{
@@ -314,7 +313,7 @@ const styles = StyleSheet.create({
     height: 110, 
     width: 110,
     zIndex: 98,
-    marginRight: 25
+    marginRight: 20
   },
   portionarea:{
     width: '100%',
@@ -323,7 +322,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginVertical: 15
+    marginVertical: 20
 
   },
   descricaoReceita:{
@@ -452,6 +451,15 @@ step:{
   borderRadius: 100, 
   marginBottom: 7,
 },
+stepsbtn:{
+  padding: 10,
+  paddingLeft: 15,
+  borderRadius: 100,
+  borderWidth: 4,
+  borderBottomWidth: 7,
+  alignItems: 'center',
+  justifyContent: 'center'
+}
 
 });
 

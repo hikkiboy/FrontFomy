@@ -81,7 +81,7 @@ const Cadastro = ({ navigation }) => {
               ReceitasFeitas: [],
               Insignias: ["Beta"],
               Titulo: "Iniciante",
-              Basico: 0,
+              Básico: 0,
               Doces: 0,
               Gourmet: 0,
               Refeições: 0

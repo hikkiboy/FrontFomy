@@ -120,7 +120,7 @@ useEffect(() => {
 
         {item.NomeTrilha == "Gourmet" && prem == true &&  (
             <>
-              <TouchableOpacity onPress={ () => navigation.navigate("Trilha", {paramKey:[item.NomeTrilha, item.Descricao, item.Cor, item.CorBorda,]})} style = {[styles.buttonRegistro, {borderColor: item.CorBorda, backgroundColor: item.CorFill}]} title = 'Registrar' >
+              <TouchableOpacity onPress={ () => navigation.navigate("Trilha", {paramKey:[item.NomeTrilha, item.Descricao, item.Cor, item.CorBorda, item.CorFill]})} style = {[styles.buttonRegistro, {borderColor: item.CorBorda, backgroundColor: item.CorFill}]} title = 'Registrar' >
                 <Text style={[styles.botaoTexto]}>Entrar</Text>
               </TouchableOpacity>
             </> 
@@ -130,7 +130,7 @@ useEffect(() => {
 
         {item.NomeTrilha != "Gourmet" &&  (
             <>
-              <TouchableOpacity onPress={ () => navigation.navigate("Trilha", {paramKey:[item.NomeTrilha, item.Descricao, item.Cor, item.CorBorda, ]})} style = {[styles.buttonRegistro, {borderColor: item.CorBorda, backgroundColor: item.CorFill }]} title = 'Registrar' >
+              <TouchableOpacity onPress={ () => navigation.navigate("Trilha", {paramKey:[item.NomeTrilha, item.Descricao, item.Cor, item.CorBorda, item.CorFill ]})} style = {[styles.buttonRegistro, {borderColor: item.CorBorda, backgroundColor: item.CorFill }]} title = 'Registrar' >
                 <Text style={[styles.botaoTexto]}>Entrar</Text>
               </TouchableOpacity>
             </>
@@ -160,12 +160,12 @@ const styles = StyleSheet.create({
     },
     title:{
         fontWeight: '800',
-        fontSize: 28,
+        fontSize: 30,
         marginBottom: 10,
         textAlign:'center',
     },
     description:{
-        fontWeight: '300',
+        fontWeight: 'bold',
         fontSize: 20,
         textAlign:'center',
         paddingHorizontal: 64

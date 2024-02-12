@@ -109,8 +109,8 @@ function handleTrilha (){
     if (route?.params.paramKey[2] == "Refeições"){
       setDocesQ(DocesQ[0].Refeições)
       //console.log(DocesQ)
-    } else if(route?.params.paramKey[2] == "Basico"){
-      setDocesQ(DocesQ[0].Basico)
+    } else if(route?.params.paramKey[2] == "Básico"){
+      setDocesQ(DocesQ[0].Básico)
       //console.log(DocesQ)
     } else if(route?.params.paramKey[2] == "Doces"){
       setDocesQ(DocesQ[0].Doces)
@@ -119,6 +119,7 @@ function handleTrilha (){
       setDocesQ(DocesQ[0].Gourmet)
     }
     else{
+      console.log(route?.params.paramKey[2])
       console.log("Deu errado :(")
     }
   } catch (error) {
@@ -173,10 +174,10 @@ handleTrilha()
                     Doces: DocesQ + 1
                 });
                 }
-                else if(route?.params.paramKey[2] == 'Basico'){
+                else if(route?.params.paramKey[2] == 'Básico'){
                   const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
                 await updateDoc(userRef, {
-                    Basico: DocesQ + 1
+                    Básico: DocesQ + 1
                 });
                 }
                 else if(route?.params.paramKey[2] == 'Gourmet'){
