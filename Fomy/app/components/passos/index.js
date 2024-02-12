@@ -120,6 +120,13 @@ function pa(i, fwd){
   }
 }
 
+function pasquared(the){
+  setCalcula(the + 1)
+  console.log("calcula: ",calcula, "index: ", the)
+  setPasso(Receitas[(the)])
+  setxednIllorcSlaitint(the)
+}
+
 
 
 
@@ -198,7 +205,6 @@ try {
           <FlatList 
             ref={ref}
             horizontal
-            scrollEnabled = {false}
             data={Receitas}
             keyExtractor={(item) => item.key}
             bounces = {false}
@@ -213,7 +219,10 @@ try {
                   }]} />
                 }
                   
-                <View style={[styles.passoAtual, {
+                <TouchableOpacity 
+                  onPress={() => {pasquared(index)}}
+                  activeOpacity={0.8}
+                  style={[styles.passoAtual, {
                   marginLeft: index == 0 ? (width/2) - 38.5 : 10, //pega metade da tela menos metade do bloco
                   marginRight: index  == Receitas.length - 1 ? (width/2) - 38.5 : 10,
                   opacity: index == xednIllorcSlaitint ? 1 : 0.6,
@@ -225,7 +234,7 @@ try {
                   <Text style={[styles.passoAtualTexto,{
                     fontSize: index == xednIllorcSlaitint ? 50 : 30,
                   }]}>{item.Sequencia}</Text>
-                </View>
+                </TouchableOpacity>
                       
               </View>
             )}
