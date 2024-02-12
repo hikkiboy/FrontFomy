@@ -1,10 +1,12 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Alert, Dimensions, BackHandler } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Alert, Dimensions, BackHandler, Platform } from 'react-native';
 import React, { useState, useEffect } from 'react'
 import { app_auth } from '../../../firebaseConfig'
 import { Logo } from '../../components/logo';
 import { AntDesign } from '@expo/vector-icons'; 
 import { Octicons } from '@expo/vector-icons'; 
 import { useIsFocused } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
+import * as NavigationBar from 'expo-navigation-bar'
 
 
 
@@ -19,6 +21,10 @@ const Login = ({navigation}) => {
   const [googleHeight, setGoogleHeight] = useState(32)
   const [googleWidth, setGoogleWidth] = useState(32)
   const [ tinyText, setTinyText ] = useState(23);
+
+  if(Platform.OS === 'android'){
+    NavigationBar.setBackgroundColorAsync('#FFF');
+  }
 
   const isFocused = useIsFocused();
 

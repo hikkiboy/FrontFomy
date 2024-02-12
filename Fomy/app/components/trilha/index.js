@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import { Platform, Alert, Modal, Pressable, StyleSheet, Text, View, Image, ScrollView, FlatList, useWindowDimensions, TouchableOpacity} from 'react-native';
 import { app, app_DB, app_auth } from '../../../firebaseConfig'
 import { collection, onSnapshot, query, where, orderBy,documentId } from '@firebase/firestore'
@@ -140,15 +139,6 @@ handleTrilha()
 
   return (
     <SafeAreaView style={styles.status} >
-      { Platform.OS === 'ios' ? (
-        <>
-          <StatusBar style="#FFF"/>
-        </>
-      ): 
-      (
-        <>
-        </>
-      )}
       <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.goBack()} style={{ zIndex: 99 }}>
         <View style={[styles.backiconarea, {backgroundColor: route.params.paramKey[2]}]} >
           <FontAwesome size={30} color={"#FFF"} name='arrow-left' />
