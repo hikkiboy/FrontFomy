@@ -68,7 +68,7 @@ content:{
     paddingLeft: 15,
     paddingRight: 15,
     paddingBottom: 35,
-    marginTop: 65,
+    marginTop: 40,
 },
 title:{
     marginStart: 7,
