@@ -391,7 +391,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     zIndex: 9,
     borderTopWidth: 8,
-    height: 140
+    height: 120
   },
   passoAtual:{
     alignSelf: 'center',
