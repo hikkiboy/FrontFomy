@@ -109,17 +109,17 @@ function handleTrilha (){
     if (route?.params.paramKey[2] == "Refeições"){
       setDocesQ(DocesQ[0].Refeições)
       //console.log(DocesQ)
-    }
-    else if(route?.params.paramKey[2] == "Basico"){
+    } else if(route?.params.paramKey[2] == "Basico"){
       setDocesQ(DocesQ[0].Basico)
       //console.log(DocesQ)
-    }
-    else if(route?.params.paramKey[2] == "Doces"){
+    } else if(route?.params.paramKey[2] == "Doces"){
       setDocesQ(DocesQ[0].Doces)
       //console.log(DocesQ)
+    } else if(route?.params.paramKey[2] == "Gourmet"){
+      setDocesQ(DocesQ[0].Gourmet)
     }
     else{
-      //console.log("Deu errado :(")
+      console.log("Deu errado :(")
     }
   } catch (error) {
     //console.log("")
