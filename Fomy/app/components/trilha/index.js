@@ -140,6 +140,15 @@ handleTrilha()
 
   return (
     <SafeAreaView style={styles.status} >
+      { Platform.OS === 'ios' ? (
+        <>
+          <StatusBar style="#FFF"/>
+        </>
+      ): 
+      (
+        <>
+        </>
+      )}
       <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.goBack()} style={{ zIndex: 99 }}>
         <View style={[styles.backiconarea, {backgroundColor: route.params.paramKey[2]}]} >
           <FontAwesome size={30} color={"#FFF"} name='arrow-left' />
@@ -181,6 +190,7 @@ handleTrilha()
                         bg={bg}
                         setBg={setBg}
                         borderColor={route.params.paramKey[3]}
+                        Fill={route.params.paramKey[4]}
                     
                     />
             </Modal>
@@ -211,6 +221,7 @@ handleTrilha()
                         bg={bg}
                         setBg={setBg}
                         borderColor={route.params.paramKey[3]}
+                        Fill={route.params.paramKey[4]}
                     
                     />
             </Modal>
@@ -229,7 +240,7 @@ handleTrilha()
                 {/*this was my peak*/}
                 {/*<View style={{ height: '100%', width: '100%', zIndex: 1, backgroundColor: '#C9C9C9', position: 'absolute', borderRadius: 15, marginTop: 5 }} ></View>
                 <View style={{ height: '100%', width: '30%', zIndex: 2, backgroundColor: 'rgba(0,0,0,0.15)', position: 'absolute', borderRadius: 15, borderBottomRightRadius: 0, marginTop: 5 }} ></View>*/}
-                <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: route.params.paramKey[4], position: 'absolute', borderRadius: 20, marginTop: 7 }]} />
+                <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: route.params.paramKey[4], position: 'absolute', borderRadius: 20, marginTop: 6 }]} />
                 <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: "#FFF", position: 'absolute', borderRadius: 20, borderColor: route.params.paramKey[4], borderWidth: 7 }]} />
                 
                 <View style={[{
@@ -266,28 +277,28 @@ handleTrilha()
               
                 </View>
                 <View style={[styles.rightRow, {borderColor: route.params.paramKey[4]}]} >
-                  <Text style={[styles.descricaoFase, {color: route.params.paramKey[4]}]}>{item.Nome}</Text>
+                  <Text style={[styles.descricaoFase]}>{item.Nome}</Text>
                   <Image style={styles.detail} source={require("../../assets/lines-detail.png")} />
                   {onde +1 >= Receitas[Receitas.indexOf(item)].Posicao && (
-                  <View style={[{ marginTop: 15, backgroundColor: route.params.paramKey[3], width: '100%', borderRadius: 15, zIndex: 4, marginBottom: 2 }]} >
-                    <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: route.params.paramKey[4], position: 'absolute', borderRadius: 15, marginTop: 2 }]} />
+                    <View style={[{ marginTop: 15, backgroundColor: route.params.paramKey[3], width: '100%', borderRadius: 15, zIndex: 4, marginBottom: 2 }]} >
+                      <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: route.params.paramKey[4], position: 'absolute', borderRadius: 15, marginTop: 2 }]} />
 
-                    <TouchableOpacity style={[{
-                      backgroundColor:route.params.paramKey[2],
-                      paddingVertical: 4,
-                      borderRadius: 15,
-                      borderWidth: 4,
-                      borderColor: route.params.paramKey[4],
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      zIndex: 5,
-                      }]}  
-                      onPress={() => handleModal(item)}
-                      activeOpacity={0.8}
-                    >
-                      <Text style={styles.buttonsee} >Ver receita</Text>
-                    </TouchableOpacity>
-                  </View>
+                      <TouchableOpacity style={[{
+                        backgroundColor:route.params.paramKey[2],
+                        paddingVertical: 4,
+                        borderRadius: 15,
+                        borderWidth: 4,
+                        borderColor: route.params.paramKey[4],
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        zIndex: 5,
+                        }]}  
+                        onPress={() => handleModal(item)}
+                        activeOpacity={0.8}
+                        >
+                          <Text style={styles.buttonsee} >Ver receita</Text>
+                      </TouchableOpacity>
+                    </View>
 
                   )}
                     {onde +1 < Receitas[Receitas.indexOf(item)].Posicao && (
@@ -355,7 +366,7 @@ const styles = StyleSheet.create({
     alignContent: 'flex-end', 
     marginStart: 10,
     marginEnd: 10,
-    marginBottom: 7,
+    marginBottom: 6,
     backgroundColor: '#FFF',
   },
   rightRow:{
