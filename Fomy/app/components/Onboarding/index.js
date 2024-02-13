@@ -159,16 +159,18 @@ const styles = StyleSheet.create({
         display: 'flex'
     },
     title:{
-        fontWeight: '800',
+        fontWeight: 'bold',
         fontSize: 30,
         marginBottom: 10,
         textAlign:'center',
+        color: 'rgba(0,0,0,0.6)'
     },
     description:{
         fontWeight: 'bold',
         fontSize: 20,
         textAlign:'center',
-        paddingHorizontal: 64
+        paddingHorizontal: 64,
+        color: 'rgba(0,0,0,0.55)'
     },
     premiumDesc:{
         fontWeight: '300',

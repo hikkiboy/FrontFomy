@@ -5,6 +5,7 @@ import { useEffect, useState} from 'react'
 
 export function Badges({ data }) {
     const [Insignias, setInsignias] = useState([]);
+    const [visible, setVisible] = useState(false)
 
     useEffect(()=>{
 
@@ -52,7 +53,6 @@ export function Badges({ data }) {
                     return(
                         <View style={styles.thebadge}>
                             <Image source={{ uri: item.Imagem }} style={styles.image} />
-                            <Text style={styles.text} >{item.Titulo}</Text>
                         </View>
                    )
                     
@@ -70,27 +70,15 @@ export function Badges({ data }) {
 
 const styles = StyleSheet.create({
     container:{
-        flex: 1,
         alignItems: 'center',
-        paddingStart: 20,
-        paddingEnd: 20,
-        marginTop: 15
     },
     image:{
-        width: 100,
-        height: 100,
-        marginHorizontal: '2.5%'
+        width: 104,
+        height: 109,
+        marginHorizontal: 8
     },
     thebadge:{
-        alignItems: 'center'
+        alignItems: 'center',
     },
-    text:{
-        fontSize: 16,
-        fontWeight: '500',
-        width: 110,
-        textAlign: 'center',
-        position: 'absolute',
-        marginTop: 125
-    }
 
 })
