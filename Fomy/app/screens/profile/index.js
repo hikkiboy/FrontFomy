@@ -1,19 +1,34 @@
-import {View, Text, Button, FlatList, TouchableOpacity, StyleSheet, Image} from 'react-native'
-import { app_auth, app_DB } from '../../../firebaseConfig'
-import { doc , collection, query, where, onSnapshot, Firestore, documentId} from 'firebase/firestore'
-import { useEffect, useState} from 'react'
-import { LoadProfile } from '../../components/loadprofile'
-import { useIsFocused } from '@react-navigation/native'
+import { View, StyleSheet, Image, Text, TouchableOpacity, Modal, TextInput, Alert, Dimensions, ScrollView, AppRegistry } from "react-native"
+import Feather from 'react-native-vector-icons/Feather'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import { useState, useEffect } from "react"
+import { ActionModal } from "../../components/actionmodal"
+import { Badges } from "../../components/badges"
+import { app_auth, app_BKT, app_DB} from '../../../firebaseConfig'
+import { doc , collection, query, where, onSnapshot, documentId, updateDoc} from 'firebase/firestore'
+import * as Progress from "react-native-progress"
+import { ImageUpload } from "../../components/imageupload"
+import * as ImagePicker from "expo-image-picker"
+import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage'
+import { SafeAreaView } from "react-native-safe-area-context"
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 
 
-import { SafeAreaView } from 'react-native-safe-area-context'
+export default function Profile({ navigation }){
 
-const Profile = ({navigation}) => {
+    const [Receitas, setReceitas] = useState()
+    const [user, setUser] = useState()
+    const height = Dimensions.get("window").height
+    const [visible, setVisible] = useState(false)
+    const [inputOn, setInputOn] = useState(false)
+    const [newName, setNewName] = useState('')
+    const [blerg, setBlerg] = useState(0)
 
-    const [Receitas, setReceitas] = useState([]);
-    const [user, setUser] = useState();
-    const isFocused = useIsFocused();
-
+    var visibleInput = null
+    var visibleClose = null
+    var visibleSend = null
+    
     useEffect(()=>{
             //this try is only here so that a problem with app_auth.currentUser.uid being undefined doesn't happen
             try{
@@ -21,7 +36,6 @@ const Profile = ({navigation}) => {
                     //don't know exactly why it works like that, but it works
                     //there's still the problem that it flashes the old user for a sec when working through asyncstorage
                     //but I think this is better than updating the profile each time the user accesses it
-                    setUser(app_auth.currentUser.uid)
                     const receitaRef = collection(app_DB, 'Usuarios')
                 
                     const q = query(
@@ -29,7 +43,7 @@ const Profile = ({navigation}) => {
                         where(documentId(), '==', app_auth.currentUser.uid)
                     )
                 
-                    
+                    setUser(app_auth.currentUser.uid)
                 
                     const subscriver = onSnapshot(q, {
                         next : (snapshot) => {
@@ -43,7 +57,8 @@ const Profile = ({navigation}) => {
                                 })
                             })
                             setReceitas(receitas)
-                            //console.log("Queried the profile, reason: update.")
+                            console.log(app_auth.currentUser.email)
+                            console.log("Queried the profile, reason: update..")
 
 
                 
@@ -52,34 +67,325 @@ const Profile = ({navigation}) => {
                 
                     return() => subscriver()
             } catch(error){
-                //console.log("User uid error, probably logged off")
+                console.log("User uid error, probably logged off")
             }
-    },[app_auth.currentUser])
-    
+    },[blerg])
 
-    return (
-        
-        <SafeAreaView style={styles.container} >
-            
-            <View>
-                <FlatList
-                data={Receitas}
-                renderItem={({item}) => (
-                    <LoadProfile data={item} navigation={navigation} />
-                )}
-                />
-            </View>     
+    //func to pick the damn image
+    async function pickImage() {
+        //properties of the image picker
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [4,4],
+            quality: .9
+        })
 
-        </SafeAreaView>
-    )
+        //checks if it wasn't cancelled
+        if(!result.canceled){
+            //uploads image
+            await uploadImage(result.assets[0].uri, result.assets[0].uri.substring(result.assets[0].uri.lastIndexOf('/') + 1, result.assets[0].uri.length));
+        }
+    }
+
+    async function uploadImage( uri, fileName ){
+        const response = await fetch(uri);
+        const blob = await response.blob();
+
+        const storageRef = ref(app_BKT, "Pfps/" + Receitas[0].Nome + new Date().getTime() + fileName )
+        const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
+        const uploadTask = uploadBytesResumable(storageRef, blob)
+
+        //listen for events
+        uploadTask.on("state_changed",
+        (snapshot) => {
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            //console.log("Progress: " + progress + "%")
+        },
+        (error) => {
+            alert("Ocorreu um erro: "+error)
+        },
+        (complete) => {
+            getDownloadURL(uploadTask.snapshot.ref).then(async (downloadUrl) => {
+                //console.log("File available at: " + downloadUrl)
+                try{
+                    if(data.Foto != "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/albertobutcool%204.png?alt=media&token=175f4479-6c43-4ec3-b3e9-2d2a92471064"){
+                        deleteObject(ref(app_BKT, data.Foto))
+                    }
+                    await updateDoc(userRef, {
+                        Foto: downloadUrl
+                    });
+                    alert("Foto alterada com sucesso!")
+                } catch (error){
+                    //console.log(error)
+                    alert("Ocorreu um erro: "+error)
+                }
+            })
+        }
+        )
+
+    }
+
+    const handleModal = () => {
+        setVisible(!visible);
+    }
+
+    const handleModalSignOut = () => {
+        setVisible(!visible);
+        setReceitas();
+        app_auth.signOut();
+        AsyncStorage.clear();
+        ReactNativeAsyncStorage.clear();
+    }
+
+    const handleInput = () => {
+        setVisible(false)
+        setInputOn(true);
+    }
+
+    const closeThisBitchUp = () => {
+        setNewName('')
+        setInputOn(false);
+    }
+
+    const handleUpdate = async () => {
+        if(newName != ''){
+            try{
+                const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
+                await updateDoc(userRef, {
+                    Nome: newName
+                });
+                setInputOn(false);
+                setNewName('')
+            } catch(error){
+                console.log(error)
+                alert("Ocorreu um erro "+error)
+            }
+        } else{
+            setInputOn(false);
+        }
+    };
+
+    if(Receitas != undefined){
+        var nome = Receitas[0].Nome
+        var titulo = Receitas[0].Titulo
+
+        var totalXp = 200 + (((Receitas[0].Nivel - 1) * Receitas[0].Nivel) * 10)
+        var progressToBar = (Receitas[0].Exp / totalXp)
+
+        var progressMyBar = (
+            <Progress.Bar style={{ position: 'absolute' }} 
+                progress={progressToBar} 
+                width={325} 
+                height={35} 
+                borderRadius={9}
+                color="#FA787D"
+                borderWidth={0}
+                unfilledColor="#EFEFEF"
+            />
+        )
+        var progressExp = (
+            <Text style={styles.exp} >EXP: {Receitas != undefined ? Receitas[0].Exp : 0 } / {totalXp}</Text>
+        )
+
+        if(inputOn){
+            nome = null
+            titulo = null
+            progressMyBar = null
+            progressExp = null
+            visibleInput = (<TextInput enterKeyHint={"done"} value={newName} onChangeText={(text) => setNewName(text)} autoFocus={true} maxLength={35} placeholder="Digite o nome" style={styles.nameinput} />)
+            visibleSend = (<TouchableOpacity style={{ marginRight: 30 }} onPress={handleUpdate} ><Ionicons name="checkmark-circle" size={50} color="#70D872" /></TouchableOpacity>)
+            visibleClose = (<TouchableOpacity onPress={closeThisBitchUp} ><Ionicons name="close-circle" size={50} color="#DC6A87" /></TouchableOpacity>);
+        }
+
+        return(
+            <SafeAreaView style={styles.container} >
+                <ScrollView>
+                    <TouchableOpacity style={{ zIndex: 99 }} onPress={handleModal} >
+                        <Feather style={styles.menu} name="menu" size={35} color="#000"/>
+                    </TouchableOpacity>
+                    <View style={styles.pfpstuff} >
+                        <View style={styles.bgpfp} ></View>
+                        <View style={styles.brdrpfp} >
+                            <Image
+                                source={{ uri: Receitas[0].Foto}}
+                                style={styles.pfp}
+                        
+                            />
+                        </View>
+                        <View>
+                            <Image
+                                source={require('../../assets/bandeira-nivel.png')}
+                                style={styles.flag}
+                            />
+                            <Text style={styles.lvl} >Lv. {Receitas[0].Nivel}</Text>
+                            <View>
+                                <Text style={styles.name} >{nome}</Text>
+                                <Text style={styles.title} >{titulo}</Text>
+
+                                <View style={styles.inputarea} >
+                                    {visibleInput}
+                                </View>
+                                <View style={styles.buttonarea} >
+                                    {visibleSend}
+                                    {visibleClose}
+                                </View>
+                            </View>
+                        </View>
+                        <View style={styles.progressbar} >
+                            {progressMyBar}
+                            {progressExp}
+                            
+                        </View>
+                        {/*<View style={{ flex: 1, backgroundColor: 'red', width: "100%" }} />*/}
+                        
+                    </View>
+                </ScrollView>
+
+                <Modal visible={visible}
+                onRequestClose={handleModal} 
+                animationType="slide"
+                transparent={true}
+                >
+                    <ActionModal
+                        handleActionOff={handleModalSignOut}
+                        handleAction={handleModal}
+                        navigation={navigation}
+                        handleName={handleInput}
+                        pickIt={pickImage}
+                    
+                    />
+                </Modal>
+                
+            </SafeAreaView>
+        )} else{
+            return(
+                <View style={{ flex: 1, backgroundColor: '#FFF' }} />
+            );
+        };
 }
 
 const styles = StyleSheet.create({
-
     container:{
         flex: 1,
+        display: 'flex',
         backgroundColor: "#FFF"
-    }
-})
+    },
+    pfp:{
+        width: 175,
+        height: 175,
+        borderRadius: 100,
+    },
+    pfpstuff:{
+        alignItems: 'center',
+        flex: 1
+    },
+    bgpfp:{
+        backgroundColor: "#70D872", 
+        width: '100%', 
+        height: 130, 
+        position: "absolute"
+    },
+    brdrpfp:{
+        width: 195,
+        height: 195,
+        borderRadius: 150,
+        borderWidth: 10,
+        marginBottom:-100,
+        borderColor: "#FFF",
+        backgroundColor: "#EFEFEF",
+        marginTop: 35
+    },
+    name:{
+        alignSelf: 'center',
+        fontSize: 29,
+        marginTop: 12,
+        fontWeight: 'bold'
+    },
+    nameinput:{
+        backgroundColor: "#70D872",
+        paddingHorizontal: 12,
+        borderRadius: 15,
+        textAlign: 'center',
+        width: 320,
+        fontSize: 29
 
-export default Profile
+    },
+    title:{
+        alignSelf: 'center',
+        fontSize: 24,
+        fontWeight: '600',
+        color: "rgba(0,0,0,0.5)"
+    },
+    flag:{
+        alignSelf: 'center',
+        width: 208,
+        height: 48,
+        marginTop: 60
+    },
+    lvl:{
+        alignSelf: 'center',
+        fontSize: 27,
+        position:"absolute",
+        marginTop: 60,
+        fontWeight: '700'
+
+    },
+    menu:{
+        position: "absolute",
+        alignSelf: 'flex-end',
+        padding: 15,
+
+    },
+    inputarea:{
+        position: 'absolute',
+        marginTop: 23,
+        alignItems: 'center',
+        alignSelf: 'center'
+
+    },
+    buttonarea:{ 
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginTop: 70,
+        position: 'absolute',
+        alignSelf: 'center',
+
+    },
+    exp:{
+        position: 'absolute',
+        alignSelf: 'center',
+        color: "rgba(0,0,0,0.25)",
+        fontWeight: 'bold',
+        fontSize: 27
+    },
+    progressbar:{
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 45,
+        marginBottom: 100
+    },
+    badgearea:{
+        backgroundColor: "#EFEFEF",
+        width: '100%',
+        borderRadius: 20,
+        padding: 20,
+
+    },
+    badgetitle:{
+        fontWeight: 'bold',
+        fontSize: 27,
+        color: "#FFF",
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        alignSelf: 'center',
+
+    },
+    badges:{
+        backgroundColor: '#FFF',
+        borderRadius: 15,
+        paddingVertical: 20
+        
+    },
+
+})

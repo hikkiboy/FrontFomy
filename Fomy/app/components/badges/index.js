@@ -1,4 +1,4 @@
-import {View, Text, Button, FlatList, TouchableOpacity, StyleSheet, Image} from 'react-native'
+import {View, Text, Button, FlatList, TouchableOpacity, StyleSheet, Image, Dimensions} from 'react-native'
 import { app_auth, app_DB } from '../../../firebaseConfig'
 import { doc , collection, query, where, onSnapshot, Firestore, documentId} from 'firebase/firestore'
 import { useEffect, useState} from 'react'
@@ -6,12 +6,23 @@ import { useEffect, useState} from 'react'
 export function Badges({ data }) {
     const [Insignias, setInsignias] = useState([]);
     const [visible, setVisible] = useState(false)
+    
+    const height = Dimensions.get("window").height
+    const [stuffHeight, setStuffHeight] = useState(85)
+    const [imageHeight, setImageHeight] = useState(225.05)
+    const [imageWidth, setImageWidth] = useState(207.2)
+    const [fontSize, setFontSize] = useState(23)
+    const [googleHeight, setGoogleHeight] = useState(32)
+    const [googleWidth, setGoogleWidth] = useState(32)
+    const [ tinyText, setTinyText ] = useState(23);
 
     useEffect(()=>{
 
         if(data.Insignias[0] != "" ){
     
         const insigniasRef = collection(app_DB, 'Insignias')
+
+       
     
         const q = query(
             insigniasRef,
@@ -32,7 +43,8 @@ export function Badges({ data }) {
                     })
                 })
                 setInsignias(insignias)
-                //console.log(Insignias)
+                console.log(Insignias)
+                console.log("oii");
 
 
     
@@ -42,13 +54,29 @@ export function Badges({ data }) {
         return() => subscriver()
     }
     
-    },[])
+    }
+    ,[])
+
+    
+  useEffect(() => {
+    if(height <= 700){
+      //console.log("tela pequena")
+      //console.log(height)
+      setStuffHeight(75)
+      setImageHeight(180.04)
+      setImageWidth(165.76)
+      setFontSize(18)
+      setGoogleHeight(26)
+      setGoogleWidth(26)
+      setTinyText(21)
+    }
+  })
 
     return(
-        <View style={styles.container} >
+        <View style={[styles.container, { height: stuffHeight }]} >
             <FlatList
-                style={{ flexDirection: 'row', alignItems: 'center' }}
                 data={Insignias}
+                numColumns={3}
                 renderItem={({item}) => {
                     return(
                         <View style={styles.thebadge}>
@@ -71,14 +99,23 @@ export function Badges({ data }) {
 const styles = StyleSheet.create({
     container:{
         alignItems: 'center',
+        marginTop: 15,
     },
     image:{
-        width: 104,
-        height: 109,
-        marginHorizontal: 8
+        width: 110,
+        height: 115,
+        marginHorizontal: 5
     },
     thebadge:{
         alignItems: 'center',
     },
+    text:{
+        fontSize: 16,
+        fontWeight: '500',
+        width: 110,
+        textAlign: 'center',
+        position: 'absolute',
+        marginTop: 125
+    }
 
 })

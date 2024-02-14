@@ -5,7 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 
 
 
-export function ActionModal({ handleAction, navigation, handleName, pickIt }){
+export function ActionModal({ handleActionOff, handleAction, navigation, handleName, pickIt }){
 
     return(
         <SafeAreaView style={styles.container} >
@@ -28,7 +28,7 @@ export function ActionModal({ handleAction, navigation, handleName, pickIt }){
                         <Feather name="settings" size={26} />
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.leave} activeOpacity={0.9} onPress={() => {handleAction(); app_auth.signOut(); AsyncStorage.clear()}} >
+                    <TouchableOpacity style={styles.leave} activeOpacity={0.9} onPress={() => {handleActionOff()}} >
                         <Text style={styles.action} >Sair</Text>
                         <Feather name="log-out" size={26} />
                     </TouchableOpacity>

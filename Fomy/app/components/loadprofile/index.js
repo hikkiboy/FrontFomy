@@ -175,7 +175,6 @@ export function LoadProfile({ data, navigation }){
                     {progressExp}
                     
                 </View>
-                <View style={{ flex: 1, backgroundColor: 'red', width: "100%" }} />
                 <View style={[styles.badgearea, {backgroundColor: "#70D872"}]} >
                     <View style={[ styles.badgetitlearea, { flexDirection: 'row', justifyContent: 'space-between'} ]}>
                         <Text style={styles.badgetitle} >Insígnias</Text>
