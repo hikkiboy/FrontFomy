@@ -100,8 +100,8 @@ export function Badges({ data }) {
 const styles = StyleSheet.create({
     container:{
         alignItems: 'center',
-        marginVertical: 15,
-        marginTop: 19.25
+        marginVertical: 20,
+        marginTop: 24.25
     },
     thebadge:{
         alignItems: 'center',
