@@ -8,13 +8,10 @@ export function Badges({ data }) {
     const [visible, setVisible] = useState(false)
     
     const height = Dimensions.get("window").height
-    const [stuffHeight, setStuffHeight] = useState(85)
-    const [imageHeight, setImageHeight] = useState(225.05)
-    const [imageWidth, setImageWidth] = useState(207.2)
-    const [fontSize, setFontSize] = useState(23)
-    const [googleHeight, setGoogleHeight] = useState(32)
-    const [googleWidth, setGoogleWidth] = useState(32)
-    const [ tinyText, setTinyText ] = useState(23);
+    const width = Dimensions.get("window").width
+    const [imageHeight, setImageHeight] = useState(109.25)
+    const [imageWidth, setImageWidth] = useState(104.5)
+    const [margin, setMargin] = useState(12)
 
     useEffect(()=>{
 
@@ -43,8 +40,6 @@ export function Badges({ data }) {
                     })
                 })
                 setInsignias(insignias)
-                console.log(Insignias)
-                console.log("oii");
 
 
     
@@ -59,33 +54,39 @@ export function Badges({ data }) {
 
     
   useEffect(() => {
-    if(height <= 700){
-      //console.log("tela pequena")
-      //console.log(height)
-      setStuffHeight(75)
-      setImageHeight(180.04)
-      setImageWidth(165.76)
-      setFontSize(18)
-      setGoogleHeight(26)
-      setGoogleWidth(26)
-      setTinyText(21)
+    if(width <= 400){
+      console.log("tela pequena")
+      console.log("height: ",height)
+      console.log("width: ",width)
+      setImageHeight(97.75)
+      setImageWidth(93.5)
+    } else {
+        console.log("tela grande");
+        console.log("height: ",height)
+        console.log("width: ",width)
     }
   })
 
     return(
-        <View style={[styles.container, { height: stuffHeight }]} >
+        <View style={[styles.container]} >
             <FlatList
                 data={Insignias}
+                scrollEnabled={false}
                 numColumns={3}
-                renderItem={({item}) => {
+                renderItem={({item, index}) => {
                     return(
                         <View style={styles.thebadge}>
-                            <Image source={{ uri: item.Imagem }} style={styles.image} />
+                            <Image source={{ uri: item.Imagem }} 
+                                   resizeMode='contain' 
+                                   style={{width: imageWidth, 
+                                           height: imageHeight, 
+                                           marginRight: (index + 1) % 3 == 0 ? 0 : margin,
+                                         }}
+                            />
                         </View>
-                   )
+                    )
                     
                 }}
-                keyExtractor={item => item.key}
             />
 
         </View>
@@ -99,23 +100,11 @@ export function Badges({ data }) {
 const styles = StyleSheet.create({
     container:{
         alignItems: 'center',
-        marginTop: 15,
-    },
-    image:{
-        width: 110,
-        height: 115,
-        marginHorizontal: 5
+        marginVertical: 15,
+        marginTop: 19.25
     },
     thebadge:{
         alignItems: 'center',
     },
-    text:{
-        fontSize: 16,
-        fontWeight: '500',
-        width: 110,
-        textAlign: 'center',
-        position: 'absolute',
-        marginTop: 125
-    }
 
 })

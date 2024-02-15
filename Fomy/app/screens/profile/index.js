@@ -6,6 +6,7 @@ import { ActionModal } from "../../components/actionmodal"
 import { Badges } from "../../components/badges"
 import { app_auth, app_BKT, app_DB} from '../../../firebaseConfig'
 import { doc , collection, query, where, onSnapshot, documentId, updateDoc} from 'firebase/firestore'
+import { onAuthStateChanged } from "firebase/auth"
 import * as Progress from "react-native-progress"
 import { ImageUpload } from "../../components/imageupload"
 import * as ImagePicker from "expo-image-picker"
@@ -25,51 +26,55 @@ export default function Profile({ navigation }){
     const [newName, setNewName] = useState('')
     const [blerg, setBlerg] = useState(0)
 
-    var visibleInput = null
-    var visibleClose = null
-    var visibleSend = null
-    
-    useEffect(()=>{
-            //this try is only here so that a problem with app_auth.currentUser.uid being undefined doesn't happen
+    let visibleInput = null
+    let visibleClose = null
+    let visibleSend = null
+
+    useEffect(() => {
+        const login = onAuthStateChanged(app_auth, (user) => {
             try{
-                    //the setUser works as a way to make the dependecy (app_auth.currentUser.uid) actually make useEffect happen
-                    //don't know exactly why it works like that, but it works
-                    //there's still the problem that it flashes the old user for a sec when working through asyncstorage
-                    //but I think this is better than updating the profile each time the user accesses it
-                    const receitaRef = collection(app_DB, 'Usuarios')
-                
-                    const q = query(
-                        receitaRef,
-                        where(documentId(), '==', app_auth.currentUser.uid)
-                    )
-                
-                    setUser(app_auth.currentUser.uid)
-                
-                    const subscriver = onSnapshot(q, {
-                        next : (snapshot) => {
-                            const receitas = []
+                //the setUser works as a way to make the dependecy (app_auth.currentUser.uid) actually make useEffect happen
+                //don't know exactly why it works like that, but it works
+                //there's still the problem that it flashes the old user for a sec when working through asyncstorage
+                //but I think this is better than updating the profile each time the user accesses it
+                const receitaRef = collection(app_DB, 'Usuarios')
+            
+                const q = query(
+                    receitaRef,
+                    where(documentId(), '==', app_auth.currentUser.uid)
+                )
+            
+                setUser(app_auth.currentUser.uid)
+            
+                const subscriver = onSnapshot(q, {
+                    next : (snapshot) => {
+                        const receitas = []
+                        
+                        snapshot.docs.forEach(doc =>{   
+                            receitas.push({
+                                key : doc.id,
+                                ...doc.data(),
                             
-                            snapshot.docs.forEach(doc =>{   
-                                receitas.push({
-                                    key : doc.id,
-                                    ...doc.data(),
-                                
-                                })
                             })
-                            setReceitas(receitas)
-                            console.log(app_auth.currentUser.email)
-                            console.log("Queried the profile, reason: update..")
+                        })
+                        setReceitas(receitas)
+                        console.log(app_auth.currentUser.email)
+                        console.log("Queried the profile, reason: auth state update.")
 
 
-                
-                        }
-                    })
-                
-                    return() => subscriver()
-            } catch(error){
-                console.log("User uid error, probably logged off")
-            }
-    },[blerg])
+            
+                    }
+                })
+            
+                return() => subscriver()
+        } catch(error){
+            console.log("User uid error, probably logged off")
+        }
+         
+        });
+    
+        return () => login();
+      }, []);
 
     //func to pick the damn image
     async function pickImage() {
@@ -167,13 +172,13 @@ export default function Profile({ navigation }){
     };
 
     if(Receitas != undefined){
-        var nome = Receitas[0].Nome
-        var titulo = Receitas[0].Titulo
+        let nome = Receitas[0].Nome
+        let titulo = Receitas[0].Titulo
 
-        var totalXp = 200 + (((Receitas[0].Nivel - 1) * Receitas[0].Nivel) * 10)
-        var progressToBar = (Receitas[0].Exp / totalXp)
+        let totalXp = 200 + (((Receitas[0].Nivel - 1) * Receitas[0].Nivel) * 10)
+        let progressToBar = (Receitas[0].Exp / totalXp)
 
-        var progressMyBar = (
+        let progressMyBar = (
             <Progress.Bar style={{ position: 'absolute' }} 
                 progress={progressToBar} 
                 width={325} 
@@ -184,7 +189,7 @@ export default function Profile({ navigation }){
                 unfilledColor="#EFEFEF"
             />
         )
-        var progressExp = (
+        let progressExp = (
             <Text style={styles.exp} >EXP: {Receitas != undefined ? Receitas[0].Exp : 0 } / {totalXp}</Text>
         )
 
@@ -200,7 +205,7 @@ export default function Profile({ navigation }){
 
         return(
             <SafeAreaView style={styles.container} >
-                <ScrollView>
+                <ScrollView contentContainerStyle={{ minHeight: "100%", width: "100%" }} >
                     <TouchableOpacity style={{ zIndex: 99 }} onPress={handleModal} >
                         <Feather style={styles.menu} name="menu" size={35} color="#000"/>
                     </TouchableOpacity>
@@ -237,7 +242,16 @@ export default function Profile({ navigation }){
                             {progressExp}
                             
                         </View>
-                        {/*<View style={{ flex: 1, backgroundColor: 'red', width: "100%" }} />*/}
+                        
+                        <View style={{ flex: 1, width: "100%" }} />
+                        <View style={styles.badgearea} >
+                            <Text style={styles.badgetitle} >Insígnias</Text>
+                            <View style={ styles.stepslist } >
+                                <View style={styles.badges} >
+                                    <Badges data={Receitas[0]} />
+                                </View>
+                            </View>
+                        </View>
                         
                     </View>
                 </ScrollView>
@@ -267,7 +281,7 @@ export default function Profile({ navigation }){
 
 const styles = StyleSheet.create({
     container:{
-        flex: 1,
+        height: "100%",
         display: 'flex',
         backgroundColor: "#FFF"
     },
@@ -369,7 +383,12 @@ const styles = StyleSheet.create({
         backgroundColor: "#EFEFEF",
         width: '100%',
         borderRadius: 20,
-        padding: 20,
+        padding: 15,
+        marginBottom: 70,
+        backgroundColor: "#70D872",
+        borderColor: "#5DC15F",
+        borderWidth: 7,
+        borderBottomWidth: 10
 
     },
     badgetitle:{
@@ -384,7 +403,7 @@ const styles = StyleSheet.create({
     badges:{
         backgroundColor: '#FFF',
         borderRadius: 15,
-        paddingVertical: 20
+        marginTop: 15
         
     },
 
