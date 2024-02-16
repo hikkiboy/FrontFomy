@@ -161,7 +161,7 @@ try {
 
   return (
        <SafeAreaView style={styles.container}>
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false} >
         {/* <Button title='debug' onPress={() => console.log(arr)}></Button>  */}
             <TouchableOpacity onPress={ () => navigation.goBack() } style={styles.goback} ><FontAwesome name="arrow-left" size={30} color="white" /></TouchableOpacity>
           <View style={[styles.imagebak, {
@@ -202,7 +202,7 @@ try {
 
         </ScrollView>
 
-        <View style={styles.passoAtualArea}>
+        <View style={[styles.passoAtualArea, {borderColor: corDinamica }]}>
           <FlatList 
             ref={ref}
             horizontal

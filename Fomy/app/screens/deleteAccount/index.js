@@ -192,13 +192,13 @@ deletearea:{
 },
 delete:{
     zIndex: 99,
-    backgroundColor: "#FAC6C8",
+    backgroundColor: "#FA787D",
     borderRadius: 15,
     padding: 10,
     alignItems: 'center',
     borderWidth: 5,
     borderBottomWidth: 10,
-    borderColor: "#F68F92",
+    borderColor: "#E15F64",
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 25

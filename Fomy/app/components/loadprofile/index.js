@@ -1,4 +1,4 @@
-import { View, StyleSheet, Image, Text, TouchableOpacity, Modal, TextInput, Alert } from "react-native"
+import { View, StyleSheet, Image, Text, TouchableOpacity, Modal, TextInput, Alert, Dimensions } from "react-native"
 import Feather from 'react-native-vector-icons/Feather'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useState } from "react"
@@ -14,6 +14,7 @@ import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebas
 
 export function LoadProfile({ data, navigation }){
 
+    const height = Dimensions.get("window").height
     const [visible, setVisible] = useState(false)
     const [inputOn, setInputOn] = useState(false)
     const [newName, setNewName] = useState('')
@@ -117,7 +118,7 @@ export function LoadProfile({ data, navigation }){
             width={325} 
             height={35} 
             borderRadius={9}
-            color="#F68F92"
+            color="#FA787D"
             borderWidth={0}
             unfilledColor="#EFEFEF"
         />
@@ -174,12 +175,14 @@ export function LoadProfile({ data, navigation }){
                     {progressExp}
                     
                 </View>
-                <View style={styles.badgearea} >
-                    <View style={styles.badgetitlearea} >
+                <View style={[styles.badgearea, {backgroundColor: "#70D872"}]} >
+                    <View style={[ styles.badgetitlearea, { flexDirection: 'row', justifyContent: 'space-between'} ]}>
                         <Text style={styles.badgetitle} >Insígnias</Text>
                     </View>
-                    <View style={styles.badges} >
-                        <Badges data={data} />
+                    <View style={ styles.stepslist } >
+                        <View style={styles.badges} >
+                            <Badges data={data} />
+                        </View>
                     </View>
                 
                 </View>
@@ -215,7 +218,8 @@ const styles = StyleSheet.create({
         borderRadius: 100,
     },
     pfpstuff:{
-        alignItems: 'center'
+        alignItems: 'center',
+        flex: 1
     },
     bgpfp:{
         backgroundColor: "#70D872", 
@@ -305,30 +309,28 @@ const styles = StyleSheet.create({
     badgearea:{
         backgroundColor: "#EFEFEF",
         width: '100%',
-        height: 350,
-        borderTopLeftRadius: 15,
-        borderTopRightRadius: 15
+        borderRadius: 20,
+        padding: 20,
 
     },
     badgetitlearea:{
         alignSelf: 'center',
-        marginTop: 15,
-        backgroundColor: "#70D872",
-        borderRadius: 22,
-        padding: 5,
-        paddingHorizontal: 20
-
-
+        marginBottom: 20
     },
     badgetitle:{
+        fontWeight: 'bold',
         fontSize: 27,
-        fontWeight: '500'
+        color: "#FFF",
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        alignSelf: 'center',
 
     },
     badges:{
-        width: '100%',
-        height: '20%',
-        marginTop: 10
-    }
+        backgroundColor: '#FFF',
+        borderRadius: 15,
+        paddingVertical: 20
+        
+    },
 
 })

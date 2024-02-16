@@ -60,7 +60,6 @@ const PasswordResets = () => {
       }, 200);
     }
   };
-as
 
   return (
     <KeyboardAwareScrollView contentContainerStyle={styles.container}>
