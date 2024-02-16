@@ -4,6 +4,7 @@ import { getAuth, reauthenticateWithCredential, EmailAuthProvider, updatePasswor
 import { collection, deleteDoc, doc, query, where, onSnapshot, documentId } from "firebase/firestore";
 import { useState, useEffect, useLayoutEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Feather from 'react-native-vector-icons/Feather'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
@@ -100,7 +101,7 @@ export default function AlterPassword({ navigation }){
     
     return(
 
-    <SafeAreaView style={styles.container} >
+    <KeyboardAwareScrollView contentContainerStyle={styles.container} >
 
 
 
@@ -141,16 +142,17 @@ export default function AlterPassword({ navigation }){
 
             </View>
 
-    </SafeAreaView>
+    </KeyboardAwareScrollView>
 )}
 
 const styles = StyleSheet.create({
-container:{
-    flex:1,
-    justifyContent: 'center',
-    backgroundColor: "#FFF"
-
-},
+    container:{
+        width: '100%',
+        minHeight: '100%',
+        justifyContent: 'center',
+        backgroundColor: "#FFF"
+    
+    },
 inputarea:{
     marginStart: 6,
     marginEnd: 6,

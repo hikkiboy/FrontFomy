@@ -1,5 +1,6 @@
 import { View, Text, TouchableOpacity, StyleSheet, TextInput, Image } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { app_auth, app_BKT, app_DB} from '../../../firebaseConfig'
 import { getAuth, reauthenticateWithCredential, EmailAuthProvider, deleteUser } from "firebase/auth";
 import { collection, deleteDoc, doc, query, where, onSnapshot, documentId } from "firebase/firestore";
@@ -99,7 +100,7 @@ export default function DeleteAccount({ navigation }){
     
     return(
 
-    <SafeAreaView style={styles.container}>
+    <KeyboardAwareScrollView contentContainerStyle={styles.container}>
 
         <Image style={styles.depressoberto} source={require('../../assets/adepressoberto.png')}/>
         <Text style={styles.depressoDialogue}>Vamos sentir sua falta...</Text>
@@ -128,12 +129,13 @@ export default function DeleteAccount({ navigation }){
 
             </View>
 
-    </SafeAreaView>
+    </KeyboardAwareScrollView>
 )}
 
 const styles = StyleSheet.create({
 container:{
-    flex:1,
+    width: '100%',
+    minHeight: '100%',
     justifyContent: 'center',
     backgroundColor: "#FFF"
 
