@@ -1,7 +1,8 @@
-import {View, Text, Button, FlatList, TouchableOpacity, StyleSheet, Image, Dimensions} from 'react-native'
+import {View, Text, Button, FlatList, TouchableOpacity, StyleSheet, Image, Dimensions, Modal} from 'react-native'
 import { app_auth, app_DB } from '../../../firebaseConfig'
 import { doc , collection, query, where, onSnapshot, Firestore, documentId} from 'firebase/firestore'
 import { useEffect, useState} from 'react'
+import { ModalBadge } from '../actionmodal/modalbadge'
 
 export function Badges({ data }) {
     const [Insignias, setInsignias] = useState([]);
@@ -12,6 +13,7 @@ export function Badges({ data }) {
     const [imageHeight, setImageHeight] = useState(109.25)
     const [imageWidth, setImageWidth] = useState(104.5)
     const [margin, setMargin] = useState(12)
+    const [selectedBadge, setSelectedBadge] = useState()
 
     useEffect(()=>{
 
@@ -67,6 +69,11 @@ export function Badges({ data }) {
     }
   })
 
+  const checkBadge = (index) => {
+    setVisible(!visible)
+    setSelectedBadge(Insignias[index])
+  }
+
     return(
         <View style={[styles.container]} >
             <FlatList
@@ -75,7 +82,10 @@ export function Badges({ data }) {
                 numColumns={3}
                 renderItem={({item, index}) => {
                     return(
-                        <View style={styles.thebadge}>
+                        <TouchableOpacity activeOpacity={0.9} 
+                                          style={styles.thebadge}
+                                          onPress={() => checkBadge(index)}
+                        >
                             <Image source={{ uri: item.Imagem }} 
                                    resizeMode='contain' 
                                    style={{width: imageWidth, 
@@ -83,11 +93,18 @@ export function Badges({ data }) {
                                            marginRight: (index + 1) % 3 == 0 ? 0 : margin,
                                          }}
                             />
-                        </View>
+                        </TouchableOpacity>
                     )
                     
                 }}
             />
+            <Modal visible={visible}
+                onRequestClose={checkBadge} 
+                animationType="slide"
+                presentationStyle='pageSheet'
+                >
+                    <ModalBadge checkBadge={checkBadge} data={selectedBadge} />
+            </Modal>
 
         </View>
     )

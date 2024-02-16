@@ -2,10 +2,11 @@ import { View, SafeAreaView, Text, TouchableOpacity, StyleSheet, useState } from
 import { app_auth } from '../../../firebaseConfig'
 import Feather from 'react-native-vector-icons/Feather'
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import { pickImage } from "../../utils/imageUpload"
 
 
 
-export function ActionModal({ handleActionOff, handleAction, navigation, handleName, pickIt }){
+export function ActionModal({ handleActionOff, handleAction, navigation, handleName, userImage }){
 
     return(
         <SafeAreaView style={styles.container} >
@@ -13,7 +14,7 @@ export function ActionModal({ handleActionOff, handleAction, navigation, handleN
 
             <View style={{ backgroundColor: "rgba(0,0,0,0.08)", justifyContent: 'flex-end', borderRadius: 10}} >
                 <View style={styles.content} >
-                    <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={pickIt} >
+                    <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => pickImage(userImage)} >
                         <Text style={styles.action} >Alterar Foto</Text>
                         <Feather name="camera" size={26} />
                     </TouchableOpacity>
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderWidth: 5,
         borderBottomWidth: 10,
-        borderColor: "#B1D3B1",
+        borderColor: "#70D872",
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: 25
@@ -75,14 +76,14 @@ const styles = StyleSheet.create({
     },
     leave:{
         zIndex: 99,
-        backgroundColor: "#FAC6C8",
+        backgroundColor: "#FA787D",
         borderRadius: 15,
         marginTop: 25,
         padding: 10,
         alignItems: 'center',
         borderWidth: 5,
         borderBottomWidth: 10,
-        borderColor: "#F68F92",
+        borderColor: "#E15F64",
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: 25

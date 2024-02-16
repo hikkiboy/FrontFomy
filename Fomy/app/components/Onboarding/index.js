@@ -163,14 +163,14 @@ const styles = StyleSheet.create({
         fontSize: 30,
         marginBottom: 10,
         textAlign:'center',
-        color: 'rgba(0,0,0,0.6)'
+        color: 'rgba(0,0,0,0.75)'
     },
     description:{
         fontWeight: 'bold',
         fontSize: 20,
         textAlign:'center',
         paddingHorizontal: 64,
-        color: 'rgba(0,0,0,0.55)'
+        color: 'rgba(0,0,0,0.6)'
     },
     premiumDesc:{
         fontWeight: '300',
