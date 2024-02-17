@@ -50,8 +50,6 @@ export default function AlterEmail({ navigation }){
             dunnoRef,
             where(documentId(), '==', app_auth.currentUser.uid)
         )
-        
-        return() => subscriver()
     
     },[])
 
