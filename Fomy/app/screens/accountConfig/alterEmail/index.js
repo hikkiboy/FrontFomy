@@ -4,6 +4,7 @@ import { getAuth, reauthenticateWithCredential, EmailAuthProvider, updateEmail, 
 import { collection, deleteDoc, doc, query, where, onSnapshot, documentId } from "firebase/firestore";
 import { useState, useEffect, useLayoutEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Feather from 'react-native-vector-icons/Feather'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -49,8 +50,6 @@ export default function AlterEmail({ navigation }){
             dunnoRef,
             where(documentId(), '==', app_auth.currentUser.uid)
         )
-        
-        return() => subscriver()
     
     },[])
 
@@ -86,7 +85,7 @@ export default function AlterEmail({ navigation }){
     
     return(
 
-    <SafeAreaView style={styles.container} >
+    <KeyboardAwareScrollView contentContainerStyle={styles.container} >
 
 
 
@@ -139,12 +138,13 @@ export default function AlterEmail({ navigation }){
 
         </View>
 
-    </SafeAreaView>
+    </KeyboardAwareScrollView>
 )}
 
 const styles = StyleSheet.create({
     container:{
-        flex:1,
+        width: '100%',
+        minHeight: '100%',
         justifyContent: 'center',
         backgroundColor: "#FFF"
     

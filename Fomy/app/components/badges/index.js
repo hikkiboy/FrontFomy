@@ -57,15 +57,15 @@ export function Badges({ data }) {
     
   useEffect(() => {
     if(width <= 400){
-      console.log("tela pequena")
-      console.log("height: ",height)
-      console.log("width: ",width)
+      //console.log("tela pequena")
+      //console.log("height: ",height)
+      //console.log("width: ",width)
       setImageHeight(97.75)
       setImageWidth(93.5)
     } else {
-        console.log("tela grande");
-        console.log("height: ",height)
-        console.log("width: ",width)
+        //console.log("tela grande");
+        //console.log("height: ",height)
+        //console.log("width: ",width)
     }
   })
 
