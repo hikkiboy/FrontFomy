@@ -35,7 +35,7 @@ export default function Configs ({navigation}){
     return(
     <SafeAreaView style={styles.container} >
 
-        <ScrollView>
+        <ScrollView style={{ minWidth: "100%", minHeight: "100%", marginTop: 50 }} >
             <View style={styles.content} >
                 <Text style={styles.title} >Preferências</Text>
                 <View style={styles.configlist} >
@@ -85,14 +85,13 @@ export default function Configs ({navigation}){
 const styles = StyleSheet.create({
 container:{
     flex:1,
-    backgroundColor: "#FFFFFF"
+    backgroundColor: "#FFFFFF",
 
 },
 content:{
     paddingLeft: 15,
     paddingRight: 15,
     paddingBottom: 35,
-    marginTop: 50,
 },
 title:{
     marginStart: 7,
