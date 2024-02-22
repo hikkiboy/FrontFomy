@@ -9,10 +9,29 @@ const Book = ({navigation}) => {
     const [user, setUser] = useState({})
     const [listing, setListing] = useState([])
     const [trilha, setTrilha] = useState ({})
-    const [whyReact, setWhyReact] = useState()
+    const [whyReact, setWhyReact] = useState([])
+    let colorArray = []
 
-    //const [removed, setRemoved] = useState(0)
-    console.log(app_auth.currentUser.uid)
+    function colorThis(){
+        listing.forEach((item) => {
+            if(item.NomeTrilha == "Básico"){
+                colorArray.push(0)
+                console.log("adicionou Básico")
+            } else if(item.NomeTrilha == "Refeições"){
+                colorArray.push(1)
+                console.log("adicionou Refeição")
+            } else if(item.NomeTrilha == "Doces"){
+                colorArray.push(2)
+                console.log("adicionou Doce")
+            } else if(item.NomeTrilha == "Gourmet"){
+                colorArray.push(3)
+                console.log("adicionou Gourmet")
+            }
+        })
+        setWhyReact(colorArray)
+        console.log("colorArrayyyyyyyy:", whyReact)
+    }
+
     useEffect(() => {
 
         const userRef = collection(app_DB, 'Usuarios')
@@ -36,8 +55,6 @@ const Book = ({navigation}) => {
                     })
                 })
                 setUser(userq[0])
-                console.log(user)
-                console.log(listing)
             
             }
         })
@@ -68,7 +85,6 @@ const Book = ({navigation}) => {
                     })
                 })
                 setTrilha(trilhaq)
-                console.log(trilha)
 
             
             }
@@ -85,7 +101,6 @@ const Book = ({navigation}) => {
         if(user.ReceitasFeitas != undefined || user.ReceitasFeitas != {} || user.ReceitasFeitas != "" || user.ReceitasFeitas != null || user.Cart.ReceitasFeitas == 0){
             try {
                 const listingRef = collection(app_DB, 'Receitas')
-                let colorArray = []
 
                 const q = query(
                     listingRef,
@@ -103,52 +118,28 @@ const Book = ({navigation}) => {
                         })
                     })
                     setListing(listingq)
-                    console.log("------------LISTING------------")
-                    console.log(listing)
-                    console.log("----------LISTING------------")
-                    listing.forEach((item) => {
-                        if(item.NomeTrilha == "Básico"){
-                            colorArray.push(0)
-                            console.log("adicionou Básico")
-                        } else if(item.NomeTrilha == "Refeições"){
-                            colorArray.push(1)
-                            console.log("adicionou Refeição")
-                        } else if(item.NomeTrilha == "Doces"){
-                            colorArray.push(2)
-                            console.log("adicionou Doce")
-                        } else if(item.NomeTrilha == "Gourmet"){
-                            colorArray.push(3)
-                            console.log("adicionou Gourmet")
-                        }
-                    })
-                    setWhyReact(colorArray)
-                    console.log("colorArrayyyyyy:", whyReact)
-                    
-            
-                    
+                    console.log("updated book");
                     }
                 })
 
                 return () => subscriver()
         } catch(error){
-            let interval = setInterval(() => {
-                try{
-                    setListing([])
-                } catch(error){
-                    
-                }
-            }, 400)
-    
-            return () => clearInterval( interval )
+            console.log(error)
         }
         }
 
     },[user])
 
+    useEffect(() => {
+        if( listing.length != 0 && user.ReceitasFeitas != undefined || user.ReceitasFeitas != {} || user.ReceitasFeitas != "" || user.ReceitasFeitas != null || user.Cart.ReceitasFeitas == 0){
+            try{colorThis()} catch(error){console.log(error)}
+        }
+    },[listing, user])
+
     return(
 
         <SafeAreaView style={styles.itemlist} >
-        {listing.length != 0 ? (
+        {listing.length != 0 && whyReact.length != 0 ? (
         <View style={styles.itemlist} >
             <FlatList
                 data={listing}
@@ -156,7 +147,6 @@ const Book = ({navigation}) => {
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item, index }) => (
                     <View style={styles.itemcontainer} >
-                        {console.log("colorArray againnn: ", whyReact)}
                         <TouchableOpacity onPress={() => navigation.navigate('Preparo',{paramKey:[item.Nome, trilha[whyReact[index]].Cor, item.Icone, trilha[whyReact[index]].CorBorda, trilha[whyReact[index]].CorFill]})}>
                             <View style={styles.itemarea} >
                                 <View style={styles.itemarea} >
@@ -187,10 +177,8 @@ const Book = ({navigation}) => {
         ) : (
             <View style={styles.nothing} >
                 <Feather name="shopping-cart" size={175} />
-                <Text style={styles.nothingtxt} >Seu carrinho está vazio.</Text>
-                <TouchableOpacity onPress={() => navigation.goBack()} style={styles.gobackbutton} >
-                    <Text style={styles.gobacktxt} >Voltar</Text>
-                </TouchableOpacity>
+                <Text style={styles.nothingtxt} >Parece que você não fez uma receita ainda</Text>
+                <Text style={styles.nothingtxt} >Faz ai caramba</Text>
             </View>
         )}
     </SafeAreaView>
