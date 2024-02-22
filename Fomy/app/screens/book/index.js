@@ -30,7 +30,7 @@ const Book = ({navigation}) => {
             }
         })
         setWhyReact(colorArray)
-        console.log("colorArrayyyyyyyy:", whyReact)
+        console.log("colorArray:", whyReact)
     }
 
     useEffect(() => {
@@ -125,7 +125,7 @@ const Book = ({navigation}) => {
 
                 return () => subscriver()
         } catch(error){
-            console.log(error)
+            console.log("check here if something is going wrong")
         }
         }
 
