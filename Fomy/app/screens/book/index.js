@@ -2,6 +2,7 @@ import {SafeAreaView, View, Image, StyleSheet, Text,FlatList,TouchableOpacity} f
 import { app, app_DB, app_auth } from '../../../firebaseConfig'
 import { useState, useEffect } from 'react'
 import { Feather } from 'react-native-vector-icons'
+import { FontAwesome5 } from 'react-native-vector-icons'
 import { collection, deleteDoc, doc, query, where, onSnapshot, documentId } from "firebase/firestore";
 
 const Book = ({navigation}) => {
@@ -135,54 +136,54 @@ const Book = ({navigation}) => {
             try{colorThis()} catch(error){console.log(error)}
         }
     },[listing, user])
-
+        
     return(
 
         <SafeAreaView style={styles.itemlist} >
-        {listing.length != 0 && whyReact.length != 0 ? (
-        <View style={styles.itemlist} >
-            <FlatList
-                data={listing}
-                extraData={whyReact}
-                showsVerticalScrollIndicator={false}
-                renderItem={({ item, index }) => (
-                    <View style={styles.itemcontainer} >
-                        <TouchableOpacity onPress={() => navigation.navigate('Preparo',{paramKey:[item.Nome, trilha[whyReact[index]].Cor, item.Icone, trilha[whyReact[index]].CorBorda, trilha[whyReact[index]].CorFill]})}>
-                            <View style={styles.itemarea} >
-                                <View style={styles.itemarea} >
-                                    <Image style={styles.itemimage} source={{ uri : item.Icone }} />
-                                    <View style={styles.itemdetails} >
-                                        <Text style={styles.itemtitle} >{item.Nome}</Text>
+            {listing.length != 0 && whyReact.length != 0 ? (
+                <View style={styles.itemlist} >
+                    <FlatList
+                        data={listing}
+                        extraData={whyReact}
+                        showsVerticalScrollIndicator={false}
+                        renderItem={({ item, index }) => (
+                            <View style={styles.itemcontainer} >
+                                <TouchableOpacity onPress={() => navigation.navigate('Preparo',{paramKey:[item.Nome, trilha[whyReact[index]].Cor, item.Icone, trilha[whyReact[index]].CorBorda, trilha[whyReact[index]].CorFill]})}>
+                                    <View style={styles.itemarea} >
+                                        <View style={styles.itemarea} >
+                                            <Image style={styles.itemimage} source={{ uri : item.Icone }} />
+                                            <View style={styles.itemdetails} >
+                                                <Text style={styles.itemtitle} >{item.Nome}</Text>
+                                                
+                                            </View>
+                                            
+                                        </View>
                                         
                                     </View>
-                                    
-                                </View>
-                                
+                                    </TouchableOpacity>
                             </View>
-                            </TouchableOpacity>
+                            
+                        )}
+                    />
+                    <View style={styles.bottom} >
+                        {/* <TouchableOpacity onPress={() => Buy()} style={styles.buybutton}>
+                            <Text style={styles.buytxt} >Comprar</Text>
+                        </TouchableOpacity> */}
+                        {/* <TouchableOpacity onPress={() => navigation.navigate("Home")} style={styles.backbutton}>
+                            <Text style={styles.buytxt} >Voltar</Text>
+                        </TouchableOpacity> */}
                     </View>
-                    
-                )}
-            />
-            <View style={styles.bottom} >
-                {/* <TouchableOpacity onPress={() => Buy()} style={styles.buybutton}>
-                    <Text style={styles.buytxt} >Comprar</Text>
-                </TouchableOpacity> */}
-                {/* <TouchableOpacity onPress={() => navigation.navigate("Home")} style={styles.backbutton}>
-                    <Text style={styles.buytxt} >Voltar</Text>
-                </TouchableOpacity> */}
-            </View>
-        </View>
+                </View>
         
-        ) : (
-            <View style={styles.nothing} >
-                <Feather name="shopping-cart" size={175} />
-                <Text style={styles.nothingtxt} >Parece que você não fez uma receita ainda</Text>
-                <Text style={styles.nothingtxt} >Faz ai caramba</Text>
-            </View>
-        )}
-    </SafeAreaView>
-)
+            ) : (
+                <View style={styles.nothing} >
+                    <FontAwesome5 name="book" size={175} />
+                    <Text style={styles.nothingtxt} >Seu livro está vazio...</Text>
+                    <Text style={[styles.nothingtxt, {fontSize: 23, marginTop: 70}]} >Faça uma receita para acessa-la facilmente aqui!</Text>
+                </View>
+            )}
+        </SafeAreaView>
+    )
 
     
 }
