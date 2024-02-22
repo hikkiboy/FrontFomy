@@ -9,6 +9,8 @@ const Book = ({navigation}) => {
     const [user, setUser] = useState({})
     const [listing, setListing] = useState([])
     const [trilha, setTrilha] = useState ({})
+    const [whyReact, setWhyReact] = useState()
+
     //const [removed, setRemoved] = useState(0)
     console.log(app_auth.currentUser.uid)
     useEffect(() => {
@@ -76,10 +78,6 @@ const Book = ({navigation}) => {
 
     },[])
 
-    
-   
-
-
     useEffect(() => {
 
         //var cart = user.Cart
@@ -87,6 +85,7 @@ const Book = ({navigation}) => {
         if(user.ReceitasFeitas != undefined || user.ReceitasFeitas != {} || user.ReceitasFeitas != "" || user.ReceitasFeitas != null || user.Cart.ReceitasFeitas == 0){
             try {
                 const listingRef = collection(app_DB, 'Receitas')
+                let colorArray = []
 
                 const q = query(
                     listingRef,
@@ -107,6 +106,23 @@ const Book = ({navigation}) => {
                     console.log("------------LISTING------------")
                     console.log(listing)
                     console.log("----------LISTING------------")
+                    listing.forEach((item) => {
+                        if(item.NomeTrilha == "Básico"){
+                            colorArray.push(0)
+                            console.log("adicionou Básico")
+                        } else if(item.NomeTrilha == "Refeições"){
+                            colorArray.push(1)
+                            console.log("adicionou Refeição")
+                        } else if(item.NomeTrilha == "Doces"){
+                            colorArray.push(2)
+                            console.log("adicionou Doce")
+                        } else if(item.NomeTrilha == "Gourmet"){
+                            colorArray.push(3)
+                            console.log("adicionou Gourmet")
+                        }
+                    })
+                    setWhyReact(colorArray)
+                    console.log("colorArrayyyyyy:", whyReact)
                     
             
                     
@@ -129,9 +145,6 @@ const Book = ({navigation}) => {
 
     },[user])
 
-    console.log("----------------------thingamabob---------------")
-    console.log(listing[0].NomeTrilha)
-
     return(
 
         <SafeAreaView style={styles.itemlist} >
@@ -139,10 +152,12 @@ const Book = ({navigation}) => {
         <View style={styles.itemlist} >
             <FlatList
                 data={listing}
+                extraData={whyReact}
                 showsVerticalScrollIndicator={false}
-                renderItem={({ item }) => (
+                renderItem={({ item, index }) => (
                     <View style={styles.itemcontainer} >
-                        <TouchableOpacity onPress={() => navigation.navigate('Preparo',{paramKey:[item.Nome, cor, item.Icone, borderColor, Fill]})}>
+                        {console.log("colorArray againnn: ", whyReact)}
+                        <TouchableOpacity onPress={() => navigation.navigate('Preparo',{paramKey:[item.Nome, trilha[whyReact[index]].Cor, item.Icone, trilha[whyReact[index]].CorBorda, trilha[whyReact[index]].CorFill]})}>
                             <View style={styles.itemarea} >
                                 <View style={styles.itemarea} >
                                     <Image style={styles.itemimage} source={{ uri : item.Icone }} />
