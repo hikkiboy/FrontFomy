@@ -120,7 +120,7 @@ useEffect(() => {
 
         {item.NomeTrilha == "Gourmet" && prem == true &&  (
             <>
-              <TouchableOpacity onPress={ () => navigation.navigate("Trilha", {paramKey:[item.NomeTrilha, item.Descricao, item.Cor]})} style = {[styles.buttonRegistro, {borderColor: item.CorBorda, backgroundColor: item.CorFill}]} title = 'Registrar' >
+              <TouchableOpacity onPress={ () => navigation.navigate("Trilha", {paramKey:[item.NomeTrilha, item.Descricao, item.Cor, item.CorBorda, item.CorFill]})} style = {[styles.buttonRegistro, {borderColor: item.CorBorda, backgroundColor: item.CorFill}]} title = 'Registrar' >
                 <Text style={[styles.botaoTexto]}>Entrar</Text>
               </TouchableOpacity>
             </> 
@@ -130,7 +130,7 @@ useEffect(() => {
 
         {item.NomeTrilha != "Gourmet" &&  (
             <>
-              <TouchableOpacity onPress={ () => navigation.navigate("Trilha", {paramKey:[item.NomeTrilha, item.Descricao, item.Cor]})} style = {[styles.buttonRegistro, {borderColor: item.CorBorda, backgroundColor: item.CorFill }]} title = 'Registrar' >
+              <TouchableOpacity onPress={ () => navigation.navigate("Trilha", {paramKey:[item.NomeTrilha, item.Descricao, item.Cor, item.CorBorda, item.CorFill ]})} style = {[styles.buttonRegistro, {borderColor: item.CorBorda, backgroundColor: item.CorFill }]} title = 'Registrar' >
                 <Text style={[styles.botaoTexto]}>Entrar</Text>
               </TouchableOpacity>
             </>
@@ -159,16 +159,18 @@ const styles = StyleSheet.create({
         display: 'flex'
     },
     title:{
-        fontWeight: '800',
-        fontSize: 28,
+        fontWeight: 'bold',
+        fontSize: 30,
         marginBottom: 10,
         textAlign:'center',
+        color: 'rgba(0,0,0,0.75)'
     },
     description:{
-        fontWeight: '300',
+        fontWeight: 'bold',
         fontSize: 20,
         textAlign:'center',
-        paddingHorizontal: 64
+        paddingHorizontal: 64,
+        color: 'rgba(0,0,0,0.6)'
     },
     premiumDesc:{
         fontWeight: '300',

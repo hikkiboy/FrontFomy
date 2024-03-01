@@ -4,6 +4,7 @@ import { getAuth, reauthenticateWithCredential, EmailAuthProvider, updatePasswor
 import { collection, deleteDoc, doc, query, where, onSnapshot, documentId } from "firebase/firestore";
 import { useState, useEffect, useLayoutEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Feather from 'react-native-vector-icons/Feather'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
@@ -16,8 +17,8 @@ export default function AlterPassword({ navigation }){
         navigation.setOptions({
             header: () => (
                 <SafeAreaView style={{ flex: 1, display: 'flex'}} >
-                    <View style={{ width: "100%", height: 65, backgroundColor: "rgba(0,0,0,0.18)" }} >
-                        <View style={{width: "100%", height: 55, backgroundColor: "#FFF", flexDirection: 'row', alignItems: 'center' }} >
+                    <View style={{ width: "100%", height: 65, backgroundColor: "rgba(0,0,0,0.1)", borderRadius: 10 }} >
+                        <View style={{width: "100%", height: 55, backgroundColor: "#FFF", flexDirection: 'row', alignItems: 'center', borderRadius: 10 }} >
                             <TouchableOpacity style={{ width: "8.5%", marginStart: 10 }} onPress={() => navigation.goBack()} ><Feather name="chevron-left" size={28} /></TouchableOpacity>
                             <View style={{ alignSelf: 'center', justifyContent: 'center', width: "100%", position: 'absolute' }} >
                                 <Text style={{ fontSize: 24, fontWeight: 'bold', alignSelf: 'center', position: 'absolute' }} >Alterar Senha</Text>
@@ -85,14 +86,14 @@ export default function AlterPassword({ navigation }){
             // User re-authenticated.
                 updatePassword(auth.currentUser, novaSenha).then(() => {
                     // Changes password to the one typed.
-                    console.log('hell yeah')
+                    //console.log('hell yeah')
                     alert('Senha alterada com sucesso!')
                   })
             
           }).catch((error) => {
             // An error ocurred
             // ...
-            console.log('Senha Errada')
+            //console.log('Senha Errada')
             alert('Senha errada!!! >:(')
           });
 
@@ -100,7 +101,7 @@ export default function AlterPassword({ navigation }){
     
     return(
 
-    <SafeAreaView style={styles.container} >
+    <KeyboardAwareScrollView contentContainerStyle={styles.container} >
 
 
 
@@ -141,16 +142,17 @@ export default function AlterPassword({ navigation }){
 
             </View>
 
-    </SafeAreaView>
+    </KeyboardAwareScrollView>
 )}
 
 const styles = StyleSheet.create({
-container:{
-    flex:1,
-    justifyContent: 'center',
-    backgroundColor: "#FFF"
-
-},
+    container:{
+        width: '100%',
+        minHeight: '100%',
+        justifyContent: 'center',
+        backgroundColor: "#FFF"
+    
+    },
 inputarea:{
     marginStart: 6,
     marginEnd: 6,

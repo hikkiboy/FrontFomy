@@ -7,10 +7,8 @@ import { Entypo } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
 
 import { FontAwesome } from '@expo/vector-icons';
-import { View } from "react-native";
+import { Platform } from "react-native";
 import Profile from "../screens/profile";
-import Doces from "../screens/Trilhas/Doces";
-import Basico from "../screens/Trilhas/Basico";
 import Login from "../screens/initial";
 import LoginPage from "../screens/login";
 import Cadastro from "../screens/cadastro";
@@ -43,11 +41,9 @@ export default function Routes({ loggedIn, loading }) {
   React.useEffect(() => {
     if(loading == false) {
       if(loggedIn){
-        console.log("Logged in for Routes")
-        navigation.navigate("HomeStart", { screen: "Home" })
         setInitialRoute("HomeStart")
+        setTimeout(() => {navigation.navigate("HomeStart", { screen: "Home" })}, 220)
       } else {
-        console.log("Not logged in for Routes")
         navigation.navigate("Login")
         setInitialRoute("Login")
       }
@@ -84,12 +80,12 @@ export default function Routes({ loggedIn, loading }) {
       <Stack.Screen
         name="Login"
         component={Login}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, gestureEnabled: false }}
       />
       <Stack.Screen
         name="HomeStart"
         component={TabNavigatior}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, gestureEnabled: false }}
       />
        <Stack.Screen
         name="Onboarding"
@@ -178,11 +174,13 @@ export function TabNavigatior() {
       tabBarShowLabel: false,
       tabBarStyle:{
         backgroundColor: '#FFF',
-        height: 70,
+        height: Platform.OS === 'ios' ? 100 : 70,
         borderTopStartRadius: 20,
         borderTopEndRadius: 20,
         borderTopWidth: 0,
-        position: 'absolute'
+        position: 'absolute',
+        alignItems: 'center',
+        justifyContent: 'center'
       },
     }}
    >

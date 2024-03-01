@@ -1,16 +1,27 @@
-import {View, Text, Button, FlatList, TouchableOpacity, StyleSheet, Image} from 'react-native'
+import {View, Text, Button, FlatList, TouchableOpacity, StyleSheet, Image, Dimensions, Modal} from 'react-native'
 import { app_auth, app_DB } from '../../../firebaseConfig'
 import { doc , collection, query, where, onSnapshot, Firestore, documentId} from 'firebase/firestore'
 import { useEffect, useState} from 'react'
+import { ModalBadge } from '../actionmodal/modalbadge'
 
 export function Badges({ data }) {
     const [Insignias, setInsignias] = useState([]);
+    const [visible, setVisible] = useState(false)
+    
+    const height = Dimensions.get("window").height
+    const width = Dimensions.get("window").width
+    const [imageHeight, setImageHeight] = useState(109.25)
+    const [imageWidth, setImageWidth] = useState(104.5)
+    const [margin, setMargin] = useState(12)
+    const [selectedBadge, setSelectedBadge] = useState()
 
     useEffect(()=>{
 
         if(data.Insignias[0] != "" ){
     
         const insigniasRef = collection(app_DB, 'Insignias')
+
+       
     
         const q = query(
             insigniasRef,
@@ -31,7 +42,6 @@ export function Badges({ data }) {
                     })
                 })
                 setInsignias(insignias)
-                console.log(Insignias)
 
 
     
@@ -41,24 +51,60 @@ export function Badges({ data }) {
         return() => subscriver()
     }
     
-    },[])
+    }
+    ,[])
+
+    
+  useEffect(() => {
+    if(width <= 400){
+      //console.log("tela pequena")
+      //console.log("height: ",height)
+      //console.log("width: ",width)
+      setImageHeight(97.75)
+      setImageWidth(93.5)
+    } else {
+        //console.log("tela grande");
+        //console.log("height: ",height)
+        //console.log("width: ",width)
+    }
+  })
+
+  const checkBadge = (index) => {
+    setVisible(!visible)
+    setSelectedBadge(Insignias[index])
+  }
 
     return(
-        <View style={styles.container} >
+        <View style={[styles.container]} >
             <FlatList
-                style={{ flexDirection: 'row', alignItems: 'center' }}
                 data={Insignias}
-                renderItem={({item}) => {
+                scrollEnabled={false}
+                numColumns={3}
+                renderItem={({item, index}) => {
                     return(
-                        <View style={styles.thebadge}>
-                            <Image source={{ uri: item.Imagem }} style={styles.image} />
-                            <Text style={styles.text} >{item.Titulo}</Text>
-                        </View>
-                   )
+                        <TouchableOpacity activeOpacity={0.9} 
+                                          style={styles.thebadge}
+                                          onPress={() => checkBadge(index)}
+                        >
+                            <Image source={{ uri: item.Imagem }} 
+                                   resizeMode='contain' 
+                                   style={{width: imageWidth, 
+                                           height: imageHeight, 
+                                           marginRight: (index + 1) % 3 == 0 ? 0 : margin,
+                                         }}
+                            />
+                        </TouchableOpacity>
+                    )
                     
                 }}
-                keyExtractor={item => item.key}
             />
+            <Modal visible={visible}
+                onRequestClose={checkBadge} 
+                animationType="slide"
+                presentationStyle='pageSheet'
+                >
+                    <ModalBadge checkBadge={checkBadge} data={selectedBadge} />
+            </Modal>
 
         </View>
     )
@@ -70,27 +116,12 @@ export function Badges({ data }) {
 
 const styles = StyleSheet.create({
     container:{
-        flex: 1,
         alignItems: 'center',
-        paddingStart: 20,
-        paddingEnd: 20,
-        marginTop: 15
-    },
-    image:{
-        width: 100,
-        height: 100,
-        marginHorizontal: '2.5%'
+        marginVertical: 20,
+        marginTop: 24.25
     },
     thebadge:{
-        alignItems: 'center'
+        alignItems: 'center',
     },
-    text:{
-        fontSize: 16,
-        fontWeight: '500',
-        width: 110,
-        textAlign: 'center',
-        position: 'absolute',
-        marginTop: 125
-    }
 
 })

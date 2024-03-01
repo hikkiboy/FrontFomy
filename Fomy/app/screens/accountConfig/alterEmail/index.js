@@ -4,6 +4,7 @@ import { getAuth, reauthenticateWithCredential, EmailAuthProvider, updateEmail, 
 import { collection, deleteDoc, doc, query, where, onSnapshot, documentId } from "firebase/firestore";
 import { useState, useEffect, useLayoutEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Feather from 'react-native-vector-icons/Feather'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -18,8 +19,8 @@ export default function AlterEmail({ navigation }){
         navigation.setOptions({
             header: () => (
                 <SafeAreaView style={{ flex: 1, display: 'flex' }} >
-                    <View style={{ width: "100%", height: 65, backgroundColor: "rgba(0,0,0,0.18)" }} >
-                        <View style={{width: "100%", height: 55, backgroundColor: "#FFF", flexDirection: 'row', alignItems: 'center' }} >
+                    <View style={{ width: "100%", height: 65, backgroundColor: "rgba(0,0,0,0.1)", borderRadius: 10 }} >
+                        <View style={{width: "100%", height: 55, backgroundColor: "#FFF", flexDirection: 'row', alignItems: 'center', borderRadius: 10 }} >
                             <TouchableOpacity style={{ width: "8.5%", marginStart: 10 }} onPress={() => navigation.goBack()} ><Feather name="chevron-left" size={28} /></TouchableOpacity>
                             <View style={{ alignSelf: 'center', justifyContent: 'center', width: "100%", position: 'absolute' }} >
                                 <Text style={{ fontSize: 24, fontWeight: 'bold', alignSelf: 'center', position: 'absolute' }} >Alterar E-mail</Text>
@@ -49,8 +50,6 @@ export default function AlterEmail({ navigation }){
             dunnoRef,
             where(documentId(), '==', app_auth.currentUser.uid)
         )
-        
-        return() => subscriver()
     
     },[])
 
@@ -71,14 +70,14 @@ export default function AlterEmail({ navigation }){
                 updateEmail(auth.currentUser, novoEmail).then(() => {
                     // Email updated!
                     // ...
-                    console.log('Hell yeah')
+                    //console.log('Hell yeah')
                     alert('E-mail alterado com sucesso!')
                   })
             
           }).catch((error) => {
             // An error ocurred
             // ...
-            console.log('E-mail ou Senha errados')
+            //console.log('E-mail ou Senha errados')
             alert('E-mail ou Senha errado!!! >:(')
           });
 
@@ -86,7 +85,7 @@ export default function AlterEmail({ navigation }){
     
     return(
 
-    <SafeAreaView style={styles.container} >
+    <KeyboardAwareScrollView contentContainerStyle={styles.container} >
 
 
 
@@ -139,12 +138,13 @@ export default function AlterEmail({ navigation }){
 
         </View>
 
-    </SafeAreaView>
+    </KeyboardAwareScrollView>
 )}
 
 const styles = StyleSheet.create({
     container:{
-        flex:1,
+        width: '100%',
+        minHeight: '100%',
         justifyContent: 'center',
         backgroundColor: "#FFF"
     

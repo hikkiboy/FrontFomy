@@ -12,8 +12,8 @@ export default function Configs ({navigation}){
         navigation.setOptions({
             header: () => (
                 <SafeAreaView style={{ flex: 1, display: 'flex' }} >
-                    <View style={{ width: "100%", height: 65, backgroundColor: "rgba(0,0,0,0.18)" }} >
-                        <View style={{width: "100%", height: 55, backgroundColor: "#FFF", flexDirection: 'row', alignItems: 'center' }} >
+                    <View style={{ width: "100%", height: 65, backgroundColor: "rgba(0,0,0,0.1)", borderRadius: 10 }} >
+                        <View style={{width: "100%", height: 55, backgroundColor: "#FFF", flexDirection: 'row', alignItems: 'center', borderRadius: 10 }} >
                             <TouchableOpacity style={{ width: "8.5%", marginStart: 10 }} onPress={() => navigation.goBack()} ><Feather name="chevron-left" size={28} /></TouchableOpacity>
                             <View style={{ alignSelf: 'center', justifyContent: 'center', width: "100%", position: 'absolute' }} >
                                 <Text style={{ fontSize: 24, fontWeight: 'bold', alignSelf: 'center', position: 'absolute' }} >Configurações</Text>
@@ -35,7 +35,7 @@ export default function Configs ({navigation}){
     return(
     <SafeAreaView style={styles.container} >
 
-        <ScrollView>
+        <ScrollView style={{ minWidth: "100%", minHeight: "100%", marginTop: 50 }} >
             <View style={styles.content} >
                 <Text style={styles.title} >Preferências</Text>
                 <View style={styles.configlist} >
@@ -85,14 +85,13 @@ export default function Configs ({navigation}){
 const styles = StyleSheet.create({
 container:{
     flex:1,
-    backgroundColor: "#FFFFFF"
+    backgroundColor: "#FFFFFF",
 
 },
 content:{
     paddingLeft: 15,
     paddingRight: 15,
     paddingBottom: 35,
-    marginTop: 65,
 },
 title:{
     marginStart: 7,
@@ -143,13 +142,13 @@ deletearea:{
 },
 delete:{
     zIndex: 99,
-    backgroundColor: "#FAC6C8",
+    backgroundColor: "#FA787D",
     borderRadius: 15,
     padding: 10,
     alignItems: 'center',
     borderWidth: 5,
     borderBottomWidth: 10,
-    borderColor: "#F68F92",
+    borderColor: "#E15F64",
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 25

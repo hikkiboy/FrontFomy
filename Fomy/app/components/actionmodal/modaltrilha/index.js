@@ -3,18 +3,14 @@ import { Button } from "react-native-elements"
 import { Route } from '@react-navigation/native';
 import { useEffect, useState } from "react";
 import { collection, onSnapshot, query, where, orderBy,documentId } from "firebase/firestore";
-import { Feather } from "react-native-vector-icons"
-
- 
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5"
 
 
-
-export function ModalTrilha({ handleAction, data, navigation, cor }){
-    console.log(data)
+export function ModalTrilha({ handleAction, data, navigation, cor, bg, setBg, borderColor, Fill }){
 
     return(
-        <SafeAreaView style={styles.container} >
-            <TouchableOpacity style={{ flex: 1, zIndex: 9 }} onPress={handleAction} ></TouchableOpacity>
+        <SafeAreaView style={[styles.container, {backgroundColor: bg}]} >
+            <TouchableOpacity style={{ flex: 1, zIndex: 9 }} onPress={() => {setTimeout(() => {setBg()}, 100); setTimeout(() => {handleAction()}, 120)}} ></TouchableOpacity>
 
             <View style={styles.content} >
                 <View style={styles.title} >
@@ -23,7 +19,7 @@ export function ModalTrilha({ handleAction, data, navigation, cor }){
                 </View>
                 <View style={styles.blwtitle} >
                     <View style={styles.iconarea} >
-                        <Image style={styles.icon} tintColor={cor} source={{uri : data.Icone}}/>
+                        <Image style={styles.icon} source={{uri : data.Icone}}/>
                     </View>
                     <View style={styles.stats} >
                         <View style={styles.statarea} >
@@ -35,28 +31,29 @@ export function ModalTrilha({ handleAction, data, navigation, cor }){
                             <Text style={styles.textostats}>+{data.Exp} Exp</Text>
                         </View>
                         <View style={styles.statarea} >
-                            <Feather style={styles.clock} color={"#6EACEF"} name="clock" size={25} />
+                            <FontAwesome5 style={styles.clock} color={"#6EACEF"} name="clock" size={25} />
                             <Text style={styles.textostats}>{data.Tempo} min</Text>
                         </View>
                     </View>
                 </View>
-                <View style={[{ marginTop: 20, backgroundColor: cor, width: '98%', height: 47, borderRadius: 15, zIndex: 4, alignSelf: 'center' }]} >
-                 
-                   <TouchableOpacity style={[{
-                        backgroundColor: cor,
-                        height: '90%',
+                <View style={[{ marginTop: 15, backgroundColor: borderColor, width: '100%', borderRadius: 15, zIndex: 4, marginBottom: 2 }]} >
+                    <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: Fill, position: 'absolute', borderRadius: 15, marginTop: 2 }]} />
+
+                    <TouchableOpacity style={[{
+                        backgroundColor:cor,
+                        paddingVertical: 4,
                         borderRadius: 15,
+                        borderWidth: 4,
+                        borderColor: Fill,
                         alignItems: 'center',
                         justifyContent: 'center',
                         zIndex: 5,
-                        borderColor: "rgba(0,0,0,0.01)", 
-                        borderWidth: 4
                         }]}  
-                        onPress={ () => navigation.navigate('Preparo',{paramKey:[data.Nome, cor, data.Icone]})}
+                        onPress={ () => {setBg(); setTimeout(() => {handleAction(); navigation.navigate('Preparo',{paramKey:[data.Nome, cor, data.Icone, borderColor, Fill]})}, 1)}}
+                        activeOpacity={0.8}
                     >
-                        <Text style={styles.buttonsee} >Começar!</Text>
+                        <Text style={styles.buttonsee} >Ver receita</Text>
                     </TouchableOpacity>
-                    <View style={[{ backgroundColor: 'rgba(0,0,0,0.15)', height: '100%', width: '100%', position: 'absolute', borderRadius: 15, zIndex: 4 }]} ></View>
                 </View>
             </View>
 
@@ -81,9 +78,9 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 15
     },
     buttonsee:{
-      color: "rgba(0,0,0,0.6)",
-      fontSize: 22,
-      fontWeight: 'bold'
+      color: "#FFF",
+      fontSize: 23,
+      fontWeight: 'bold',
   
     },
     action:{

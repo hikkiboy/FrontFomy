@@ -1,10 +1,12 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Alert, Dimensions, BackHandler } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Alert, Dimensions, BackHandler, Platform } from 'react-native';
 import React, { useState, useEffect } from 'react'
 import { app_auth } from '../../../firebaseConfig'
 import { Logo } from '../../components/logo';
 import { AntDesign } from '@expo/vector-icons'; 
 import { Octicons } from '@expo/vector-icons'; 
 import { useIsFocused } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
+import * as NavigationBar from 'expo-navigation-bar'
 
 
 
@@ -20,11 +22,15 @@ const Login = ({navigation}) => {
   const [googleWidth, setGoogleWidth] = useState(32)
   const [ tinyText, setTinyText ] = useState(23);
 
+  if(Platform.OS === 'android'){
+    NavigationBar.setBackgroundColorAsync('#FFF');
+  }
+
   const isFocused = useIsFocused();
 
   useEffect(() => {
     if(isFocused){
-        console.log("focado inicial")
+        //console.log("focado inicial")
         const backAction = () => {
             BackHandler.exitApp()
             return true;
@@ -42,8 +48,8 @@ const Login = ({navigation}) => {
   
   useEffect(() => {
     if(height <= 700){
-      console.log("tela pequena")
-      console.log(height)
+      //console.log("tela pequena")
+      //console.log(height)
       setStuffHeight(75)
       setImageHeight(180.04)
       setImageWidth(165.76)
@@ -56,6 +62,14 @@ const Login = ({navigation}) => {
 
     return (
         <SafeAreaView style={styles.container} >
+          { Platform.OS === 'ios' ? (
+            <>
+              <StatusBar style='auto'/>
+            </>
+          ):(
+            <>
+            </>
+          )}
 
           <Image style={[styles.logo, { width: imageWidth, height: imageHeight }]} source={require("../../assets/logo-full.png")} />
     

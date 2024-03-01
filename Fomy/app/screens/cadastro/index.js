@@ -28,6 +28,7 @@ const Cadastro = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [nome, setNome] = useState('');
+    const [bg, setBg] = useState();
     const [loading, setLoading] = useState(false);
     const [created, setCreated] = useState(false);
     const [problem, setProblem] = useState(false);
@@ -36,8 +37,8 @@ const Cadastro = ({ navigation }) => {
 
     useEffect(() => {
       if(height <= 700){
-        console.log("tela pequena");
-        console.log(height);
+        //console.log("tela pequena");
+        //console.log(height);
         setStuffHeight(65);
         setImageHeight(144.032);
         setImageWidth(132.608);
@@ -49,11 +50,19 @@ const Cadastro = ({ navigation }) => {
 
       const SignUp = async () => {
         setLoading(true)
+        setTimeout(() => {
+          setBg("rgba(0,0,0,0.1)");
+        }, 250)
         setCreated(false)
         if(nome == "" || senha == "" || email == "" ){
+            setTimeout(() => {
+              setBg();
+              setLoading(false);
+            }, 200);
             setWhatError("Preencha todos os campos!")
-            setProblem(true)
-            setLoading(false)
+            setTimeout(() => {
+              setProblem(true);
+            }, 200);
         } else {
           try{
             
@@ -63,7 +72,7 @@ const Cadastro = ({ navigation }) => {
             const docRef = await setDoc(doc(app_DB, "Usuarios", response.user.uid), {
               Alergias:[],
               Exp : 0,
-              Foto : "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Default-Profile-Picture-PNG-Photo-3895174684.png?alt=media&token=f70e36af-2857-405f-b307-5e7abe35f347",
+              Foto : "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Pfps%2Falbertobutpfp.png?alt=media&token=d75260c5-3ad6-4142-a202-4d127b293cf4",
               Itens: [],
               Moedas: 0,
               Nivel: 1,
@@ -72,21 +81,27 @@ const Cadastro = ({ navigation }) => {
               ReceitasFeitas: [],
               Insignias: ["Beta"],
               Titulo: "Iniciante",
-              Basico: 0,
+              Básico: 0,
               Doces: 0,
               Gourmet: 0,
               Refeições: 0
 
             })
 
-            setCreated(true)
+            setCreated(true);
             setTimeout(() => {
-              setLoading(false);
-            }, 500);      
+              setBg();
+              setTimeout(() => {setLoading(false);}, 20);
+            }, 185);     
     
           } catch (error) {
-            setProblem(true)
-            setLoading(false)
+            setTimeout(() => {
+              setBg();
+              setLoading(false);
+            }, 200);
+            setTimeout(() => {
+              setProblem(true);
+            }, 200);
             console.log("erro: "+error)
             if(error == "FirebaseError: Firebase: Error (auth/invalid-email)."){
               setWhatError("Email inválido!")
@@ -106,35 +121,65 @@ const Cadastro = ({ navigation }) => {
         {/* scroll views are fucking STUPID, specially keyboard avoiding ones */}
         {/* nvm, I found a way using (minHeight: "100%", width: "100%") instead of (flex: 1) */}
 
-        <Modal
-          visible={loading}
-          animationType="fade"
-          transparent={true}
-        >
-          <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', backgroundColor: "rgba(0,0,0,0.10)", zIndex: 98 }} ></View>
-        </Modal>
-        <Modal
-          visible={loading}
-          animationType="slide"
-          transparent={true}
-        >
-          <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', zIndex: 99, alignItems: 'center' }} >
-            <View style={{ backgroundColor: "#FFF", height: "30%", width: "100%", borderTopLeftRadius: 25, borderTopRightRadius: 25, alignItems: 'center' }} >
-              <View style={{ alignItems: 'center', width: "100%", height: "25%", justifyContent: 'center'  }} >
-                <Text style={{ textAlign: 'center', fontSize: 25, fontWeight: '800' }} >{ created ?  ("Perfil criado!") : ("Criando perfil...")}</Text>
-              </View>
-              <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'center' }} >
-                { created ?  (
-                    <Feather name="check" size={120} color="#70d872" />
-                  ) : (
-                    <ActivityIndicator size={90} color="#70d872" />
-                  )
-                }
-              </View>
+        { Platform.OS === 'ios' ? (
+          <>
+              <Modal
+                visible={loading}
+                animationType="slide"
+                transparent={true}
+              >
+                <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', zIndex: 99, alignItems: 'center', backgroundColor: bg }} >
+                  <View style={{ backgroundColor: "#FFF", height: 275, width: "100%", borderTopLeftRadius: 25, borderTopRightRadius: 25, alignItems: 'center' }} >
+                    <View style={{ alignItems: 'center', width: "100%", height: "25%", justifyContent: 'center'  }} >
+                      <Text style={{ textAlign: 'center', fontSize: 25, fontWeight: '800' }} >{ created ?  ("Perfil criado!") : ("Criando perfil...")}</Text>
+                    </View>
+                    <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'center' }} >
+                      { created ?  (
+                          <Feather name="check" size={120} color="#70d872" />
+                        ) : (
+                          <ActivityIndicator color="#70d872" />
+                        )
+                      }
+                    </View>
 
-            </View>
-          </View>
-        </Modal>
+                  </View>
+                </View>
+              </Modal>
+          </>
+          ) : (
+            <>
+            <Modal
+              visible={loading}
+              animationType="fade"
+              transparent={true}
+            >
+              <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', backgroundColor: "rgba(0,0,0,0.10)", zIndex: 98 }} ></View>
+            </Modal>
+            <Modal
+              visible={loading}
+              animationType="slide"
+              transparent={true}
+            >
+              <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', zIndex: 99, alignItems: 'center' }} >
+                <View style={{ backgroundColor: "#FFF", height: 275, width: "100%", borderTopLeftRadius: 25, borderTopRightRadius: 25, alignItems: 'center' }} >
+                  <View style={{ alignItems: 'center', width: "100%", height: "25%", justifyContent: 'center'  }} >
+                    <Text style={{ textAlign: 'center', fontSize: 25, fontWeight: '800' }} >{ created ?  ("Perfil criado!") : ("Criando perfil...")}</Text>
+                  </View>
+                  <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'center' }} >
+                    { created ?  (
+                        <Feather name="check" size={120} color="#70d872" />
+                      ) : (
+                        <ActivityIndicator size={90} color="#70d872" />
+                      )
+                    }
+                  </View>
+
+                </View>
+              </View>
+            </Modal>
+          </>
+          )
+          }
 
         <Modal
           visible={problem}

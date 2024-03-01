@@ -1,5 +1,6 @@
 import { View, Text, TouchableOpacity, StyleSheet, TextInput, Image } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { app_auth, app_BKT, app_DB} from '../../../firebaseConfig'
 import { getAuth, reauthenticateWithCredential, EmailAuthProvider, deleteUser } from "firebase/auth";
 import { collection, deleteDoc, doc, query, where, onSnapshot, documentId } from "firebase/firestore";
@@ -18,8 +19,8 @@ export default function DeleteAccount({ navigation }){
         navigation.setOptions({
             header: () => (
                 <SafeAreaView style={{ flex: 1, display: 'flex' }} >
-                <View style={{ width: "100%", height: 65, backgroundColor: "rgba(0,0,0,0.18)" }} >
-                    <View style={{width: "100%", height: 55, backgroundColor: "#FFF", flexDirection: 'row', alignItems: 'center' }} >
+                <View style={{ width: "100%", height: 65, backgroundColor: "rgba(0,0,0,0.1)", borderRadius: 10 }} >
+                    <View style={{width: "100%", height: 55, backgroundColor: "#FFF", flexDirection: 'row', alignItems: 'center', borderRadius: 10 }} >
                         <TouchableOpacity style={{ width: "8.5%", marginStart: 10 }} onPress={() => navigation.goBack()} ><Feather name="chevron-left" size={28} /></TouchableOpacity>
                         <View style={{ alignSelf: 'center', justifyContent: 'center', width: "100%", position: 'absolute' }} >
                             <Text style={{ fontSize: 24, fontWeight: 'bold', alignSelf: 'center', position: 'absolute' }} >Deletar Conta</Text>
@@ -92,14 +93,14 @@ export default function DeleteAccount({ navigation }){
           }).catch((error) => {
             // An error ocurred
             // ...
-            console.log('Não foi dessa vez :(')
+            //console.log('Não foi dessa vez :(')
           });
 
     }
     
     return(
 
-    <SafeAreaView style={styles.container}>
+    <KeyboardAwareScrollView contentContainerStyle={styles.container}>
 
         <Image style={styles.depressoberto} source={require('../../assets/adepressoberto.png')}/>
         <Text style={styles.depressoDialogue}>Vamos sentir sua falta...</Text>
@@ -128,12 +129,13 @@ export default function DeleteAccount({ navigation }){
 
             </View>
 
-    </SafeAreaView>
+    </KeyboardAwareScrollView>
 )}
 
 const styles = StyleSheet.create({
 container:{
-    flex:1,
+    width: '100%',
+    minHeight: '100%',
     justifyContent: 'center',
     backgroundColor: "#FFF"
 
@@ -192,13 +194,13 @@ deletearea:{
 },
 delete:{
     zIndex: 99,
-    backgroundColor: "#FAC6C8",
+    backgroundColor: "#FA787D",
     borderRadius: 15,
     padding: 10,
     alignItems: 'center',
     borderWidth: 5,
     borderBottomWidth: 10,
-    borderColor: "#F68F92",
+    borderColor: "#E15F64",
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 25
