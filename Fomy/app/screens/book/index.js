@@ -5,6 +5,8 @@ import { Feather } from 'react-native-vector-icons'
 import { FontAwesome5 } from 'react-native-vector-icons'
 import { collection, deleteDoc, doc, query, where, onSnapshot, documentId } from "firebase/firestore";
 
+//ASLKDMASFMALGMLGSA
+
 const Book = ({navigation}) => {
 
     const [user, setUser] = useState({})
