@@ -1,5 +1,6 @@
 import {SafeAreaView, View, Image, StyleSheet, Text,FlatList,TouchableOpacity, TextInput} from 'react-native'
 import { app, app_DB, app_auth } from '../../../firebaseConfig'
+import { onAuthStateChanged } from "firebase/auth"
 import { useState, useEffect } from 'react'
 import { search } from './search'
 import { Feather } from 'react-native-vector-icons'
@@ -39,32 +40,39 @@ const Book = ({navigation}) => {
 
     useEffect(() => {
 
-        const userRef = collection(app_DB, 'Usuarios')
-    
-        const q = query(
-            userRef,
-            where(documentId(), '==', app_auth.currentUser.uid)
-        )
-    
+        const login = onAuthStateChanged(app_auth, () => {
+            try {
+            const userRef = collection(app_DB, 'Usuarios')
         
-    
-        const subscriver = onSnapshot(q, {
-            next : (snapshot) => {
-                const userq = []
-                
-                snapshot.docs.forEach(doc =>{
-                    userq.push({
-                        key : doc.id,
-                        ...doc.data(),
-                       
-                    })
-                })
-                setUser(userq[0])
+            const q = query(
+                userRef,
+                where(documentId(), '==', app_auth.currentUser.uid)
+            )
+        
             
+        
+            const subscriver = onSnapshot(q, {
+                next : (snapshot) => {
+                    const userq = []
+                    
+                    snapshot.docs.forEach(doc =>{
+                        userq.push({
+                            key : doc.id,
+                            ...doc.data(),
+                        
+                        })
+                    })
+                    setUser(userq[0])
+                    console.log("book usered: ", userq[0].Nome);
+                }
+            })
+
+            return () => subscriver()
+            } catch(error){
+                console.log("stilldontcare");
             }
         })
-
-          return () => subscriver()
+        return () => login();
 
     },[])
 
@@ -103,43 +111,55 @@ const Book = ({navigation}) => {
 
         //var cart = user.Cart
 
-        if(user.ReceitasFeitas != undefined || user.ReceitasFeitas != {} || user.ReceitasFeitas != "" || user.ReceitasFeitas != null || user.Cart.ReceitasFeitas == 0){
+        const login = onAuthStateChanged(app_auth, () => {
             try {
-                const listingRef = collection(app_DB, 'Receitas')
+                if(user.ReceitasFeitas != undefined && user.ReceitasFeitas != {} && user.ReceitasFeitas != "" && user.ReceitasFeitas != null){
+                    try {
+                        const listingRef = collection(app_DB, 'Receitas')
 
-                const q = query(
-                    listingRef,
-                    where(documentId(), 'in', user.ReceitasFeitas)
-                )
+                        const q = query(
+                            listingRef,
+                            where(documentId(), 'in', user.ReceitasFeitas)
+                        )
 
-                const subscriver = onSnapshot(q, {
-                    next : (snapshot) => {
-                    const listingq = []
-                    snapshot.docs.forEach(doc =>{
-                        listingq.push({
-                        key : doc.id,
-                        ...doc.data(),
-                        
+                        const subscriver = onSnapshot(q, {
+                            next : (snapshot) => {
+                            const listingq = []
+                            snapshot.docs.forEach(doc =>{
+                                listingq.push({
+                                key : doc.id,
+                                ...doc.data(),
+                                
+                                })
+                            })
+                            setListing(listingq)
+                            console.log("listed");
+
+                            }
                         })
-                    })
-                    setListing(listingq)
 
+                        return () => subscriver()
+                    } catch(error){
+                        console.log(error);
                     }
-                })
-
-                return () => subscriver()
-        } catch(error){
-            
-        }
-        }
+                } else {
+                    setListing({})
+                    console.log("unlisted");
+                }
+            } catch(error){
+                console.log("dontcare");
+            }
+        })
+        return () => login()
 
     },[user])
 
     useEffect(() => {
-        if( listing.length != 0 && user.ReceitasFeitas != undefined || user.ReceitasFeitas != {} || user.ReceitasFeitas != "" || user.ReceitasFeitas != null || user.Cart.ReceitasFeitas == 0){
-            try{colorThis()} catch(error){console.log(error)}
+        if(listing.length != 0 && user.ReceitasFeitas != undefined && user.ReceitasFeitas != {} && user.ReceitasFeitas != "" && user.ReceitasFeitas != null){
+            try{colorThis(); console.log("colored");} catch(error){console.log(error)}
         }
     },[listing, user])
+
     const handleSearch = () => {
         if(search != ""){
           navigation.navigate("Search", {paramKey:[search, listing]})
