@@ -12,13 +12,36 @@ export function Search({ navigation, route }) {
     const [listings, setListings] = useState([])
     const [loaded, setLoaded] = useState(false)
     const [ notFound, setNotFound ] = useState(false)
-    const [forReal, setForReal] = useState([]) 
+    const [forReal, setForReal] = useState([])
+    const [whyReact, setWhyReact] = useState([])
+    let colorArray = []
 
     const done = route.params.recipes[0]
     const arei = Object.values(done).map((item) => item.Nome);
+    const trilha = route.params.trilha[0]
     LogBox.ignoreLogs([
       'Non-serializable values were found in the navigation state',
     ]);
+
+    function colorThis(){
+      listings.forEach((item) => {
+          if(item.NomeTrilha == "Básico"){
+              colorArray.push(0)
+              
+          } else if(item.NomeTrilha == "Refeições"){
+              colorArray.push(1)
+              
+          } else if(item.NomeTrilha == "Doces"){
+              colorArray.push(2)
+             
+          } else if(item.NomeTrilha == "Gourmet"){
+              colorArray.push(3)
+             
+          }
+      })
+      setWhyReact(colorArray)
+
+  }
     
     useEffect(()=>{
 
@@ -97,9 +120,15 @@ export function Search({ navigation, route }) {
   
   },[search, found, loaded])
 
+  useEffect(() => {
+    if(listings.length != 0 ){
+        try{colorThis(); console.log("colored");} catch(error){console.log(error)}
+    }
+  },[listings])
+
     const handleSearch = () => {
       if(search != ""){
-        navigation.navigate("Search", {paramKey:[search, arei]})
+        navigation.navigate("Search", {paramKey:[search], recipes:[done], trilha:[trilha]})
       }
     }
 
@@ -113,12 +142,12 @@ export function Search({ navigation, route }) {
             <ScrollView contentContainerStyle={[styles.items, { borderRadius: 25 }]} >
                 <Text style={styles.itemstxt} >Resultados</Text>
                   <View style={styles.itemlist} >
-            {listings.length != 0 && notFound == false ? (
+            {listings.length != 0 && whyReact.length != 0 && notFound == false ? (
                     <FlatList
                       data={listings}
                       scrollEnabled={false}
                       showsVerticalScrollIndicator={false}
-                      renderItem={({ item }) => (
+                      renderItem={({ item, index }) => (
                         <View style={styles.itemcontainer} >
                                 <TouchableOpacity activeOpacity={0.8} style={styles.row} onPress={() => navigation.navigate('Preparo',{paramKey:[item.Nome, trilha[whyReact[index]].Cor, item.Icone, trilha[whyReact[index]].CorBorda, trilha[whyReact[index]].CorFill]})}>
                                     <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: '#E9E9E9', position: 'absolute', borderRadius: 20, marginTop: 6 }]} />
