@@ -4,7 +4,7 @@ import { onAuthStateChanged } from "firebase/auth"
 import { useState, useEffect } from 'react'
 import { search } from './search'
 import { FontAwesome5, Feather, Octicons, FontAwesome } from 'react-native-vector-icons'
-import { collection, deleteDoc, doc, query, where, onSnapshot, documentId } from "firebase/firestore";
+import { collection, deleteDoc, doc, query, where, onSnapshot, documentId, orderBy } from "firebase/firestore";
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 //ASLKDMASFMALGMLGSA
@@ -202,15 +202,15 @@ const Book = ({navigation}) => {
                                 <TouchableOpacity activeOpacity={0.8} style={styles.row} onPress={() => navigation.navigate('Preparo',{paramKey:[item.Nome, trilha[whyReact[index]].Cor, item.Icone, trilha[whyReact[index]].CorBorda, trilha[whyReact[index]].CorFill]})}>
                                     <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: '#E9E9E9', position: 'absolute', borderRadius: 20, marginTop: 6 }]} />
                                     <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: "#FFF", position: 'absolute', borderRadius: 20, borderColor: '#E9E9E9', borderWidth: 7 }]} />
-                                    <View style={[{ height: '100%', width: 120, zIndex: 1, backgroundColor: '#70D872', position: 'absolute', borderRadius: 20, marginTop: 6 }]} />
+                                    <View style={[{ height: '100%', width: 120, zIndex: 1, backgroundColor: trilha[whyReact[index]].Cor, position: 'absolute', borderRadius: 20, marginTop: 6 }]} />
                 
-                                    <View style={styles.imagecontainer}>
+                                    <View style={[styles.imagecontainer, {borderColor: trilha[whyReact[index]].Cor}]}>
 
                                         <Image  style={styles.icon} source={{ uri : item.Icone }}/>
 
                                     </View>
                                     <View style={[styles.rightRow]} >
-                                        <Text style={[styles.descricaoFase]}>{item.Nome}</Text>
+                                        <Text style={[styles.descricaoFase, { color: trilha[whyReact[index]].CorFill }]}>{item.Nome}</Text>
                                         {item.Tempo != null && item.Tempo != undefined && (
                                             <View style={styles.timezone} >
                                                 <>
