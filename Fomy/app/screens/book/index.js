@@ -1,6 +1,7 @@
-import {SafeAreaView, View, Image, StyleSheet, Text,FlatList,TouchableOpacity} from 'react-native'
+import {SafeAreaView, View, Image, StyleSheet, Text,FlatList,TouchableOpacity, TextInput} from 'react-native'
 import { app, app_DB, app_auth } from '../../../firebaseConfig'
 import { useState, useEffect } from 'react'
+import { search } from './search'
 import { Feather } from 'react-native-vector-icons'
 import { FontAwesome5 } from 'react-native-vector-icons'
 import { collection, deleteDoc, doc, query, where, onSnapshot, documentId } from "firebase/firestore";
@@ -10,6 +11,7 @@ import { collection, deleteDoc, doc, query, where, onSnapshot, documentId } from
 const Book = ({navigation}) => {
 
     const [user, setUser] = useState({})
+    const [search, setSearch] = useState("");
     const [listing, setListing] = useState([])
     const [trilha, setTrilha] = useState ({})
     const [whyReact, setWhyReact] = useState([])
@@ -19,20 +21,20 @@ const Book = ({navigation}) => {
         listing.forEach((item) => {
             if(item.NomeTrilha == "Básico"){
                 colorArray.push(0)
-                console.log("adicionou Básico")
+                
             } else if(item.NomeTrilha == "Refeições"){
                 colorArray.push(1)
-                console.log("adicionou Refeição")
+                
             } else if(item.NomeTrilha == "Doces"){
                 colorArray.push(2)
-                console.log("adicionou Doce")
+               
             } else if(item.NomeTrilha == "Gourmet"){
                 colorArray.push(3)
-                console.log("adicionou Gourmet")
+               
             }
         })
         setWhyReact(colorArray)
-        console.log("colorArray:", whyReact)
+
     }
 
     useEffect(() => {
@@ -121,13 +123,13 @@ const Book = ({navigation}) => {
                         })
                     })
                     setListing(listingq)
-                    console.log("updated book");
+
                     }
                 })
 
                 return () => subscriver()
         } catch(error){
-            console.log("check here if something is going wrong")
+            
         }
         }
 
@@ -138,10 +140,22 @@ const Book = ({navigation}) => {
             try{colorThis()} catch(error){console.log(error)}
         }
     },[listing, user])
+    const handleSearch = () => {
+        if(search != ""){
+          navigation.navigate("Search", {paramKey:[search, listing]})
+        }
+      }
         
     return(
-
+        
         <SafeAreaView style={styles.itemlist} >
+            <View style={styles.searcharea} >
+                <TextInput onSubmitEditing={() => handleSearch()} value= {search} onChangeText={(text) => setSearch(text)} style={styles.searchinput} placeholder='Pesquisar' autoCapitalize='none' />
+                    <TouchableOpacity onPress={() => handleSearch()} style={styles.searchbutton} >
+                    <Feather name="search" style={styles.searchicon} size={25} color={"rgba(0,0,0,0.75)"} />
+                </TouchableOpacity>
+            </View>
+
             {listing.length != 0 && whyReact.length != 0 ? (
                 <View style={styles.itemlist} >
                     <FlatList
@@ -153,7 +167,9 @@ const Book = ({navigation}) => {
                                 <TouchableOpacity onPress={() => navigation.navigate('Preparo',{paramKey:[item.Nome, trilha[whyReact[index]].Cor, item.Icone, trilha[whyReact[index]].CorBorda, trilha[whyReact[index]].CorFill]})}>
                                     <View style={styles.itemarea} >
                                         <View style={styles.itemarea} >
+                                        <View style = {styles.imagecontain}>
                                             <Image style={styles.itemimage} source={{ uri : item.Icone }} />
+                                            </View>
                                             <View style={styles.itemdetails} >
                                                 <Text style={styles.itemtitle} >{item.Nome}</Text>
                                                 
@@ -198,29 +214,41 @@ const styles = StyleSheet.create({
         borderRadius: 25, 
         width: "100%", 
         flex: 1,
-        paddingTop: 15
+        paddingTop: 15,
     },
     itemcontainer:{
-        backgroundColor: "#F9F9F9", 
+        borderWidth: 10,
+        backgroundColor: '#FFF', 
         borderRadius: 25, 
         width: "100%", 
         flex: 1,
         marginTop: 10,
         marginBottom: 20,
-        alignItems: 'center'
+        alignItems: 'center',
+        borderColor: '#62BC63'
     },
     itemarea:{
         alignItems: 'center',
         width: "95%",
-        marginVertical: 5,
+        marginHorizontal: -94,
+        //marginVertical: 5,
         flexDirection: 'row',
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+    },
+    imagecontain:{
+        height: 100,
+        width: 150,
+        borderRadius: 10,
+        backgroundColor: '#70D872',
+        borderColor: "#62BC63",
+        //borderRadius: 10,
+        borderWidth: 10
     },
     itemimage:{
-        height: 155,
-        width: 155,
-        borderRadius: 10,
-        marginBottom: 20
+        height: 100,
+        width: 100,
+        alignSelf: 'center'
+       
     },
     itemdetails:{
         width: "50%",
@@ -232,7 +260,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 15,
         fontWeight: 'bold',
-        marginBottom: 20,
         width: "100%",
         minHeight: 40
     },
@@ -277,7 +304,7 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 5
+        //marginTop: 5
     },
     backbutton:{
         backgroundColor: "#38BA9B",
@@ -286,8 +313,8 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 20,
-        marginBottom: 5
+        //marginTop: 20,
+        //marginBottom: 5
     },
     buytxt:{
         fontSize: 22,
@@ -308,10 +335,10 @@ const styles = StyleSheet.create({
         width: "85%",
         textAlign: "center",
         fontSize: 25,
-        marginTop: 35
+        //marginTop: 35
     },
     gobackbutton:{
-        marginTop: "20%",
+        //marginTop: "20%",
         alignItems: "center",
         justifyContent: "center",
         width: "85%",
@@ -326,5 +353,37 @@ const styles = StyleSheet.create({
         padding: 10,
         paddingHorizontal: 20,
         borderRadius: 25
-    }
+    },
+    searcharea:{
+        width: "100%",
+        borderColor: "#F2F2F2",
+        borderBottomWidth: 1.5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingStart: 20,
+        paddingEnd: 20,
+        paddingVertical: 15,
+    
+      },
+      searchinput:{
+        backgroundColor: "#F7F7F7",
+        borderRadius: 25,
+        fontSize: 20,
+        width: "100%",
+        paddingVertical: 5,
+        paddingLeft: 15,
+        paddingRight: 60,
+        color: "#000"
+    
+      },
+      searchbutton:{
+        position: 'absolute',
+        alignSelf: 'flex-end',
+        justifyContent: 'center'
+      },
+      searchicon:{
+        position: 'absolute',
+        alignSelf: 'flex-end',
+        paddingRight: 35
+      },
 })

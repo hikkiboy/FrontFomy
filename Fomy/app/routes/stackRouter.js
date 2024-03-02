@@ -30,6 +30,7 @@ import Book from '../screens/book'
 import Preparo from "../components/preparo";
 import Passos from "../components/passos";
 import Parabens from "../components/parabens";
+import { Search } from "../screens/book/search";
 
 const Stack = createNativeStackNavigator();
 
@@ -155,6 +156,11 @@ export default function Routes({ loggedIn, loading }) {
       <Stack.Screen
         name="Book"
         component={Book}
+        options={{ headerShown: false }}
+      />
+        <Stack.Screen
+        name="Search"
+        component={Search}
         options={{ headerShown: false }}
       />
       
