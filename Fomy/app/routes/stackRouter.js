@@ -31,7 +31,7 @@ import Preparo from "../components/preparo";
 import Passos from "../components/passos";
 import Parabens from "../components/parabens";
 import { Search } from "../screens/book/search";
-
+import MainBook from "../screens/book/mainBook";
 const Stack = createNativeStackNavigator();
 
 export default function Routes({ loggedIn, loading }) {
@@ -154,6 +154,11 @@ export default function Routes({ loggedIn, loading }) {
         options={{ headerShown: false }}
       />
       <Stack.Screen
+        name="MainBook"
+        component={MainBook}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
         name="Book"
         component={Book}
         options={{ headerShown: false }}
@@ -214,7 +219,7 @@ export function TabNavigatior() {
       <Ionicons name="cart-outline" size={32} color={focused ? "#70d872" : "black"} />
     )}}/>
     
-    <Tab.Screen name = "Book" component={Book} options={{
+    <Tab.Screen name = "Book" component={MainBook} options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
       <FontAwesome name="book" size={32} color={focused ? "#70d872" : "black"} />
