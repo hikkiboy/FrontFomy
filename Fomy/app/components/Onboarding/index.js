@@ -168,8 +168,8 @@ const styles = StyleSheet.create({
     description:{
         fontWeight: 'bold',
         fontSize: 20,
-        minHeight: 45,
-        marginTop: 5,
+        minHeight: 55,
+        marginTop: 7,
         textAlign:'center',
         paddingHorizontal: 64,
         color: 'rgba(0,0,0,0.6)'
