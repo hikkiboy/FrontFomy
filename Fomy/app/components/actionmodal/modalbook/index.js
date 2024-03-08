@@ -47,7 +47,7 @@ export function ModalBook({ navigation, fullListing, user, fullTrilha, name, han
             <ScrollView>
                 <View style={styles.thisthing} >
                     <View style={styles.whydoyoudothis} >
-                        <TouchableOpacity activeOpacity={0.8} style={{ position: 'absolute', paddingBottom: 5, paddingStart: 5 }} onPress={() => handleModal(name)} >
+                        <TouchableOpacity activeOpacity={0.8} style={{ position: 'absolute', paddingBottom: 6, paddingStart: 10 }} onPress={() => handleModal(name)} >
                             <FontAwesome size={30} color={"#FFF"} name='arrow-left'/>
                         </TouchableOpacity>
                         <Text style={{ alignSelf: 'center', fontWeight: 'bold', fontSize: 30, color: "#FFF" }} >{name}</Text>
