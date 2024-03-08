@@ -122,7 +122,7 @@ export default function DeleteAccount({ navigation }){
             <View style={styles.deletearea} >
                 <TouchableOpacity style={styles.delete} onPress={DeleteAll} activeOpacity={0.9} >
                     <Text style={styles.action} >Confirmar</Text>
-                    <FontAwesome name="eraser" size={25} />
+                    <FontAwesome color={"#FFF"} name="eraser" size={25} />
                 </TouchableOpacity>
             </View>
 
@@ -185,7 +185,8 @@ content:{
 },
 action:{
     fontSize: 20,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color: "#FFF"
 },
 deletearea:{
     marginTop: 20,

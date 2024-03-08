@@ -30,8 +30,8 @@ export function ActionModal({ handleActionOff, handleAction, navigation, handleN
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.leave} activeOpacity={0.9} onPress={() => {handleActionOff()}} >
-                        <Text style={styles.action} >Sair</Text>
-                        <Feather color="#303030" name="log-out" size={26} />
+                        <Text style={[styles.action, { color: "#E15F64"}]} >Sair</Text>
+                        <Feather color="#E15F64" name="log-out" size={26} />
                     </TouchableOpacity>
 
                 </View>

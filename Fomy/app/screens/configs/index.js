@@ -70,8 +70,8 @@ export default function Configs ({navigation}){
                 </View>
                 <View style={styles.deletearea} >
                     <TouchableOpacity style={styles.delete} onPress={ () => navigation.navigate("DeleteAccount")} activeOpacity={0.9} >
-                        <Text style={styles.action} >Deletar Conta</Text>
-                        <Feather name="user-x" size={24} />
+                        <Text style={[styles.action, {color: "#E15F64"}]} >Deletar Conta</Text>
+                        <Feather color="#E15F64" name="user-x" size={24} />
                     </TouchableOpacity>
                 </View>
 
@@ -144,13 +144,13 @@ deletearea:{
 },
 delete:{
     zIndex: 99,
-    backgroundColor: "#FA787D",
+    backgroundColor: "#FFF",
     borderRadius: 15,
     padding: 10,
     alignItems: 'center',
     borderWidth: 5,
     borderBottomWidth: 10,
-    borderColor: "#E15F64",
+    borderColor: "#FA787D",
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 25

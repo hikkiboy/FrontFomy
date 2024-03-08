@@ -135,7 +135,7 @@ export default function AlterPassword({ navigation }){
             <View style={styles.buttonarea} >
                 <TouchableOpacity style={styles.button} onPress={NewPassword} activeOpacity={0.9} >
                     <Text style={styles.action} >Confirmar Senha</Text>
-                    <FontAwesome name="check" size={25} />
+                    <FontAwesome color="#FFF" name="check" size={25} />
                 </TouchableOpacity>
             </View>
 
@@ -184,7 +184,8 @@ content:{
 },
 action:{
     fontSize: 20,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color: "#FFF"
 },
 buttonarea:{
     marginTop: 20,
@@ -193,13 +194,13 @@ buttonarea:{
 },
 button:{
     zIndex: 99,
-    backgroundColor: "#C8E0F9",
+    backgroundColor: "#3B98EF",
     borderRadius: 15,
     padding: 10,
     alignItems: 'center',
     borderWidth: 5,
     borderBottomWidth: 10,
-    borderColor: "#91C0F3",
+    borderColor: "#2985DB",
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 25
