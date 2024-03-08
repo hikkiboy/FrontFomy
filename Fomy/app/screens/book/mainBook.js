@@ -2,11 +2,10 @@ import { View, Image, StyleSheet, Text, FlatList, TouchableOpacity, TextInput, L
 import { app, app_DB, app_auth } from '../../../firebaseConfig'
 import { onAuthStateChanged } from "firebase/auth"
 import { useState, useEffect } from 'react'
-import { search } from './search'
 import { FontAwesome5, Feather, Octicons, FontAwesome, MaterialCommunityIcons } from 'react-native-vector-icons'
 import { collection, deleteDoc, doc, query, where, onSnapshot, documentId, orderBy } from "firebase/firestore";
 import { SafeAreaView } from 'react-native-safe-area-context';
-import ModalBook from '../../components/actionmodal/modalbook'
+import { ModalBook } from '../../components/actionmodal/modalbook'
 
 //ASLKDMASFMALGMLGSA
 
@@ -76,7 +75,6 @@ const MainBook = ({ navigation }) => {
 
                 return () => subscriver()
             } catch (error) {
-                console.log("stilldontcare");
             }
         })
         return () => login();
@@ -105,7 +103,6 @@ const MainBook = ({ navigation }) => {
                     })
                 })
                 setTrilha(trilhaq)
-                console.log("help: ", trilha);
 
 
             }
@@ -114,10 +111,6 @@ const MainBook = ({ navigation }) => {
         return () => subscriver()
 
     }, [])
-
-    const handleModal = (name) => {
-        
-    }
 
     useEffect(() => {
 
@@ -145,7 +138,6 @@ const MainBook = ({ navigation }) => {
                                     })
                                 })
                                 setListing(listingq)
-                                console.log("listed");
 
                             }
                         })
@@ -159,7 +151,6 @@ const MainBook = ({ navigation }) => {
                     console.log("unlisted");
                 }
             } catch (error) {
-                console.log("dontcare");
             }
         })
         return () => login()
@@ -168,14 +159,18 @@ const MainBook = ({ navigation }) => {
 
     useEffect(() => {
         if (listing.length != 0 && user.ReceitasFeitas != undefined && user.ReceitasFeitas != {} && user.ReceitasFeitas != "" && user.ReceitasFeitas != null) {
-            try { colorThis(); console.log("colored"); } catch (error) { console.log(error) }
+            try { colorThis(); } catch (error) { console.log(error) }
         }
     }, [listing, user])
 
     const handleSearch = () => {
         if (search != "") {
-            navigation.navigate("Search", { paramKey: [search], recipes: [listing], trilha: [trilha] })
+            navigation.navigate("Search", { paramKey: [search], recipes: [listing], trilha: [trilha], premium: [user.Premium] })
         }
+    }
+    const handleModal = (name) => {
+        setVisible(!visible)
+        setTrilhaName(name)
     }
 
     return (
@@ -210,8 +205,8 @@ const MainBook = ({ navigation }) => {
                                 (
                                     <View />
                                 ) : (
-                                    <TouchableOpacity style={[styles.button, { marginRight: user.Premium == false && item.NomeTrilha == "Doces" ? 0 : 25 }]} >
-                                        <MaterialCommunityIcons name={item.BookIcon} size={30} color={"#505050"} />
+                                    <TouchableOpacity activeOpacity={0.8} onPress={() => handleModal(item.NomeTrilha)} style={[styles.button, { marginRight: user.Premium == false && item.NomeTrilha == "Doces" ? 0 : 25 }]} >
+                                        <MaterialCommunityIcons name={item.BookIcon} size={35} color={"#505050"} />
                                         <Text style={styles.buttontitle} >{item.NomeTrilha}</Text>
                                     </TouchableOpacity>
                                 )
@@ -261,7 +256,7 @@ const MainBook = ({ navigation }) => {
                 />
             </ScrollView>
             <Modal visible={visible}
-                onRequestClose={handleModal}
+                onRequestClose={() => setVisible(false)}
                 animationType="slide"
                 presentationStyle='pageSheet'
             >
@@ -271,6 +266,7 @@ const MainBook = ({ navigation }) => {
                     user={user}
                     fullTrilha={trilha}
                     name={trilhaName}
+                    handleModal={handleModal}
                 />
 
             </Modal>
@@ -340,11 +336,12 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         borderWidth: 4,
         borderBottomWidth: 8,
-        paddingHorizontal: 15,
-        paddingVertical: 5
+        paddingHorizontal: 17,
+        paddingVertical: 7,
     },
     buttontitle: {
-        color: "#505050"
+        color: "#505050",
+        fontWeight: 'bold'
     },
     icon: {
         width: 65,

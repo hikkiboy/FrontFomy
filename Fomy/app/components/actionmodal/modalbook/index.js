@@ -5,12 +5,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 //ASLKDMASFMALGMLGSA
 
-const ModalBook = ({ navigation, fullListing, user, fullTrilha, name }) => {
+export function ModalBook({ navigation, fullListing, user, fullTrilha, name, handleModal }) {
 
     const [listing, setListing] = useState([])
     const [trilha, setTrilha] = useState([])
     let listArray = []
     let trilhaArray = []
+
+    console.log("HELP ME GOD");//( ele me ajudou :) )
 
     LogBox.ignoreLogs([
         'Non-serializable values were found in the navigation state',
@@ -18,68 +20,76 @@ const ModalBook = ({ navigation, fullListing, user, fullTrilha, name }) => {
 
     function colorThis() {
         fullListing.forEach((item) => {
-            if(item.NomeTrilha == name){
+            if (item.NomeTrilha == name) {
                 listArray.push(item);
             }
         })
         fullTrilha.forEach((item) => {
-            if(item.NomeTrilha == name){
+            if (item.NomeTrilha == name) {
                 trilhaArray.push(item);
             }
         })
 
         setListing(listArray)
         setTrilha(trilhaArray);
+        console.log(listing);
+        console.log(trilhaArray);
     }
 
     useEffect(() => {
-        if (listing.length != 0 && user.ReceitasFeitas != undefined && user.ReceitasFeitas != {} && user.ReceitasFeitas != "" && user.ReceitasFeitas != null) {
+        if (fullListing.length != 0 && user.ReceitasFeitas != undefined && user.ReceitasFeitas != {} && user.ReceitasFeitas != "" && user.ReceitasFeitas != null) {
             try { colorThis(); console.log("colored"); } catch (error) { console.log(error) }
         }
-    }, [listing, user])
+    }, [user])
 
     return (
         <SafeAreaView style={styles.container} >
-            <FlatList
-                data={listing}
-                scrollEnabled={false}
-                showsVerticalScrollIndicator={false}
-                renderItem={({ item }) => (
-                    <View style={styles.itemcontainer} >
-                        <TouchableOpacity activeOpacity={0.8} style={styles.row} onPress={() => navigation.navigate('Preparo', { paramKey: [item.Nome, trilha.Cor, item.Icone, trilha.CorBorda, trilha.CorFill] })}>
-                            <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: '#E9E9E9', position: 'absolute', borderRadius: 20, marginTop: 6 }]} />
-                            <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: "#FFF", position: 'absolute', borderRadius: 20, borderColor: '#E9E9E9', borderWidth: 7 }]} />
-                            <View style={[{ height: '100%', width: 120, zIndex: 1, backgroundColor: '#D383E3', position: 'absolute', borderRadius: 20, marginTop: 6 }]} />
-
-                            <View style={[styles.imagecontainer, { borderColor: '#D383E3' }]}>
-
-                                <Image style={styles.icon} source={{ uri: item.Icone }} />
-
-                            </View>
-                            <View style={[styles.rightRow]} >
-                                <Text style={[styles.descricaoFase, { color: '#be48d5' }]}>{item.Nome}</Text>
-                                {item.Tempo != null && item.Tempo != undefined && (
-                                    <View style={styles.timezone} >
-                                        <>
-                                            <FontAwesome5 name="clock" size={20} color={"#505050"} />
-                                            <Text style={styles.timetxt} >{item.Tempo} minutos</Text>
-                                        </>
-                                    </View>
-                                )}
-                            </View>
-
-                        </TouchableOpacity>
+            <ScrollView>
+                <View style={styles.thisthing} >
+                    <View style={styles.whydoyoudothis} >
+                        {trilha.length != 0 && <Text style={{ alignSelf: 'center', fontWeight: 'bold', fontSize: 30, color: "#FFF" }} >{trilha[0].NomeTrilha}</Text>}
                     </View>
+                </View>
 
-                )}
-            />
+                <FlatList
+                    data={listing}
+                    scrollEnabled={false}
+                    showsVerticalScrollIndicator={false}
+                    renderItem={({ item }) => (
+                        <View style={styles.itemcontainer} >
+                            <TouchableOpacity activeOpacity={0.8} style={styles.row} onPress={() => { handleModal(trilha[0].NomeTrilha); navigation.navigate('Preparo', { paramKey: [item.Nome, trilha[0].Cor, item.Icone, trilha[0].CorBorda, trilha[0].CorFill] }); }}>
+                                <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: '#E9E9E9', position: 'absolute', borderRadius: 20, marginTop: 6 }]} />
+                                <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: "#FFF", position: 'absolute', borderRadius: 20, borderColor: '#E9E9E9', borderWidth: 7 }]} />
+                                <View style={[{ height: '100%', width: 120, zIndex: 1, backgroundColor: '#D383E3', position: 'absolute', borderRadius: 20, marginTop: 6 }]} />
+
+                                <View style={[styles.imagecontainer, { borderColor: '#D383E3' }]}>
+
+                                    <Image style={styles.icon} source={{ uri: item.Icone }} />
+
+                                </View>
+                                <View style={[styles.rightRow]} >
+                                    <Text style={[styles.descricaoFase, { color: '#be48d5' }]}>{item.Nome}</Text>
+                                    {item.Tempo != null && item.Tempo != undefined && (
+                                        <View style={styles.timezone} >
+                                            <>
+                                                <FontAwesome5 name="clock" size={20} color={"#505050"} />
+                                                <Text style={styles.timetxt} >{item.Tempo} minutos</Text>
+                                            </>
+                                        </View>
+                                    )}
+                                </View>
+
+                            </TouchableOpacity>
+                        </View>
+
+                    )}
+                />
+            </ScrollView>
         </SafeAreaView>
     )
 
 
 }
-
-export default ModalBook
 
 const styles = StyleSheet.create({
     container: {
@@ -88,75 +98,25 @@ const styles = StyleSheet.create({
         width: "100%",
         flex: 1,
     },
-    itemlist: {
-        backgroundColor: "#FFF",
-        borderRadius: 25,
+    thisthing:{
+        paddingHorizontal: 10,
         width: "100%",
-        flex: 1,
-        paddingTop: 20,
-        marginBottom: 70
+        marginVertical: 20,
+        marginBottom: 40
     },
-    bgimg: {
-        width: "100%",
-        borderRadius: 20,
-        marginBottom: 40,
+    whydoyoudothis:{
         backgroundColor: "#D383E3",
-    },
-    booklet: {
-        height: '100%',
-        width: '100%',
-        position: 'absolute',
-        resizeMode: 'stretch'
-    },
-    titlearea: {
-        width: '100%',
-        paddingStart: 40,
-        paddingEnd: 40,
-        marginVertical: 35,
-        zIndex: 98,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-
-    },
-    trilhaTit: {
-        textAlign: 'center',
-        marginBottom: 5,
-        fontSize: 42,
-        fontWeight: "bold",
-        color: "#FFF",
-        //fontFamily: FontFamily.leagueSpartanBold
-    },
-    button: {
-        flex: 1,
-        marginBottom: 40,
-        marginRight: 25,
-        alignSelf: 'center',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderColor: "#E9E9E9",
-        borderRadius: 15,
-        borderWidth: 4,
-        borderBottomWidth: 8,
-        paddingHorizontal: 15,
-        paddingVertical: 5
-    },
-    buttontitle: {
-        color: "#505050"
+        paddingVertical: 7,
+        borderColor: "#be48d5",
+        borderWidth: 7,
+        borderBottomWidth: 13,
+        borderRadius: 20
     },
     icon: {
         width: 65,
         height: 65,
         alignSelf: 'center',
         paddingVertical: 20
-    },
-    itemlist: {
-        backgroundColor: "#FFF",
-        borderRadius: 25,
-        width: "100%",
-        flex: 1,
-        paddingTop: 20,
-        marginBottom: 70
     },
     itemcontainer: {
         flex: 1,
@@ -218,12 +178,6 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 20,
         justifyContent: 'center',
         zIndex: 3
-    },
-    icon: {
-        width: 65,
-        height: 65,
-        alignSelf: 'center',
-        paddingVertical: 20
     },
     searcharea: {
         width: "100%",
