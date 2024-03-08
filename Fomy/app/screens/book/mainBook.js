@@ -476,7 +476,8 @@ const styles = StyleSheet.create({
     searchbutton: {
         position: 'absolute',
         alignSelf: 'flex-end',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        zIndex: 99
     },
     searchicon: {
         position: 'absolute',

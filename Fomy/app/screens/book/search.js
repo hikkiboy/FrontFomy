@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, TextInput, FlatList, LogBox } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, TextInput, FlatList, LogBox, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Feather, FontAwesome5, FontAwesome } from 'react-native-vector-icons'
 import { useEffect, useState } from 'react'
@@ -14,6 +14,7 @@ export function Search({ navigation, route }) {
   const [notFound, setNotFound] = useState(false)
   const [forReal, setForReal] = useState([])
   const [whyReact, setWhyReact] = useState([])
+  const [heheheyup, setHeheheyup] = useState(false)
   let colorArray = []
 
   const done = route.params.recipes[0]
@@ -78,8 +79,10 @@ export function Search({ navigation, route }) {
 
   }, [search, loaded])
   useEffect(() => {
-
     setForReal(found.filter(element => arei.includes(element)))
+    if(products != undefined && products.length != 0 && products[0].NomeTrilha != undefined){
+      setHeheheyup(true)
+    }
   }, [found])
 
   useEffect(() => {
@@ -117,7 +120,13 @@ export function Search({ navigation, route }) {
       //console.log(error)
       //console.log(found)
       setListings([])
-      setNotFound(true)
+      try {
+        if (products != undefined && products.length != 0 && products[0].NomeTrilha != undefined && heheheyup) {
+          setNotFound(true)
+        }
+      } catch (error) {
+        console.log(error);
+       }
     }
 
   }, [search, found, loaded])
@@ -137,7 +146,7 @@ export function Search({ navigation, route }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searcharea} >
-        <TouchableOpacity onPress={() => navigation.goBack()} activeOpacity={0.8} style={ styles.backbutton } >
+        <TouchableOpacity onPress={() => navigation.goBack()} activeOpacity={0.8} style={styles.backbutton} >
           <FontAwesome size={25} color={"#505050"} name='arrow-left' />
         </TouchableOpacity>
         <View style={styles.searchinputarea} >
@@ -199,8 +208,17 @@ export function Search({ navigation, route }) {
 
       ) : (
         <View style={styles.nothing} >
-          <Text style={styles.nothingtxt} >Não conseguimos encontrar sua receita...</Text>
-          <Feather name="frown" size={150} color={"#505050"} />
+          {notFound ? (
+            <>
+              <Text style={styles.nothingtxt} >Não conseguimos encontrar sua receita...</Text>
+              <Feather name="frown" size={150} color={"#505050"} />
+            </>
+          ) : (
+            <>
+              <ActivityIndicator size={120} color={"#D383E3"} />
+              <Text style={{ marginTop: 15, fontSize: 20, textAlign: 'center', width: "90%" }} >Procurando...</Text>
+            </>
+          )}
         </View>
       )}
 
@@ -356,7 +374,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
 
   },
-  backbutton:{
+  backbutton: {
     height: "100%",
     flexDirection: 'row',
     alignItems: 'center',
