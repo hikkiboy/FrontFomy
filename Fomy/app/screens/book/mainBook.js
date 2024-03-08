@@ -179,7 +179,7 @@ const MainBook = ({ navigation }) => {
             <View style={styles.searcharea} >
                 <TextInput onSubmitEditing={() => handleSearch()} value={search} onChangeText={(text) => setSearch(text)} style={styles.searchinput} placeholder='Pesquisar' autoCapitalize='none' />
                 <TouchableOpacity onPress={() => handleSearch()} style={styles.searchbutton} >
-                    <Feather name="search" style={styles.searchicon} size={25} color={"rgba(0,0,0,0.75)"} />
+                    <FontAwesome name="search" style={styles.searchicon} size={25} color={"#505050"} />
                 </TouchableOpacity>
             </View>
             <ScrollView style={styles.itemlist} >
@@ -430,8 +430,8 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1.5,
         alignItems: 'center',
         justifyContent: 'center',
-        paddingStart: 20,
-        paddingEnd: 20,
+        paddingStart: 10,
+        paddingEnd: 10,
         paddingVertical: 15,
 
     },
@@ -443,7 +443,7 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingLeft: 15,
         paddingRight: 60,
-        color: "#000"
+        color: "#505050"
 
     },
     searchbutton: {

@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, TextInput, FlatList, LogBox } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Feather, FontAwesome5 } from 'react-native-vector-icons'
+import { Feather, FontAwesome5, FontAwesome } from 'react-native-vector-icons'
 import { useEffect, useState } from 'react'
 import { app_auth, app_DB } from '../../../firebaseConfig'
 import { doc, collection, query, where, onSnapshot, documentId, startAt, endAt, orderBy, and } from 'firebase/firestore'
@@ -130,15 +130,22 @@ export function Search({ navigation, route }) {
 
   const handleSearch = () => {
     if (search != "") {
-      navigation.navigate("Search", { paramKey: [search], recipes: [done], trilha: [trilha] })
+      navigation.navigate("Search", { paramKey: [search], recipes: [done], trilha: [trilha], premium: [premium] })
     }
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searcharea} >
-        <TextInput onSubmitEditing={() => handleSearch()} value={search} onChangeText={(text) => setSearch(text)} style={styles.searchinput} placeholder='Pesquisar' autoCapitalize='none' />
-        <Feather name="search" style={styles.searchicon} size={25} color={"rgba(0,0,0,0.75)"} />
+        <TouchableOpacity onPress={() => navigation.goBack()} activeOpacity={0.8} style={ styles.backbutton } >
+          <FontAwesome size={25} color={"#505050"} name='arrow-left' />
+        </TouchableOpacity>
+        <View style={styles.searchinputarea} >
+          <TextInput onSubmitEditing={() => handleSearch()} value={search} onChangeText={(text) => setSearch(text)} style={styles.searchinput} placeholder='Pesquisar' autoCapitalize='none' />
+          <TouchableOpacity onPress={() => handleSearch()} activeOpacity={0.8} style={styles.searchicon} >
+            <FontAwesome name="search" size={25} color={"#505050"} />
+          </TouchableOpacity>
+        </View>
       </View>
 
       {listings.length != 0 && whyReact.length != 0 && notFound == false ? (
@@ -193,7 +200,7 @@ export function Search({ navigation, route }) {
       ) : (
         <View style={styles.nothing} >
           <Text style={styles.nothingtxt} >Não conseguimos encontrar sua receita...</Text>
-          <Feather name="frown" size={150} color={"#rgba(0,0,0,0.3)"} />
+          <Feather name="frown" size={150} color={"#505050"} />
         </View>
       )}
 
@@ -343,34 +350,43 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1.5,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingStart: 20,
-    paddingEnd: 20,
+    paddingStart: 10,
+    paddingEnd: 10,
     paddingVertical: 15,
+    flexDirection: 'row'
+
+  },
+  backbutton:{
+    height: "100%",
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 13,
+    marginRight: 5,
+    backgroundColor: "#F7F7F7",
+    borderRadius: 50
+  },
+  searchinputarea: {
+    backgroundColor: "#F7F7F7",
+    borderRadius: 25,
+    flex: 1,
+    justifyContent: 'center'
 
   },
   searchinput: {
-    backgroundColor: "#F7F7F7",
-    borderRadius: 25,
     fontSize: 20,
-    width: "100%",
     paddingVertical: 10,
     paddingLeft: 15,
     paddingRight: 60,
-    color: "#000"
+    color: "#505050"
 
-  },
-  searchbutton: {
-    position: 'absolute',
-    alignSelf: 'flex-end',
-    justifyContent: 'center'
   },
   searchicon: {
     position: 'absolute',
-    alignSelf: 'flex-end',
-    paddingRight: 35
+    paddingRight: 20,
+    alignSelf: 'flex-end'
   },
   nothing: {
-    backgroundColor: "red",
+    backgroundColor: "#FFF",
     borderRadius: 25,
     width: "100%",
     flex: 1,
@@ -382,7 +398,8 @@ const styles = StyleSheet.create({
     width: "85%",
     textAlign: "center",
     fontSize: 25,
-    marginBottom: 15
+    marginBottom: 15,
+    color: "#505050"
   },
 
 });

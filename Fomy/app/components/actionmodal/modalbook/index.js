@@ -47,6 +47,9 @@ export function ModalBook({ navigation, fullListing, user, fullTrilha, name, han
             <ScrollView>
                 <View style={styles.thisthing} >
                     <View style={styles.whydoyoudothis} >
+                        <TouchableOpacity activeOpacity={0.8} style={{ position: 'absolute', paddingBottom: 5, paddingStart: 5 }} onPress={() => handleModal(trilha[0].NomeTrilha)} >
+                            <FontAwesome size={30} color={"#FFF"} name='arrow-left'/>
+                        </TouchableOpacity>
                         {trilha.length != 0 && <Text style={{ alignSelf: 'center', fontWeight: 'bold', fontSize: 30, color: "#FFF" }} >{trilha[0].NomeTrilha}</Text>}
                     </View>
                 </View>
@@ -110,7 +113,8 @@ const styles = StyleSheet.create({
         borderColor: "#be48d5",
         borderWidth: 7,
         borderBottomWidth: 13,
-        borderRadius: 20
+        borderRadius: 20,
+        justifyContent: 'center',
     },
     icon: {
         width: 65,
