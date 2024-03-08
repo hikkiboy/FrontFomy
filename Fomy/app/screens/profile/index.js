@@ -315,7 +315,7 @@ const styles = StyleSheet.create({
     exp: {
         position: 'absolute',
         alignSelf: 'center',
-        color: "#909090",
+        color: "rgba(0,0,0,0.4)",
         fontWeight: 'bold',
         fontSize: 27
     },
