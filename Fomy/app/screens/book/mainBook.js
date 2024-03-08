@@ -1,4 +1,4 @@
-import { View, Image, StyleSheet, Text, FlatList, TouchableOpacity, TextInput, LogBox, ScrollView, Modal } from 'react-native'
+import { View, Image, StyleSheet, Text, FlatList, TouchableOpacity, TextInput, LogBox, ScrollView, Modal, ActivityIndicator } from 'react-native'
 import { app, app_DB, app_auth } from '../../../firebaseConfig'
 import { onAuthStateChanged } from "firebase/auth"
 import { useState, useEffect } from 'react'
@@ -15,6 +15,8 @@ const MainBook = ({ navigation }) => {
     const [search, setSearch] = useState("");
     const [listing, setListing] = useState([])
     const [trilha, setTrilha] = useState({})
+    const [trilhaNumber, setTrilhaNumber] = useState([])
+    const [terminated, setTerminated] = useState(false)
     const [whyReact, setWhyReact] = useState([])
     const [visible, setVisible] = useState(false)
     const [trilhaName, setTrilhaName] = useState("")
@@ -40,7 +42,10 @@ const MainBook = ({ navigation }) => {
 
             }
         })
+        setTrilhaNumber(listing.map(item => item.NomeTrilha)
+            .filter((value, index, self) => self.indexOf(value) === index))
         setWhyReact(colorArray)
+        setTerminated(true);
 
     }
 
@@ -139,6 +144,7 @@ const MainBook = ({ navigation }) => {
                                 })
                                 setListing(listingq)
 
+
                             }
                         })
 
@@ -147,7 +153,14 @@ const MainBook = ({ navigation }) => {
                         console.log(error);
                     }
                 } else {
-                    setListing({})
+                    try {
+                        if (user != {} && user != undefined && user != null && user.ReceitasFeitas != undefined) {
+                            setTerminated(true)
+                        }
+                    } catch (error) {
+                        console.log(error);
+                    }
+                    setListing([])
                     console.log("unlisted");
                 }
             } catch (error) {
@@ -176,85 +189,105 @@ const MainBook = ({ navigation }) => {
     return (
 
         <SafeAreaView style={styles.container} >
-            <View style={styles.searcharea} >
-                <TextInput onSubmitEditing={() => handleSearch()} value={search} onChangeText={(text) => setSearch(text)} style={styles.searchinput} placeholder='Pesquisar' autoCapitalize='none' />
-                <TouchableOpacity onPress={() => handleSearch()} style={styles.searchbutton} >
-                    <FontAwesome name="search" style={styles.searchicon} size={25} color={"#505050"} />
-                </TouchableOpacity>
-            </View>
-            <ScrollView style={styles.itemlist} >
-                <View style={styles.bgimg}>
-                    <Image tintColor={"#be48d5"} style={styles.booklet} source={require('../../assets/booklet.png')} />
-                    <View style={styles.titlearea} >
-                        <Image style={{ width: 108, height: 139 }} source={require('../../assets/betterAlberto.png')} />
-                        <View style={{ flex: 1, justifyContent: 'center' }}>
-                            <Text style={styles.trilhaTit}>Livro de Receitas</Text>
-                        </View>
+            {listing.length != 0 && whyReact.length != 0 ? (
+                <>
+                    <View style={styles.searcharea} >
+                        <TextInput onSubmitEditing={() => handleSearch()} value={search} onChangeText={(text) => setSearch(text)} style={styles.searchinput} placeholder='Pesquisar' autoCapitalize='none' />
+                        <TouchableOpacity onPress={() => handleSearch()} style={styles.searchbutton} >
+                            <FontAwesome name="search" style={styles.searchicon} size={25} color={"#505050"} />
+                        </TouchableOpacity>
                     </View>
-                </View>
-                <FlatList
-                    data={trilha}
-                    extraData={whyReact}
-                    horizontal={true}
-                    style={{ alignSelf: 'center', paddingHorizontal: 10 }}
-                    showsHorizontalScrollIndicator={false}
-                    showsVerticalScrollIndicator={false}
-                    renderItem={({ item, index }) => (
-                        <View>
-                            {user != {} && user.Premium == false && item.NomeTrilha == "Gourmet" ?
-                                (
-                                    <View />
-                                ) : (
-                                    <TouchableOpacity activeOpacity={0.8} onPress={() => handleModal(item.NomeTrilha)} style={[styles.button, { marginRight: user.Premium == false && item.NomeTrilha == "Doces" ? 0 : 25 }]} >
-                                        <MaterialCommunityIcons name={item.BookIcon} size={35} color={"#505050"} />
-                                        <Text style={styles.buttontitle} >{item.NomeTrilha}</Text>
-                                    </TouchableOpacity>
-                                )
-                            }
+                    <ScrollView style={styles.itemlist} >
+                        <View style={styles.bgimg}>
+                            <Image tintColor={"#be48d5"} style={styles.booklet} source={require('../../assets/booklet.png')} />
+                            <View style={styles.titlearea} >
+                                <Image style={{ width: 108, height: 139 }} source={require('../../assets/betterAlberto.png')} />
+                                <View style={{ flex: 1, justifyContent: 'center' }}>
+                                    <Text style={styles.trilhaTit}>Livro de Receitas</Text>
+                                </View>
+                            </View>
                         </View>
-                    )}
-                />
-                <FlatList
-                    data={listing}
-                    extraData={whyReact}
-                    scrollEnabled={false}
-                    showsVerticalScrollIndicator={false}
-                    renderItem={({ item, index }) => (
-                        <View style={styles.itemcontainer} >
-                            {user != {} && user.Premium == false && item.NomeTrilha == "Gourmet" ?
-                                (
-                                    <View />
-                                ) : (
-                                    <TouchableOpacity activeOpacity={0.8} style={styles.row} onPress={() => navigation.navigate('Preparo', { paramKey: [item.Nome, trilha[whyReact[index]].Cor, item.Icone, trilha[whyReact[index]].CorBorda, trilha[whyReact[index]].CorFill] })}>
-                                        <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: '#E9E9E9', position: 'absolute', borderRadius: 20, marginTop: 6 }]} />
-                                        <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: "#FFF", position: 'absolute', borderRadius: 20, borderColor: '#E9E9E9', borderWidth: 7 }]} />
-                                        <View style={[{ height: '100%', width: 120, zIndex: 1, backgroundColor: '#D383E3', position: 'absolute', borderRadius: 20, marginTop: 6 }]} />
+                        <FlatList
+                            data={trilha}
+                            extraData={whyReact}
+                            horizontal={true}
+                            style={{ alignSelf: 'center', paddingHorizontal: 10 }}
+                            showsHorizontalScrollIndicator={false}
+                            showsVerticalScrollIndicator={false}
+                            renderItem={({ item, index }) => (
+                                <View>
+                                    {user != {} && user.Premium == false && item.NomeTrilha == "Gourmet" ||
+                                        trilhaNumber.includes(item.NomeTrilha) === false ?
+                                        (
+                                            <View />
+                                        ) : (
+                                            <TouchableOpacity activeOpacity={0.8} onPress={() => handleModal(item.NomeTrilha)} style={[styles.button, { marginRight: index + 1 == trilhaNumber.length ? 0 : 25 }]} >
+                                                <MaterialCommunityIcons name={item.BookIcon} size={35} color={"#505050"} />
+                                                <Text style={styles.buttontitle} >{item.NomeTrilha}</Text>
+                                            </TouchableOpacity>
+                                        )
+                                    }
+                                </View>
+                            )}
+                        />
+                        <FlatList
+                            data={listing}
+                            extraData={whyReact}
+                            scrollEnabled={false}
+                            showsVerticalScrollIndicator={false}
+                            renderItem={({ item, index }) => (
+                                <View style={styles.itemcontainer} >
+                                    {user != {} && user.Premium == false && item.NomeTrilha == "Gourmet" ?
+                                        (
+                                            <View />
+                                        ) : (
+                                            <TouchableOpacity activeOpacity={0.8} style={styles.row} onPress={() => navigation.navigate('Preparo', { paramKey: [item.Nome, trilha[whyReact[index]].Cor, item.Icone, trilha[whyReact[index]].CorBorda, trilha[whyReact[index]].CorFill] })}>
+                                                <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: '#E9E9E9', position: 'absolute', borderRadius: 20, marginTop: 6 }]} />
+                                                <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: "#FFF", position: 'absolute', borderRadius: 20, borderColor: '#E9E9E9', borderWidth: 7 }]} />
+                                                <View style={[{ height: '100%', width: 120, zIndex: 1, backgroundColor: '#D383E3', position: 'absolute', borderRadius: 20, marginTop: 6 }]} />
 
-                                        <View style={[styles.imagecontainer, { borderColor: '#D383E3' }]}>
+                                                <View style={[styles.imagecontainer, { borderColor: '#D383E3' }]}>
 
-                                            <Image style={styles.icon} source={{ uri: item.Icone }} />
+                                                    <Image style={styles.icon} source={{ uri: item.Icone }} />
 
-                                        </View>
-                                        <View style={[styles.rightRow]} >
-                                            <Text style={[styles.descricaoFase, { color: '#be48d5' }]}>{item.Nome}</Text>
-                                            {item.Tempo != null && item.Tempo != undefined && (
-                                                <View style={styles.timezone} >
-                                                    <>
-                                                        <FontAwesome5 name="clock" size={20} color={"#505050"} />
-                                                        <Text style={styles.timetxt} >{item.Tempo} minutos</Text>
-                                                    </>
                                                 </View>
-                                            )}
-                                        </View>
+                                                <View style={[styles.rightRow]} >
+                                                    <Text style={[styles.descricaoFase, { color: '#be48d5' }]}>{item.Nome}</Text>
+                                                    {item.Tempo != null && item.Tempo != undefined && (
+                                                        <View style={styles.timezone} >
+                                                            <>
+                                                                <FontAwesome5 name="clock" size={20} color={"#505050"} />
+                                                                <Text style={styles.timetxt} >{item.Tempo} minutos</Text>
+                                                            </>
+                                                        </View>
+                                                    )}
+                                                </View>
 
-                                    </TouchableOpacity>
-                                )
-                            }
-                        </View>
+                                            </TouchableOpacity>
+                                        )
+                                    }
+                                </View>
 
+                            )}
+                        />
+                    </ScrollView>
+                </>
+            ) : (
+                <View style={styles.nothing} >
+                    {terminated ? (
+                        <>
+                            <FontAwesome5 color="#505050" name="book" size={175} />
+                            <Text style={[styles.nothingtxt, { marginTop: 20 }]} >Seu livro está vazio...</Text>
+                            <Text style={[styles.nothingtxt, { fontSize: 23, marginTop: 50 }]} >Faça uma receita para acessa-la facilmente aqui!</Text>
+                        </>
+                    ) : (
+                        <>
+                            <ActivityIndicator size={120} color={"#D383E3"} />
+                            <Text style={{ marginTop: 15, fontSize: 20, textAlign: 'center', width: "90%" }} >Carregando...</Text>
+                        </>
                     )}
-                />
-            </ScrollView>
+                </View>
+            )}
             <Modal visible={visible}
                 onRequestClose={() => setVisible(false)}
                 animationType="slide"
@@ -418,12 +451,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         zIndex: 3
     },
-    icon: {
-        width: 65,
-        height: 65,
-        alignSelf: 'center',
-        paddingVertical: 20
-    },
     searcharea: {
         width: "100%",
         borderColor: "#F2F2F2",
@@ -458,10 +485,7 @@ const styles = StyleSheet.create({
     },
     nothing: {
         backgroundColor: "#FFF",
-        borderRadius: 25,
-        width: "100%",
         flex: 1,
-        paddingTop: 15,
         justifyContent: "center",
         alignItems: "center"
     },
@@ -470,22 +494,7 @@ const styles = StyleSheet.create({
         width: "85%",
         textAlign: "center",
         fontSize: 25,
-        //marginTop: 35
-    },
-    nothing: {
-        backgroundColor: "#FFF",
-        borderRadius: 25,
-        width: "100%",
-        flex: 1,
-        paddingTop: 15,
-        justifyContent: "center",
-        alignItems: "center"
-    },
-    nothingtxt: {
-        fontWeight: "bold",
-        width: "85%",
-        textAlign: "center",
-        fontSize: 25,
+        color: "#505050"
         //marginTop: 35
     },
 })

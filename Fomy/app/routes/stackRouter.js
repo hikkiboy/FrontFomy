@@ -192,31 +192,31 @@ export function TabNavigatior() {
     <Tab.Screen name = "Perfil" component={Profile} options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <Ionicons name="person-sharp" size={32} color={focused ? "#2985DB" : "black"} />
+      <Ionicons name="person-sharp" size={32} color={focused ? "#2985DB" : "#505050"} />
     )}}/>
     
     <Tab.Screen name = "Community" component={Community} options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <Ionicons name="chatbubble-ellipses" size={32} color={focused ? "#2985DB" : "black"} />
+      <Ionicons name="chatbubble-ellipses" size={32} color={focused ? "#2985DB" : "#505050"} />
     )}}/>
 
     <Tab.Screen name = "Home" component={Home}  options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <Ionicons name="home" size={32} color={focused ? "#70d872" : "black"} />
+      <Ionicons name="home" size={32} color={focused ? "#70d872" : "#505050"} />
     )}}/>
     
     <Tab.Screen name = "Store" component={Store} options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <Ionicons name="cart" size={32} color={focused ? "#ED8A07" : "black"} />
+      <Ionicons name="cart" size={32} color={focused ? "#ED8A07" : "#505050"} />
     )}}/>
     
     <Tab.Screen name = "Book" component={MainBook} options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <FontAwesome name="book" size={32} color={focused ? "#be48d5" : "black"} />
+      <FontAwesome name="book" size={32} color={focused ? "#be48d5" : "#505050"} />
     )}}/>
 
     {/*<Tab.Screen name = "Trilhas" component={Fetch}options={{headerShown: false}}/>*/}

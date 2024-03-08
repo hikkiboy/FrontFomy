@@ -47,10 +47,10 @@ export function ModalBook({ navigation, fullListing, user, fullTrilha, name, han
             <ScrollView>
                 <View style={styles.thisthing} >
                     <View style={styles.whydoyoudothis} >
-                        <TouchableOpacity activeOpacity={0.8} style={{ position: 'absolute', paddingBottom: 5, paddingStart: 5 }} onPress={() => handleModal(trilha[0].NomeTrilha)} >
+                        <TouchableOpacity activeOpacity={0.8} style={{ position: 'absolute', paddingBottom: 5, paddingStart: 5 }} onPress={() => handleModal(name)} >
                             <FontAwesome size={30} color={"#FFF"} name='arrow-left'/>
                         </TouchableOpacity>
-                        {trilha.length != 0 && <Text style={{ alignSelf: 'center', fontWeight: 'bold', fontSize: 30, color: "#FFF" }} >{trilha[0].NomeTrilha}</Text>}
+                        <Text style={{ alignSelf: 'center', fontWeight: 'bold', fontSize: 30, color: "#FFF" }} >{name}</Text>
                     </View>
                 </View>
 
@@ -60,7 +60,7 @@ export function ModalBook({ navigation, fullListing, user, fullTrilha, name, han
                     showsVerticalScrollIndicator={false}
                     renderItem={({ item }) => (
                         <View style={styles.itemcontainer} >
-                            <TouchableOpacity activeOpacity={0.8} style={styles.row} onPress={() => { handleModal(trilha[0].NomeTrilha); navigation.navigate('Preparo', { paramKey: [item.Nome, trilha[0].Cor, item.Icone, trilha[0].CorBorda, trilha[0].CorFill] }); }}>
+                            <TouchableOpacity activeOpacity={0.8} style={styles.row} onPress={() => { handleModal(name); navigation.navigate('Preparo', { paramKey: [item.Nome, trilha[0].Cor, item.Icone, trilha[0].CorBorda, trilha[0].CorFill] }); }}>
                                 <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: '#E9E9E9', position: 'absolute', borderRadius: 20, marginTop: 6 }]} />
                                 <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: "#FFF", position: 'absolute', borderRadius: 20, borderColor: '#E9E9E9', borderWidth: 7 }]} />
                                 <View style={[{ height: '100%', width: 120, zIndex: 1, backgroundColor: '#D383E3', position: 'absolute', borderRadius: 20, marginTop: 6 }]} />
