@@ -16,22 +16,22 @@ export function ActionModal({ handleActionOff, handleAction, navigation, handleN
                 <View style={styles.content} >
                     <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => pickImage(userImage)} >
                         <Text style={styles.action} >Alterar Foto</Text>
-                        <Feather name="camera" size={26} />
+                        <Feather color="#505050" name="camera" size={26} />
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={handleName} >
                         <Text style={styles.action} >Alterar Nome</Text>
-                        <Feather name="edit" size={26} />
+                        <Feather color="#505050" name="edit" size={26} />
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={ () => {handleAction(); navigation.navigate('Configs')}}>
                         <Text style={styles.action} >Configurações</Text>
-                        <Feather name="settings" size={26} />
+                        <Feather color="#505050" name="settings" size={26} />
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.leave} activeOpacity={0.9} onPress={() => {handleActionOff()}} >
                         <Text style={styles.action} >Sair</Text>
-                        <Feather name="log-out" size={26} />
+                        <Feather color="#505050" name="log-out" size={26} />
                     </TouchableOpacity>
 
                 </View>
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderWidth: 5,
         borderBottomWidth: 10,
-        borderColor: "#70D872",
+        borderColor: "#3B98EF",
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: 25
@@ -73,17 +73,18 @@ const styles = StyleSheet.create({
     action:{
         fontSize: 20,
         fontWeight: '600',
+        color: "#505050"
     },
     leave:{
         zIndex: 99,
-        backgroundColor: "#FA787D",
+        backgroundColor: "#FFF",
         borderRadius: 15,
         marginTop: 25,
         padding: 10,
         alignItems: 'center',
         borderWidth: 5,
         borderBottomWidth: 10,
-        borderColor: "#E15F64",
+        borderColor: "#FA787D",
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: 25
