@@ -211,7 +211,7 @@ const MainBook = ({ navigation }) => {
                             data={trilha}
                             extraData={whyReact}
                             horizontal={true}
-                            style={{ alignSelf: 'center', paddingHorizontal: 10 }}
+                            style={{alignSelf: 'center'}}
                             showsHorizontalScrollIndicator={false}
                             showsVerticalScrollIndicator={false}
                             renderItem={({ item, index }) => (
