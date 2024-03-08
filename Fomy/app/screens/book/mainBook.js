@@ -1,41 +1,44 @@
-import {View, Image, StyleSheet, Text,FlatList,TouchableOpacity, TextInput, LogBox, ScrollView} from 'react-native'
+import { View, Image, StyleSheet, Text, FlatList, TouchableOpacity, TextInput, LogBox, ScrollView, Modal } from 'react-native'
 import { app, app_DB, app_auth } from '../../../firebaseConfig'
 import { onAuthStateChanged } from "firebase/auth"
 import { useState, useEffect } from 'react'
 import { search } from './search'
-import { FontAwesome5, Feather, Octicons, FontAwesome } from 'react-native-vector-icons'
+import { FontAwesome5, Feather, Octicons, FontAwesome, MaterialCommunityIcons } from 'react-native-vector-icons'
 import { collection, deleteDoc, doc, query, where, onSnapshot, documentId, orderBy } from "firebase/firestore";
 import { SafeAreaView } from 'react-native-safe-area-context';
+import ModalBook from '../../components/actionmodal/modalbook'
 
 //ASLKDMASFMALGMLGSA
 
-const MainBook = ({navigation}) => {
+const MainBook = ({ navigation }) => {
 
     const [user, setUser] = useState({})
     const [search, setSearch] = useState("");
     const [listing, setListing] = useState([])
-    const [trilha, setTrilha] = useState ({})
+    const [trilha, setTrilha] = useState({})
     const [whyReact, setWhyReact] = useState([])
+    const [visible, setVisible] = useState(false)
+    const [trilhaName, setTrilhaName] = useState("")
     let colorArray = []
 
     LogBox.ignoreLogs([
         'Non-serializable values were found in the navigation state',
-      ]);
+    ]);
 
-    function colorThis(){
+    function colorThis() {
         listing.forEach((item) => {
-            if(item.NomeTrilha == "Básico"){
+            if (item.NomeTrilha == "Básico") {
                 colorArray.push(0)
-                
-            } else if(item.NomeTrilha == "Refeições"){
+
+            } else if (item.NomeTrilha == "Refeições") {
                 colorArray.push(1)
-                
-            } else if(item.NomeTrilha == "Doces"){
+
+            } else if (item.NomeTrilha == "Doces") {
                 colorArray.push(2)
-               
-            } else if(item.NomeTrilha == "Gourmet"){
+
+            } else if (item.NomeTrilha == "Gourmet") {
                 colorArray.push(3)
-               
+
             }
         })
         setWhyReact(colorArray)
@@ -46,71 +49,75 @@ const MainBook = ({navigation}) => {
 
         const login = onAuthStateChanged(app_auth, () => {
             try {
-            const userRef = collection(app_DB, 'Usuarios')
-        
-            const q = query(
-                userRef,
-                where(documentId(), '==', app_auth.currentUser.uid)
-            )
-        
-            
-        
-            const subscriver = onSnapshot(q, {
-                next : (snapshot) => {
-                    const userq = []
-                    
-                    snapshot.docs.forEach(doc =>{
-                        userq.push({
-                            key : doc.id,
-                            ...doc.data(),
-                        
-                        })
-                    })
-                    setUser(userq[0])
-                    console.log("book usered: ", userq[0].Nome);
-                }
-            })
+                const userRef = collection(app_DB, 'Usuarios')
 
-            return () => subscriver()
-            } catch(error){
+                const q = query(
+                    userRef,
+                    where(documentId(), '==', app_auth.currentUser.uid)
+                )
+
+
+
+                const subscriver = onSnapshot(q, {
+                    next: (snapshot) => {
+                        const userq = []
+
+                        snapshot.docs.forEach(doc => {
+                            userq.push({
+                                key: doc.id,
+                                ...doc.data(),
+
+                            })
+                        })
+                        setUser(userq[0])
+                        console.log("book usered: ", userq[0].Nome);
+                    }
+                })
+
+                return () => subscriver()
+            } catch (error) {
                 console.log("stilldontcare");
             }
         })
         return () => login();
 
-    },[])
+    }, [])
 
     useEffect(() => {
 
         const trilhaRef = collection(app_DB, 'Trilhas')
-    
+
         const q = query(
             trilhaRef,
         )
-    
-        
-    
+
+
+
         const subscriver = onSnapshot(q, {
-            next : (snapshot) => {
+            next: (snapshot) => {
                 const trilhaq = []
-                
-                snapshot.docs.forEach(doc =>{
+
+                snapshot.docs.forEach(doc => {
                     trilhaq.push({
-                        key : doc.id,
+                        key: doc.id,
                         ...doc.data(),
-                       
+
                     })
                 })
                 setTrilha(trilhaq)
                 console.log("help: ", trilha);
 
-            
+
             }
         })
 
-          return () => subscriver()
+        return () => subscriver()
 
-    },[])
+    }, [])
+
+    const handleModal = (name) => {
+        
+    }
 
     useEffect(() => {
 
@@ -118,7 +125,7 @@ const MainBook = ({navigation}) => {
 
         const login = onAuthStateChanged(app_auth, () => {
             try {
-                if(user.ReceitasFeitas != undefined && user.ReceitasFeitas != {} && user.ReceitasFeitas != "" && user.ReceitasFeitas != null){
+                if (user.ReceitasFeitas != undefined && user.ReceitasFeitas != {} && user.ReceitasFeitas != "" && user.ReceitasFeitas != null) {
                     try {
                         const listingRef = collection(app_DB, 'Receitas')
 
@@ -128,126 +135,182 @@ const MainBook = ({navigation}) => {
                         )
 
                         const subscriver = onSnapshot(q, {
-                            next : (snapshot) => {
-                            const listingq = []
-                            snapshot.docs.forEach(doc =>{
-                                listingq.push({
-                                key : doc.id,
-                                ...doc.data(),
-                                
+                            next: (snapshot) => {
+                                const listingq = []
+                                snapshot.docs.forEach(doc => {
+                                    listingq.push({
+                                        key: doc.id,
+                                        ...doc.data(),
+
+                                    })
                                 })
-                            })
-                            setListing(listingq)
-                            console.log("listed");
+                                setListing(listingq)
+                                console.log("listed");
 
                             }
                         })
 
                         return () => subscriver()
-                    } catch(error){
+                    } catch (error) {
                         console.log(error);
                     }
                 } else {
                     setListing({})
                     console.log("unlisted");
                 }
-            } catch(error){
+            } catch (error) {
                 console.log("dontcare");
             }
         })
         return () => login()
 
-    },[user])
+    }, [user])
 
     useEffect(() => {
-        if(listing.length != 0 && user.ReceitasFeitas != undefined && user.ReceitasFeitas != {} && user.ReceitasFeitas != "" && user.ReceitasFeitas != null){
-            try{colorThis(); console.log("colored");} catch(error){console.log(error)}
+        if (listing.length != 0 && user.ReceitasFeitas != undefined && user.ReceitasFeitas != {} && user.ReceitasFeitas != "" && user.ReceitasFeitas != null) {
+            try { colorThis(); console.log("colored"); } catch (error) { console.log(error) }
         }
-    },[listing, user])
+    }, [listing, user])
 
     const handleSearch = () => {
-        if(search != ""){
-          navigation.navigate("Search", {paramKey:[search], recipes:[listing], trilha:[trilha]})
+        if (search != "") {
+            navigation.navigate("Search", { paramKey: [search], recipes: [listing], trilha: [trilha] })
         }
-      }
-        
-    return(
-        
+    }
+
+    return (
+
         <SafeAreaView style={styles.container} >
             <View style={styles.searcharea} >
-                <TextInput onSubmitEditing={() => handleSearch()} value= {search} onChangeText={(text) => setSearch(text)} style={styles.searchinput} placeholder='Pesquisar' autoCapitalize='none' />
-                    <TouchableOpacity onPress={() => handleSearch()} style={styles.searchbutton} >
+                <TextInput onSubmitEditing={() => handleSearch()} value={search} onChangeText={(text) => setSearch(text)} style={styles.searchinput} placeholder='Pesquisar' autoCapitalize='none' />
+                <TouchableOpacity onPress={() => handleSearch()} style={styles.searchbutton} >
                     <Feather name="search" style={styles.searchicon} size={25} color={"rgba(0,0,0,0.75)"} />
                 </TouchableOpacity>
             </View>
-
-            <View style={styles.bgimg}>
-                <Image tintColor={"#70D872"} style={ styles.booklet } source={require('../../assets/booklet.png')} />
-                <View style={ styles.titlearea } >
-                    <Image  style={{width:108, height:139}} source={require('../../assets/betterAlberto.png')}/>
-                    <View style={{flex: 1, justifyContent: 'center' }}>
-                        <Text style={styles.trilhaTit}>Livro de Receitas</Text>
+            <ScrollView style={styles.itemlist} >
+                <View style={styles.bgimg}>
+                    <Image tintColor={"#be48d5"} style={styles.booklet} source={require('../../assets/booklet.png')} />
+                    <View style={styles.titlearea} >
+                        <Image style={{ width: 108, height: 139 }} source={require('../../assets/betterAlberto.png')} />
+                        <View style={{ flex: 1, justifyContent: 'center' }}>
+                            <Text style={styles.trilhaTit}>Livro de Receitas</Text>
+                        </View>
                     </View>
                 </View>
-            </View>
-            <FlatList
-                data={trilha}
-                extraData={whyReact}
-                numColumns={2}
-                showsVerticalScrollIndicator={false}
-                renderItem={({ item, index }) => (
-                    <View style={styles.buttonarea} >
-                        <TouchableOpacity style={styles.button} >
-                            {item.Imagem != "" && <Image style={styles.icon} source={{ uri : item.Imagem }} />} 
-                            <Text style={styles.buttontitle} >{item.NomeTrilha}</Text>
-                        </TouchableOpacity>
-                    </View>
-                )}
-            />
-            <View style={styles.buttonarea} >
-                <TouchableOpacity style={styles.button} >
-                    <Image/>
-                    <Text style={styles.buttontitle} >Favoritos</Text>
-                </TouchableOpacity>
-            </View>
-            
+                <FlatList
+                    data={trilha}
+                    extraData={whyReact}
+                    horizontal={true}
+                    style={{ alignSelf: 'center', paddingHorizontal: 10 }}
+                    showsHorizontalScrollIndicator={false}
+                    showsVerticalScrollIndicator={false}
+                    renderItem={({ item, index }) => (
+                        <View>
+                            {user != {} && user.Premium == false && item.NomeTrilha == "Gourmet" ?
+                                (
+                                    <View />
+                                ) : (
+                                    <TouchableOpacity style={[styles.button, { marginRight: user.Premium == false && item.NomeTrilha == "Doces" ? 0 : 25 }]} >
+                                        <MaterialCommunityIcons name={item.BookIcon} size={30} color={"#505050"} />
+                                        <Text style={styles.buttontitle} >{item.NomeTrilha}</Text>
+                                    </TouchableOpacity>
+                                )
+                            }
+                        </View>
+                    )}
+                />
+                <FlatList
+                    data={listing}
+                    extraData={whyReact}
+                    scrollEnabled={false}
+                    showsVerticalScrollIndicator={false}
+                    renderItem={({ item, index }) => (
+                        <View style={styles.itemcontainer} >
+                            {user != {} && user.Premium == false && item.NomeTrilha == "Gourmet" ?
+                                (
+                                    <View />
+                                ) : (
+                                    <TouchableOpacity activeOpacity={0.8} style={styles.row} onPress={() => navigation.navigate('Preparo', { paramKey: [item.Nome, trilha[whyReact[index]].Cor, item.Icone, trilha[whyReact[index]].CorBorda, trilha[whyReact[index]].CorFill] })}>
+                                        <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: '#E9E9E9', position: 'absolute', borderRadius: 20, marginTop: 6 }]} />
+                                        <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: "#FFF", position: 'absolute', borderRadius: 20, borderColor: '#E9E9E9', borderWidth: 7 }]} />
+                                        <View style={[{ height: '100%', width: 120, zIndex: 1, backgroundColor: '#D383E3', position: 'absolute', borderRadius: 20, marginTop: 6 }]} />
+
+                                        <View style={[styles.imagecontainer, { borderColor: '#D383E3' }]}>
+
+                                            <Image style={styles.icon} source={{ uri: item.Icone }} />
+
+                                        </View>
+                                        <View style={[styles.rightRow]} >
+                                            <Text style={[styles.descricaoFase, { color: '#be48d5' }]}>{item.Nome}</Text>
+                                            {item.Tempo != null && item.Tempo != undefined && (
+                                                <View style={styles.timezone} >
+                                                    <>
+                                                        <FontAwesome5 name="clock" size={20} color={"#505050"} />
+                                                        <Text style={styles.timetxt} >{item.Tempo} minutos</Text>
+                                                    </>
+                                                </View>
+                                            )}
+                                        </View>
+
+                                    </TouchableOpacity>
+                                )
+                            }
+                        </View>
+
+                    )}
+                />
+            </ScrollView>
+            <Modal visible={visible}
+                onRequestClose={handleModal}
+                animationType="slide"
+                presentationStyle='pageSheet'
+            >
+                <ModalBook
+                    navigation={navigation}
+                    fullListing={listing}
+                    user={user}
+                    fullTrilha={trilha}
+                    name={trilhaName}
+                />
+
+            </Modal>
+
         </SafeAreaView>
     )
 
-    
+
 }
 
 export default MainBook
 
 const styles = StyleSheet.create({
-    container:{
-        backgroundColor: "#FFF", 
+    container: {
+        backgroundColor: "#FFF",
         borderRadius: 25,
-        width: "100%", 
+        width: "100%",
         flex: 1,
     },
-    itemlist:{
-        backgroundColor: "#FFF", 
-        borderRadius: 25, 
-        width: "100%", 
+    itemlist: {
+        backgroundColor: "#FFF",
+        borderRadius: 25,
+        width: "100%",
         flex: 1,
         paddingTop: 20,
         marginBottom: 70
     },
-    bgimg:{
+    bgimg: {
         width: "100%",
         borderRadius: 20,
-        marginTop: 20,
         marginBottom: 40,
-        backgroundColor: "#fff"
-      },
-      booklet:{
+        backgroundColor: "#D383E3",
+    },
+    booklet: {
         height: '100%',
         width: '100%',
         position: 'absolute',
         resizeMode: 'stretch'
-      },
-      titlearea:{
+    },
+    titlearea: {
         width: '100%',
         paddingStart: 40,
         paddingEnd: 40,
@@ -256,30 +319,115 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-    
-      },
-      trilhaTit:{
+
+    },
+    trilhaTit: {
         textAlign: 'center',
         marginBottom: 5,
         fontSize: 42,
         fontWeight: "bold",
-        color: "#5DC15F",
+        color: "#FFF",
         //fontFamily: FontFamily.leagueSpartanBold
-      },
-      buttonarea:{
-        flex: 1,
-        marginTop: 40
-      },
-      button:{
-
-      },
-    icon:{
-      width: 65,
-      height: 65,
-      alignSelf: 'center',
-      paddingVertical: 20
     },
-    searcharea:{
+    button: {
+        flex: 1,
+        marginBottom: 40,
+        marginRight: 25,
+        alignSelf: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: "#E9E9E9",
+        borderRadius: 15,
+        borderWidth: 4,
+        borderBottomWidth: 8,
+        paddingHorizontal: 15,
+        paddingVertical: 5
+    },
+    buttontitle: {
+        color: "#505050"
+    },
+    icon: {
+        width: 65,
+        height: 65,
+        alignSelf: 'center',
+        paddingVertical: 20
+    },
+    itemlist: {
+        backgroundColor: "#FFF",
+        borderRadius: 25,
+        width: "100%",
+        flex: 1,
+        paddingTop: 20,
+        marginBottom: 70
+    },
+    itemcontainer: {
+        flex: 1,
+        display: 'flex'
+    },
+
+    row: {
+        flexDirection: 'row',
+        alignContent: 'flex-end',
+        marginStart: 10,
+        marginEnd: 10,
+        marginBottom: 40,
+        backgroundColor: '#FFF',
+    },
+    rightRow: {
+        flex: 1,
+        height: '100%',
+        borderTopRightRadius: 20,
+        borderBottomRightRadius: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 3,
+        backgroundColor: '#FFF',
+        paddingVertical: 15,
+        paddingStart: 15,
+        paddingEnd: 15,
+        borderWidth: 7,
+        borderLeftWidth: 0,
+        borderColor: "#E9E9E9"
+
+    },
+    descricaoFase: {
+        fontSize: 19,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        width: '100%',
+        color: "#5DC15F"
+    },
+    timezone: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 10
+    },
+    timetxt: {
+        fontSize: 17,
+        marginLeft: 5,
+        color: "#505050",
+        fontWeight: "500"
+    },
+    imagecontainer: {
+        borderColor: '#70D872',
+        backgroundColor: "#FFF",
+        borderWidth: 7,
+        width: 120,
+        paddingVertical: 10,
+        height: "100%",
+        borderRadius: 20,
+        borderBottomLeftRadius: 20,
+        justifyContent: 'center',
+        zIndex: 3
+    },
+    icon: {
+        width: 65,
+        height: 65,
+        alignSelf: 'center',
+        paddingVertical: 20
+    },
+    searcharea: {
         width: "100%",
         borderColor: "#F2F2F2",
         borderBottomWidth: 1.5,
@@ -288,9 +436,9 @@ const styles = StyleSheet.create({
         paddingStart: 20,
         paddingEnd: 20,
         paddingVertical: 15,
-    
-      },
-      searchinput:{
+
+    },
+    searchinput: {
         backgroundColor: "#F7F7F7",
         borderRadius: 25,
         fontSize: 20,
@@ -299,32 +447,48 @@ const styles = StyleSheet.create({
         paddingLeft: 15,
         paddingRight: 60,
         color: "#000"
-    
-      },
-      searchbutton:{
+
+    },
+    searchbutton: {
         position: 'absolute',
         alignSelf: 'flex-end',
         justifyContent: 'center'
-      },
-      searchicon:{
+    },
+    searchicon: {
         position: 'absolute',
         alignSelf: 'flex-end',
         paddingRight: 35
-      },
-      nothing:{
-          backgroundColor: "#FFF", 
-          borderRadius: 25, 
-          width: "100%", 
-          flex: 1,
-          paddingTop: 15,
-          justifyContent: "center",
-          alignItems: "center"
-      },
-      nothingtxt:{
-          fontWeight: "bold",
-          width: "85%",
-          textAlign: "center",
-          fontSize: 25,
-          //marginTop: 35
-      },
+    },
+    nothing: {
+        backgroundColor: "#FFF",
+        borderRadius: 25,
+        width: "100%",
+        flex: 1,
+        paddingTop: 15,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    nothingtxt: {
+        fontWeight: "bold",
+        width: "85%",
+        textAlign: "center",
+        fontSize: 25,
+        //marginTop: 35
+    },
+    nothing: {
+        backgroundColor: "#FFF",
+        borderRadius: 25,
+        width: "100%",
+        flex: 1,
+        paddingTop: 15,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    nothingtxt: {
+        fontWeight: "bold",
+        width: "85%",
+        textAlign: "center",
+        fontSize: 25,
+        //marginTop: 35
+    },
 })

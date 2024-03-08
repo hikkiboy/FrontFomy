@@ -25,7 +25,6 @@ import AlterEmail from "../screens/accountConfig/alterEmail"
 import Loading from "../components/loading";
 import Store from '../screens/store'
 import Community from '../screens/community'
-import Book from '../screens/book'
 
 import Preparo from "../components/preparo";
 import Passos from "../components/passos";
@@ -154,13 +153,8 @@ export default function Routes({ loggedIn, loading }) {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="MainBook"
-        component={MainBook}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
         name="Book"
-        component={Book}
+        component={MainBook}
         options={{ headerShown: false }}
       />
         <Stack.Screen
@@ -198,13 +192,13 @@ export function TabNavigatior() {
     <Tab.Screen name = "Perfil" component={Profile} options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <Ionicons name="person-sharp" size={32} color={focused ? "#70d872" : "black"} />
+      <Ionicons name="person-sharp" size={32} color={focused ? "#2985DB" : "black"} />
     )}}/>
     
     <Tab.Screen name = "Community" component={Community} options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <Ionicons name="chatbubble-ellipses-outline" size={32} color={focused ? "#70d872" : "black"} />
+      <Ionicons name="chatbubble-ellipses" size={32} color={focused ? "#2985DB" : "black"} />
     )}}/>
 
     <Tab.Screen name = "Home" component={Home}  options={{
@@ -216,13 +210,13 @@ export function TabNavigatior() {
     <Tab.Screen name = "Store" component={Store} options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <Ionicons name="cart-outline" size={32} color={focused ? "#70d872" : "black"} />
+      <Ionicons name="cart" size={32} color={focused ? "#ED8A07" : "black"} />
     )}}/>
     
     <Tab.Screen name = "Book" component={MainBook} options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <FontAwesome name="book" size={32} color={focused ? "#70d872" : "black"} />
+      <FontAwesome name="book" size={32} color={focused ? "#be48d5" : "black"} />
     )}}/>
 
     {/*<Tab.Screen name = "Trilhas" component={Fetch}options={{headerShown: false}}/>*/}
