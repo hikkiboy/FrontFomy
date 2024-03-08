@@ -123,7 +123,7 @@ export default function Profile({ navigation }) {
             <Progress.Bar style={{ position: 'absolute' }}
                 progress={progressToBar}
                 width={325}
-                height={35}
+                height={40}
                 borderRadius={9}
                 color="#FA787D"
                 borderWidth={0}
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
         fontSize: 29,
         marginTop: 12,
         fontWeight: 'bold',
-        color: "#505050"
+        color: "#303030"
     },
     nameinput: {
         backgroundColor: "#3B98EF",
@@ -275,7 +275,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         fontSize: 24,
         fontWeight: '600',
-        color: "rgba(0,0,0,0.35)"
+        color: "#909090"
     },
     flag: {
         alignSelf: 'center',
@@ -315,7 +315,7 @@ const styles = StyleSheet.create({
     exp: {
         position: 'absolute',
         alignSelf: 'center',
-        color: "rgba(0,0,0,0.25)",
+        color: "#909090",
         fontWeight: 'bold',
         fontSize: 27
     },

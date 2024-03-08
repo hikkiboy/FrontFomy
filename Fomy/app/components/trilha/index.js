@@ -424,7 +424,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
-    width: '100%'
+    width: '100%',
+    color: "#303030"
   },
   textoFase: {
     alignSelf: 'center',

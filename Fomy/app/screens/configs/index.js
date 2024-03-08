@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, StyleSheet, TextInput, Pressable } from "
 import { app_auth } from '../../../firebaseConfig'
 import { useLayoutEffect } from "react"
 import { SafeAreaView } from "react-native-safe-area-context"
-import Feather from 'react-native-vector-icons/Feather'
+import { Feather, FontAwesome } from 'react-native-vector-icons'
 import { ScrollView } from "react-native"
 
 
@@ -14,9 +14,9 @@ export default function Configs ({navigation}){
                 <SafeAreaView style={{ flex: 1, display: 'flex' }} >
                     <View style={{ width: "100%", height: 65, backgroundColor: "rgba(0,0,0,0.1)", borderRadius: 10 }} >
                         <View style={{width: "100%", height: 55, backgroundColor: "#FFF", flexDirection: 'row', alignItems: 'center', borderRadius: 10 }} >
-                            <TouchableOpacity style={{ width: "8.5%", marginStart: 10 }} onPress={() => navigation.goBack()} ><Feather name="chevron-left" size={28} /></TouchableOpacity>
+                            <TouchableOpacity style={{ width: "8.5%", marginStart: 20 }} onPress={() => navigation.goBack()} ><FontAwesome size={25} color={"#303030"} name='arrow-left' /></TouchableOpacity>
                             <View style={{ alignSelf: 'center', justifyContent: 'center', width: "100%", position: 'absolute' }} >
-                                <Text style={{ fontSize: 24, fontWeight: 'bold', alignSelf: 'center', position: 'absolute' }} >Configurações</Text>
+                                <Text style={{ fontSize: 24, fontWeight: 'bold', alignSelf: 'center', position: 'absolute', color: "#303030" }} >Configurações</Text>
                             </View>
                         </View>
                     </View>
@@ -41,15 +41,15 @@ export default function Configs ({navigation}){
                 <View style={styles.configlist} >
                     <TouchableOpacity style={styles.optionbutton} onPress={ () => navigation.navigate("AccountConfig")} activeOpacity={0.8} >
                         <Text style={styles.option} >Conta</Text>
-                        <Feather name="chevron-right" size={28} color={"black"} />
+                        <Feather name="chevron-right" size={28} color={"#505050"} />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.optionbutton} activeOpacity={0.8} >
                         <Text style={styles.option} >Notificações</Text>
-                        <Feather name="chevron-right" size={28} color={"black"} />
+                        <Feather name="chevron-right" size={28} color={"#505050"} />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.lastoptionbutton} activeOpacity={0.8} >
                         <Text style={styles.option} >Privacidade</Text>
-                        <Feather name="chevron-right" size={28} color={"black"} />
+                        <Feather name="chevron-right" size={28} color={"#505050"} />
                     </TouchableOpacity>
                 </View>
 
@@ -57,7 +57,7 @@ export default function Configs ({navigation}){
                 <View style={styles.configlist} >
                     <TouchableOpacity style={styles.lastoptionbutton} activeOpacity={0.8} >
                         <Text style={styles.option} >Assinatura</Text>
-                        <Feather name="chevron-right" size={28} color={"black"} />
+                        <Feather name="chevron-right" size={28} color={"#505050"} />
                     </TouchableOpacity>
                 </View>
 
@@ -65,7 +65,7 @@ export default function Configs ({navigation}){
                 <View style={styles.configlist} >
                     <TouchableOpacity style={styles.lastoptionbutton} activeOpacity={0.8} >
                         <Text style={styles.option} >Atendimento</Text>
-                        <Feather name="chevron-right" size={28} color={"black"} />
+                        <Feather name="chevron-right" size={28} color={"#505050"} />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.deletearea} >
@@ -98,7 +98,8 @@ title:{
     marginEnd: 7,
     marginBottom: 7,
     fontSize: 24,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color: "#303030"
 },
 configlist:{
     marginStart: 5,
@@ -121,7 +122,8 @@ optionbutton:{
 },
 option:{
     fontWeight: 'bold',
-    fontSize: 18
+    fontSize: 18,
+    color: "#505050"
 },
 lastoptionbutton:{
     paddingVertical: 8,

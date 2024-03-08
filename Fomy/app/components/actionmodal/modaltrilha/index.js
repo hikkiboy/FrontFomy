@@ -94,7 +94,8 @@ const styles = StyleSheet.create({
     titletext:{
         fontSize: 25,
         marginBottom: 5,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: "#303030"
     },
     linha:{
         width: 205.5,
@@ -134,6 +135,7 @@ const styles = StyleSheet.create({
     textostats:{
         fontWeight: 'bold',
         fontSize: 25,
+        color: "#505050"
     }
     
     

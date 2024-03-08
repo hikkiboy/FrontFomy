@@ -395,6 +395,7 @@ checkmark:{
 Ingredientes:{
     fontWeight: 'bold',
     fontSize: 20,
+    color: "#505050",
     flex: 1,
 },
 BonusBg:{
