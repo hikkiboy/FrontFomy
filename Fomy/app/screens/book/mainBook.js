@@ -20,13 +20,13 @@ const MainBook = ({ navigation }) => {
     const [whyReact, setWhyReact] = useState([])
     const [visible, setVisible] = useState(false)
     const [trilhaName, setTrilhaName] = useState("")
-    let colorArray = []
 
     LogBox.ignoreLogs([
         'Non-serializable values were found in the navigation state',
     ]);
 
     function colorThis() {
+        let colorArray = []
         listing.forEach((item) => {
             if (item.NomeTrilha == "Básico") {
                 colorArray.push(0)
@@ -42,9 +42,22 @@ const MainBook = ({ navigation }) => {
 
             }
         })
-        setTrilhaNumber(listing.map(item => item.NomeTrilha)
-            .filter((value, index, self) => self.indexOf(value) === index))
         setWhyReact(colorArray)
+
+        let filter = listing.map(item => item.NomeTrilha)
+            .filter((value, index, self) => self.indexOf(value) === index)
+
+        colorArray = []
+        trilha.forEach((item) => {
+            if (filter.includes(item.NomeTrilha)) {
+                if (item.NomeTrilha == "Gourmet" && user.Premium) {
+                    colorArray.push(item)
+                } else if (item.NomeTrilha != "Gourmet") {
+                    colorArray.push(item)
+                }
+            }
+        })
+        setTrilhaNumber(colorArray)
         setTerminated(true);
 
     }
@@ -208,24 +221,17 @@ const MainBook = ({ navigation }) => {
                             </View>
                         </View>
                         <FlatList
-                            data={trilha}
-                            extraData={trilhaNumber}
+                            data={trilhaNumber}
                             horizontal={true}
+                            style={{ alignSelf: 'center' }}
                             showsHorizontalScrollIndicator={false}
                             showsVerticalScrollIndicator={false}
                             renderItem={({ item, index }) => (
                                 <View>
-                                    {user != {} && user.Premium === false && item.NomeTrilha == "Gourmet" ||
-                                        trilhaNumber.includes(item.NomeTrilha) === false ?
-                                        (
-                                            <View style={{ marginLeft: index == 0 && 10 }} />
-                                        ) : (
-                                            <TouchableOpacity activeOpacity={0.8} onPress={() => handleModal(item.NomeTrilha)} style={[styles.button, { marginLeft: index == 0 && 10, marginRight: index + 1 == trilha.length ? 10 : 25 }]} >
-                                                <MaterialCommunityIcons name={item.BookIcon} size={35} color={"#505050"} />
-                                                <Text style={styles.buttontitle} >{item.NomeTrilha}</Text>
-                                            </TouchableOpacity>
-                                        )
-                                    }
+                                    <TouchableOpacity activeOpacity={0.8} onPress={() => handleModal(item.NomeTrilha)} style={[styles.button, {marginRight: index + 1 == trilhaNumber.length ? 10 : 25, marginLeft: index == 0 && 10 }]} >
+                                        <MaterialCommunityIcons name={item.BookIcon} size={35} color={"#505050"} />
+                                        <Text style={styles.buttontitle} >{item.NomeTrilha}</Text>
+                                    </TouchableOpacity>
                                 </View>
                             )}
                         />

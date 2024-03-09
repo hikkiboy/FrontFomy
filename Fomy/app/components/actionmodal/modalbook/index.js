@@ -19,20 +19,12 @@ export function ModalBook({ navigation, fullListing, user, fullTrilha, name, han
     ]);
 
     function colorThis() {
-        fullListing.forEach((item) => {
-            if (item.NomeTrilha == name) {
-                listArray.push(item);
-            }
-        })
-        fullTrilha.forEach((item) => {
-            if (item.NomeTrilha == name) {
-                trilhaArray.push(item);
-            }
-        })
+        fullListing.filter(item => item.NomeTrilha == name && listArray.push(item))
+        fullTrilha.filter(item => item.NomeTrilha == name && trilhaArray.push(item))
 
         setListing(listArray)
         setTrilha(trilhaArray);
-        console.log(listing);
+        console.log(listArray);
         console.log(trilhaArray);
     }
 
