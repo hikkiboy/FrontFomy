@@ -7,7 +7,7 @@ export function ModalBadge({ checkBadge, data }){
         <SafeAreaView style={styles.container} >
             <TouchableOpacity activeOpacity={0.8} onPress={() => checkBadge()} style={{ zIndex: 99 }}>
                 <View style={styles.backiconarea} >
-                    <FontAwesome size={30} color={"#000"} name='arrow-left' />
+                    <FontAwesome size={30} color={"#303030"} name='arrow-left' />
                 </View>
             </TouchableOpacity>
             <View style={[styles.container, { alignItems: 'center', justifyContent: 'center' }]}>
@@ -37,13 +37,15 @@ const styles = StyleSheet.create({
     Titulo:{
         fontSize: 30,
         fontWeight: 'bold',
-        marginTop: 40
+        marginTop: 40,
+        color: "#303030"
     },
     Descricao:{
         fontSize: 23,
         fontWeight: '500',
         marginTop: 30,
         textAlign: 'center',
-        maxWidth: "80%"
+        maxWidth: "80%",
+        color: "#505050"
     }
 })

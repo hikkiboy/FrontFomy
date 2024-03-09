@@ -25,12 +25,12 @@ import AlterEmail from "../screens/accountConfig/alterEmail"
 import Loading from "../components/loading";
 import Store from '../screens/store'
 import Community from '../screens/community'
-import Book from '../screens/book'
 
 import Preparo from "../components/preparo";
 import Passos from "../components/passos";
 import Parabens from "../components/parabens";
-
+import { Search } from "../screens/book/search";
+import MainBook from "../screens/book/mainBook";
 const Stack = createNativeStackNavigator();
 
 export default function Routes({ loggedIn, loading }) {
@@ -154,7 +154,12 @@ export default function Routes({ loggedIn, loading }) {
       />
       <Stack.Screen
         name="Book"
-        component={Book}
+        component={MainBook}
+        options={{ headerShown: false }}
+      />
+        <Stack.Screen
+        name="Search"
+        component={Search}
         options={{ headerShown: false }}
       />
       
@@ -187,31 +192,31 @@ export function TabNavigatior() {
     <Tab.Screen name = "Perfil" component={Profile} options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <Ionicons name="person-sharp" size={32} color={focused ? "#70d872" : "black"} />
+      <Ionicons name="person-sharp" size={32} color={focused ? "#2985DB" : "#505050"} />
     )}}/>
     
     <Tab.Screen name = "Community" component={Community} options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <Ionicons name="chatbubble-ellipses-outline" size={32} color={focused ? "#70d872" : "black"} />
+      <Ionicons name="chatbubble-ellipses" size={32} color={focused ? "#2985DB" : "#505050"} />
     )}}/>
 
     <Tab.Screen name = "Home" component={Home}  options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <Ionicons name="home" size={32} color={focused ? "#70d872" : "black"} />
+      <Ionicons name="home" size={32} color={focused ? "#70d872" : "#505050"} />
     )}}/>
     
     <Tab.Screen name = "Store" component={Store} options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <Ionicons name="cart-outline" size={32} color={focused ? "#70d872" : "black"} />
+      <Ionicons name="cart" size={32} color={focused ? "#ED8A07" : "#505050"} />
     )}}/>
     
-    <Tab.Screen name = "Book" component={Book} options={{
+    <Tab.Screen name = "Book" component={MainBook} options={{
       headerShown: false,
       tabBarIcon: ({focused})=>(
-      <FontAwesome name="book" size={32} color={focused ? "#70d872" : "black"} />
+      <FontAwesome name="book" size={32} color={focused ? "#be48d5" : "#505050"} />
     )}}/>
 
     {/*<Tab.Screen name = "Trilhas" component={Fetch}options={{headerShown: false}}/>*/}

@@ -1,100 +1,100 @@
-import { Platform, Alert, Modal, Pressable, StyleSheet, Text, View, Image, ScrollView, FlatList, useWindowDimensions, TouchableOpacity} from 'react-native';
+import { Platform, Alert, Modal, Pressable, StyleSheet, Text, View, Image, ScrollView, FlatList, useWindowDimensions, TouchableOpacity } from 'react-native';
 import { app, app_DB, app_auth } from '../../../firebaseConfig'
-import { collection, onSnapshot, query, where, orderBy,documentId } from '@firebase/firestore'
+import { collection, onSnapshot, query, where, orderBy, documentId } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { Route } from '@react-navigation/native';
 import { Button, ButtonGroup, Icon } from 'react-native-elements';
 import { ModalTrilha } from '../actionmodal/modaltrilha';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { FontAwesome } from '@expo/vector-icons'; 
+import { FontAwesome } from '@expo/vector-icons';
 
 
 
-export default  function Trilha({ route, navigation }) {
+export default function Trilha({ route, navigation }) {
   const [Receitas, setReceitas] = useState([]);
   const [modal, setModal] = useState([])
   const [onde, setOnde] = useState()
   const [bg, setBg] = useState();
 
-  
 
-  
+
+
   const NomeTrilha = route.params.paramKey
-    //console.log(route.params.paramKey)
-  useEffect(()=>{
-    
+  //console.log(route.params.paramKey)
+  useEffect(() => {
+
     const receitaRef = collection(app_DB, 'Receitas')
-    
+
     const q = query(
       receitaRef,
       where('NomeTrilha', '==', route.params.paramKey[0]),
-      
-      orderBy('Posicao', 'asc')
-      )
-      //console.log(NomeTrilha)     
-      const subscriver = onSnapshot(q, {
-        next : (snapshot) => {
-          const receitas = []
-          snapshot.docs.forEach(doc =>{
-            receitas.push({
-              key : doc.id,
-              ...doc.data(),
-              
-            })
-          })
-          setReceitas(receitas)
-          
 
-          
-        }
-      })
-      
-     
-      return() => subscriver()
-  
-  },[])
-  useEffect(()=>{
-    
+      orderBy('Posicao', 'asc')
+    )
+    //console.log(NomeTrilha)     
+    const subscriver = onSnapshot(q, {
+      next: (snapshot) => {
+        const receitas = []
+        snapshot.docs.forEach(doc => {
+          receitas.push({
+            key: doc.id,
+            ...doc.data(),
+
+          })
+        })
+        setReceitas(receitas)
+
+
+
+      }
+    })
+
+
+    return () => subscriver()
+
+  }, [])
+  useEffect(() => {
+
     const receitaRef = collection(app_DB, 'Usuarios')
-    
+
     const q = query(
       receitaRef,
       where(documentId(), '==', app_auth.currentUser.uid),
-      
-      )  
-      const subscriver = onSnapshot(q, {
-        next : (snapshot) => {
-          const receitas = []
-          snapshot.docs.forEach(doc =>{
-            receitas.push({
-              key : doc.id,
-              ...doc.data(),
-              
-            })
+
+    )
+    const subscriver = onSnapshot(q, {
+      next: (snapshot) => {
+        const receitas = []
+        snapshot.docs.forEach(doc => {
+          receitas.push({
+            key: doc.id,
+            ...doc.data(),
+
           })
-          setOnde(receitas)
+        })
+        setOnde(receitas)
 
 
-          
-        }
-      })
-      
-      return() => subscriver()
-      
 
-  
-  },[])
+      }
+    })
 
-  const {width} = useWindowDimensions()
-  
+    return () => subscriver()
+
+
+
+  }, [])
+
+  const { width } = useWindowDimensions()
+
 
 
   const [visible, setVisible] = useState(false)
 
   const handleModal = (item) => {
-    if(visible == false){
+    if (visible == false) {
       setVisible(!visible);
-      if(Platform.OS === 'ios'){
+      if (Platform.OS === 'ios') {
         setTimeout(() => {
           setBg("rgba(0,0,0,0.1)");
         }, 300)
@@ -104,243 +104,243 @@ export default  function Trilha({ route, navigation }) {
       setVisible(!visible);
     }
     setModal(item)
-}
-
-function handleTrilha (){
-  try {
-    if (route?.params.paramKey[0] == "Refeições"){
-      setOnde(onde[0].Refeições)
-    }
-    else if(route?.params.paramKey[0] == "Básico"){
-      setOnde(onde[0].Básico)
-    }
-    else if(route?.params.paramKey[0] == "Doces"){
-      setOnde(onde[0].Doces)
-      //console.log(onde)
-    }
-    else if(route?.params.paramKey[0] == "Gourmet"){
-      setOnde(onde[0].Gourmet)
-      //console.log(onde)
-    }
-
-    else{
-      //console.log("Deu errado :(")
-    }
-  } catch (error) {
-    //console.log("deu errado dog")
   }
 
-}
+  function handleTrilha() {
+    try {
+      if (route?.params.paramKey[0] == "Refeições") {
+        setOnde(onde[0].Refeições)
+      }
+      else if (route?.params.paramKey[0] == "Básico") {
+        setOnde(onde[0].Básico)
+      }
+      else if (route?.params.paramKey[0] == "Doces") {
+        setOnde(onde[0].Doces)
+        //console.log(onde)
+      }
+      else if (route?.params.paramKey[0] == "Gourmet") {
+        setOnde(onde[0].Gourmet)
+        //console.log(onde)
+      }
+
+      else {
+        //console.log("Deu errado :(")
+      }
+    } catch (error) {
+      //console.log("deu errado dog")
+    }
+
+  }
 
 
-handleTrilha()
+  handleTrilha()
 
 
 
   return (
     <SafeAreaView style={styles.status} >
       <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.goBack()} style={{ zIndex: 99 }}>
-        <View style={[styles.backiconarea, {backgroundColor: route.params.paramKey[2]}]} >
+        <View style={[styles.backiconarea, { backgroundColor: route.params.paramKey[2] }]} >
           <FontAwesome size={30} color={"#FFF"} name='arrow-left' />
         </View>
       </TouchableOpacity>
       <ScrollView>
 
-        <View style={[styles.bgimg, {backgroundColor: route.params.paramKey[2]}]}>
-          <Image tintColor={route.params.paramKey[4]} style={ styles.booklet } source={require('../../assets/booklet.png')} />
-          <View style={ styles.titlearea } >
-            <Image  style={{width:108, height:139, marginRight: 5}} source={require('../../assets/betterAlberto.png')}/>
-            
-            <View style={{flex: 1, justifyContent: 'center' }}>
+        <View style={[styles.bgimg, { backgroundColor: route.params.paramKey[2] }]}>
+          <Image tintColor={route.params.paramKey[4]} style={styles.booklet} source={require('../../assets/booklet.png')} />
+          <View style={styles.titlearea} >
+            <Image style={{ width: 108, height: 139, marginRight: 5 }} source={require('../../assets/betterAlberto.png')} />
+
+            <View style={{ flex: 1, justifyContent: 'center' }}>
               <Text style={[styles.trilhaTit]}>{route.params.paramKey[0]}</Text>
               <Text style={[styles.textoTrilha]}>{route.params.paramKey[1]}</Text>
             </View>
           </View>
           {/*<View style={[{ height: '100%', width: '100%',borderRadius: 20, zIndex: 1, position: 'absolute', borderBottomWidth: 6,  borderColor: "rgba(0,0,0,0.10)" }]} />*/}
-            
+
         </View>
 
-   
+
         {/* <View style={styles.linha}></View> */}
         {/* fazer um flat list pra gerar as fases  */}
         {/* INICIO DO MODAL */}
-        { Platform.OS === 'ios' ? (
+        {Platform.OS === 'ios' ? (
           <>
             <Modal visible={visible}
-                onRequestClose={handleModal} 
-                animationType="slide"
-                transparent={true}
-                style={{ zIndex: 101 }}
-                >
-                    <ModalTrilha
-                        handleAction={handleModal}
-                        data={modal}
-                        navigation={navigation}
-                        cor={route.params.paramKey[2]}
-                        bg={bg}
-                        setBg={setBg}
-                        borderColor={route.params.paramKey[3]}
-                        Fill={route.params.paramKey[4]}
-                    
-                    />
+              onRequestClose={handleModal}
+              animationType="slide"
+              transparent={true}
+              style={{ zIndex: 101 }}
+            >
+              <ModalTrilha
+                handleAction={handleModal}
+                data={modal}
+                navigation={navigation}
+                cor={route.params.paramKey[2]}
+                bg={bg}
+                setBg={setBg}
+                borderColor={route.params.paramKey[3]}
+                Fill={route.params.paramKey[4]}
+
+              />
             </Modal>
           </>
         ) : (
           <>
             <Modal visible={visible}
-                onRequestClose={handleModal}
-                transparent={true}
-                animationType='fade'
-                style={{ zIndex: 100 }}
-                >
-                    <View style={{ flex: 1, display: 'flex', backgroundColor: 'rgba(0, 0, 0, 0.1)' }} >
+              onRequestClose={handleModal}
+              transparent={true}
+              animationType='fade'
+              style={{ zIndex: 100 }}
+            >
+              <View style={{ flex: 1, display: 'flex', backgroundColor: 'rgba(0, 0, 0, 0.1)' }} >
 
-                    </View>
+              </View>
             </Modal>
             <Modal visible={visible}
-                onRequestClose={handleModal} 
-                animationType="slide"
-                transparent={true}
-                style={{ zIndex: 101 }}
-                >
-                    <ModalTrilha
-                        handleAction={handleModal}
-                        data={modal}
-                        navigation={navigation}
-                        cor={route.params.paramKey[2]}
-                        bg={bg}
-                        setBg={setBg}
-                        borderColor={route.params.paramKey[3]}
-                        Fill={route.params.paramKey[4]}
-                    
-                    />
+              onRequestClose={handleModal}
+              animationType="slide"
+              transparent={true}
+              style={{ zIndex: 101 }}
+            >
+              <ModalTrilha
+                handleAction={handleModal}
+                data={modal}
+                navigation={navigation}
+                cor={route.params.paramKey[2]}
+                bg={bg}
+                setBg={setBg}
+                borderColor={route.params.paramKey[3]}
+                Fill={route.params.paramKey[4]}
+
+              />
             </Modal>
           </>
         )}
         {/* FIM DO MODAL */}
-        
+
         <View style={{ paddingBottom: 40 }}>
           <FlatList
-          data={Receitas}
-          scrollEnabled = {false}
-          showsVerticalScrollIndicator ={false}
-          renderItem={({item}) => (
-            <View style={styles.container} >
-              <View style={styles.row} >
-                {/*this was my peak*/}
-                {/*<View style={{ height: '100%', width: '100%', zIndex: 1, backgroundColor: '#C9C9C9', position: 'absolute', borderRadius: 15, marginTop: 5 }} ></View>
+            data={Receitas}
+            scrollEnabled={false}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item }) => (
+              <View style={styles.container} >
+                <View style={styles.row} >
+                  {/*this was my peak*/}
+                  {/*<View style={{ height: '100%', width: '100%', zIndex: 1, backgroundColor: '#C9C9C9', position: 'absolute', borderRadius: 15, marginTop: 5 }} ></View>
                 <View style={{ height: '100%', width: '30%', zIndex: 2, backgroundColor: 'rgba(0,0,0,0.15)', position: 'absolute', borderRadius: 15, borderBottomRightRadius: 0, marginTop: 5 }} ></View>*/}
-                <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: route.params.paramKey[4], position: 'absolute', borderRadius: 20, marginTop: 6 }]} />
-                <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: "#FFF", position: 'absolute', borderRadius: 20, borderColor: route.params.paramKey[4], borderWidth: 7 }]} />
-                
-                <View style={[{
-                  backgroundColor:route.params.paramKey[2],
-                  borderColor: route.params.paramKey[4],
-                  borderWidth: 7,
-                  width: 120,
-                  height: "100%",
-                  borderRadius: 20,
-                  borderBottomLeftRadius: 20,
-                  justifyContent: 'center',
-                  zIndex: 3
+                  <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: route.params.paramKey[4], position: 'absolute', borderRadius: 20, marginTop: 6 }]} />
+                  <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: "#FFF", position: 'absolute', borderRadius: 20, borderColor: route.params.paramKey[4], borderWidth: 7 }]} />
+
+                  <View style={[{
+                    backgroundColor: route.params.paramKey[2],
+                    borderColor: route.params.paramKey[4],
+                    borderWidth: 7,
+                    width: 120,
+                    height: "100%",
+                    borderRadius: 20,
+                    borderBottomLeftRadius: 20,
+                    justifyContent: 'center',
+                    zIndex: 3
                   }]}
-                >
-              
-                  {onde +1 == Receitas[Receitas.indexOf(item)].Posicao &&(
+                  >
 
-                    <Image  style={styles.bandeira} source={require('../../assets/Bandeira-Trilha.png')}/>
+                    {onde + 1 == Receitas[Receitas.indexOf(item)].Posicao && (
 
-                  )}
-                  {onde +1 > Receitas[Receitas.indexOf(item)].Posicao &&(
+                      <Image style={styles.bandeira} source={require('../../assets/Bandeira-Trilha.png')} />
 
-                    <Image  style={styles.estrela} source={require('../../assets/estrelha-trilha.png')}/>
+                    )}
+                    {onde + 1 > Receitas[Receitas.indexOf(item)].Posicao && (
 
-                  )}
-                    {onde +1 < Receitas[Receitas.indexOf(item)].Posicao &&(
+                      <Image style={styles.estrela} source={require('../../assets/estrelha-trilha.png')} />
+
+                    )}
+                    {onde + 1 < Receitas[Receitas.indexOf(item)].Posicao && (
 
                       <Text style={styles.textoFase}>{item.Posicao}</Text>
 
-                  )}
+                    )}
 
 
 
-              
-                </View>
-                <View style={[styles.rightRow, {borderColor: route.params.paramKey[4]}]} >
-                  <Text style={[styles.descricaoFase]}>{item.Nome}</Text>
-                  <Image style={styles.detail} source={require("../../assets/lines-detail.png")} />
-                  {onde +1 >= Receitas[Receitas.indexOf(item)].Posicao && (
-                    <View style={[{ marginTop: 15, backgroundColor: route.params.paramKey[3], width: '100%', borderRadius: 15, zIndex: 4, marginBottom: 2 }]} >
-                      <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: route.params.paramKey[4], position: 'absolute', borderRadius: 15, marginTop: 2 }]} />
 
-                      <TouchableOpacity style={[{
-                        backgroundColor:route.params.paramKey[2],
-                        paddingVertical: 4,
-                        borderRadius: 15,
-                        borderWidth: 4,
-                        borderColor: route.params.paramKey[4],
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        zIndex: 5,
-                        }]}  
-                        onPress={() => handleModal(item)}
-                        activeOpacity={0.8}
+                  </View>
+                  <View style={[styles.rightRow, { borderColor: route.params.paramKey[4] }]} >
+                    <Text style={[styles.descricaoFase]}>{item.Nome}</Text>
+                    <Image style={styles.detail} source={require("../../assets/lines-detail.png")} />
+                    {onde + 1 >= Receitas[Receitas.indexOf(item)].Posicao && (
+                      <View style={[{ marginTop: 15, backgroundColor: route.params.paramKey[3], width: '100%', borderRadius: 15, zIndex: 4, marginBottom: 2 }]} >
+                        <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: route.params.paramKey[4], position: 'absolute', borderRadius: 15, marginTop: 2 }]} />
+
+                        <TouchableOpacity style={[{
+                          backgroundColor: route.params.paramKey[2],
+                          paddingVertical: 4,
+                          borderRadius: 15,
+                          borderWidth: 4,
+                          borderColor: route.params.paramKey[4],
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          zIndex: 5,
+                        }]}
+                          onPress={() => handleModal(item)}
+                          activeOpacity={0.8}
                         >
                           <Text style={styles.buttonsee} >Ver receita</Text>
-                      </TouchableOpacity>
-                    </View>
+                        </TouchableOpacity>
+                      </View>
 
-                  )}
-                    {onde +1 < Receitas[Receitas.indexOf(item)].Posicao && (
+                    )}
+                    {onde + 1 < Receitas[Receitas.indexOf(item)].Posicao && (
                       <FontAwesome style={styles.cadeado} name="lock" size={50} color={route.params.paramKey[3]} />
                     )}
+                  </View>
+
                 </View>
-              
+
               </View>
-              
-              </View> 
-          )}
-          ItemSeparatorComponent={ <Image tintColor={route.params.paramKey[2]} style={{ height: 97.2, width: 19.2, marginVertical: 10, alignSelf: 'center' }} source={require('../../assets/seta_default.png')} />}
+            )}
+            ItemSeparatorComponent={<Image tintColor={route.params.paramKey[2]} style={{ height: 97.2, width: 19.2, marginVertical: 10, alignSelf: 'center' }} source={require('../../assets/seta_default.png')} />}
           />
         </View>
       </ScrollView>
     </SafeAreaView>
   );
-  
+
 }
 
 const styles = StyleSheet.create({
-  
-  status:{
+
+  status: {
     backgroundColor: "#FFF",
   },
   container: {
     flex: 1,
     display: 'flex',
   },
-  backiconarea:{
-    padding: 7, 
-    paddingHorizontal: 9, 
-    position: 'absolute', 
-    zIndex: 99, 
-    top: 10, 
+  backiconarea: {
+    padding: 7,
+    paddingHorizontal: 9,
+    position: 'absolute',
+    zIndex: 99,
+    top: 10,
     left: 8,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 100
   },
-  bgimg:{
+  bgimg: {
     width: "100%",
     borderRadius: 20,
     marginBottom: 40
   },
-  booklet:{
+  booklet: {
     height: '100%',
     width: '100%',
     position: 'absolute',
     resizeMode: 'stretch'
   },
-  titlearea:{
+  titlearea: {
     width: '100%',
     paddingStart: 30,
     paddingEnd: 30,
@@ -351,15 +351,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
 
   },
-  row:{
-    flexDirection: 'row', 
-    alignContent: 'flex-end', 
+  row: {
+    flexDirection: 'row',
+    alignContent: 'flex-end',
     marginStart: 10,
     marginEnd: 10,
     marginBottom: 6,
     backgroundColor: '#FFF',
   },
-  rightRow:{
+  rightRow: {
     flex: 1,
     height: '100%',
     borderTopRightRadius: 20,
@@ -367,7 +367,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 3,
-    backgroundColor:'#FFF',
+    backgroundColor: '#FFF',
     paddingVertical: 15,
     paddingStart: 15,
     paddingEnd: 15,
@@ -375,20 +375,20 @@ const styles = StyleSheet.create({
     borderLeftWidth: 0
 
   },
-  detail:{
+  detail: {
     width: '70%',
     height: 5,
     marginTop: 7,
     resizeMode: 'stretch'
   },
-  buttonsee:{
+  buttonsee: {
     color: "#FFF",
     fontSize: 20,
     fontWeight: 'bold',
 
   },
   //fazer fonte depois
-  trilhaTit:{
+  trilhaTit: {
     textAlign: 'center',
     marginBottom: 5,
     fontSize: 42,
@@ -396,7 +396,7 @@ const styles = StyleSheet.create({
     color: "#FFF",
     //fontFamily: FontFamily.leagueSpartanBold
   },
-  textoTrilha:{
+  textoTrilha: {
     alignSelf: 'center',
     fontSize: 22,
     fontWeight: "bold",
@@ -405,13 +405,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
 
   },
-  linha:{
+  linha: {
     alignSelf: 'center',
     alignItems: 'center',
     height: 97.2,
     width: '100%',
   },
-  fase:{
+  fase: {
     width: 112,
     height: 88,
     borderRadius: 15,
@@ -420,20 +420,21 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
 
-  descricaoFase:{
+  descricaoFase: {
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
-    width: '100%'
+    width: '100%',
+    color: "#303030"
   },
-  textoFase:{
+  textoFase: {
     alignSelf: 'center',
     fontSize: 70,
     fontWeight: 'bold',
     color: "rgba(0,0,0,0.6)",
   },
-  descricaoReceita:{
-    alignSelf :'center',
+  descricaoReceita: {
+    alignSelf: 'center',
     position: 'absolute',
     flex: 1,
     paddingLeft: 100
@@ -455,21 +456,21 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     }
-    },
-    cadeado:{
-      alignSelf: 'center',
-      marginTop: 20
-    },
-    estrela:{
-      width: 80,
-      height: 80,
-      alignSelf: 'center',
-    },
-    bandeira:{
-      width: 70,
-      height: 70,
-      alignSelf: 'center',
-    }
+  },
+  cadeado: {
+    alignSelf: 'center',
+    marginTop: 20
+  },
+  estrela: {
+    width: 80,
+    height: 80,
+    alignSelf: 'center',
+  },
+  bandeira: {
+    width: 70,
+    height: 70,
+    alignSelf: 'center',
+  }
 
 });
 

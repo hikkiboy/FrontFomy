@@ -19,9 +19,9 @@ export default function AlterPassword({ navigation }){
                 <SafeAreaView style={{ flex: 1, display: 'flex'}} >
                     <View style={{ width: "100%", height: 65, backgroundColor: "rgba(0,0,0,0.1)", borderRadius: 10 }} >
                         <View style={{width: "100%", height: 55, backgroundColor: "#FFF", flexDirection: 'row', alignItems: 'center', borderRadius: 10 }} >
-                            <TouchableOpacity style={{ width: "8.5%", marginStart: 10 }} onPress={() => navigation.goBack()} ><Feather name="chevron-left" size={28} /></TouchableOpacity>
+                            <TouchableOpacity style={{ width: "8.5%", marginStart: 20 }} onPress={() => navigation.goBack()} ><FontAwesome size={25} color={"#303030"} name='arrow-left' /></TouchableOpacity>
                             <View style={{ alignSelf: 'center', justifyContent: 'center', width: "100%", position: 'absolute' }} >
-                                <Text style={{ fontSize: 24, fontWeight: 'bold', alignSelf: 'center', position: 'absolute' }} >Alterar Senha</Text>
+                                <Text style={{ fontSize: 24, fontWeight: 'bold', alignSelf: 'center', position: 'absolute', color: "#303030" }} >Alterar Senha</Text>
                             </View>
                         </View>
                     </View>
@@ -135,7 +135,7 @@ export default function AlterPassword({ navigation }){
             <View style={styles.buttonarea} >
                 <TouchableOpacity style={styles.button} onPress={NewPassword} activeOpacity={0.9} >
                     <Text style={styles.action} >Confirmar Senha</Text>
-                    <FontAwesome name="check" size={25} />
+                    <FontAwesome color="#FFF" name="check" size={25} />
                 </TouchableOpacity>
             </View>
 
@@ -184,7 +184,8 @@ content:{
 },
 action:{
     fontSize: 20,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color: "#FFF"
 },
 buttonarea:{
     marginTop: 20,
@@ -193,13 +194,13 @@ buttonarea:{
 },
 button:{
     zIndex: 99,
-    backgroundColor: "#C8E0F9",
+    backgroundColor: "#3B98EF",
     borderRadius: 15,
     padding: 10,
     alignItems: 'center',
     borderWidth: 5,
     borderBottomWidth: 10,
-    borderColor: "#91C0F3",
+    borderColor: "#2985DB",
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 25

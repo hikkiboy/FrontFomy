@@ -1,11 +1,11 @@
-import { View, StyleSheet, Image, Text, TouchableOpacity, Modal, TextInput, Alert, Dimensions, ScrollView, AppRegistry } from "react-native"
+import { View, StyleSheet, Image, Text, TouchableOpacity, Modal, TextInput, Alert, Dimensions, ScrollView, AppRegistry, ActivityIndicator } from "react-native"
 import Feather from 'react-native-vector-icons/Feather'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useState, useEffect } from "react"
 import { ActionModal } from "../../components/actionmodal"
 import { Badges } from "../../components/badges"
-import { app_auth, app_BKT, app_DB} from '../../../firebaseConfig'
-import { doc , collection, query, where, onSnapshot, documentId, updateDoc} from 'firebase/firestore'
+import { app_auth, app_BKT, app_DB } from '../../../firebaseConfig'
+import { doc, collection, query, where, onSnapshot, documentId, updateDoc } from 'firebase/firestore'
 import { onAuthStateChanged } from "firebase/auth"
 import * as Progress from "react-native-progress"
 import { SafeAreaView } from "react-native-safe-area-context"
@@ -13,7 +13,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 
 
-export default function Profile({ navigation }){
+export default function Profile({ navigation }) {
 
     const [Receitas, setReceitas] = useState()
     const [user, setUser] = useState()
@@ -28,29 +28,29 @@ export default function Profile({ navigation }){
 
     useEffect(() => {
         const login = onAuthStateChanged(app_auth, (user) => {
-            try{
+            try {
                 //the setUser works as a way to make the dependecy (app_auth.currentUser.uid) actually make useEffect happen
                 //don't know exactly why it works like that, but it works
                 //there's still the problem that it flashes the old user for a sec when working through asyncstorage
                 //but I think this is better than updating the profile each time the user accesses it
                 const receitaRef = collection(app_DB, 'Usuarios')
-            
+
                 const q = query(
                     receitaRef,
                     where(documentId(), '==', app_auth.currentUser.uid)
                 )
-            
+
                 setUser(app_auth.currentUser.uid)
-            
+
                 const subscriver = onSnapshot(q, {
-                    next : (snapshot) => {
+                    next: (snapshot) => {
                         const receitas = []
-                        
-                        snapshot.docs.forEach(doc =>{   
+
+                        snapshot.docs.forEach(doc => {
                             receitas.push({
-                                key : doc.id,
+                                key: doc.id,
                                 ...doc.data(),
-                            
+
                             })
                         })
                         setReceitas(receitas)
@@ -58,19 +58,19 @@ export default function Profile({ navigation }){
                         console.log("Queried the profile, reason: auth state update.")
 
 
-            
+
                     }
                 })
-            
-                return() => subscriver()
-        } catch(error){
-            console.log("User uid error, probably logged off")
-        }
-         
+
+                return () => subscriver()
+            } catch (error) {
+                console.log("User uid error, probably logged off")
+            }
+
         });
-    
+
         return () => login();
-      }, []);
+    }, []);
 
     const handleModal = () => {
         setVisible(!visible);
@@ -95,24 +95,24 @@ export default function Profile({ navigation }){
     }
 
     const handleUpdate = async () => {
-        if(newName != ''){
-            try{
+        if (newName != '') {
+            try {
                 const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
                 await updateDoc(userRef, {
                     Nome: newName
                 });
                 setInputOn(false);
                 setNewName('')
-            } catch(error){
+            } catch (error) {
                 console.log(error)
-                alert("Ocorreu um erro "+error)
+                alert("Ocorreu um erro " + error)
             }
-        } else{
+        } else {
             setInputOn(false);
         }
     };
 
-    if(Receitas != undefined){
+    if (Receitas != undefined) {
         let nome = Receitas[0].Nome
         let titulo = Receitas[0].Titulo
 
@@ -120,10 +120,10 @@ export default function Profile({ navigation }){
         let progressToBar = (Receitas[0].Exp / totalXp)
 
         let progressMyBar = (
-            <Progress.Bar style={{ position: 'absolute' }} 
-                progress={progressToBar} 
-                width={325} 
-                height={35} 
+            <Progress.Bar style={{ position: 'absolute' }}
+                progress={progressToBar}
+                width={325}
+                height={40}
                 borderRadius={9}
                 color="#FA787D"
                 borderWidth={0}
@@ -131,32 +131,32 @@ export default function Profile({ navigation }){
             />
         )
         let progressExp = (
-            <Text style={styles.exp} >EXP: {Receitas != undefined ? Receitas[0].Exp : 0 } / {totalXp}</Text>
+            <Text style={styles.exp} >EXP: {Receitas != undefined ? Receitas[0].Exp : 0} / {totalXp}</Text>
         )
 
-        if(inputOn){
+        if (inputOn) {
             nome = null
             titulo = null
             progressMyBar = null
             progressExp = null
             visibleInput = (<TextInput enterKeyHint={"done"} value={newName} onChangeText={(text) => setNewName(text)} autoFocus={true} maxLength={35} placeholder="Digite o nome" style={styles.nameinput} />)
             visibleSend = (<TouchableOpacity style={{ marginRight: 30 }} onPress={handleUpdate} ><Ionicons name="checkmark-circle" size={50} color="#70D872" /></TouchableOpacity>)
-            visibleClose = (<TouchableOpacity onPress={closeThisBitchUp} ><Ionicons name="close-circle" size={50} color="#DC6A87" /></TouchableOpacity>);
+            visibleClose = (<TouchableOpacity onPress={closeThisBitchUp} ><Ionicons name="close-circle" size={50} color="#FA787D" /></TouchableOpacity>);
         }
 
-        return(
+        return (
             <SafeAreaView style={styles.container} >
                 <ScrollView contentContainerStyle={{ minHeight: "100%", width: "100%" }} >
                     <TouchableOpacity style={{ zIndex: 99 }} onPress={handleModal} >
-                        <Feather style={styles.menu} name="menu" size={35} color="#000"/>
+                        <Feather style={styles.menu} name="menu" size={35} color="#000" />
                     </TouchableOpacity>
                     <View style={styles.pfpstuff} >
                         <View style={styles.bgpfp} ></View>
                         <View style={styles.brdrpfp} >
                             <Image
-                                source={{ uri: Receitas[0].Foto}}
+                                source={{ uri: Receitas[0].Foto }}
                                 style={styles.pfp}
-                        
+
                             />
                         </View>
                         <View>
@@ -181,26 +181,26 @@ export default function Profile({ navigation }){
                         <View style={styles.progressbar} >
                             {progressMyBar}
                             {progressExp}
-                            
+
                         </View>
-                        
+
                         <View style={{ flex: 1, width: "100%" }} />
                         <View style={styles.badgearea} >
                             <Text style={styles.badgetitle} >Insígnias</Text>
-                            <View style={ styles.stepslist } >
+                            <View style={styles.stepslist} >
                                 <View style={styles.badges} >
                                     <Badges data={Receitas[0]} />
                                 </View>
                             </View>
                         </View>
-                        
+
                     </View>
                 </ScrollView>
 
                 <Modal visible={visible}
-                onRequestClose={handleModal} 
-                animationType="slide"
-                transparent={true}
+                    onRequestClose={handleModal}
+                    animationType="slide"
+                    transparent={true}
                 >
                     <ActionModal
                         handleActionOff={handleModalSignOut}
@@ -208,57 +208,62 @@ export default function Profile({ navigation }){
                         navigation={navigation}
                         handleName={handleInput}
                         userImage={Receitas[0].Foto}
-                    
+
                     />
                 </Modal>
-                
+
             </SafeAreaView>
-        )} else{
-            return(
-                <View style={{ flex: 1, backgroundColor: '#FFF' }} />
-            );
-        };
+        )
+    } else {
+        return (
+            <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "#FFF" }} >
+                <ActivityIndicator size={120} color={"#3B98EF"} />
+                <Text style={{ marginTop: 15, fontSize: 20, textAlign: 'center', width: "90%" }} >Carregando...</Text>
+            </SafeAreaView>
+        );
+    };
 }
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         height: "100%",
         display: 'flex',
         backgroundColor: "#FFF"
     },
-    pfp:{
+    pfp: {
         width: 175,
         height: 175,
         borderRadius: 100,
     },
-    pfpstuff:{
+    pfpstuff: {
         alignItems: 'center',
         flex: 1
     },
-    bgpfp:{
-        backgroundColor: "#70D872", 
-        width: '100%', 
-        height: 130, 
+    bgpfp: {
+        backgroundColor: "#3B98EF",
+        width: '100%',
+        height: 130,
         position: "absolute"
     },
-    brdrpfp:{
+    brdrpfp: {
         width: 195,
         height: 195,
         borderRadius: 150,
         borderWidth: 10,
-        marginBottom:-100,
+        marginBottom: -100,
         borderColor: "#FFF",
         backgroundColor: "#EFEFEF",
         marginTop: 35
     },
-    name:{
+    name: {
         alignSelf: 'center',
         fontSize: 29,
         marginTop: 12,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: "#303030"
     },
-    nameinput:{
-        backgroundColor: "#70D872",
+    nameinput: {
+        backgroundColor: "#3B98EF",
         paddingHorizontal: 12,
         borderRadius: 15,
         textAlign: 'center',
@@ -266,40 +271,40 @@ const styles = StyleSheet.create({
         fontSize: 29
 
     },
-    title:{
+    title: {
         alignSelf: 'center',
         fontSize: 24,
         fontWeight: '600',
-        color: "rgba(0,0,0,0.5)"
+        color: "#909090"
     },
-    flag:{
+    flag: {
         alignSelf: 'center',
         width: 208,
         height: 48,
         marginTop: 60
     },
-    lvl:{
+    lvl: {
         alignSelf: 'center',
         fontSize: 27,
-        position:"absolute",
+        position: "absolute",
         marginTop: 60,
         fontWeight: '700'
 
     },
-    menu:{
+    menu: {
         position: "absolute",
         alignSelf: 'flex-end',
         padding: 15,
 
     },
-    inputarea:{
+    inputarea: {
         position: 'absolute',
         marginTop: 23,
         alignItems: 'center',
         alignSelf: 'center'
 
     },
-    buttonarea:{ 
+    buttonarea: {
         flexDirection: 'row',
         justifyContent: 'space-around',
         marginTop: 70,
@@ -307,20 +312,20 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
 
     },
-    exp:{
+    exp: {
         position: 'absolute',
         alignSelf: 'center',
-        color: "rgba(0,0,0,0.25)",
+        color: "rgba(0,0,0,0.4)",
         fontWeight: 'bold',
         fontSize: 27
     },
-    progressbar:{
+    progressbar: {
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 45,
         marginBottom: 100
     },
-    badgearea:{
+    badgearea: {
         backgroundColor: "#EFEFEF",
         width: '100%',
         borderRadius: 20,
@@ -328,13 +333,13 @@ const styles = StyleSheet.create({
         paddingBottom: 18,
         paddingTop: 12,
         marginBottom: 70,
-        backgroundColor: "#70D872",
-        borderColor: "#5DC15F",
+        backgroundColor: "#3B98EF",
+        borderColor: "#2985DB",
         borderWidth: 7,
         borderBottomWidth: 10
 
     },
-    badgetitle:{
+    badgetitle: {
         fontWeight: 'bold',
         fontSize: 27,
         color: "#FFF",
@@ -343,11 +348,11 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
 
     },
-    badges:{
+    badges: {
         backgroundColor: '#FFF',
         borderRadius: 15,
         marginTop: 12
-        
+
     },
 
 })
