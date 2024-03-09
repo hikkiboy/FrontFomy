@@ -220,7 +220,7 @@ const MainBook = ({ navigation }) => {
                                         (
                                             <View style={{ marginLeft: index == 0 && 10 }} />
                                         ) : (
-                                            <TouchableOpacity activeOpacity={0.8} onPress={() => handleModal(item.NomeTrilha)} style={[styles.button, {marginLeft: index == 0 && 10, marginRight: index + 1 == trilha.length ? 10 : 25}]} >
+                                            <TouchableOpacity activeOpacity={0.8} onPress={() => handleModal(item.NomeTrilha)} style={[styles.button, { marginLeft: index == 0 && 10, marginRight: index + 1 == trilha.length ? 10 : 25 }]} >
                                                 <MaterialCommunityIcons name={item.BookIcon} size={35} color={"#505050"} />
                                                 <Text style={styles.buttontitle} >{item.NomeTrilha}</Text>
                                             </TouchableOpacity>
