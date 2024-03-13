@@ -15,9 +15,7 @@ import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Profile({ navigation }) {
 
-    const [Receitas, setReceitas] = useState()
-    const [user, setUser] = useState()
-    const height = Dimensions.get("window").height
+    const [Receitas, setReceitas] = useState([])
     const [visible, setVisible] = useState(false)
     const [inputOn, setInputOn] = useState(false)
     const [newName, setNewName] = useState('')
@@ -29,18 +27,12 @@ export default function Profile({ navigation }) {
     useEffect(() => {
         const login = onAuthStateChanged(app_auth, (user) => {
             try {
-                //the setUser works as a way to make the dependecy (app_auth.currentUser.uid) actually make useEffect happen
-                //don't know exactly why it works like that, but it works
-                //there's still the problem that it flashes the old user for a sec when working through asyncstorage
-                //but I think this is better than updating the profile each time the user accesses it
                 const receitaRef = collection(app_DB, 'Usuarios')
 
                 const q = query(
                     receitaRef,
                     where(documentId(), '==', app_auth.currentUser.uid)
                 )
-
-                setUser(app_auth.currentUser.uid)
 
                 const subscriver = onSnapshot(q, {
                     next: (snapshot) => {
@@ -53,7 +45,7 @@ export default function Profile({ navigation }) {
 
                             })
                         })
-                        setReceitas(receitas)
+                        setReceitas(receitas[0])
                         console.log(app_auth.currentUser.email)
                         console.log("Queried the profile, reason: auth state update.")
 
@@ -112,40 +104,40 @@ export default function Profile({ navigation }) {
         }
     };
 
-    if (Receitas != undefined) {
-        let nome = Receitas[0].Nome
-        let titulo = Receitas[0].Titulo
+    let nome = Receitas.Nome
+    let titulo = Receitas.Titulo
 
-        let totalXp = 200 + (((Receitas[0].Nivel - 1) * Receitas[0].Nivel) * 10)
-        let progressToBar = (Receitas[0].Exp / totalXp)
+    let totalXp = 200 + (((Receitas.Nivel - 1) * Receitas.Nivel) * 10)
+    let progressToBar = (Receitas.Exp / totalXp)
 
-        let progressMyBar = (
-            <Progress.Bar style={{ position: 'absolute' }}
-                progress={progressToBar}
-                width={325}
-                height={40}
-                borderRadius={9}
-                color="#FA787D"
-                borderWidth={0}
-                unfilledColor="#EFEFEF"
-            />
-        )
-        let progressExp = (
-            <Text style={styles.exp} >EXP: {Receitas != undefined ? Receitas[0].Exp : 0} / {totalXp}</Text>
-        )
+    let progressMyBar = (
+        <Progress.Bar style={{ position: 'absolute' }}
+            progress={progressToBar}
+            width={325}
+            height={40}
+            borderRadius={9}
+            color="#FA787D"
+            borderWidth={0}
+            unfilledColor="#EFEFEF"
+        />
+    )
+    let progressExp = (
+        <Text style={styles.exp} >EXP: {Receitas != undefined ? Receitas.Exp : 0} / {totalXp}</Text>
+    )
 
-        if (inputOn) {
-            nome = null
-            titulo = null
-            progressMyBar = null
-            progressExp = null
-            visibleInput = (<TextInput enterKeyHint={"done"} value={newName} onChangeText={(text) => setNewName(text)} autoFocus={true} maxLength={35} placeholder="Digite o nome" style={styles.nameinput} />)
-            visibleSend = (<TouchableOpacity style={{ marginRight: 30 }} onPress={handleUpdate} ><Ionicons name="checkmark-circle" size={50} color="#70D872" /></TouchableOpacity>)
-            visibleClose = (<TouchableOpacity onPress={closeThisBitchUp} ><Ionicons name="close-circle" size={50} color="#FA787D" /></TouchableOpacity>);
-        }
+    if (inputOn) {
+        nome = null
+        titulo = null
+        progressMyBar = null
+        progressExp = null
+        visibleInput = (<TextInput enterKeyHint={"done"} value={newName} onChangeText={(text) => setNewName(text)} autoFocus={true} maxLength={35} placeholder="Digite o nome" style={styles.nameinput} />)
+        visibleSend = (<TouchableOpacity style={{ marginRight: 30 }} onPress={handleUpdate} ><Ionicons name="checkmark-circle" size={50} color="#70D872" /></TouchableOpacity>)
+        visibleClose = (<TouchableOpacity onPress={closeThisBitchUp} ><Ionicons name="close-circle" size={50} color="#FA787D" /></TouchableOpacity>);
+    }
 
-        return (
-            <SafeAreaView style={styles.container} >
+    return (
+        <SafeAreaView style={styles.container} >
+            {Receitas.length != 0 ? (
                 <ScrollView contentContainerStyle={{ minHeight: "100%", width: "100%" }} >
                     <TouchableOpacity style={{ zIndex: 99 }} onPress={handleModal} >
                         <Feather style={styles.menu} name="menu" size={35} color="#000" />
@@ -154,7 +146,7 @@ export default function Profile({ navigation }) {
                         <View style={styles.bgpfp} ></View>
                         <View style={styles.brdrpfp} >
                             <Image
-                                source={{ uri: Receitas[0].Foto }}
+                                source={{ uri: Receitas.Foto }}
                                 style={styles.pfp}
 
                             />
@@ -164,7 +156,7 @@ export default function Profile({ navigation }) {
                                 source={require('../../assets/bandeira-nivel.png')}
                                 style={styles.flag}
                             />
-                            <Text style={styles.lvl} >Lv. {Receitas[0].Nivel}</Text>
+                            <Text style={styles.lvl} >Lv. {Receitas.Nivel}</Text>
                             <View>
                                 <Text style={styles.name} >{nome}</Text>
                                 <Text style={styles.title} >{titulo}</Text>
@@ -185,43 +177,44 @@ export default function Profile({ navigation }) {
                         </View>
 
                         <View style={{ flex: 1, width: "100%" }} />
-                        <View style={styles.badgearea} >
-                            <Text style={styles.badgetitle} >Insígnias</Text>
-                            <View style={styles.stepslist} >
-                                <View style={styles.badges} >
-                                    <Badges data={Receitas[0]} />
+                        {Receitas.Insignias.length != 0 &&
+                            <View style={styles.badgearea} >
+                                <Text style={styles.badgetitle} >Insígnias</Text>
+                                <View style={styles.stepslist} >
+                                    <View style={styles.badges} >
+                                        <Badges data={Receitas.Insignias} />
+                                    </View>
                                 </View>
                             </View>
-                        </View>
+                        }
 
                     </View>
+
+                    <Modal visible={visible}
+                        onRequestClose={handleModal}
+                        animationType="slide"
+                        transparent={true}
+                    >
+                        <ActionModal
+                            handleActionOff={handleModalSignOut}
+                            handleAction={handleModal}
+                            navigation={navigation}
+                            handleName={handleInput}
+                            userImage={Receitas.Foto}
+
+                        />
+                    </Modal>
                 </ScrollView>
+            ) : (
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "#FFF" }} >
+                    <ActivityIndicator size={120} color={"#3B98EF"} />
+                    <Text style={{ marginTop: 15, fontSize: 20, textAlign: 'center', width: "90%" }} >Carregando...</Text>
+                </View>
+            )
+            }
 
-                <Modal visible={visible}
-                    onRequestClose={handleModal}
-                    animationType="slide"
-                    transparent={true}
-                >
-                    <ActionModal
-                        handleActionOff={handleModalSignOut}
-                        handleAction={handleModal}
-                        navigation={navigation}
-                        handleName={handleInput}
-                        userImage={Receitas[0].Foto}
-
-                    />
-                </Modal>
-
-            </SafeAreaView>
-        )
-    } else {
-        return (
-            <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "#FFF" }} >
-                <ActivityIndicator size={120} color={"#3B98EF"} />
-                <Text style={{ marginTop: 15, fontSize: 20, textAlign: 'center', width: "90%" }} >Carregando...</Text>
-            </SafeAreaView>
-        );
-    };
+        </SafeAreaView>
+    )
 }
 
 const styles = StyleSheet.create({
