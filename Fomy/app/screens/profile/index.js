@@ -1,4 +1,4 @@
-import { View, StyleSheet, Image, Text, TouchableOpacity, Modal, TextInput, Alert, Dimensions, ScrollView, AppRegistry, ActivityIndicator } from "react-native"
+import { View, StyleSheet, Image, Text, TouchableOpacity, Modal, TextInput, ScrollView, ActivityIndicator } from "react-native"
 import Feather from 'react-native-vector-icons/Feather'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useState, useEffect } from "react"
@@ -10,19 +10,16 @@ import { onAuthStateChanged } from "firebase/auth"
 import * as Progress from "react-native-progress"
 import { SafeAreaView } from "react-native-safe-area-context"
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 
 
-export default function Profile({ navigation }) {
+const Profile = ({ navigation }) => {
 
     const [Receitas, setReceitas] = useState([])
     const [visible, setVisible] = useState(false)
     const [inputOn, setInputOn] = useState(false)
     const [newName, setNewName] = useState('')
-
-    let visibleInput = null
-    let visibleClose = null
-    let visibleSend = null
+    const [totalXp, setTotalXP] = useState(0)
+    const [progressToBar, setProgressToBar] = useState(0)
 
     useEffect(() => {
         const login = onAuthStateChanged(app_auth, (user) => {
@@ -46,7 +43,9 @@ export default function Profile({ navigation }) {
                             })
                         })
                         setReceitas(receitas[0])
-                        console.log(app_auth.currentUser.email)
+                        let total = 200 + (((receitas[0].Nivel - 1) * receitas[0].Nivel) * 10)
+                        setTotalXP(total)
+                        setProgressToBar(receitas[0].Exp / total)
                         console.log("Queried the profile, reason: auth state update.")
 
 
@@ -70,10 +69,9 @@ export default function Profile({ navigation }) {
 
     const handleModalSignOut = () => {
         setVisible(!visible);
-        setReceitas();
+        setReceitas([]);
         app_auth.signOut();
         AsyncStorage.clear();
-        ReactNativeAsyncStorage.clear();
     }
 
     const handleInput = () => {
@@ -81,13 +79,8 @@ export default function Profile({ navigation }) {
         setInputOn(true);
     }
 
-    const closeThisBitchUp = () => {
-        setNewName('')
-        setInputOn(false);
-    }
-
-    const handleUpdate = async () => {
-        if (newName != '') {
+    const handleUpdate = async (update) => {
+        if (newName != '' && update) {
             try {
                 const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
                 await updateDoc(userRef, {
@@ -100,50 +93,16 @@ export default function Profile({ navigation }) {
                 alert("Ocorreu um erro " + error)
             }
         } else {
+            setNewName('')
             setInputOn(false);
         }
     };
 
-    //take this shit outta here, this shit is from PAST me (stupid version of me (yes, somehow stupider))
-    //it's probably chugging performance so take it OUT
-    //change it to a simplified if/else PLEASE
-    let nome = Receitas.Nome
-    let titulo = Receitas.Titulo
-
-    let totalXp = 200 + (((Receitas.Nivel - 1) * Receitas.Nivel) * 10)
-    let progressToBar = (Receitas.Exp / totalXp)
-
-    let progressMyBar = (
-        <Progress.Bar style={{ position: 'absolute' }}
-            progress={progressToBar}
-            width={325}
-            height={40}
-            borderRadius={9}
-            color="#FA787D"
-            borderWidth={0}
-            unfilledColor="#EFEFEF"
-        />
-    )
-    let progressExp = (
-        <Text style={styles.exp} >EXP: {Receitas != undefined ? Receitas.Exp : 0} / {totalXp}</Text>
-    )
-
-    if (inputOn) {
-        nome = null
-        titulo = null
-        progressMyBar = null
-        progressExp = null
-        visibleInput = (<TextInput enterKeyHint={"done"} value={newName} onChangeText={(text) => setNewName(text)} autoFocus={true} maxLength={35} placeholder="Digite o nome" style={styles.nameinput} />)
-        visibleSend = (<TouchableOpacity style={{ marginRight: 30 }} onPress={handleUpdate} ><Ionicons name="checkmark-circle" size={50} color="#70D872" /></TouchableOpacity>)
-        visibleClose = (<TouchableOpacity onPress={closeThisBitchUp} ><Ionicons name="close-circle" size={50} color="#FA787D" /></TouchableOpacity>);
-    }
-    //up until here, just remove it man
-    //create bool const that changes value if user starts editing
     return (
         <SafeAreaView style={styles.container} >
             {Receitas.length != 0 ? (
                 <ScrollView contentContainerStyle={{ minHeight: "100%", width: "100%" }} >
-                    <TouchableOpacity style={{ zIndex: 99 }} onPress={handleModal} >
+                    <TouchableOpacity style={{ zIndex: 99 }} onPress={() => handleModal()} >
                         <Feather style={styles.menu} name="menu" size={35} color="#000" />
                     </TouchableOpacity>
                     <View style={styles.pfpstuff} >
@@ -161,26 +120,33 @@ export default function Profile({ navigation }) {
                                 style={styles.flag}
                             />
                             <Text style={styles.lvl} >Lv. {Receitas.Nivel}</Text>
-                            <View>
-                                <Text style={styles.name} >{nome}</Text>
-                                <Text style={styles.title} >{titulo}</Text>
-
+                        </View>
+                        {inputOn == false ? (
+                            <View style={{ alignItems: 'center', alignSelf: 'center', justifyContent: 'center' }} >
+                                <Text style={styles.name} >{Receitas.Nome}</Text>
+                                <Text style={styles.title} >{Receitas.Titulo}</Text>
+                                <Progress.Bar style={{ justifyContent: 'center', marginTop: 45 }}
+                                    progress={progressToBar}
+                                    width={325}
+                                    height={40}
+                                    borderRadius={9}
+                                    color="#FA787D"
+                                    borderWidth={0}
+                                    unfilledColor="#EFEFEF"
+                                ><Text style={styles.exp} >EXP: {Receitas.Exp} / {totalXp}</Text></Progress.Bar>
+                            </View>
+                        ) : (
+                            <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 20, marginBottom: 38, width: "100%", paddingHorizontal: 20 }} >
                                 <View style={styles.inputarea} >
-                                    {visibleInput}
+                                    <TextInput enterKeyHint={"done"} value={newName} onChangeText={(text) => setNewName(text)} autoFocus={true} maxLength={35} placeholder="Digite o nome" style={styles.nameinput} />
                                 </View>
-                                <View style={styles.buttonarea} >
-                                    {visibleSend}
-                                    {visibleClose}
+                                <View style={{ flexDirection: 'row', marginTop: 20 }} >
+                                    <TouchableOpacity style={{ marginRight: 30 }} onPress={() => handleUpdate(true)} ><Ionicons name="checkmark-circle" size={50} color="#70D872" /></TouchableOpacity>
+                                    <TouchableOpacity onPress={() => handleUpdate(false)} ><Ionicons name="close-circle" size={50} color="#FA787D" /></TouchableOpacity>
                                 </View>
                             </View>
-                        </View>
-                        <View style={styles.progressbar} >
-                            {progressMyBar}
-                            {progressExp}
-
-                        </View>
-
-                        <View style={{ flex: 1, width: "100%" }} />
+                        )}
+                        <View style={{ width: "100%", height: 150 }} />
                         {Receitas.Insignias.length != 0 &&
                             <View style={styles.badgearea} >
                                 <Text style={styles.badgetitle} >Insígnias</Text>
@@ -221,6 +187,8 @@ export default function Profile({ navigation }) {
     )
 }
 
+export default Profile
+
 const styles = StyleSheet.create({
     container: {
         height: "100%",
@@ -255,17 +223,24 @@ const styles = StyleSheet.create({
     name: {
         alignSelf: 'center',
         fontSize: 29,
-        marginTop: 12,
+        marginTop: 15,
         fontWeight: 'bold',
         color: "#303030"
     },
-    nameinput: {
+    inputarea: {
+        alignItems: 'center',
+        alignSelf: 'center',
         backgroundColor: "#3B98EF",
         paddingHorizontal: 12,
+        paddingVertical: 2,
         borderRadius: 15,
+        width: "100%"
+
+    },
+    nameinput: {
         textAlign: 'center',
-        width: 320,
-        fontSize: 29
+        fontSize: 29,
+        color: "#FFF"
 
     },
     title: {
@@ -294,33 +269,12 @@ const styles = StyleSheet.create({
         padding: 15,
 
     },
-    inputarea: {
-        position: 'absolute',
-        marginTop: 23,
-        alignItems: 'center',
-        alignSelf: 'center'
-
-    },
-    buttonarea: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        marginTop: 70,
-        position: 'absolute',
-        alignSelf: 'center',
-
-    },
     exp: {
         position: 'absolute',
         alignSelf: 'center',
         color: "rgba(0,0,0,0.4)",
         fontWeight: 'bold',
         fontSize: 27
-    },
-    progressbar: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 45,
-        marginBottom: 100
     },
     badgearea: {
         backgroundColor: "#EFEFEF",
