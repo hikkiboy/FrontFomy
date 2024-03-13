@@ -138,13 +138,13 @@ const OnboardingItem = ({ item, navigation, index, x }) => {
                             <Text style={[styles.botaoTexto]}>Entrar</Text>
                         </TouchableOpacity>
                         <View style={{ alignSelf: "center", marginTop: "10%", }} >
-                            <View style={{ backgroundColor: item.CorBorda, width: 250, height: 30, position: 'absolute', borderRadius: 10, marginTop: 12 }} />
+                            <View style={{ backgroundColor: item.CorBorda, width: 250, height: 30, position: 'absolute', borderRadius: 12, marginTop: 12 }} />
                             <Progress.Bar
                                 style={{ borderWidth: 4, borderColor: item.CorBorda, justifyContent: 'center' }}
                                 progress={progressToBar}
                                 width={250}
                                 height={30}
-                                borderRadius={10}
+                                borderRadius={12}
                                 color={item.CorFill}
                                 borderWidth={0}
                                 unfilledColor={progressToBar != 1 ? "#FFF" : item.CorFill}
@@ -161,13 +161,13 @@ const OnboardingItem = ({ item, navigation, index, x }) => {
                             <Text style={[styles.botaoTexto]}>Entrar</Text>
                         </TouchableOpacity>
                         <View style={{ alignSelf: "center", marginTop: "10%", }} >
-                            <View style={{ backgroundColor: item.CorBorda, width: 250, height: 30, position: 'absolute', borderRadius: 10, marginTop: 12 }} />
+                            <View style={{ backgroundColor: item.CorBorda, width: 250, height: 30, position: 'absolute', borderRadius: 12, marginTop: 12 }} />
                             <Progress.Bar
                                 style={{ borderWidth: 4, borderColor: item.CorBorda, justifyContent: 'center' }}
                                 progress={progressToBar}
                                 width={250}
                                 height={30}
-                                borderRadius={10}
+                                borderRadius={12}
                                 color={item.CorFill}
                                 borderWidth={0}
                                 unfilledColor={progressToBar != 1 ? "#FFF" : item.CorFill}
