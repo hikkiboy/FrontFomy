@@ -147,8 +147,8 @@ const OnboardingItem = ({ item, navigation, index, x }) => {
                                 borderRadius={10}
                                 color={item.CorFill}
                                 borderWidth={0}
-                                unfilledColor="#FFF"
-                            ><Text style={{ position: 'absolute', alignSelf: 'center', color: "rgba(0,0,0,0.75)", fontSize: 18, fontWeight: 'bold' }}  >{progress}/{item.NumeroReceitas}</Text></Progress.Bar>
+                                unfilledColor={progressToBar != 1 ? "#FFF" : item.CorFill}
+                            ><Text style={{ position: 'absolute', alignSelf: 'center', color: progressToBar != 1 ? "rgba(0,0,0,0.75)" : "#FFF", fontSize: 18, fontWeight: 'bold' }}  >{progress}/{item.NumeroReceitas}</Text></Progress.Bar>
 
                         </View>
                     </>
@@ -170,8 +170,8 @@ const OnboardingItem = ({ item, navigation, index, x }) => {
                                 borderRadius={10}
                                 color={item.CorFill}
                                 borderWidth={0}
-                                unfilledColor="#FFF"
-                            ><Text style={{ position: 'absolute', alignSelf: 'center', color: "rgba(0,0,0,0.75)", fontSize: 18, fontWeight: 'bold' }}  >{progress}/{item.NumeroReceitas}</Text></Progress.Bar>
+                                unfilledColor={progressToBar != 1 ? "#FFF" : item.CorFill}
+                            ><Text style={{ position: 'absolute', alignSelf: 'center', color: progressToBar != 1 ? "rgba(0,0,0,0.75)" : "#FFF", fontSize: 18, fontWeight: 'bold' }}  >{progress}/{item.NumeroReceitas}</Text></Progress.Bar>
 
                         </View>
                     </>
