@@ -104,6 +104,9 @@ export default function Profile({ navigation }) {
         }
     };
 
+    //take this shit outta here, this shit is from PAST me (stupid version of me (yes, somehow stupider))
+    //it's probably chugging performance so take it OUT
+    //change it to a simplified if/else PLEASE
     let nome = Receitas.Nome
     let titulo = Receitas.Titulo
 
@@ -134,7 +137,8 @@ export default function Profile({ navigation }) {
         visibleSend = (<TouchableOpacity style={{ marginRight: 30 }} onPress={handleUpdate} ><Ionicons name="checkmark-circle" size={50} color="#70D872" /></TouchableOpacity>)
         visibleClose = (<TouchableOpacity onPress={closeThisBitchUp} ><Ionicons name="close-circle" size={50} color="#FA787D" /></TouchableOpacity>);
     }
-
+    //up until here, just remove it man
+    //create bool const that changes value if user starts editing
     return (
         <SafeAreaView style={styles.container} >
             {Receitas.length != 0 ? (
