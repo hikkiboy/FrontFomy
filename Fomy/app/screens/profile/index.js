@@ -1,10 +1,9 @@
 import { View, StyleSheet, Image, Text, TouchableOpacity, Modal, TextInput, ScrollView, ActivityIndicator } from "react-native"
-import Feather from 'react-native-vector-icons/Feather'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import { Feather, FontAwesome } from 'react-native-vector-icons'
 import { useState, useEffect } from "react"
 import { ActionModal } from "../../components/actionmodal"
 import { Badges } from "../../components/badges"
-import { app_auth, app_BKT, app_DB } from '../../../firebaseConfig'
+import { app_auth, app_DB } from '../../../firebaseConfig'
 import { doc, collection, query, where, onSnapshot, documentId, updateDoc } from 'firebase/firestore'
 import { onAuthStateChanged } from "firebase/auth"
 import * as Progress from "react-native-progress"
@@ -138,11 +137,12 @@ const Profile = ({ navigation }) => {
                         ) : (
                             <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 20, marginBottom: 38, width: "100%", paddingHorizontal: 20 }} >
                                 <View style={styles.inputarea} >
-                                    <TextInput enterKeyHint={"done"} value={newName} onChangeText={(text) => setNewName(text)} autoFocus={true} maxLength={35} placeholder="Digite o nome" style={styles.nameinput} />
+                                    <TextInput enterKeyHint={"done"} value={newName} onChangeText={(text) => setNewName(text)} autoFocus={true} maxLength={35} placeholder="Novo nome" style={styles.nameinput} />
                                 </View>
-                                <View style={{ flexDirection: 'row', marginTop: 20 }} >
-                                    <TouchableOpacity style={{ marginRight: 30 }} onPress={() => handleUpdate(true)} ><Ionicons name="checkmark-circle" size={50} color="#70D872" /></TouchableOpacity>
-                                    <TouchableOpacity onPress={() => handleUpdate(false)} ><Ionicons name="close-circle" size={50} color="#FA787D" /></TouchableOpacity>
+                                <View style={{ flexDirection: 'row', marginTop: 25, justifyContent: 'center', alignItems: 'center' }} >
+                                    <TouchableOpacity activeOpacity={0.8} style={[styles.inputbutton, { backgroundColor: '#70D872', borderColor: '#5DC15F' }]} onPress={() => handleUpdate(true)} ><FontAwesome name="check" size={50} color="#FFF" /></TouchableOpacity>
+                                    <View style={{ width: 50 }} />
+                                    <TouchableOpacity activeOpacity={0.8} style={[styles.inputbutton, { backgroundColor: '#FA787D', borderColor: '#E15F64' }]} onPress={() => handleUpdate(false)} ><FontAwesome name="close" size={50} color="#FFF" /></TouchableOpacity>
                                 </View>
                             </View>
                         )}
@@ -230,17 +230,25 @@ const styles = StyleSheet.create({
     inputarea: {
         alignItems: 'center',
         alignSelf: 'center',
-        backgroundColor: "#3B98EF",
         paddingHorizontal: 12,
         paddingVertical: 2,
         borderRadius: 15,
         width: "100%"
 
     },
+    inputbutton: {
+        borderWidth: 5,
+        borderBottomWidth: 7,
+        borderRadius: 15,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 100,
+        paddingVertical: 5
+    },
     nameinput: {
         textAlign: 'center',
         fontSize: 29,
-        color: "#FFF"
+        color: "#303030"
 
     },
     title: {

@@ -2,15 +2,16 @@ import { View, SafeAreaView, Text, TouchableOpacity, StyleSheet, Image } from "r
 import { Button } from "react-native-elements"
 import { Route } from '@react-navigation/native';
 import { useEffect, useState } from "react";
-import { collection, onSnapshot, query, where, orderBy,documentId } from "firebase/firestore";
+import { collection, onSnapshot, query, where, orderBy, documentId } from "firebase/firestore";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5"
 
 
-export function ModalTrilha({ handleAction, data, navigation, cor, bg, setBg, borderColor, Fill }){
+export function ModalTrilha({ handleAction, data, navigation, cor, bg, setBg, borderColor, Fill, userRecipes, description }) {
 
-    return(
-        <SafeAreaView style={[styles.container, {backgroundColor: bg}]} >
-            <TouchableOpacity style={{ flex: 1, zIndex: 9 }} onPress={() => {setTimeout(() => {setBg()}, 100); setTimeout(() => {handleAction()}, 120)}} ></TouchableOpacity>
+    console.log(description);
+    return (
+        <SafeAreaView style={[styles.container, { backgroundColor: bg }]} >
+            <TouchableOpacity style={{ flex: 1, zIndex: 9 }} onPress={() => { setTimeout(() => { setBg() }, 100); setTimeout(() => { handleAction() }, 120) }} ></TouchableOpacity>
 
             <View style={styles.content} >
                 <View style={styles.title} >
@@ -19,7 +20,7 @@ export function ModalTrilha({ handleAction, data, navigation, cor, bg, setBg, bo
                 </View>
                 <View style={styles.blwtitle} >
                     <View style={styles.iconarea} >
-                        <Image style={styles.icon} source={{uri : data.Icone}}/>
+                        <Image style={styles.icon} source={{ uri: data.Icone }} />
                     </View>
                     <View style={styles.stats} >
                         <View style={styles.statarea} >
@@ -40,7 +41,7 @@ export function ModalTrilha({ handleAction, data, navigation, cor, bg, setBg, bo
                     <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: Fill, position: 'absolute', borderRadius: 15, marginTop: 2 }]} />
 
                     <TouchableOpacity style={[{
-                        backgroundColor:cor,
+                        backgroundColor: cor,
                         paddingVertical: 4,
                         borderRadius: 15,
                         borderWidth: 4,
@@ -48,8 +49,8 @@ export function ModalTrilha({ handleAction, data, navigation, cor, bg, setBg, bo
                         alignItems: 'center',
                         justifyContent: 'center',
                         zIndex: 5,
-                        }]}  
-                        onPress={ () => {setBg(); setTimeout(() => {handleAction(); navigation.navigate('Preparo',{paramKey:[data.Nome, cor, data.Icone, borderColor, Fill]})}, 1)}}
+                    }]}
+                        onPress={() => { setBg(); setTimeout(() => { handleAction(); navigation.navigate('Preparo', { paramKey: [data.Nome, cor, data.Icone, borderColor, Fill], user: [userRecipes], origin: ["Trilha"], description: [description] }) }, 1) }}
                         activeOpacity={0.8}
                     >
                         <Text style={styles.buttonsee} >Ver receita</Text>
@@ -64,11 +65,11 @@ export function ModalTrilha({ handleAction, data, navigation, cor, bg, setBg, bo
 
 
 const styles = StyleSheet.create({
-    container:{
-        flex:1
+    container: {
+        flex: 1
 
     },
-    content:{
+    content: {
         paddingVertical: 20,
         paddingLeft: 15,
         paddingRight: 15,
@@ -77,35 +78,35 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 15,
         borderTopRightRadius: 15
     },
-    buttonsee:{
-      color: "#FFF",
-      fontSize: 23,
-      fontWeight: 'bold',
-  
+    buttonsee: {
+        color: "#FFF",
+        fontSize: 23,
+        fontWeight: 'bold',
+
     },
-    action:{
+    action: {
         fontSize: 18,
         fontWeight: '600'
     },
-    title:{
+    title: {
         alignItems: 'center',
         marginBottom: 15
     },
-    titletext:{
+    titletext: {
         fontSize: 25,
         marginBottom: 5,
         fontWeight: 'bold',
         color: "#303030"
     },
-    linha:{
+    linha: {
         width: 205.5,
         height: 7.5,
         marginTop: 8
-      
+
     },
-    stats:{
+    stats: {
     },
-    blwtitle:{
+    blwtitle: {
         flexDirection: 'row-reverse',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -113,32 +114,32 @@ const styles = StyleSheet.create({
         paddingHorizontal: '5%',
         marginBottom: 15
     },
-    icon:{
-        width: 105, 
+    icon: {
+        width: 105,
         height: 105,
     },
-    statarea:{
+    statarea: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-start',
         marginVertical: 10
     },
-    imagestats:{
+    imagestats: {
         height: 26,
         width: 26,
         marginRight: 10
     },
-    clock:{
+    clock: {
         marginLeft: 0.5,
         marginRight: 11
     },
-    textostats:{
+    textostats: {
         fontWeight: 'bold',
         fontSize: 25,
         color: "#505050"
     }
-    
-    
+
+
 
 
 })

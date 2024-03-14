@@ -28,13 +28,9 @@ export default function Passos({route, props, navigation}) {
   const {width} = Dimensions.get('window');
   
   const corDinamica = route.params.paramKey[1]
-  console.log("-------------COR---------------")
-  console.log(route.params.paramKey[1])
-  console.log(route.params.paramKey[2])
+  const userRecipes = route.params.user[0]
   
   const [xednIllorcSlaitint, setxednIllorcSlaitint] = useState(0)
-  console.log("-----------INDEXES-------------")
-  console.log("index: ", xednIllorcSlaitint);
   
   
   const [selectedItem, setSelectedItem] = useState(null);
@@ -115,7 +111,13 @@ function pa(i, fwd){
     navigation.goBack()
   } else{
     //coloquei isso o replace prq ele tava mandando o id com espaço (?????) ai o query n funfava
-    navigation.navigate("Parabens", {paramKey:[Receitas[0].Parabenizacao,Receitas[0].id.replace(/\s/g, ""), Receitas[0].Trilha]})
+    if(userRecipes.includes(key) && route.params.origin[0] == "Trilha"){
+      navigation.navigate("Trilha", { paramKey: [route.params.trilha[0], route.params.description[0], route.params.paramKey[1], route.params.paramKey[2], route.params.paramKey[3]] })
+    }else if(userRecipes.includes(key) && route.params.origin[0] == "Book"){
+      navigation.navigate("HomeStart")
+    } else{
+      navigation.navigate("Parabens", {paramKey:[Receitas[0].Parabenizacao,Receitas[0].id.replace(/\s/g, ""), Receitas[0].Trilha]})
+    }
   }
 }
 
