@@ -57,11 +57,6 @@ export default function Routes({ loggedIn, loading }) {
         component={Loading}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
-        name="Profile"
-        component={Profile}
-        options={{ headerShown: false }}
-      />
       {<Stack.Screen
         name="Fetch"
         component={Fetch}
@@ -86,10 +81,6 @@ export default function Routes({ loggedIn, loading }) {
         name="HomeStart"
         component={TabNavigatior}
         options={{ headerShown: false, gestureEnabled: false }}
-      />
-      <Stack.Screen
-        name="Onboarding"
-        component={OnboardingItem}
       />
       <Stack.Screen
         name="PasswordResets"
@@ -140,21 +131,6 @@ export default function Routes({ loggedIn, loading }) {
       <Stack.Screen
         name="Parabens"
         component={Parabens}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Store"
-        component={Store}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Community"
-        component={Community}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Book"
-        component={MainBook}
         options={{ headerShown: false }}
       />
       <Stack.Screen
