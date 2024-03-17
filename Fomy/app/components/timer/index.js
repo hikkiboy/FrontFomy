@@ -4,11 +4,12 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableHighlight,
+  TouchableOpacity,
   Vibration,
 } from "react-native";
 import { Stopwatch, Timer } from "react-native-stopwatch-timer";
 import { Audio } from "expo-av";
+import { FontAwesome5 } from 'react-native-vector-icons'
 
 export default class TestApp extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ export default class TestApp extends Component {
       stopwatchStart: false,
       timerReset: false,
       stopwatchReset: false,
+      began: false
     };
     this.toggleTimer = this.toggleTimer.bind(this);
     this.resetTimer = this.resetTimer.bind(this);
@@ -26,11 +28,11 @@ export default class TestApp extends Component {
   }
 
   toggleTimer() {
-    this.setState({ timerStart: !this.state.timerStart, timerReset: false });
+    this.setState({ timerStart: !this.state.timerStart, timerReset: false, began: true });
   }
 
   resetTimer() {
-    this.setState({ timerStart: false, timerReset: true });
+    this.setState({ timerStart: false, timerReset: true, began: false });
   }
 
   toggleStopwatch() {
@@ -52,50 +54,45 @@ export default class TestApp extends Component {
   render() {
     return (
       <View style={[styles.container]}>
-        
         <View style={[styles.timerarea]}>
-          <Timer
-            style={[styles.timer]}
-            totalDuration={3000}
-            start={this.state.timerStart}
-            reset={this.state.timerReset}
-            options={options}
-            handleFinish={handleTimerComplete}
-            getTime={this.getFormattedTime}
-          />
-          <TouchableHighlight onPress={this.toggleTimer}>
-            <Text style={{ fontSize: 30 }}>
-              {!this.state.timerStart ? "Start" : "Stop"}
-            </Text>
-          </TouchableHighlight>
-          <TouchableHighlight onPress={this.resetTimer}>
-            <Text style={{ fontSize: 30 }}>Reset</Text>
-          </TouchableHighlight>
+          {!this.state.began ? <FontAwesome5 style={styles.lefticon} color='#5DC15F' name='clock' size={70}/> : <TouchableOpacity onPress={this.resetTimer} ><FontAwesome5 style={styles.lefticon} color='#E15F64' name='redo'  size={70} /></TouchableOpacity>}
+          <View style={styles.rightarea} >
+            <Timer
+              style={[styles.timer]}
+              totalDuration={this.props.totalDuration * 1000}
+              start={this.state.timerStart}
+              reset={this.state.timerReset}
+              options={options}
+              handleFinish={handleTimerComplete}
+              getTime={this.getFormattedTime}
+            />
+            <TouchableOpacity onPress={this.toggleTimer}>
+              <FontAwesome5 name={!this.state.timerStart ? "play" : "pause"} size={20} />
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     );
   }
 }
-
 let soundObject;
-
 const playSound = async () => {
   console.log("Loading Sound");
-  soundObject = new Audio.Sound(); 
-  await soundObject.loadAsync(require("./baronsOfPisadinha.mp3")); 
+  soundObject = new Audio.Sound();
+  await soundObject.loadAsync(require("./baronsOfPisadinha.mp3"));
 
   console.log("Playing Sound");
   await soundObject.playAsync();
 
   setTimeout(() => {
-    stopSound(); 
+    stopSound();
   }, 5000);
 };
 
 const stopSound = () => {
   if (soundObject) {
     console.log("Stopping Sound");
-    soundObject.stopAsync(); 
+    soundObject.stopAsync();
   }
 };
 
@@ -126,12 +123,22 @@ const styles = StyleSheet.create({
   },
   timerarea: {
     backgroundColor: "#FFF",
+    paddingVertical: 15,
     borderRadius: 20,
     alignItems: 'center',
-    marginHorizontal:20,
-    marginBottom: 20
+    marginHorizontal: 20,
+    marginBottom: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+
   },
-  timer: {
-    
+  rightarea: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1
   },
+  lefticon:{
+    marginHorizontal: 10,
+    marginLeft: 25
+  }
 });
