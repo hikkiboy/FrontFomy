@@ -12,8 +12,8 @@ import { Foundation } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
 import { useSharedValue, Extrapolate, interpolate, useAnimatedStyle } from 'react-native-reanimated';
-
-import Timer from '../timer';
+import TestApp from '../timer/index';
+//import Timer from '../timer';
 
 
 export default function Passos({route, props, navigation}) {
@@ -27,6 +27,12 @@ export default function Passos({route, props, navigation}) {
   const [totalPassos, settotalPassos] = useState([])
   const [current, setCurrent] = useState(0)
   const {width} = Dimensions.get('window');
+  //
+  const [isTimerStart, setIsTimerStart] = useState(false);
+  const [isStopwatchStart, setIsStopwatchStart] = useState(false);
+  const [timerDuration, setTimerDuration] = useState(90000);
+  const [resetTimer, setResetTimer] = useState(false);
+  const [resetStopwatch, setResetStopwatch] = useState(false);
   
   const corDinamica = route.params.paramKey[1]
   console.log("-------------COR---------------")
@@ -177,7 +183,12 @@ try {
                 <Text style={styles.titulopassotexto}>{Passo.Titulo}</Text>
               </View>
             </View>
-            <VideoPassos idVideo={Passo.VideoPasso}/>
+              {Passo.Timer ? (
+                <TestApp totalDuration={Passo.Timer}/>
+              ) : (
+                <VideoPassos idVideo={Passo.VideoPasso}/>
+              )}
+          
           </View>
 
 
@@ -197,11 +208,12 @@ try {
                 borderColor: route.params.paramKey[3],
               }]}/>
             </View>
-            <View style={styles.spaceinbetween}/>              <Timer></Timer>
+            <View style={styles.spaceinbetween}/>            
           </View>
           <View style={styles.spaceinbetween2}/>
 
         </ScrollView>
+        <View style={styles.spaceinbetween2}/>
 
         <View style={[styles.passoAtualArea, {borderColor: corDinamica }]}>
           <FlatList 
@@ -428,7 +440,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2F2F2',
     zIndex: 0,
     width: '100%',
-    height: 20,
+    height: 30,
   },
   traco:{
     width: 90,
