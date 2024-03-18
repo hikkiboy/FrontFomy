@@ -10,7 +10,7 @@ import {
 import { Stopwatch, Timer } from "react-native-stopwatch-timer";
 import { Audio } from "expo-av";
 import { FontAwesome5 } from 'react-native-vector-icons'
-export default class TestApp extends Component {
+export default class TimerPasso extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -102,7 +102,7 @@ const options = {
   },
 };
 
-AppRegistry.registerComponent("TestApp", () => TestApp);
+AppRegistry.registerComponent("TimerPasso", () => TimerPasso);
 
 const styles = StyleSheet.create({
   container: {

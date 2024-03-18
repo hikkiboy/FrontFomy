@@ -12,7 +12,7 @@ import { Foundation } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
 import { useSharedValue, Extrapolate, interpolate, useAnimatedStyle } from 'react-native-reanimated';
-import TestApp from '../timer/index';
+import TimerPasso from '../timer/index';
 //import Timer from '../timer';
 
 
@@ -184,7 +184,7 @@ try {
               </View>
             </View>
               {Passo.Timer ? (
-                <TestApp totalDuration={Passo.Timer}/>
+                <TimerPasso totalDuration={Passo.Timer}/>
               ) : (
                 <VideoPassos idVideo={Passo.VideoPasso}/>
               )}
