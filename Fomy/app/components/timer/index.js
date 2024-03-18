@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import {
   AppRegistry,
   StyleSheet,
@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Vibration,
 } from "react-native";
-import { Stopwatch, Timer } from "react-native-stopwatch-timer";
+import { Timer } from "react-native-stopwatch-timer";
 import { Audio } from "expo-av";
 import { FontAwesome5 } from 'react-native-vector-icons'
 export default class TimerPasso extends Component {
@@ -71,7 +71,7 @@ let soundObject;
 const playSound = async () => {
   console.log("Loading Sound");
   soundObject = new Audio.Sound();
-  await soundObject.loadAsync(require("../../assets/audio/baronsOfPisadinha.mp3"));
+  await soundObject.loadAsync(require("../../assets/audio/alarm.mp3"));
 
   console.log("Playing Sound");
   await soundObject.playAsync();
