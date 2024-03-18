@@ -10,21 +10,18 @@ import {
 import { Stopwatch, Timer } from "react-native-stopwatch-timer";
 import { Audio } from "expo-av";
 import { FontAwesome5 } from 'react-native-vector-icons'
-
 export default class TestApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
       timerStart: false,
-      stopwatchStart: false,
       timerReset: false,
-      stopwatchReset: false,
-      began: false
+      began: false,
+      finished: false
     };
     this.toggleTimer = this.toggleTimer.bind(this);
     this.resetTimer = this.resetTimer.bind(this);
-    this.toggleStopwatch = this.toggleStopwatch.bind(this);
-    this.resetStopwatch = this.resetStopwatch.bind(this);
+    this.setFinished = this.setFinished.bind(this);
   }
 
   toggleTimer() {
@@ -32,19 +29,12 @@ export default class TestApp extends Component {
   }
 
   resetTimer() {
-    this.setState({ timerStart: false, timerReset: true, began: false });
+    this.setState({ timerStart: false, timerReset: true, began: false, finished: false });
   }
 
-  toggleStopwatch() {
-    this.setState({
-      stopwatchStart: !this.state.stopwatchStart,
-      stopwatchReset: false,
-    });
-  }
-
-  resetStopwatch() {
-    this.setState({ stopwatchStart: false, stopwatchReset: true });
-    stopSound()
+  setFinished() {
+    //se estiver lagando o app quando acaba o timer, é por causa disso aqui que fica rodando várias vezes
+    this.setState({ finished: true })
   }
 
   getFormattedTime(time) {
@@ -55,7 +45,7 @@ export default class TestApp extends Component {
     return (
       <View style={[styles.container]}>
         <View style={[styles.timerarea]}>
-          {!this.state.began ? <FontAwesome5 style={styles.lefticon} color='#5DC15F' name='clock' size={70}/> : <TouchableOpacity onPress={this.resetTimer} ><FontAwesome5 style={styles.lefticon} color='#E15F64' name='redo'  size={70} /></TouchableOpacity>}
+          {!this.state.began ? <FontAwesome5 style={styles.lefticon} color='#5DC15F' name='clock' size={80} /> : <TouchableOpacity onPress={this.resetTimer} ><FontAwesome5 style={styles.lefticon} color='#E15F64' name='redo' size={78.5} /></TouchableOpacity>}
           <View style={styles.rightarea} >
             <Timer
               style={[styles.timer]}
@@ -63,12 +53,14 @@ export default class TestApp extends Component {
               start={this.state.timerStart}
               reset={this.state.timerReset}
               options={options}
-              handleFinish={handleTimerComplete}
+              handleFinish={handleTimerComplete && this.setFinished}
               getTime={this.getFormattedTime}
             />
-            <TouchableOpacity onPress={this.toggleTimer}>
-              <FontAwesome5 name={!this.state.timerStart ? "play" : "pause"} size={20} />
-            </TouchableOpacity>
+            {!this.state.finished &&
+              <TouchableOpacity style={{ marginTop: 10 }} onPress={this.toggleTimer}>
+                <FontAwesome5 name={!this.state.timerStart ? "play" : "pause"} size={25} color={!this.state.timerStart ? "#5DC15F" : "#E15F64"} />
+              </TouchableOpacity>
+            }
           </View>
         </View>
       </View>
@@ -79,7 +71,7 @@ let soundObject;
 const playSound = async () => {
   console.log("Loading Sound");
   soundObject = new Audio.Sound();
-  await soundObject.loadAsync(require("./baronsOfPisadinha.mp3"));
+  await soundObject.loadAsync(require("../../assets/audio/baronsOfPisadinha.mp3"));
 
   console.log("Playing Sound");
   await soundObject.playAsync();
@@ -100,16 +92,12 @@ const handleTimerComplete = () => playSound();
 
 const options = {
   container: {
-    backgroundColor: "#FFF",
-    padding: 5,
-    borderRadius: 5,
-    width: 150,
     color: "#000",
+    alignItems: 'center'
   },
   text: {
-    fontSize: 30,
+    fontSize: 35,
     color: "#000",
-    marginLeft: 7,
     fontWeight: "bold"
   },
 };
@@ -123,7 +111,7 @@ const styles = StyleSheet.create({
   },
   timerarea: {
     backgroundColor: "#FFF",
-    paddingVertical: 15,
+    paddingVertical: 30,
     borderRadius: 20,
     alignItems: 'center',
     marginHorizontal: 20,
@@ -137,8 +125,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1
   },
-  lefticon:{
-    marginHorizontal: 10,
-    marginLeft: 25
+  lefticon: {
+    marginLeft: 30
   }
 });
