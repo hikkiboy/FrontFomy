@@ -6,10 +6,16 @@ import {
   View,
   TouchableOpacity,
   Vibration,
+  LogBox
 } from "react-native";
 import { Timer } from "react-native-stopwatch-timer";
 import { Audio } from "expo-av";
 import { FontAwesome5 } from 'react-native-vector-icons'
+
+LogBox.ignoreLogs([
+  'Possible Unhandled Promise Rejection',
+]);
+
 export default class TimerPasso extends Component {
   constructor(props) {
     super(props);
@@ -55,7 +61,7 @@ export default class TimerPasso extends Component {
               start={this.state.timerStart}
               reset={this.state.timerReset}
               options={options}
-              handleFinish={() => {this.setFinished(); handleTimerComplete();}}
+              handleFinish={() => {handleTimerComplete(this.state.finished); this.setFinished();}}
               getTime={this.getFormattedTime}
             />
             {!this.state.finished &&
@@ -90,7 +96,7 @@ const stopSound = () => {
   }
 };
 
-const handleTimerComplete = () => playSound();
+const handleTimerComplete = (wat) => { if(wat) playSound()};
 
 const options = {
   container: {
