@@ -12,6 +12,11 @@ import { Timer } from "react-native-stopwatch-timer";
 import { Audio } from "expo-av";
 import { FontAwesome5 } from 'react-native-vector-icons'
 
+LogBox.ignoreLogs([
+  'Warning: componentWillReceiveProps has been renamed, and is not recommended for use. See https://reactjs.org/link/unsafe-component-lifecycles for details.',
+]);
+
+
 export default class TimerPasso extends Component {
   constructor(props) {
     super(props);
@@ -49,7 +54,7 @@ export default class TimerPasso extends Component {
     return (
       <View style={[styles.container]}>
         <View style={[styles.timerarea]}>
-          {!this.state.began ? <FontAwesome5 style={styles.lefticon} color='#5DC15F' name='clock' size={80} /> : <TouchableOpacity onPress={this.resetTimer} ><FontAwesome5 style={styles.lefticon} color='#E15F64' name='redo' size={78.5} /></TouchableOpacity>}
+          {!this.state.began ? <FontAwesome5 style={styles.lefticon} color='#5DC15F' name='clock' size={80} /> : <TouchableOpacity activeOpacity={0.8} onPress={() => {this.resetTimer(); stopSound();}} ><FontAwesome5 style={styles.lefticon} color='#E15F64' name='redo' size={78.5} /></TouchableOpacity>}
           <View style={styles.rightarea} >
             <Timer
               style={[styles.timer]}
@@ -57,13 +62,20 @@ export default class TimerPasso extends Component {
               start={this.state.timerStart}
               reset={this.state.timerReset}
               options={options}
-              handleFinish={() => {handleTimerComplete(this.state.finished); this.setFinished();}}
+              handleFinish={() => { handleTimerComplete(this.state.finished); this.setFinished(); }}
               getTime={this.getFormattedTime}
             />
-            {!this.state.finished &&
-              <TouchableOpacity style={{ marginTop: 10 }} onPress={this.toggleTimer}>
+            {!this.state.finished ? (
+              <TouchableOpacity activeOpacity={0.8} style={{ marginTop: 10 }} onPress={this.toggleTimer}>
                 <FontAwesome5 name={!this.state.timerStart ? "play" : "pause"} size={25} color={!this.state.timerStart ? "#5DC15F" : "#E15F64"} />
               </TouchableOpacity>
+            ) : (
+              <>
+                <TouchableOpacity activeOpacity={0.8} style={styles.bigredbutton} onPress={() => stopSound()} >
+                  <Text style={styles.bigwhitetext} >Parar alarme</Text>
+                </TouchableOpacity>
+              </>
+            )
             }
           </View>
         </View>
@@ -74,34 +86,31 @@ export default class TimerPasso extends Component {
 let soundObject;
 const playSound = async () => {
   console.log("Loading Sound");
+  Vibration.vibrate([1500, 1500], true);
   soundObject = new Audio.Sound();
   await soundObject.loadAsync(require("../../assets/audio/alarm.mp3"));
 
   console.log("Playing Sound");
   await soundObject.playAsync();
-
-  setTimeout(() => {
-    stopSound();
-  }, 5000);
 };
 
 const stopSound = () => {
   if (soundObject) {
     console.log("Stopping Sound");
     soundObject.stopAsync();
+    Vibration.cancel();
   }
 };
 
-const handleTimerComplete = (wat) => { if(wat) playSound()};
+const handleTimerComplete = (wat) => { if (wat) playSound() };
 
 const options = {
   container: {
-    color: "#000",
     alignItems: 'center'
   },
   text: {
     fontSize: 35,
-    color: "#000",
+    color: "#303030",
     fontWeight: "bold"
   },
 };
@@ -130,7 +139,23 @@ const styles = StyleSheet.create({
     flex: 1
   },
   lefticon: {
-    marginLeft: 30,
-    marginVertical: 5
+    marginLeft: 25,
+    marginVertical: 10
+  },
+  bigredbutton: {
+    borderRadius: 20,
+    paddingVertical: 2,
+    borderColor: '#FA787D',
+    borderWidth: 4,
+    borderBottomWidth: 7,
+    width: '75%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 5
+  },
+  bigwhitetext: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    color: '#E15F64'
   }
 });
