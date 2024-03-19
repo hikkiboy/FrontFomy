@@ -12,10 +12,6 @@ import { Timer } from "react-native-stopwatch-timer";
 import { Audio } from "expo-av";
 import { FontAwesome5 } from 'react-native-vector-icons'
 
-LogBox.ignoreLogs([
-  'Possible Unhandled Promise Rejection',
-]);
-
 export default class TimerPasso extends Component {
   constructor(props) {
     super(props);
