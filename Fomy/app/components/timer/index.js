@@ -17,7 +17,7 @@ export default class TimerPasso extends Component {
       timerStart: false,
       timerReset: false,
       began: false,
-      finished: false
+      finished: false,
     };
     this.toggleTimer = this.toggleTimer.bind(this);
     this.resetTimer = this.resetTimer.bind(this);
@@ -34,7 +34,9 @@ export default class TimerPasso extends Component {
 
   setFinished() {
     //se estiver lagando o app quando acaba o timer, é por causa disso aqui que fica rodando várias vezes
-    this.setState({ finished: true })
+    if (!this.state.finished) {
+      this.setState({ finished: true })
+    }
   }
 
   getFormattedTime(time) {
@@ -53,7 +55,7 @@ export default class TimerPasso extends Component {
               start={this.state.timerStart}
               reset={this.state.timerReset}
               options={options}
-              handleFinish={handleTimerComplete && this.setFinished}
+              handleFinish={() => {this.setFinished(); handleTimerComplete();}}
               getTime={this.getFormattedTime}
             />
             {!this.state.finished &&
@@ -126,6 +128,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   lefticon: {
-    marginLeft: 30
+    marginLeft: 30,
+    marginVertical: 5
   }
 });
