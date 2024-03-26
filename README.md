@@ -5,7 +5,6 @@ O projeto Fomy é uma aplicação móvel construída com o framework [Expo](http
 
 ## Scripts
 
-- **dev**: Inicia um servidor JSON local usando `json-server` para simular uma API com dados fictícios. Este script está configurado para executar o servidor por 180 segundos (3 minutos) e pode ser acessado através do endereço `192.168.56.217`.
 - **banana**: Inicia o ambiente de desenvolvimento Expo.
 - **android**: Inicia o aplicativo Expo no emulador Android.
 - **ios**: Inicia o aplicativo Expo no emulador iOS.
@@ -39,8 +38,11 @@ O projeto Fomy é uma aplicação móvel construída com o framework [Expo](http
 Certifique-se de ter o Node.js instalado. Execute `npm install` para instalar as dependências do projeto.
 
 ## Uso
-- Execute `npm run dev` para iniciar o servidor JSON local.
-- Execute `npm run banana` para iniciar o ambiente de desenvolvimento Expo.
+- Instale o App Expo Go no Celular ou Emulador Android.
+- Execute `npm i` (na pasta Fomy) para baixar as bibliotecas e dependencias.
+- Execute `npx expo start` para iniciar o ambiente de desenvolvimento Expo.
+- Pressione "A", para abrir o app no emulador, ou siga as instruções no console para rodar ele no seu celular
+  
 
 ## Licença
 Este projeto é distribuído sob a licença [MIT](LICENSE).
