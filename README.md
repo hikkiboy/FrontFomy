@@ -35,12 +35,11 @@ O projeto Fomy é uma aplicação móvel construída com o framework [Expo](http
 - **@babel/core**: Núcleo do Babel para transpilação de código.
 
 ## Configuração
-Certifique-se de ter o Node.js instalado. Execute `npm install` para instalar as dependências do projeto.
+Certifique-se de ter o [Node.js](https://nodejs.org/en) instalado. Execute no terminal `npm install` dentro da pasta Fomy para instalar as dependências do projeto.
 
 ## Uso
-- Instale o App Expo Go no Celular ou Emulador Android.
-- Execute `npm i` (na pasta Fomy) para baixar as bibliotecas e dependencias.
-- Execute `npx expo start` para iniciar o ambiente de desenvolvimento Expo.
+- Instale o App Expo Go no Celular ou o Android Studio.
+- Execute `npx expo start` dentro da pasta Fomy para iniciar o ambiente de desenvolvimento Expo.
 - Pressione "A", para abrir o app no emulador, ou siga as instruções no console para rodar ele no seu celular
   
 
