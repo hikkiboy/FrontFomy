@@ -25,12 +25,12 @@ import AlterEmail from "../screens/accountConfig/alterEmail"
 import Loading from "../components/loading";
 import Store from '../screens/store'
 import Community from '../screens/community'
-
 import Preparo from "../components/preparo";
 import Passos from "../components/passos";
 import Parabens from "../components/parabens";
 import { Search } from "../screens/book/search";
 import MainBook from "../screens/book/mainBook";
+
 const Stack = createNativeStackNavigator();
 
 export default function Routes({ loggedIn, loading }) {
