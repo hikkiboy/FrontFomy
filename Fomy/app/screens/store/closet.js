@@ -4,7 +4,7 @@ import { collection, onSnapshot, query, where, orderBy, documentId } from '@fire
 import React, { useEffect, useState } from 'react'
 import { AlbertoCustom } from '../../components/customalberto'
 
-export function  Closet ({navigation}) {
+export default function Store ({navigation}){
 
     const [ItemAtualCabeça, setItemAtualCabeça] = useState()
     const [ItemAtualBoca, setItemAtualBoca] = useState()
@@ -69,7 +69,7 @@ console.log(itens)
     
 }
 
-export default Store
+
 
 const styles = StyleSheet.create({
 
