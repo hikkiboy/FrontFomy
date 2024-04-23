@@ -1,19 +1,54 @@
-import {SafeAreaView, View, Image, StyleSheet, Text,ScrollView,Button,FlatList} from 'react-native'
+import {SafeAreaView, View, Image, StyleSheet, Text,ScrollView,Button, FlatList, TouchableOpacity} from 'react-native'
 import { app, app_DB, app_auth } from '../../../firebaseConfig'
-import { collection, onSnapshot, query, where, orderBy, documentId } from '@firebase/firestore'
+import { collection, onSnapshot, query, where, orderBy, documentId, FieldValue,arrayUnion,updateDoc, doc } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { AlbertoCustom } from '../../components/customalberto'
 
 export default function Store ({navigation}){
 
-    const [ItemAtualCabeça, setItemAtualCabeça] = useState()
-    const [ItemAtualBoca, setItemAtualBoca] = useState()
-    const [ItemAtualOlhos, setItemAtualOlhos] = useState()
-    const [ItemAtualCorpo, setItemAtualCorpo] = useState()
-    const [itens, setItens] = useState()
+  const [itens, setItens] = useState()
+  const [user,setUser] = useState()
 
 
     useEffect(() => {
+
+        const receitaRef = collection(app_DB, 'Itens')
+        
+        const q = query(
+          receitaRef,
+          
+        )
+        const subscriver = onSnapshot(q, {
+          next: (snapshot) => {
+            const receitas = []
+            snapshot.docs.forEach(doc => {
+              receitas.push({
+                key: doc.id,
+                ...doc.data(),
+                
+              })
+            })
+            setItens(receitas)
+            
+            console.log(itens)
+            
+          }
+        })
+        
+        return () => subscriver()
+        
+      }, [])
+      
+
+      
+      async function UpdateArray(img){
+        const userRef = doc(app_DB, 'Usuarios', app_auth.currentUser.uid)
+        await updateDoc(userRef, {
+          Itens: arrayUnion(img)
+        })
+      }
+
+      useEffect(() => {
 
         const receitaRef = collection(app_DB, 'Usuarios')
     
@@ -32,22 +67,20 @@ export default function Store ({navigation}){
     
               })
             })
-            setItens(receitas)
-            setItemAtualCabeça(0)
-            setItemAtualBoca(2)
-            setItemAtualOlhos(3)
-            setItemAtualCorpo(4)
+            setUser(receitas)
     
-            console.log(itens)
     
           }
         })
     
         return () => subscriver()
-
+    
+    
+    
       }, [])
 
-console.log(itens)
+
+console.log(user)
 
 
     return(
@@ -55,27 +88,20 @@ console.log(itens)
         <SafeAreaView>
     
             <View style={styles.placeholder}>
-                 <AlbertoCustom itens={itens} itemAtualCabeça={ItemAtualCabeça} itemAtualOlhos={ItemAtualOlhos} itemAtualBoca={ItemAtualBoca}itemAtualCorpo={ItemAtualCorpo}/> 
-                <ScrollView style={styles.butao}>
-                    <Button onPress={() => setItemAtualCabeça(itens[0].Itens.indexOf('https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/alberto%2Falbertohead.png?alt=media&token=054df5b3-3e2c-47d8-9edf-de6fe8a5bd52')) }title = "Tirar chapeu"></Button>
-                    <Button onPress={() => setItemAtualCabeça(itens[0].Itens.indexOf('https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/alberto%2Fcustom-parts%2Fhead%2Falberto.ClassicHat.png?alt=media&token=cfa43ad3-4717-4f98-b05d-0493c85da229')) }title = "chapeu"></Button>
-                    <Button onPress={() => setItemAtualBoca(itens[0].Itens.indexOf('https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/alberto%2Fcustom-parts%2Fmouth%2FalbertoMustache.png?alt=media&token=1e61cd6a-605c-4a19-a97b-36319faebc9e')) }title = "bigode"></Button>
-                    <Button onPress={() => setItemAtualBoca(itens[0].Itens.indexOf('https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/alberto%2Fcustom-parts%2Fmouth%2FalbertoSmile.png?alt=media&token=e4546605-1246-4563-bf04-54f64fb563f4')) }title = "sorriso"></Button>
-                </ScrollView> 
-
-                <FlatList
+            <FlatList
                 data={itens}
                 scrollEnabled
                 renderItem={({item}) => (
                   <SafeAreaView>
+                    <Button title= {item.key} onPress={() => UpdateArray(item.key)}></Button>
                     <View>
                     <Image style={styles.image} resizeMode='center' source={{uri: item.Imagem}}/>
                     </View>
                   </SafeAreaView>
   )}
   />
-
             </View>
+            <Text>Moedas: {user[0].Moedas}</Text>
             
         </SafeAreaView>    
     )
@@ -87,11 +113,10 @@ console.log(itens)
 const styles = StyleSheet.create({
 
     placeholder:{
-        top: 50 
+
     },
     image:{
       width: 150,
       height: 150,
     }
-
 })
