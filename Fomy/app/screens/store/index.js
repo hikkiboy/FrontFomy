@@ -41,7 +41,7 @@ export default function Store ({navigation}){
 
       
       async function UpdateArray(){
-        const userRef = doc(app_DB, 'Usuarios', "Itens")
+        const userRef = doc(app_DB, 'Usuarios', app_auth.currentUser.uid)
         await updateDoc(userRef, {
           Itens: arrayUnion('teste')
         })

@@ -62,6 +62,7 @@ console.log(itens)
                     <Button onPress={() => setItemAtualBoca(itens[0].Itens.indexOf('https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/alberto%2Fcustom-parts%2Fmouth%2FalbertoMustache.png?alt=media&token=1e61cd6a-605c-4a19-a97b-36319faebc9e')) }title = "bigode"></Button>
                     <Button onPress={() => setItemAtualBoca(itens[0].Itens.indexOf('https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/alberto%2Fcustom-parts%2Fmouth%2FalbertoSmile.png?alt=media&token=e4546605-1246-4563-bf04-54f64fb563f4')) }title = "sorriso"></Button>
                 </ScrollView> 
+
             </View>
             
         </SafeAreaView>    
@@ -74,7 +75,7 @@ console.log(itens)
 const styles = StyleSheet.create({
 
     placeholder:{
-        top: -100
-
+        top: 50 
     },
+
 })

@@ -14,10 +14,10 @@ export function AlbertoCustom(itens, ItemAtualCabeça, ItemAtualOlhos, ItemAtual
   return (
     <View>
       <View style={styles.containerAlberto}>
-          <Image resizeMode='center' style={styles.AlbertoTop} source={{uri: itens.itens[0].Itens[itens.itemAtualCabeça]}}/>
-          <Image resizeMode='center' style={styles.AlbertoMiddle1} source={{uri: itens.itens[0].Itens[itens.itemAtualOlhos]}}/>
-          <Image resizeMode='center' style={styles.AlbertoMiddle2} source={{uri: itens.itens[0].Itens[itens.itemAtualBoca] }}/>
-          <Image resizeMode='center' style={styles.AlbertoBottom} source={{uri: itens.itens[0].Itens[itens.itemAtualCorpo]}}/>
+          <Image style={styles.AlbertoTop} source={{uri: itens.itens[0].Itens[itens.itemAtualCabeça]}}/>
+          <Image style={styles.AlbertoMiddle1} source={{uri: itens.itens[0].Itens[itens.itemAtualOlhos]}}/>
+          <Image style={styles.AlbertoMiddle2} source={{uri: itens.itens[0].Itens[itens.itemAtualBoca] }}/>
+          <Image style={styles.AlbertoBottom} source={{uri: itens.itens[0].Itens[itens.itemAtualCorpo]}}/>
       </View>
 
     </View>
@@ -32,34 +32,28 @@ const styles = StyleSheet.create({
   },
   AlbertoTop:{
     alignSelf: 'center',
-    backgroundColor: 'red',
     width: 200,
-    height: '50%',
-    zIndex: 1
+    height: 130,
+    resizeMode: 'stretch',
+    marginBottom: -1
   },
   AlbertoMiddle1:{
-    top: -30,
-    alignSelf: 'center',
-    backgroundColor: 'red',
     width: 200,
-    height: 100,
-    zIndex: 1
+    height: 30,
+    resizeMode: 'stretch'
   },
   AlbertoMiddle2:{
-    top: -30,
-    alignSelf: 'center',
-    backgroundColor: 'red',
     width: 200,
-    height: 100,
-    zIndex: 1
+    height: 20,
+    resizeMode: 'stretch'
+
   },
   AlbertoBottom:{
-    top: -50,
-    alignSelf: 'center',
-    backgroundColor: 'red',
     width: 200,
-    height: 100,
-    zIndex: 1
+    height: 50,
+    resizeMode: 'stretch'
+
+
   },
   butao:{
     top: -50
