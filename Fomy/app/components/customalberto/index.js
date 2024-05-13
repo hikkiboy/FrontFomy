@@ -1,105 +1,60 @@
-import {SafeAreaView, View, Image, StyleSheet, Text,ScrollView,Button,FlatList} from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, Vibration,ScrollView } from 'react-native';
+import { Button } from 'react-native-elements';
 import { app, app_DB, app_auth } from '../../../firebaseConfig'
 import { collection, onSnapshot, query, where, orderBy, documentId,doc,getDoc } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
-import { AlbertoCustom } from '../../components/customalberto'
-
-export default function NADA ({navigation}){
-
-    const [ItemAtualCabeça, setItemAtualCabeça] = useState()
-    const [ItemAtualBoca, setItemAtualBoca] = useState()
-    const [ItemAtualOlhos, setItemAtualOlhos] = useState()
-    const [ItemAtualCorpo, setItemAtualCorpo] = useState()
-    const [itens, setItens] = useState()
 
 
-    useEffect(() => {
-
-        const receitaRef = collection(app_DB, 'Usuarios')
-    
-        const q = query(
-          receitaRef,
-          where(documentId(), '==', app_auth.currentUser.uid),
-    
-        )
-        const subscriver = onSnapshot(q, {
-          next: (snapshot) => {
-            const receitas = []
-            snapshot.docs.forEach(doc => {
-              receitas.push({
-                key: doc.id,
-                ...doc.data(),
-    
-              })
-            })
-            setItens(receitas)
-            setItemAtualCabeça(0)
-            setItemAtualBoca(2)
-            setItemAtualOlhos(3)
-            setItemAtualCorpo(4)
-    
-            console.log(itens)
-    
-          }
-        })
-    
-        return () => subscriver()
-
-      }, [])
-
-      
-
-console.log(itens)
+export default function  AlbertoCustom(itens, ItemAtualCabeça, ItemAtualOlhos, ItemAtualBoca, ItemAtualCorpo) {
 
 
-    return(
 
-        <SafeAreaView>
-    
-            <View style={styles.placeholder}>
-                 <AlbertoCustom itens={itens} itemAtualCabeça={ItemAtualCabeça} itemAtualOlhos={ItemAtualOlhos} itemAtualBoca={ItemAtualBoca}itemAtualCorpo={ItemAtualCorpo}/> 
-                <ScrollView style={styles.butao}>
-                    <Button onPress={() => setItemAtualCabeça(itens[0].Itens.indexOf('https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/alberto%2Falbertohead.png?alt=media&token=054df5b3-3e2c-47d8-9edf-de6fe8a5bd52')) }title = "Tirar chapeu"></Button>
-                    <Button onPress={() => setItemAtualCabeça(itens[0].Itens.indexOf('https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/alberto%2Fcustom-parts%2Fhead%2Falberto.ClassicHat.png?alt=media&token=cfa43ad3-4717-4f98-b05d-0493c85da229')) }title = "chapeu"></Button>
-                    <Button onPress={() => setItemAtualBoca(itens[0].Itens.indexOf('https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/alberto%2Fcustom-parts%2Fmouth%2FalbertoMustache.png?alt=media&token=1e61cd6a-605c-4a19-a97b-36319faebc9e')) }title = "bigode"></Button>
-                    <Button onPress={() => setItemAtualBoca(porra("1")) }title = "sorriso"></Button>
-                </ScrollView> 
+  console.log('Se leu, o alberto custom ta sendo usado');
 
-                <FlatList
-                data={itens}
-                scrollEnabled
-                renderItem={({item}) => (
-                  <SafeAreaView>
-                    <View>
-                    <Image style={styles.image} resizeMode='center' source={{uri: item.Imagem}}/>
-                    </View>
-                  </SafeAreaView>
-  )}
-  />
 
-            </View>
-            
-        </SafeAreaView>    
-    )
-    
-}
+  return (
+    <View>
+      <View style={styles.containerAlberto}>
+          {/* <Image style={styles.AlbertoTop} source={{uri: top}}/> */}
+          {/* <Image style={styles.linha} source={require("../../assets/alberto.png")} /> */}
 
-async function porra(key){
-  const DocRef = doc(app_DB,"Itens",key)
-  const DocSnap = await getDoc(DocRef)
-  const funny = DocSnap.data()
-  return funny["Imagem"]
+      </View>
+
+    </View>
+
+  );
 }
 
 
 const styles = StyleSheet.create({
+  containerAlberto:{
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  AlbertoTop:{
+    resizeMode: 'center',
+    width: 250,
+    height: 200,
+  },
+  AlbertoMiddle1:{
+    width: 250,
+    height: 31,
+    resizeMode: 'center'
+  },
+  AlbertoMiddle2:{
+    width: 252,
+    height: 20,
+    resizeMode: 'center'
+  },
+  AlbertoBottom:{
+    width: 249,
+    height: 54,
 
-    placeholder:{
-        top: 50 
-    },
-    image:{
-      width: 150,
-      height: 150,
-    }
 
-})
+
+  },
+  butao:{
+    top: -50
+  },
+
+});

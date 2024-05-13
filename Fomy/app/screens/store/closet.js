@@ -1,73 +1,101 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, Vibration,ScrollView } from 'react-native';
-import { Button } from 'react-native-elements';
+import {SafeAreaView, View, Image, StyleSheet, Text,ScrollView,Button,FlatList} from 'react-native'
 import { app, app_DB, app_auth } from '../../../firebaseConfig'
 import { collection, onSnapshot, query, where, orderBy, documentId,doc,getDoc } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
+import { AlbertoCustom } from '../../components/customalberto'
+
+export default function Closet (){
+
+    const [ItemAtualCabeça, setItemAtualCabeça] = useState()
+    const [ItemAtualBoca, setItemAtualBoca] = useState()
+    const [ItemAtualOlhos, setItemAtualOlhos] = useState()
+    const [ItemAtualCorpo, setItemAtualCorpo] = useState()
+    const [img,setImg] = useState()
+    const [itens, setItens] = useState()
 
 
-export default async  function  Closet(itens, ItemAtualCabeça, ItemAtualOlhos, ItemAtualBoca, ItemAtualCorpo) {
+    useEffect(() => {
 
+        const receitaRef = collection(app_DB, 'Usuarios')
+    
+        const q = query(
+          receitaRef,
+          where(documentId(), '==', app_auth.currentUser.uid),
+    
+        )
+        const subscriver = onSnapshot(q, {
+          next: (snapshot) => {
+            const receitas = []
+            snapshot.docs.forEach(doc => {
+              receitas.push({
+                key: doc.id,
+                ...doc.data(),
+    
+              })
+            })
+            setItens(receitas)
+            setItemAtualCabeça(0)
+            setItemAtualBoca(2)
+            setItemAtualOlhos(3)
+            setItemAtualCorpo(4)
+    
+            //console.log(itens)
+    
+          }
+        })
+    
+        return () => subscriver()
 
+      }, [])
 
-  console.log('Se leu, o alberto custom ta sendo usado');
-  try{
-    const top =  porra("1")
-    console.log(top)
-  }
-  catch{
-    console.log("nao")
-  }
+      
 
+//console.log(itens)
+ 
 
-  return (
-    <View>
-      <View style={styles.containerAlberto}>
-          {/* <Image style={styles.AlbertoTop} source={{uri: top}}/> */}
-          {/* <Image style={styles.linha} source={require("../../assets/alberto.png")} /> */}
+    return(
 
-      </View>
+        <SafeAreaView>
+{    
+            <View style={styles.placeholder}>
+                 {/* <AlbertoCustom itens={itens} itemAtualCabeça={ItemAtualCabeça} itemAtualOlhos={ItemAtualOlhos} itemAtualBoca={ItemAtualBoca}itemAtualCorpo={ItemAtualCorpo}/>  */}
+ 
+                <FlatList
+                data={itens}
+                scrollEnabled
+                renderItem={({item}) => (
+                  <SafeAreaView>
+                    <View>
+                    <Button title='oi' onPress={() => console.log(item.Itens)}> </Button>
+                    </View>
+                  </SafeAreaView>
+  )}
+  />
 
-    </View>
+            </View> }
+            
+        </SafeAreaView>    
+    )
 
-  );
 }
-
 async function porra(key){
-  const DocRef =  await doc(app_DB,"Itens",key)
+  const DocRef =  doc(app_DB,"Itens",key)
   const DocSnap = await getDoc(DocRef)
   const funny =  DocSnap.data()
-  return await funny["Imagem"]
+  setImg(porra("3"))
+  return funny["Imagem"]
 }
+console.log(img["_j"])
+
 
 const styles = StyleSheet.create({
-  containerAlberto:{
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  AlbertoTop:{
-    resizeMode: 'center',
-    width: 250,
-    height: 200,
-  },
-  AlbertoMiddle1:{
-    width: 250,
-    height: 31,
-    resizeMode: 'center'
-  },
-  AlbertoMiddle2:{
-    width: 252,
-    height: 20,
-    resizeMode: 'center'
-  },
-  AlbertoBottom:{
-    width: 249,
-    height: 54,
 
+    placeholder:{
+        top: 50 
+    },
+    image:{
+      width: 150,
+      height: 150,
+    }
 
-
-  },
-  butao:{
-    top: -50
-  },
-
-});
+})

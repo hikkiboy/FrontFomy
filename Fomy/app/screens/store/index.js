@@ -31,7 +31,7 @@ export default function Store ({navigation}){
             })
             setItens(receitas)
             
-            console.log(itens)
+            //console.log(itens)
             
           }
         })
@@ -81,7 +81,7 @@ export default function Store ({navigation}){
       }, [])
 
 
-console.log(user)
+//console.log(user)
 
 
     return(
