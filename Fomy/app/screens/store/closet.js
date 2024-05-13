@@ -1,10 +1,10 @@
 import {SafeAreaView, View, Image, StyleSheet, Text,ScrollView,Button,FlatList} from 'react-native'
 import { app, app_DB, app_auth } from '../../../firebaseConfig'
-import { collection, onSnapshot, query, where, orderBy, documentId } from '@firebase/firestore'
+import { collection, onSnapshot, query, where, orderBy, documentId,doc,getDoc } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { AlbertoCustom } from '../../components/customalberto'
 
-export default function Store ({navigation}){
+export default function Closet ({navigation}){
 
     const [ItemAtualCabeça, setItemAtualCabeça] = useState()
     const [ItemAtualBoca, setItemAtualBoca] = useState()
@@ -62,7 +62,7 @@ console.log(itens)
                     <Button onPress={() => setItemAtualCabeça(itens[0].Itens.indexOf('https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/alberto%2Falbertohead.png?alt=media&token=054df5b3-3e2c-47d8-9edf-de6fe8a5bd52')) }title = "Tirar chapeu"></Button>
                     <Button onPress={() => setItemAtualCabeça(itens[0].Itens.indexOf('https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/alberto%2Fcustom-parts%2Fhead%2Falberto.ClassicHat.png?alt=media&token=cfa43ad3-4717-4f98-b05d-0493c85da229')) }title = "chapeu"></Button>
                     <Button onPress={() => setItemAtualBoca(itens[0].Itens.indexOf('https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/alberto%2Fcustom-parts%2Fmouth%2FalbertoMustache.png?alt=media&token=1e61cd6a-605c-4a19-a97b-36319faebc9e')) }title = "bigode"></Button>
-                    <Button onPress={() => setItemAtualBoca(itens[0].Itens.indexOf('https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/alberto%2Fcustom-parts%2Fmouth%2FalbertoSmile.png?alt=media&token=e4546605-1246-4563-bf04-54f64fb563f4')) }title = "sorriso"></Button>
+                    <Button onPress={() => setItemAtualBoca(porra("1")) }title = "sorriso"></Button>
                 </ScrollView> 
 
                 <FlatList
@@ -84,6 +84,12 @@ console.log(itens)
     
 }
 
+async function porra(key){
+  const DocRef = doc(app_DB,"Itens",key)
+  const DocSnap = await getDoc(DocRef)
+  const funny = DocSnap.data()
+  return funny["Imagem"]
+}
 
 
 const styles = StyleSheet.create({

@@ -14,7 +14,7 @@ export function AlbertoCustom(itens, ItemAtualCabeça, ItemAtualOlhos, ItemAtual
   return (
     <View>
       <View style={styles.containerAlberto}>
-           <Image style={styles.AlbertoTop} source={{uri: itens.itens[0].Itens[itens.itemAtualCabeça]}}/>
+          <Image style={styles.AlbertoTop} source={{uri: itens.itens[0].Itens[itens.itemAtualCabeça]}}/>
           <Image style={styles.AlbertoMiddle1} source={{uri: itens.itens[0].Itens[itens.itemAtualOlhos]}}/>
           <Image style={styles.AlbertoMiddle2} source={{uri: itens.itens[0].Itens[itens.itemAtualBoca] }}/>
           <Image style={styles.AlbertoBottom} source={{uri: itens.itens[0].Itens[itens.itemAtualCorpo]}}/>

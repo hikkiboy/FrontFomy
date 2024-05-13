@@ -30,6 +30,7 @@ import Passos from "../components/passos";
 import Parabens from "../components/parabens";
 import { Search } from "../screens/book/search";
 import MainBook from "../screens/book/mainBook";
+import Closet from "../screens/store/closet";
 
 const Stack = createNativeStackNavigator();
 
@@ -160,6 +161,11 @@ export default function Routes({ loggedIn, loading }) {
         <Stack.Screen
         name="Search"
         component={Search}
+        options={{ headerShown: false }}
+      />
+        <Stack.Screen
+        name="Closet"
+        component={Closet}
         options={{ headerShown: false }}
       />
       

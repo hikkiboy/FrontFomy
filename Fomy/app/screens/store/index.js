@@ -4,6 +4,7 @@ import { collection, onSnapshot, query, where, orderBy, documentId, FieldValue,a
 import React, { useEffect, useState } from 'react'
 import { AlbertoCustom } from '../../components/customalberto'
 
+
 export default function Store ({navigation}){
 
   const [itens, setItens] = useState()
@@ -93,20 +94,23 @@ console.log(user)
                 scrollEnabled
                 renderItem={({item}) => (
                   <SafeAreaView>
-                    <Button title= {item.key} onPress={() => UpdateArray(item.key)}></Button>
+                    <Button title= {item.NomeItem} onPress={() => UpdateArray(item.key)}></Button>
+                    <Button title= "Closet" onPress={() => navigation.navigate('Closet')}></Button>
                     <View>
                     <Image style={styles.image} resizeMode='center' source={{uri: item.Imagem}}/>
                     </View>
                   </SafeAreaView>
   )}
   />
+          
             </View>
-            <Text>Moedas: {user[0].Moedas}</Text>
+            {/* <Text>Moedas: {user[0].Moedas}</Text> */}
             
         </SafeAreaView>    
     )
     
 }
+
 
 
 
