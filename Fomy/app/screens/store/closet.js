@@ -1,7 +1,7 @@
 import {View, Image, StyleSheet, Text,ScrollView,Button,FlatList, Touchable, TouchableOpacity} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { app, app_DB, app_auth } from '../../../firebaseConfig'
-import { collection, onSnapshot, query, where, orderBy, documentId,doc,getDoc } from '@firebase/firestore'
+import { collection, onSnapshot, query, where, orderBy, documentId,doc,updateDoc } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import AlbertoCustom  from '../../components/customalberto'
 
@@ -91,15 +91,18 @@ export default function Closet ({route}){
 //console.log(itens)
 async function porra(url, position){
   let gamer = user[0].ItensAli
-  console.log(gamer);
+  console.log(position);
   gamer[position] = url
-  console.log(gamer);
+  const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
+  await updateDoc(userRef, {
+    ItensAli: gamer,
+  });
 }
  
 
     return(
       <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                 
+                 <AlbertoCustom/>
                 <FlatList
                 data={realDawg}
                 scrollEnabled

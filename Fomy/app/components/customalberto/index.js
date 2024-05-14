@@ -48,24 +48,22 @@ export default function  AlbertoCustom() {
   return (
     <View style={{width:500, height: 500}}>
       <View style={styles.containerAlberto}>
-      <FlatList
-      data={aberto}
-      renderItem={({item, index}) =>(
-
-        <View style={styles.containerAlberto} >
-          {index == 0 && (<Image style={styles.AlbertoTop} source={{uri: item}}/>)}
-          {index == 1 && (<Image style={styles.AlbertoMiddle1} source={{uri: item}}/>)}
-          {index == 2 && (<Image style={styles.AlbertoMiddle2} source={{uri: item}}/>)}
-          {index == 3 && (<Image style={styles.AlbertoBottom} source={{uri: item}}/>)}
-
-        </View>
-
+      {aberto != undefined && (
+        <FlatList
+        data={aberto[0].ItensAli}
+        renderItem={({item, index}) =>(
+  
+          <View style={styles.containerAlberto} >
+            {index == 0 && (<Image style={styles.AlbertoTop} source={{uri: item}}/>)}
+            {index == 1 && (<Image style={styles.AlbertoMiddle1} source={{uri: item}}/>)}
+            {index == 2 && (<Image style={styles.AlbertoMiddle2} source={{uri: item}}/>)}
+            {index == 3 && (<Image style={styles.AlbertoBottom} source={{uri: item}}/>)}
+  
+          </View>
+  
+        )}
+        />
       )}
-      
-      
-      
-      />
-
       </View>
 
     </View>
