@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
     resizeMode: 'center',
     width: 250,
     height: 200,
+    top: 1
   },
   AlbertoMiddle1:{
     width: 250,
