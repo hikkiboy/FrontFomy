@@ -2,7 +2,7 @@ import {SafeAreaView, View, Image, StyleSheet, Text,ScrollView,Button, FlatList,
 import { app, app_DB, app_auth } from '../../../firebaseConfig'
 import { collection, onSnapshot, query, where, orderBy, documentId, FieldValue,arrayUnion,updateDoc, doc } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
-import { AlbertoCustom } from '../../components/customalberto'
+import  AlbertoCustom  from '../../components/customalberto'
 
 
 export default function Store ({navigation}){
@@ -87,7 +87,7 @@ export default function Store ({navigation}){
     return(
 
         <SafeAreaView>
-    
+
             <View style={styles.placeholder}>
             <FlatList
                 data={itens}
@@ -95,7 +95,7 @@ export default function Store ({navigation}){
                 renderItem={({item}) => (
                   <SafeAreaView>
                     <Button title= {item.NomeItem} onPress={() => UpdateArray(item.key)}></Button>
-                    <Button title= "Closet" onPress={() => navigation.navigate('Closet')}></Button>
+                    <Button title= "Closet" onPress={() => navigation.navigate('Closet', {user:[user[0].Itens]}) }></Button>
                     <View>
                     <Image style={styles.image} resizeMode='center' source={{uri: item.Imagem}}/>
                     </View>

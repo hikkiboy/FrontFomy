@@ -1,22 +1,70 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, Vibration,ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Vibration,ScrollView, FlatList } from 'react-native';
 import { Button } from 'react-native-elements';
 import { app, app_DB, app_auth } from '../../../firebaseConfig'
 import { collection, onSnapshot, query, where, orderBy, documentId,doc,getDoc } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
 
 
-export default function  AlbertoCustom(itens, ItemAtualCabeça, ItemAtualOlhos, ItemAtualBoca, ItemAtualCorpo) {
+export default function  AlbertoCustom() {
 
+  const[aberto, setAberto] = useState()
+
+  useEffect(() => {
+
+    const receitaRef = collection(app_DB, 'Usuarios')
+
+    const q = query(
+      receitaRef,
+      where(documentId(), '==', app_auth.currentUser.uid),
+
+    )
+    const subscriver = onSnapshot(q, {
+      next: (snapshot) => {
+        const receitas = []
+        snapshot.docs.forEach(doc => {
+          receitas.push({
+            key: doc.id,
+            ...doc.data(),
+
+          })
+        })
+        setAberto(receitas)
+
+
+      }
+    })
+
+    return () => subscriver()
+
+
+
+  }, [])
 
 
   console.log('Se leu, o alberto custom ta sendo usado');
+  //console.log(aberto[0].ItensAli)
 
 
   return (
-    <View>
+    <View style={{width:500, height: 500}}>
       <View style={styles.containerAlberto}>
-          {/* <Image style={styles.AlbertoTop} source={{uri: top}}/> */}
-          {/* <Image style={styles.linha} source={require("../../assets/alberto.png")} /> */}
+      <FlatList
+      data={aberto}
+      renderItem={({item, index}) =>(
+
+        <View style={styles.containerAlberto} >
+          {index == 0 && (<Image style={styles.AlbertoTop} source={{uri: item}}/>)}
+          {index == 1 && (<Image style={styles.AlbertoMiddle1} source={{uri: item}}/>)}
+          {index == 2 && (<Image style={styles.AlbertoMiddle2} source={{uri: item}}/>)}
+          {index == 3 && (<Image style={styles.AlbertoBottom} source={{uri: item}}/>)}
+
+        </View>
+
+      )}
+      
+      
+      
+      />
 
       </View>
 
@@ -30,6 +78,7 @@ const styles = StyleSheet.create({
   containerAlberto:{
     alignItems: 'center',
     justifyContent: 'center',
+    flex: 1
   },
   AlbertoTop:{
     resizeMode: 'center',
