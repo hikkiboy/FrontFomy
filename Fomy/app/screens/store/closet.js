@@ -89,6 +89,8 @@ export default function Closet ({route}){
   ,[])
 
 //console.log(itens)
+
+//função que captura o array do banco de dados edita e devolve pro banco
 async function porra(url, position){
   let gamer = user[0].ItensAli
   console.log(position);

@@ -1,4 +1,5 @@
-import {SafeAreaView, View, Image, StyleSheet, Text,ScrollView,Button, FlatList, TouchableOpacity} from 'react-native'
+import { View, Image, StyleSheet, Text,ScrollView,Button, FlatList, TouchableOpacity} from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { app, app_DB, app_auth } from '../../../firebaseConfig'
 import { collection, onSnapshot, query, where, orderBy, documentId, FieldValue,arrayUnion,updateDoc, doc } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
@@ -40,13 +41,24 @@ export default function Store ({navigation}){
         
       }, [])
       
-
-      
-      async function UpdateArray(img){
+      //função que cuida de dar update nas moedas e array de itens 
+      async function UpdateArray(img, index){
+        let moedas = await user[0].Moedas
+        let preco = await itens[index].Valor
         const userRef = doc(app_DB, 'Usuarios', app_auth.currentUser.uid)
-        await updateDoc(userRef, {
-          Itens: arrayUnion(img)
-        })
+        
+        console.log(!user[0].Itens.find((element) => element == img))
+        
+        
+        if (moedas >= preco && !user[0].Itens.find((element)=> element == img)) {
+          await updateDoc(userRef, {
+            Itens: arrayUnion(img),
+            Moedas : moedas - preco
+          })
+        }
+        else{
+          console.log("nah")
+        }
       }
 
       useEffect(() => {
@@ -92,19 +104,20 @@ export default function Store ({navigation}){
             <FlatList
                 data={itens}
                 scrollEnabled
-                renderItem={({item}) => (
+                renderItem={({item, index}) => (
                   <SafeAreaView>
-                    <Button title= {item.NomeItem} onPress={() => UpdateArray(item.key)}></Button>
+                    <Button title= {item.NomeItem} onPress={() => UpdateArray(item.key, index)}></Button>
+                    <Button title= "debug" onPress={() => console.log(item)}></Button>
                     <Button title= "Closet" onPress={() => navigation.navigate('Closet', {user:[user[0].Itens]}) }></Button>
                     <View>
                     <Image style={styles.image} resizeMode='center' source={{uri: item.Imagem}}/>
+                    <Text>Moedas: {user[0].Moedas}</Text>
                     </View>
                   </SafeAreaView>
   )}
   />
           
             </View>
-            {/* <Text>Moedas: {user[0].Moedas}</Text> */}
             
         </SafeAreaView>    
     )

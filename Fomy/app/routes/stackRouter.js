@@ -166,7 +166,7 @@ export default function Routes({ loggedIn, loading }) {
         <Stack.Screen
         name="Closet"
         component={Closet}
-        options={{ headerShown: false }}
+        options={{ headerShown: true }}
       />
       
     </Stack.Navigator>
