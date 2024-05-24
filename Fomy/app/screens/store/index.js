@@ -120,7 +120,7 @@ export default function Store({ navigation }) {
                 <View style={styles.itemarea} >
                   <View style={styles.itemhoopjumper} />
                   <View style={styles.itemimagearea} >
-                    <Image style={styles.itemimage} source={{ uri: item.Imagem }} />
+                    <Image style={styles.itemimage} source={{ uri: item.Icone  }} />
                   </View>
                   <TouchableOpacity activeOpacity={0.8} onPress={() => UpdateArray(item.key, index)} style={styles.itemseebutton} >
                     <Text style={styles.itemprice}>Comprar</Text>
@@ -238,6 +238,7 @@ const styles = StyleSheet.create({
   itemimage: {
     height: 100,
     width: 100,
+    resizeMode: 'contain'
   },
   itemprice: {
     textAlign: 'center',
