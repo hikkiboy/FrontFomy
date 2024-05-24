@@ -41,7 +41,7 @@ export default function  AlbertoCustom() {
   }, [])
 
 
-  console.log('Se leu, o alberto custom ta sendo usado');
+  //console.log('Se leu, o alberto custom ta sendo usado');
   //console.log(aberto[0].ItensAli)
 
 
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     resizeMode: 'center'
   },
   AlbertoMiddle2:{
-    width: 252,
+    width: 250,
     height: 20,
     resizeMode: 'center'
   },

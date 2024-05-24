@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 //import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { Entypo } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
 
 import { FontAwesome } from '@expo/vector-icons';
@@ -40,16 +40,16 @@ export default function Routes({ loggedIn, loading }) {
   const [initialRoute, setInitialRoute] = React.useState("Loading")
 
   React.useEffect(() => {
-    if(loading == false) {
-      if(loggedIn){
+    if (loading == false) {
+      if (loggedIn) {
         setInitialRoute("HomeStart")
-        setTimeout(() => {navigation.navigate("HomeStart", { screen: "Home" })}, 220)
+        setTimeout(() => { navigation.navigate("HomeStart", { screen: "Home" }) }, 220)
       } else {
         navigation.navigate("Login")
         setInitialRoute("Login")
       }
     }
-  },[loggedIn, loading])
+  }, [loggedIn, loading])
   return (
     <Stack.Navigator initialRouteName={initialRoute} backBehavior="initialRoute" >
 
@@ -67,7 +67,7 @@ export default function Routes({ loggedIn, loading }) {
         name="Fetch"
         component={Fetch}
         options={{ headerShown: false }}
-      /> }
+      />}
       <Stack.Screen
         name="Cadastro"
         component={Cadastro}
@@ -88,52 +88,52 @@ export default function Routes({ loggedIn, loading }) {
         component={TabNavigatior}
         options={{ headerShown: false, gestureEnabled: false }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="Onboarding"
         component={OnboardingItem}
-        />
+      />
       <Stack.Screen
         name="PasswordResets"
         component={PasswordResets}
         options={{ headerShown: false }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="Trilha"
         component={Trilha}
         options={{ headerShown: false }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="Configs"
         component={Configs}
         options={{ headerShown: true }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="DeleteAccount"
         component={DeleteAccount}
         options={{ headerShown: true }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="AccountConfig"
         component={AccountConfig}
         options={{ headerShown: true }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="AlterPassword"
         component={AlterPassword}
         options={{ headerShown: true }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="AlterEmail"
         component={AlterEmail}
         options={{ headerShown: true }}
       />
-      
-       <Stack.Screen
+
+      <Stack.Screen
         name="Preparo"
         component={Preparo}
         options={{ headerShown: false }}
       />
-        <Stack.Screen
+      <Stack.Screen
         name="Passos"
         component={Passos}
         options={{ headerShown: false }}
@@ -158,74 +158,78 @@ export default function Routes({ loggedIn, loading }) {
         component={MainBook}
         options={{ headerShown: false }}
       />
-        <Stack.Screen
+      <Stack.Screen
         name="Search"
         component={Search}
         options={{ headerShown: false }}
       />
-        <Stack.Screen
+      <Stack.Screen
         name="Closet"
         component={Closet}
         options={{ headerShown: true }}
       />
-      
+
     </Stack.Navigator>
-    
+
   );
 }
 
 const Tab = createBottomTabNavigator();
 
 export function TabNavigatior() {
-  return(
-   <Tab.Navigator
-   backBehavior="initialRoute"
-    initialRouteName="Home"
-    screenOptions={{
-      tabBarShowLabel: false,
-      tabBarStyle:{
-        backgroundColor: '#FFF',
-        height: Platform.OS === 'ios' ? 100 : 70,
-        borderTopStartRadius: 20,
-        borderTopEndRadius: 20,
-        borderTopWidth: 0,
-        position: 'absolute',
-        alignItems: 'center',
-        justifyContent: 'center'
-      },
-    }}
-   >
-    <Tab.Screen name = "Perfil" component={Profile} options={{
-      headerShown: false,
-      tabBarIcon: ({focused})=>(
-      <Ionicons name="person-sharp" size={32} color={focused ? "#2985DB" : "#505050"} />
-    )}}/>
-    
-    <Tab.Screen name = "Community" component={Community} options={{
-      headerShown: false,
-      tabBarIcon: ({focused})=>(
-      <Ionicons name="chatbubble-ellipses" size={32} color={focused ? "#2985DB" : "#505050"} />
-    )}}/>
+  return (
+    <Tab.Navigator
+      backBehavior="initialRoute"
+      screenOptions={{
+        tabBarShowLabel: false,
+        tabBarStyle: {
+          backgroundColor: '#FFF',
+          height: Platform.OS === 'ios' ? 100 : 70,
+          borderTopStartRadius: 20,
+          borderTopEndRadius: 20,
+          borderTopWidth: 0,
+          position: 'absolute',
+          alignItems: 'center',
+          justifyContent: 'center'
+        },
+      }}
+    >
+      <Tab.Screen name="Perfil" component={Profile} options={{
+        headerShown: false,
+        tabBarIcon: ({ focused }) => (
+          <Ionicons name="person-sharp" size={32} color={focused ? "#2985DB" : "#505050"} />
+        )
+      }} />
 
-    <Tab.Screen name = "Home" component={Home}  options={{
-      headerShown: false,
-      tabBarIcon: ({focused})=>(
-      <Ionicons name="home" size={32} color={focused ? "#70d872" : "#505050"} />
-    )}}/>
-    
-    <Tab.Screen name = "Store" component={Store} options={{
-      headerShown: false,
-      tabBarIcon: ({focused})=>(
-      <Ionicons name="cart" size={32} color={focused ? "#ED8A07" : "#505050"} />
-    )}}/>
-    
-    <Tab.Screen name = "Book" component={MainBook} options={{
-      headerShown: false,
-      tabBarIcon: ({focused})=>(
-      <FontAwesome name="book" size={32} color={focused ? "#be48d5" : "#505050"} />
-    )}}/>
+      <Tab.Screen name="Book" component={MainBook} options={{
+        headerShown: false,
+        tabBarIcon: ({ focused }) => (
+          <FontAwesome name="book" size={32} color={focused ? "#be48d5" : "#505050"} />
+        )
+      }} />
 
-    {/*<Tab.Screen name = "Trilhas" component={Fetch}options={{headerShown: false}}/>*/}
-   </Tab.Navigator>
+      <Tab.Screen name="Home" component={Home} options={{
+        headerShown: false,
+        tabBarIcon: ({ focused }) => (
+          <Ionicons name="home" size={32} color={focused ? "#70d872" : "#505050"} />
+        )
+      }} />
+
+      <Tab.Screen name="Store" component={Store} options={{
+        headerShown: false,
+        tabBarIcon: ({ focused }) => (
+          <Ionicons name="cart" size={32} color={focused ? "#ED8A07" : "#505050"} />
+        )
+      }} />
+
+      <Tab.Screen name="Closet" component={Closet} options={{
+        headerShown: false,
+        tabBarIcon: ({ focused }) => (
+          <FontAwesome5 name="tshirt" size={24} color={focused ? "#2985DB" : "#505050"} />
+        )
+      }} />
+
+      {/*<Tab.Screen name = "Trilhas" component={Fetch}options={{headerShown: false}}/>*/}
+    </Tab.Navigator>
   )
 }
