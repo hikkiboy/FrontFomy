@@ -218,14 +218,14 @@ export function TabNavigatior() {
       <Tab.Screen name="Store" component={Store} options={{
         headerShown: false,
         tabBarIcon: ({ focused }) => (
-          <Ionicons name="cart" size={32} color={focused ? "#ED8A07" : "#505050"} />
+          <FontAwesome5 name="shopping-basket" size={31} color={focused ? "#ED8A07" : "#505050"} />
         )
       }} />
 
       <Tab.Screen name="Closet" component={Closet} options={{
         headerShown: false,
         tabBarIcon: ({ focused }) => (
-          <FontAwesome5 name="tshirt" size={24} color={focused ? "#2985DB" : "#505050"} />
+          <FontAwesome5 name="tshirt" size={24} color={focused ? "#CC7606" : "#505050"} />
         )
       }} />
 
