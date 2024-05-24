@@ -78,8 +78,9 @@ export function Badges({ data }) {
         <View style={[styles.container]} >
             <FlatList
                 data={Insignias}
-                scrollEnabled={false}
-                numColumns={3}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                scrollEnabled={true}
                 renderItem={({item, index}) => {
                     return(
                         <TouchableOpacity activeOpacity={0.9} 
@@ -89,13 +90,15 @@ export function Badges({ data }) {
                             <Image source={{ uri: item.Imagem }} 
                                    resizeMode='contain' 
                                    style={{width: imageWidth, 
-                                           height: imageHeight, 
-                                           marginRight: (index + 1) % 3 == 0 ? 0 : margin,
+                                           height: imageHeight,
                                          }}
                             />
                         </TouchableOpacity>
                     )
                     
+                }}
+                ItemSeparatorComponent={() => {
+                    <View style={{ width: 20, height: 20 }} />
                 }}
             />
             <Modal visible={visible}
