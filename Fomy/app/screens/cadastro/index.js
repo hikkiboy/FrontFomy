@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, Alert, TextInput, ActivityIndicator, Dimensions, Modal } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Alert, TextInput, ActivityIndicator, Dimensions, Modal, Platform } from 'react-native';
 import React, { useState, useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { app, app_DB, app_auth } from '../../../firebaseConfig'
@@ -215,6 +215,11 @@ const Cadastro = ({ navigation }) => {
         </View>
         <TouchableOpacity style = {[styles.buttonLogin, { height: stuffHeight }]} title = 'Registrar' onPress={SignUp}>
           <Text style={[styles.text, {fontSize: fontSize}]}>Começar jornada!</Text>
+        </TouchableOpacity>
+
+        <Text style={{ alignItems: 'center', textAlign: 'center', alignContent: 'center', marginTop: 20, width: "85%", fontSize: fontSize -4, flexDirection: 'row'}} >Ao criar uma conta, você concorda com nossos </Text>
+        <TouchableOpacity style={{ alignItems: 'center', alignContent: 'center' }} activeOpacity={0.8} >
+          <Text style={{ color: "red", fontSize: fontSize -4, alignSelf: 'center' }}>Termos de serviço</Text>
         </TouchableOpacity>
 
         </KeyboardAwareScrollView>
