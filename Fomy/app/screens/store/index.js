@@ -143,7 +143,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     backgroundColor: '#FFF',
     alignItems: 'center',
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
+    paddingBottom: 80
   },
   bgimg: {
     width: "100%",
