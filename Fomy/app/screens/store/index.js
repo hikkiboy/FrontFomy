@@ -97,7 +97,7 @@ export default function Store({ navigation }) {
         <View style={styles.bgimg}>
           <Image tintColor={"#ED8A07"} style={styles.booklet} source={require('../../assets/booklet.png')} />
           <View style={styles.titlearea} >
-            <Image style={{ width: 108, height: 139 }} source={require('../../assets/betterAlberto.png')} />
+            <Image style={{ width: 108, height: 139 }} source={require('../../assets/evenMoreRichAlberto.png')} />
             <View style={{ flex: 1, justifyContent: 'center' }}>
               <Text style={styles.trilhaTit}>Loja</Text>
             </View>
@@ -105,8 +105,10 @@ export default function Store({ navigation }) {
         </View>
         <View style={styles.moneycontainer} >
           <View style={styles.moneyarea} >
-            <FontAwesome6 name='piggy-bank' size={35} color={"#FFF"} />
-            <Text style={styles.monay} >{user != null && user[0].Moedas} Moedas</Text>
+            <FontAwesome6 name='piggy-bank' size={37} color={"#FFF"} />
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} >
+              <Text style={styles.monay} >{user != null && user[0].Moedas}</Text>
+            </View>
           </View>
         </View>
         <View style={styles.itemlist} >
@@ -120,10 +122,10 @@ export default function Store({ navigation }) {
                 <View style={styles.itemarea} >
                   <View style={styles.itemhoopjumper} />
                   <View style={styles.itemimagearea} >
-                    <Image style={styles.itemimage} source={{ uri: item.Icone  }} />
+                    <Image style={styles.itemimage} source={{ uri: item.Icone }} />
                   </View>
                   <TouchableOpacity activeOpacity={0.8} onPress={() => UpdateArray(item.key, index)} style={styles.itemseebutton} >
-                    <Text style={styles.itemprice}>Comprar</Text>
+                    <Image style={{ height: 40, width: 40 }} source={require('../../assets/coin-icon.png')} />
                     <Text style={styles.itemprice} >{item.Valor}</Text>
                   </TouchableOpacity>
                 </View>
@@ -160,8 +162,8 @@ const styles = StyleSheet.create({
   },
   titlearea: {
     width: '100%',
-    paddingStart: 40,
-    paddingEnd: 40,
+    paddingStart: 45,
+    paddingEnd: 45,
     marginVertical: 35,
     zIndex: 98,
     flexDirection: 'row',
@@ -178,24 +180,25 @@ const styles = StyleSheet.create({
     //fontFamily: FontFamily.leagueSpartanBold
   },
   moneycontainer: {
-    paddingHorizontal: 10,
     width: "100%",
     marginBottom: 35
   },
-  moneyarea:{
+  moneyarea: {
     backgroundColor: "#FAB151",
     borderColor: "#ED8A07",
     borderRadius: 20,
     borderWidth: 6,
-    paddingHorizontal: 50,
+    width: "55%",
+    left: -40,
+    paddingStart: 50,
     paddingVertical: 15,
-    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    flexDirection: 'row'
   },
-  monay:{
+  monay: {
     color: "#FFF",
-    fontSize: 28,
+    fontSize: 30,
     fontWeight: 'bold'
   },
   itemlist: {
@@ -240,19 +243,20 @@ const styles = StyleSheet.create({
     width: 100,
     resizeMode: 'contain'
   },
-  itemprice: {
-    textAlign: 'center',
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: "#FFF",
-  },
   itemseebutton: {
     width: "100%",
-    height: 50,
+    padding: 8,
+    paddingHorizontal: 15,
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     flexDirection: 'row',
     marginBottom: 9
+  },
+  itemprice: {
+    textAlign: 'center',
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: "#FFF",
   },
 
 });
