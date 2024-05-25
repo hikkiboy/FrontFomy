@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image,FlatList,TouchableWithoutFeedback, TouchableOpacity, ImageBackground, ScrollView, Animated, Platform } from 'react-native';
+import { StyleSheet, Text, View, Image,FlatList,TouchableWithoutFeedback, TouchableOpacity,Vibration, ImageBackground, ScrollView, Animated, Platform, AppState, AppEvent} from 'react-native';
 import Modal from "react-native-modal";
 import { app, app_DB } from '../../../firebaseConfig'
 import { collection, onSnapshot, query, where, orderBy,documentId, collectionGroup } from '@firebase/firestore'
@@ -10,9 +10,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import VideoPassos from '../videopasso';
 import { Foundation } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { Dimensions } from 'react-native';
+import { Dimensions} from 'react-native';
 import { useSharedValue, Extrapolate, interpolate, useAnimatedStyle } from 'react-native-reanimated';
 import TimerPasso from '../timer/index';
+import { stopSound } from '../timer/index';
+import { NavigationContainer } from '@react-navigation/native';
+
+
 //import Timer from '../timer';
 
 
@@ -164,8 +168,19 @@ try {
   console.log(error)
   console.log("asldmçlsadm")
 }
+useEffect(() => {
+  const handleAppStateChange = (nextAppState) => {
+    if (nextAppState === 'background') {
+      Vibration.cancel();
+    }
+  };
 
+  AppState.addEventListener('change', handleAppStateChange);
 
+  return () => {
+    AppState.removeEventListener('change', handleAppStateChange);
+  };
+}, []);
   return (
        <SafeAreaView style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false} >
@@ -186,6 +201,8 @@ try {
               {Passo.Timer ? (
                 <TimerPasso totalDuration={Passo.Timer}/>
               ) : (
+                stopSound(),
+                Vibration.cancel(),
                 <VideoPassos idVideo={Passo.VideoPasso}/>
               )}
           

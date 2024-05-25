@@ -50,6 +50,8 @@ export default class TimerPasso extends Component {
     this.currentTime = time;
   }
 
+  
+
   render() {
     return (
       <View style={[styles.container]}>
@@ -58,7 +60,7 @@ export default class TimerPasso extends Component {
           <View style={styles.rightarea} >
             <Timer
               style={[styles.timer]}
-              totalDuration={this.props.totalDuration * 1000}
+              totalDuration={5}
               start={this.state.timerStart}
               reset={this.state.timerReset}
               options={options}
@@ -94,7 +96,7 @@ const playSound = async () => {
   await soundObject.playAsync();
 };
 
-const stopSound = () => {
+export const stopSound = () => {
   if (soundObject) {
     console.log("Stopping Sound");
     soundObject.stopAsync();
