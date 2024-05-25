@@ -9,6 +9,7 @@ export default function Store({ navigation }) {
 
   const [itens, setItens] = useState()
   const [user, setUser] = useState()
+  const [buy, setBuy] = useState()
 
 
   useEffect(() => {
@@ -42,21 +43,27 @@ export default function Store({ navigation }) {
 
   //função que cuida de dar update nas moedas e array de itens 
   async function UpdateArray(img, index) {
-    let moedas = await user[0].Moedas
-    let preco = await itens[index].Valor
-    const userRef = doc(app_DB, 'Usuarios', app_auth.currentUser.uid)
+    if (buy == index) {
+      setBuy()
+      let moedas = await user[0].Moedas
+      let preco = await itens[index].Valor
+      const userRef = doc(app_DB, 'Usuarios', app_auth.currentUser.uid)
 
-    console.log(!user[0].Itens.find((element) => element == img))
+      console.log(!user[0].Itens.find((element) => element == img))
 
 
-    if (moedas >= preco && !user[0].Itens.find((element) => element == img)) {
-      await updateDoc(userRef, {
-        Itens: arrayUnion(img),
-        Moedas: moedas - preco
-      })
+      if (moedas >= preco && !user[0].Itens.find((element) => element == img)) {
+        await updateDoc(userRef, {
+          Itens: arrayUnion(img),
+          Moedas: moedas - preco
+        })
+      }
+      else {
+        alert("You're broke")
+      }
     }
     else {
-      console.log("nah")
+      setBuy(index)
     }
   }
 
@@ -124,9 +131,20 @@ export default function Store({ navigation }) {
                   <View style={styles.itemimagearea} >
                     <Image style={styles.itemimage} source={{ uri: item.Icone }} />
                   </View>
-                  <TouchableOpacity activeOpacity={0.8} onPress={() => UpdateArray(item.key, index)} style={styles.itemseebutton} >
-                    <Image style={{ height: 40, width: 40 }} source={require('../../assets/coin-icon.png')} />
-                    <Text style={styles.itemprice} >{item.Valor}</Text>
+                  <TouchableOpacity activeOpacity={0.8}
+                    onPress={() => UpdateArray(item.key, index)}
+                    style={[styles.itemseebutton, { flexDirection: buy == index ? 'column' : 'row', justifyContent: buy == index ? 'center' : 'space-between' }]}
+                  >
+                    {buy == index ? (
+                      <>
+                        <Text style={styles.itemprice} >Comprar?</Text>
+                      </>
+                    ) : (
+                      <>
+                        <Image style={{ height: 40, width: 40 }} source={require('../../assets/coin-icon.png')} />
+                        <Text style={styles.itemprice} >{item.Valor}</Text>
+                      </>
+                    )}
                   </TouchableOpacity>
                 </View>
               </View>
@@ -248,8 +266,6 @@ const styles = StyleSheet.create({
     padding: 8,
     paddingHorizontal: 15,
     alignItems: 'center',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
     marginBottom: 9
   },
   itemprice: {
