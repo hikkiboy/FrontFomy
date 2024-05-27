@@ -1,19 +1,17 @@
-import { View, StyleSheet, Image, Text, TouchableOpacity, Modal, TextInput, Alert, Dimensions, ScrollView, AppRegistry, ActivityIndicator } from "react-native"
-import Feather from 'react-native-vector-icons/Feather'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import { View, StyleSheet, Image, Text, TouchableOpacity, Modal, TextInput, ScrollView, ActivityIndicator } from "react-native"
+import { Feather, FontAwesome } from 'react-native-vector-icons'
 import { useState, useEffect } from "react"
 import { ActionModal } from "../../components/actionmodal"
 import { Badges } from "../../components/badges"
-import { app_auth, app_BKT, app_DB } from '../../../firebaseConfig'
+import { app_auth, app_DB } from '../../../firebaseConfig'
 import { doc, collection, query, where, onSnapshot, documentId, updateDoc } from 'firebase/firestore'
 import { onAuthStateChanged } from "firebase/auth"
 import * as Progress from "react-native-progress"
 import { SafeAreaView } from "react-native-safe-area-context"
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 
 
-export default function Profile({ navigation }) {
+const Profile = ({ navigation }) => {
 
     const [Receitas, setReceitas] = useState()
     const [user, setUser] = useState()
@@ -21,10 +19,8 @@ export default function Profile({ navigation }) {
     const [visible, setVisible] = useState(false)
     const [inputOn, setInputOn] = useState(false)
     const [newName, setNewName] = useState('')
-
-    let visibleInput = null
-    let visibleClose = null
-    let visibleSend = null
+    const [totalXp, setTotalXP] = useState(0)
+    const [progressToBar, setProgressToBar] = useState(0)
 
     useEffect(() => {
         const login = onAuthStateChanged(app_auth, (user) => {
@@ -53,8 +49,10 @@ export default function Profile({ navigation }) {
 
                             })
                         })
-                        setReceitas(receitas)
-                        console.log(app_auth.currentUser.email)
+                        setReceitas(receitas[0])
+                        let total = 200 + (((receitas[0].Nivel - 1) * receitas[0].Nivel) * 10)
+                        setTotalXP(total)
+                        setProgressToBar(receitas[0].Exp / total)
                         console.log("Queried the profile, reason: auth state update.")
 
 
@@ -78,10 +76,9 @@ export default function Profile({ navigation }) {
 
     const handleModalSignOut = () => {
         setVisible(!visible);
-        setReceitas();
+        setReceitas([]);
         app_auth.signOut();
         AsyncStorage.clear();
-        ReactNativeAsyncStorage.clear();
     }
 
     const handleInput = () => {
@@ -89,13 +86,8 @@ export default function Profile({ navigation }) {
         setInputOn(true);
     }
 
-    const closeThisBitchUp = () => {
-        setNewName('')
-        setInputOn(false);
-    }
-
-    const handleUpdate = async () => {
-        if (newName != '') {
+    const handleUpdate = async (update) => {
+        if (newName != '' && update) {
             try {
                 const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
                 await updateDoc(userRef, {
@@ -108,46 +100,15 @@ export default function Profile({ navigation }) {
                 alert("Ocorreu um erro " + error)
             }
         } else {
+            setNewName('')
             setInputOn(false);
         }
     };
 
-    if (Receitas != undefined) {
-        let nome = Receitas[0].Nome
-        let titulo = Receitas[0].Titulo
-
-        let totalXp = 200 + (((Receitas[0].Nivel - 1) * Receitas[0].Nivel) * 10)
-        let progressToBar = (Receitas[0].Exp / totalXp)
-
-        let progressMyBar = (
-            <Progress.Bar style={{ position: 'absolute' }}
-                progress={progressToBar}
-                width={325}
-                height={40}
-                borderRadius={9}
-                color="#FA787D"
-                borderWidth={0}
-                unfilledColor="#EFEFEF"
-            />
-        )
-        let progressExp = (
-            <Text style={styles.exp} >EXP: {Receitas != undefined ? Receitas[0].Exp : 0} / {totalXp}</Text>
-        )
-
-        if (inputOn) {
-            nome = null
-            titulo = null
-            progressMyBar = null
-            progressExp = null
-            visibleInput = (<TextInput enterKeyHint={"done"} value={newName} onChangeText={(text) => setNewName(text)} autoFocus={true} maxLength={35} placeholder="Digite o nome" style={styles.nameinput} />)
-            visibleSend = (<TouchableOpacity style={{ marginRight: 30 }} onPress={handleUpdate} ><Ionicons name="checkmark-circle" size={50} color="#70D872" /></TouchableOpacity>)
-            visibleClose = (<TouchableOpacity onPress={closeThisBitchUp} ><Ionicons name="close-circle" size={50} color="#FA787D" /></TouchableOpacity>);
-        }
-
         return (
             <SafeAreaView style={styles.container} >
                 <ScrollView contentContainerStyle={{ minHeight: "100%", width: "100%" }} >
-                    <TouchableOpacity style={{ zIndex: 99 }} onPress={handleModal} >
+                    <TouchableOpacity style={{ zIndex: 99 }} onPress={() => handleModal()} >
                         <Feather style={styles.menu} name="menu" size={35} color="#000" />
                     </TouchableOpacity>
                     <View style={styles.pfpstuff} >
@@ -164,32 +125,42 @@ export default function Profile({ navigation }) {
                                 source={require('../../assets/bandeira-nivel.png')}
                                 style={styles.flag}
                             />
-                            <Text style={styles.lvl} >Lv. {Receitas[0].Nivel}</Text>
-                            <View>
-                                <Text style={styles.name} >{nome}</Text>
-                                <Text style={styles.title} >{titulo}</Text>
-
+                            <Text style={styles.lvl} >Lv. {Receitas.Nivel}</Text>
+                        </View>
+                        {inputOn == false ? (
+                            <View style={{ alignItems: 'center', alignSelf: 'center', justifyContent: 'center' }} >
+                                <Text style={styles.name} >{Receitas.Nome}</Text>
+                                <Text style={styles.title} >{Receitas.Titulo}</Text>
+                                <Progress.Bar style={{ justifyContent: 'center', marginTop: 45 }}
+                                    progress={progressToBar}
+                                    width={325}
+                                    height={40}
+                                    borderRadius={9}
+                                    color="#FA787D"
+                                    borderWidth={0}
+                                    unfilledColor="#EFEFEF"
+                                ><Text style={styles.exp} >EXP: {Receitas.Exp} / {totalXp}</Text></Progress.Bar>
+                            </View>
+                        ) : (
+                            <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 20, marginBottom: 38, width: "100%", paddingHorizontal: 20 }} >
                                 <View style={styles.inputarea} >
-                                    {visibleInput}
+                                    <TextInput enterKeyHint={"done"} value={newName} onChangeText={(text) => setNewName(text)} autoFocus={true} maxLength={35} placeholder="Novo nome" style={styles.nameinput} />
                                 </View>
-                                <View style={styles.buttonarea} >
-                                    {visibleSend}
-                                    {visibleClose}
+                                <View style={{ flexDirection: 'row', marginTop: 25, justifyContent: 'center', alignItems: 'center' }} >
+                                    <TouchableOpacity activeOpacity={0.8} style={[styles.inputbutton, { backgroundColor: '#70D872', borderColor: '#5DC15F' }]} onPress={() => handleUpdate(true)} ><FontAwesome name="check" size={50} color="#FFF" /></TouchableOpacity>
+                                    <View style={{ width: 50 }} />
+                                    <TouchableOpacity activeOpacity={0.8} style={[styles.inputbutton, { backgroundColor: '#FA787D', borderColor: '#E15F64' }]} onPress={() => handleUpdate(false)} ><FontAwesome name="close" size={50} color="#FFF" /></TouchableOpacity>
                                 </View>
                             </View>
-                        </View>
-                        <View style={styles.progressbar} >
-                            {progressMyBar}
-                            {progressExp}
-
-                        </View>
-
-                        <View style={{ flex: 1, width: "100%" }} />
-                        <View style={styles.badgearea} >
-                            <Text style={styles.badgetitle} >Insígnias</Text>
-                            <View style={styles.stepslist} >
-                                <View style={styles.badges} >
-                                    <Badges data={Receitas[0]} />
+                        )}
+                        <View style={{ width: "100%", height: 150 }} />
+                        {Receitas.Insignias.length != 0 &&
+                            <View style={styles.badgearea} >
+                                <Text style={styles.badgetitle} >Insígnias</Text>
+                                <View style={styles.stepslist} >
+                                    <View style={styles.badges} >
+                                        <Badges data={Receitas.Insignias} />
+                                    </View>
                                 </View>
                             </View>
                         </View>
@@ -212,17 +183,11 @@ export default function Profile({ navigation }) {
                     />
                 </Modal>
 
-            </SafeAreaView>
-        )
-    } else {
-        return (
-            <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "#FFF" }} >
-                <ActivityIndicator size={120} color={"#3B98EF"} />
-                <Text style={{ marginTop: 15, fontSize: 20, textAlign: 'center', width: "90%" }} >Carregando...</Text>
-            </SafeAreaView>
-        );
-    };
+        </SafeAreaView>
+    )
 }
+
+export default Profile
 
 const styles = StyleSheet.create({
     container: {
@@ -258,17 +223,32 @@ const styles = StyleSheet.create({
     name: {
         alignSelf: 'center',
         fontSize: 29,
-        marginTop: 12,
+        marginTop: 15,
         fontWeight: 'bold',
         color: "#303030"
     },
-    nameinput: {
-        backgroundColor: "#3B98EF",
+    inputarea: {
+        alignItems: 'center',
+        alignSelf: 'center',
         paddingHorizontal: 12,
+        paddingVertical: 2,
         borderRadius: 15,
+        width: "100%"
+
+    },
+    inputbutton: {
+        borderWidth: 5,
+        borderBottomWidth: 7,
+        borderRadius: 15,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 100,
+        paddingVertical: 5
+    },
+    nameinput: {
         textAlign: 'center',
-        width: 320,
-        fontSize: 29
+        fontSize: 29,
+        color: "#303030"
 
     },
     title: {
@@ -297,33 +277,12 @@ const styles = StyleSheet.create({
         padding: 15,
 
     },
-    inputarea: {
-        position: 'absolute',
-        marginTop: 23,
-        alignItems: 'center',
-        alignSelf: 'center'
-
-    },
-    buttonarea: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        marginTop: 70,
-        position: 'absolute',
-        alignSelf: 'center',
-
-    },
     exp: {
         position: 'absolute',
         alignSelf: 'center',
         color: "rgba(0,0,0,0.4)",
         fontWeight: 'bold',
         fontSize: 27
-    },
-    progressbar: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 45,
-        marginBottom: 100
     },
     badgearea: {
         backgroundColor: "#EFEFEF",

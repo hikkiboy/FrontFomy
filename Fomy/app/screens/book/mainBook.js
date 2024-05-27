@@ -228,7 +228,7 @@ const MainBook = ({ navigation }) => {
                             showsVerticalScrollIndicator={false}
                             renderItem={({ item, index }) => (
                                 <View>
-                                    <TouchableOpacity activeOpacity={0.8} onPress={() => handleModal(item.NomeTrilha)} style={[styles.button, {marginRight: index + 1 == trilhaNumber.length ? 10 : 25, marginLeft: index == 0 && 10 }]} >
+                                    <TouchableOpacity activeOpacity={0.8} onPress={() => handleModal(item.NomeTrilha)} style={[styles.button, { marginRight: index + 1 == trilhaNumber.length ? 10 : 25, marginLeft: index == 0 && 10 }]} >
                                         <MaterialCommunityIcons name={item.BookIcon} size={35} color={"#505050"} />
                                         <Text style={styles.buttontitle} >{item.NomeTrilha}</Text>
                                     </TouchableOpacity>
@@ -246,7 +246,7 @@ const MainBook = ({ navigation }) => {
                                         (
                                             <View />
                                         ) : (
-                                            <TouchableOpacity activeOpacity={0.8} style={styles.row} onPress={() => navigation.navigate('Preparo', { paramKey: [item.Nome, trilha[whyReact[index]].Cor, item.Icone, trilha[whyReact[index]].CorBorda, trilha[whyReact[index]].CorFill] })}>
+                                            <TouchableOpacity activeOpacity={0.8} style={styles.row} onPress={() => navigation.navigate('Preparo', { paramKey: [item.Nome, trilha[whyReact[index]].Cor, item.Icone, trilha[whyReact[index]].CorBorda, trilha[whyReact[index]].CorFill], user: [user.ReceitasFeitas], origin: ["Book"], description: [""] })}>
                                                 <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: '#E9E9E9', position: 'absolute', borderRadius: 20, marginTop: 6 }]} />
                                                 <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: "#FFF", position: 'absolute', borderRadius: 20, borderColor: '#E9E9E9', borderWidth: 7 }]} />
                                                 <View style={[{ height: '100%', width: 120, zIndex: 1, backgroundColor: '#D383E3', position: 'absolute', borderRadius: 20, marginTop: 6 }]} />

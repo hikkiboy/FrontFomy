@@ -24,7 +24,7 @@ async function uploadImage( uri, fileName, userImage ){
     const response = await fetch(uri);
     const blob = await response.blob();
 
-    const storageRef = ref(app_BKT, "Pfps/" + app_auth.currentUser.email + new Date().getTime() + fileName )
+    const storageRef = ref(app_BKT, "Pfps/" + app_auth.currentUser.uid + "/" + new Date().getTime() )
     const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
     const uploadTask = uploadBytesResumable(storageRef, blob)
 
@@ -43,6 +43,10 @@ async function uploadImage( uri, fileName, userImage ){
             try{
                 if(userImage != "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/albertobutcool%204.png?alt=media&token=175f4479-6c43-4ec3-b3e9-2d2a92471064"){
                     deleteObject(ref(app_BKT, userImage))
+                    console.log("Old image: ",userImage,"was deleted...");
+                    console.log("New image url: ", downloadUrl);
+                } else {
+                    console.log("Didn't delete");
                 }
                 await updateDoc(userRef, {
                     Foto: downloadUrl
