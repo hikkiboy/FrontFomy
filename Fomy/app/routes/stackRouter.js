@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
+import { Image } from "react-native";
 
 import { FontAwesome } from '@expo/vector-icons';
 import { Platform } from "react-native";
@@ -225,7 +226,7 @@ export function TabNavigatior() {
       <Tab.Screen name="Closet" component={Closet} options={{
         headerShown: false,
         tabBarIcon: ({ focused }) => (
-          <FontAwesome5 name="tshirt" size={24} color={focused ? "#CC7606" : "#505050"} />
+          <Image source={require("../assets/closet-icon-2.png")} style={{ width: 29, height: 29 }}  tintColor={focused ? "#CC7606" : "#505050"} />
         )
       }} />
 
