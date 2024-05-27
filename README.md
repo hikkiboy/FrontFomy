@@ -1,7 +1,7 @@
 # Projeto Fomy
 
 ## Descrição
-O projeto Fomy é uma aplicação móvel construída com o framework [Expo](https://expo.dev/) e utiliza uma variedade de bibliotecas para oferecer funcionalidades avançadas. O aplicativo se concentra em proporcionar uma experiência de usuário envolvente, integrando recursos como autenticação via Firebase, armazenamento assíncrono, navegação com React Navigation, entre outros.
+O projeto Fomy é uma aplicação móvel construída com o framework [Expo](https://expo.dev/) e utiliza uma variedade de bibliotecas para oferecer funcionalidades avançadas. O aplicativo se concentra em proporcionar uma experiência culinária envolvente,com têcnicas de gamificação para ensinar o usuário a se comportar na cozinha, integrando recursos como autenticação via Firebase, armazenamento assíncrono, navegação com React Navigation, entre outros.
 
 ## Scripts
 
