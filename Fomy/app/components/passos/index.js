@@ -177,9 +177,6 @@ useEffect(() => {
 
   AppState.addEventListener('change', handleAppStateChange);
 
-  return () => {
-    AppState.removeEventListener('change', handleAppStateChange);
-  };
 }, []);
   return (
        <SafeAreaView style={styles.container}>
