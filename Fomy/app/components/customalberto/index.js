@@ -1,13 +1,13 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, Vibration,ScrollView, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Vibration, ScrollView, FlatList } from 'react-native';
 import { Button } from 'react-native-elements';
 import { app, app_DB, app_auth } from '../../../firebaseConfig'
-import { collection, onSnapshot, query, where, orderBy, documentId,doc,getDoc } from '@firebase/firestore'
+import { collection, onSnapshot, query, where, orderBy, documentId, doc, getDoc } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
 
 
-export default function  AlbertoCustom() {
+export default function AlbertoCustom({ width, height }) {
 
-  const[aberto, setAberto] = useState()
+  const [aberto, setAberto] = useState()
 
   useEffect(() => {
 
@@ -46,25 +46,24 @@ export default function  AlbertoCustom() {
 
 
   return (
-    <View style={{width:500, height: 500}}>
-      <View style={styles.containerAlberto}>
+    <View style={{ width: width, height: height }}>
       {aberto != undefined && (
         <FlatList
-        data={aberto[0].ItensAli}
-        renderItem={({item, index}) =>(
-  
-          <View style={styles.containerAlberto} >
-            {index == 0 && (<Image style={styles.AlbertoTop} source={{uri: item}}/>)}
-            {index == 1 && (<Image style={styles.AlbertoMiddle1} source={{uri: item}}/>)}
-            {index == 2 && (<Image style={styles.AlbertoMiddle2} source={{uri: item}}/>)}
-            {index == 3 && (<Image style={styles.AlbertoBottom} source={{uri: item}}/>)}
-  
-          </View>
-  
-        )}
+          data={aberto[0].ItensAli}
+          scrollEnabled={false}
+          renderItem={({ item, index }) => (
+
+            <View style={styles.containerAlberto} >
+              {index == 0 && (<Image style={[styles.AlbertoTop, { width: width / 2, height: height * 0.4 }]} source={{ uri: item }} />)}
+              {index == 1 && (<Image style={[styles.AlbertoMiddle1, { width: width / 2, height: height * 0.062 }]} source={{ uri: item }} />)}
+              {index == 2 && (<Image style={[styles.AlbertoMiddle2, { width: width / 2, height: height * 0.04 }]} source={{ uri: item }} />)}
+              {index == 3 && (<Image style={[styles.AlbertoBottom, { width: width / 2, height: height * 0.108 }]} source={{ uri: item }} />)}
+
+            </View>
+
+          )}
         />
       )}
-      </View>
 
     </View>
 
@@ -73,36 +72,30 @@ export default function  AlbertoCustom() {
 
 
 const styles = StyleSheet.create({
-  containerAlberto:{
+  containerAlberto: {
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1
   },
-  AlbertoTop:{
+  AlbertoTop: {
     resizeMode: 'center',
     width: 250,
     height: 200,
     top: 1
   },
-  AlbertoMiddle1:{
+  AlbertoMiddle1: {
     width: 250,
     height: 31,
     resizeMode: 'center'
   },
-  AlbertoMiddle2:{
+  AlbertoMiddle2: {
     width: 250,
     height: 20,
     resizeMode: 'center'
   },
-  AlbertoBottom:{
+  AlbertoBottom: {
     width: 249,
     height: 54,
-
-
-
-  },
-  butao:{
-    top: -50
   },
 
 });

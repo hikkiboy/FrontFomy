@@ -4,12 +4,13 @@ import { app, app_DB, app_auth } from '../../../firebaseConfig'
 import { collection, onSnapshot, query, where, orderBy, documentId, doc, updateDoc } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import AlbertoCustom from '../../components/customalberto'
+import LazyList from '../../components/lazylist'
 
 export default function Closet({ route }) {
 
   const [user, setUser] = useState()
 
-  const [realDawg, setRealDawg] = useState()
+  const [realDawg, setRealDawg] = useState([])
 
 
   //console.log(route.params.user[0])
@@ -99,30 +100,45 @@ export default function Closet({ route }) {
     });
   }
 
-
   return (
-    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      {realDawg != null ? (
-        <>
-          <AlbertoCustom />
-          <FlatList
-            data={realDawg}
-            scrollEnabled
-            numColumns={2}
-            renderItem={({ item }) => (
-              <SafeAreaView>
-                <View>
-                  <TouchableOpacity onPress={() => porra(item.Imagem, item.Posição)}>
-                    <Image style={{ height: 150, width: 100, resizeMode: 'contain' }} source={{ uri: item.Imagem }}></Image>
-                  </TouchableOpacity>
-                </View>
-              </SafeAreaView>
-            )}
-          />
-        </>
+    <SafeAreaView style={styles.container}>
+      {realDawg != null && realDawg.length != 0 ? (
+        <ScrollView contentContainerStyle={{ minHeight: "100%", width: "100%" }} >
+          <View style={styles.bgimg}>
+            <Image tintColor={"#ED8A07"} style={styles.booklet} source={require('../../assets/booklet.png')} />
+            <View style={styles.titlearea} >
+              <Text style={styles.trilhaTit}>Armário</Text>
+              <AlbertoCustom width={250} height={250} />
+            </View>
+          </View>
+          <View style={styles.badgearea} >
+            <Text style={styles.badgetitle} >Chapéus</Text>
+            <View style={styles.badges} >
+              <LazyList data={realDawg.filter((item) => item.Posição == 0)} update={porra} />
+            </View>
+          </View>
+          <View style={styles.badgearea} >
+            <Text style={styles.badgetitle} >Olhos</Text>
+            <View style={styles.badges} >
+              <LazyList data={realDawg.filter((item) => item.Posição == 1)} update={porra} />
+            </View>
+          </View>
+          <View style={styles.badgearea} >
+            <Text style={styles.badgetitle} >Boca</Text>
+            <View style={styles.badges} >
+              <LazyList data={realDawg.filter((item) => item.Posição == 2)} update={porra} />
+            </View>
+          </View>
+          <View style={styles.badgearea} >
+            <Text style={styles.badgetitle} >Corpo</Text>
+            <View style={styles.badges} >
+              <LazyList data={realDawg.filter((item) => item.Posição == 3)} update={porra} />
+            </View>
+          </View>
+        </ScrollView>
       ) : (
         <>
-          <ActivityIndicator size={120} color={"#3B98EF"} />
+          <ActivityIndicator size={120} color={"#ED8A07"} />
           <Text style={{ marginTop: 15, fontSize: 20, textAlign: 'center', width: "90%" }} >Carregando...</Text>
         </>
       )}
@@ -137,13 +153,65 @@ export default function Closet({ route }) {
 
 
 const styles = StyleSheet.create({
-
-  placeholder: {
-    flex: 1
+  container: {
+    height: "100%",
+    display: 'flex',
+    backgroundColor: "#FFF"
   },
-  image: {
-    width: 150,
-    height: 150,
-  }
+  bgimg: {
+    width: "100%",
+    borderRadius: 20,
+    marginBottom: 45,
+    backgroundColor: "#FAB151",
+  },
+  booklet: {
+    height: '100%',
+    width: '100%',
+    position: 'absolute',
+    resizeMode: 'stretch'
+  },
+  titlearea: {
+    width: '100%',
+    marginTop: 20,
+    marginBottom: -50,
+    zIndex: 98,
+    justifyContent: 'center',
+    alignItems: 'center',
 
-})
+  },
+  trilhaTit: {
+    textAlign: 'center',
+    marginBottom: 10,
+    fontSize: 42,
+    fontWeight: "bold",
+    color: "#FFF",
+    //fontFamily: FontFamily.leagueSpartanBold
+  },
+  badgearea: {
+    backgroundColor: "#EFEFEF",
+    width: '100%',
+    borderRadius: 20,
+    paddingBottom: 12,
+    paddingTop: 12,
+    marginBottom: 70,
+    backgroundColor: "#FAB151",
+    borderColor: "#ED8A07",
+    borderWidth: 7,
+    borderBottomWidth: 10
+
+  },
+  badgetitle: {
+    fontWeight: 'bold',
+    fontSize: 27,
+    color: "#FFF",
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    alignSelf: 'center',
+
+  },
+  badges: {
+    borderRadius: 15,
+    marginTop: 12
+  },
+
+});
