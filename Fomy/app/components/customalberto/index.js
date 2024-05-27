@@ -55,7 +55,7 @@ export default function AlbertoCustom({ width, height }) {
 
             <View style={styles.containerAlberto} >
               {index == 0 && (<Image style={[styles.AlbertoTop, { width: width / 2, height: height * 0.4 }]} source={{ uri: item }} />)}
-              {index == 1 && (<Image style={[styles.AlbertoMiddle1, { width: width / 2, height: height * 0.062 }]} source={{ uri: item }} />)}
+              {index == 1 && (<Image style={[styles.AlbertoMiddle1, { width: width / 2, height: height * 0.061 }]} source={{ uri: item }} />)}
               {index == 2 && (<Image style={[styles.AlbertoMiddle2, { width: width / 2, height: height * 0.04 }]} source={{ uri: item }} />)}
               {index == 3 && (<Image style={[styles.AlbertoBottom, { width: width / 2, height: height * 0.108 }]} source={{ uri: item }} />)}
 

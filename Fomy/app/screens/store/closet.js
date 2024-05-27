@@ -191,7 +191,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#EFEFEF",
     width: '100%',
     borderRadius: 20,
-    paddingBottom: 12,
+    padding: 15,
+    paddingBottom: 18,
     paddingTop: 12,
     marginBottom: 70,
     backgroundColor: "#FAB151",
@@ -210,6 +211,7 @@ const styles = StyleSheet.create({
 
   },
   badges: {
+    backgroundColor: '#FFF',
     borderRadius: 15,
     marginTop: 12
   },

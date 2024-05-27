@@ -84,7 +84,7 @@ export function Badges({ data }) {
                 renderItem={({item, index}) => {
                     return(
                         <TouchableOpacity activeOpacity={0.9} 
-                                          style={styles.thebadge}
+                                          style={[styles.thebadge, {marginLeft: index == 0 && 10, marginRight: index + 1 == Insignias.length && 10 }]}
                                           onPress={() => checkBadge(index)}
                         >
                             <Image source={{ uri: item.Imagem }} 
@@ -97,9 +97,7 @@ export function Badges({ data }) {
                     )
                     
                 }}
-                ItemSeparatorComponent={() => {
-                    <View style={{ width: 20, height: 20 }} />
-                }}
+                ItemSeparatorComponent={<View style={{ width: 20, height: 20 }} />}
             />
             <Modal visible={visible}
                 onRequestClose={checkBadge} 

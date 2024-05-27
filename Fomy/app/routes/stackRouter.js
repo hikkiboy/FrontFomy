@@ -226,7 +226,7 @@ export function TabNavigatior() {
       <Tab.Screen name="Closet" component={Closet} options={{
         headerShown: false,
         tabBarIcon: ({ focused }) => (
-          <Image source={require("../assets/closet-icon-2.png")} style={{ width: 29, height: 29 }}  tintColor={focused ? "#CC7606" : "#505050"} />
+          <Image source={require("../assets/closet-icon-2.png")} style={{ width: 29, height: 29, resizeMode: 'contain' }}  tintColor={focused ? "#CC7606" : "#505050"} />
         )
       }} />
 
