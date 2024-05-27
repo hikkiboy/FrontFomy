@@ -10,6 +10,7 @@ export default function Store({ navigation }) {
   const [itens, setItens] = useState()
   const [user, setUser] = useState()
   const [buy, setBuy] = useState()
+  const [userStuff, setUserStuff] = useState([])
 
 
   useEffect(() => {
@@ -59,7 +60,7 @@ export default function Store({ navigation }) {
         })
       }
       else {
-        alert("You're broke")
+        alert("Erro")
       }
     }
     else {
@@ -87,7 +88,7 @@ export default function Store({ navigation }) {
           })
         })
         setUser(receitas)
-
+        setUserStuff(receitas[0].Itens)
 
       }
     })
@@ -100,59 +101,71 @@ export default function Store({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={{ minWidth: "100%" }} >
-        <View style={styles.bgimg}>
-          <Image tintColor={"#ED8A07"} style={styles.booklet} source={require('../../assets/booklet.png')} />
-          <View style={styles.titlearea} >
-            <Image style={{ width: 108, height: 139 }} source={require('../../assets/evenMoreRichAlberto.png')} />
-            <View style={{ flex: 1, justifyContent: 'center' }}>
-              <Text style={styles.trilhaTit}>Loja</Text>
-            </View>
-          </View>
-        </View>
-        <View style={styles.moneycontainer} >
-          <View style={styles.moneyarea} >
-            <FontAwesome6 name='piggy-bank' size={37} color={"#FFF"} />
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} >
-              <Text style={styles.monay} >{user != null && user[0].Moedas}</Text>
-            </View>
-          </View>
-        </View>
-        <View style={styles.itemlist} >
-          <FlatList
-            data={itens}
-            numColumns={2}
-            scrollEnabled={false}
-            showsVerticalScrollIndicator={false}
-            renderItem={({ item, index }) => (
-              <View style={styles.itemcontainer} >
-                <View style={styles.itemarea} >
-                  <View style={styles.itemhoopjumper} />
-                  <View style={styles.itemimagearea} >
-                    <Image style={styles.itemimage} source={{ uri: item.Icone }} />
-                  </View>
-                  <TouchableOpacity activeOpacity={0.8}
-                    onPress={() => UpdateArray(item.key, index)}
-                    style={[styles.itemseebutton, { flexDirection: buy == index ? 'column' : 'row', justifyContent: buy == index ? 'center' : 'space-between' }]}
-                  >
-                    {buy == index ? (
-                      <>
-                        <Text style={styles.itemprice} >Comprar?</Text>
-                      </>
-                    ) : (
-                      <>
-                        <Image style={{ height: 40, width: 40 }} source={require('../../assets/coin-icon.png')} />
-                        <Text style={styles.itemprice} >{item.Valor}</Text>
-                      </>
-                    )}
-                  </TouchableOpacity>
-                </View>
+      {user != undefined && user != null &&
+        <ScrollView style={{ minWidth: "100%" }} >
+          <View style={styles.bgimg}>
+            <Image style={styles.booklet} source={require('../../assets/darkstorelet.png')} />
+            <View style={styles.titlearea} >
+              <Image style={{ width: 119, height: 144 }} source={require('../../assets/evenMoreRichAlberto.png')} />
+              <View style={{ flex: 1, justifyContent: 'center' }}>
+                <Text style={styles.trilhaTit}>Loja</Text>
               </View>
-            )}
-            ItemSeparatorComponent={<View style={{ height: 20, width: 20 }} />}
-          />
-        </View>
-      </ScrollView>
+            </View>
+          </View>
+          <View style={styles.moneycontainer} >
+            <View style={styles.moneyarea} >
+              <FontAwesome6 name='piggy-bank' size={37} color={"#FFF"} />
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} >
+                <Text style={styles.monay} >{user != null && user[0].Moedas}</Text>
+              </View>
+            </View>
+          </View>
+          <View style={styles.itemlist} >
+            <FlatList
+              data={itens}
+              numColumns={2}
+              scrollEnabled={false}
+              showsVerticalScrollIndicator={false}
+              renderItem={({ item, index }) => (
+                <View style={styles.itemcontainer} >
+                  <View style={styles.itemarea} >
+                    <View style={styles.itemhoopjumper} />
+                    <View style={styles.itemimagearea} >
+                      <Image style={styles.itemimage} source={{ uri: item.Icone }} />
+                    </View>
+                    {userStuff.includes(item.key) ? (
+                      <View style={styles.itemseebutton} >
+                        <Text style={styles.itemprice} >Comprado</Text>
+                      </View>
+                    ) : (
+                      <TouchableOpacity activeOpacity={0.8}
+                        onPress={user[0].Moedas >= item.Valor ? (() => UpdateArray(item.key, index)) : (() => void (0))}
+                        style={[styles.itemseebutton, { flexDirection: buy == index ? 'column' : 'row', justifyContent: buy == index ? 'center' : 'space-between' }]}
+                      >
+                        {buy == index ? (
+                          <>
+                            <Text style={styles.itemprice} >Comprar?</Text>
+                          </>
+                        ) : (
+                          <>
+                            {user[0].Moedas >= item.Valor ? (
+                              <Image style={{ height: 40, width: 40 }} source={require('../../assets/coin-icon.png')} />
+                            ) : (
+                              <FontAwesome6 style={{ marginLeft: 2 }} name='lock' size={30} color={"#FFF"} />
+                            )}
+                            <Text style={styles.itemprice} >{item.Valor}</Text>
+                          </>
+                        )}
+                      </TouchableOpacity>
+                    )}
+                  </View>
+                </View>
+              )}
+              ItemSeparatorComponent={<View style={{ height: 20, width: 20 }} />}
+            />
+          </View>
+        </ScrollView>
+      }
     </SafeAreaView>
   );
 }

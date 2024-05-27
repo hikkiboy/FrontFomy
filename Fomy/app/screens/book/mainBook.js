@@ -214,7 +214,7 @@ const MainBook = ({ navigation }) => {
                         <View style={styles.bgimg}>
                             <Image tintColor={"#be48d5"} style={styles.booklet} source={require('../../assets/booklet.png')} />
                             <View style={styles.titlearea} >
-                                <Image style={{ width: 108, height: 139 }} source={require('../../assets/dumbBookletAlberto.png')} />
+                                <Image style={{ width: 119, height: 144 }} source={require('../../assets/dumbBookletAlberto.png')} />
                                 <View style={{ flex: 1, justifyContent: 'center' }}>
                                     <Text style={styles.trilhaTit}>Livro de Receitas</Text>
                                 </View>
