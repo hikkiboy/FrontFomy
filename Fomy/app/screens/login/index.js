@@ -183,7 +183,7 @@ const LoginPage = ({ navigation }) => {
           autoCapitalize="none"
           onChangeText={(text) => setEmail(text)}
         />
-        <FontAwesome6 name="at" size={26} color={"#303030"} />
+        <FontAwesome6 name="at" size={25} color={"#303030"} />
       </View>
       <View style={[styles.inputArea, { height: (stuffHeight - 7) }]} >
         <TextInput
@@ -194,15 +194,16 @@ const LoginPage = ({ navigation }) => {
           onChangeText={(text) => setSenha(text)}
           secureTextEntry={true}
         />
-        <FontAwesome6 name="lock" size={26} color={"#303030"} />
+        <FontAwesome6 name="lock" size={25} color={"#303030"} />
       </View>
-      <TouchableOpacity style={styles.forgotPassword} onPress={() => navigation.navigate('PasswordResets')}>
+      <TouchableOpacity activeOpacity={0.8} style={styles.forgotPassword} onPress={() => navigation.navigate('PasswordResets')}>
         <Text style={[styles.textForgor, { fontSize: tinyText }]} >Esqueci minha senha</Text>
       </TouchableOpacity>
       <TouchableOpacity
         title="Entrar"
         style={[styles.buttonLogin, { height: stuffHeight }]}
         onPress={SignIn}
+        activeOpacity={0.8}
       >
         <Text style={[styles.text, { fontSize: fontSize }]}>Entrar</Text>
       </TouchableOpacity>

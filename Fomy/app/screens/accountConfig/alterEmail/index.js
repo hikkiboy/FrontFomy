@@ -100,7 +100,7 @@ export default function AlterEmail({ navigation }){
                         onChangeText={(text) => setEmail(text)}
                         secureTextEntry={true}
                     ></TextInput>
-                    <FontAwesome6 color={"#303030"} name="at" size={27} />
+                    <FontAwesome6 color={"#303030"} name="at" size={25} />
                 </View>
                 <View style={styles.inputextarea}>
                     <TextInput
@@ -111,7 +111,7 @@ export default function AlterEmail({ navigation }){
                         onChangeText={(text) => setNovoEmail(text)}
                         secureTextEntry={true}
                     ></TextInput>
-                    <FontAwesome6 color={"#303030"} name="at" size={27} />
+                    <FontAwesome6 color={"#303030"} name="at" size={25} />
                 </View>
                 <View style={styles.inputextarea}>
                     <TextInput
@@ -122,7 +122,7 @@ export default function AlterEmail({ navigation }){
                         onChangeText={(text) => setSenha(text)}
                         secureTextEntry={true}
                     ></TextInput>
-                    <FontAwesome6 color={"#303030"} name="lock" size={27} />
+                    <FontAwesome6 color={"#303030"} name="lock" size={25} />
                 </View>
             </View>
 

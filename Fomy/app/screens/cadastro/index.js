@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, Alert, TextInput, ActivityIndicator, Dimensions, Modal } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Alert, TextInput, ActivityIndicator, Dimensions, Modal, Platform } from 'react-native';
 import React, { useState, useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { app, app_DB, app_auth } from '../../../firebaseConfig'
@@ -6,8 +6,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'fire
 import { useHeaderHeight } from '@react-navigation/elements'
 import { doc, setDoc } from "firebase/firestore";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { Feather } from 'react-native-vector-icons'
-import { FontAwesome } from 'react-native-vector-icons'
+import { Feather, FontAwesome6, FontAwesome } from 'react-native-vector-icons'
 import { Overlay } from 'react-native-elements';
 
 
@@ -202,19 +201,19 @@ const Cadastro = ({ navigation }) => {
 
       <View style={[styles.inputArea, { height: (stuffHeight - 7) }]} >
         <TextInput value={nome} style={[styles.input, { fontSize: (fontSize - 2) }]} placeholder='Nome' autoCapitalize='none' onChangeText={(text) => setNome(text)} />
-        <Feather name="user" size={27} color={"rgba(0,0,0,0.5)"} />
+        <FontAwesome6 name="user-large" size={25} color={"#303030"} />
       </View>
       <View style={[styles.inputArea, { height: (stuffHeight - 7) }]} >
         <TextInput value={email} style={[styles.input, { fontSize: (fontSize - 2) }]} placeholder='Email' autoCapitalize='none'
           onChangeText={(text) => setEmail(text)} />
-        <Feather name="mail" size={27} color={"rgba(0,0,0,0.5)"} />
+        <FontAwesome6 name="at" size={25} color={"#303030"} />
       </View>
       <View style={[styles.inputArea, { height: (stuffHeight - 7) }]} >
         <TextInput value={senha} style={[styles.input, { fontSize: (fontSize - 2) }]} placeholder='Senha' autoCapitalize='none'
           onChangeText={(text) => setSenha(text)} secureTextEntry={true} />
-        <Feather name="lock" size={27} color={"rgba(0,0,0,0.5)"} />
+        <FontAwesome6 name="lock" size={25} color={"#303030"} />
       </View>
-      <TouchableOpacity style={[styles.buttonLogin, { height: stuffHeight }]} title='Registrar' onPress={SignUp}>
+      <TouchableOpacity activeOpacity={0.8} style={[styles.buttonLogin, { height: stuffHeight }]} title='Registrar' onPress={SignUp}>
         <Text style={[styles.text, { fontSize: fontSize }]}>Começar jornada!</Text>
       </TouchableOpacity>
 

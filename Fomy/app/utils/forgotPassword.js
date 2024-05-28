@@ -193,7 +193,7 @@ const PasswordResets = () => {
             autoCapitalize="none"
             onChangeText={(text) => setEmail(text)}
           />
-        <FontAwesome6 name="at" size={26} color={"#303030"} />
+        <FontAwesome6 name="at" size={25} color={"#303030"} />
       </View>
       <TouchableOpacity title="Enviar" style={[styles.buttonLogin, { height: stuffHeight }]} onPress={PasswordReset}>
         <Text style={[styles.text, { fontSize: fontSize }]}>Redefinir Senha</Text>

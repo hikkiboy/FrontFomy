@@ -116,7 +116,7 @@ export default function AlterPassword({ navigation }){
                         onChangeText={(text) => setSenha(text)}
                         secureTextEntry={true}
                     />
-                    <FontAwesome6 color={"#303030"} name="lock" size={27} />
+                    <FontAwesome6 color={"#303030"} name="lock" size={25} />
                 </View>
                 <View style={styles.inputextarea}>
                     <TextInput
@@ -127,7 +127,7 @@ export default function AlterPassword({ navigation }){
                         onChangeText={(text) => setNovaSenha(text)}
                         secureTextEntry={true}
                     />
-                    <FontAwesome6 color={"#303030"} name="lock" size={27} />
+                    <FontAwesome6 color={"#303030"} name="lock" size={25} />
                 </View>
             </View>
 
