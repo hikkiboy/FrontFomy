@@ -101,56 +101,53 @@ const Profile = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container} >
             {Receitas.length != 0 ? (
-                <ScrollView contentContainerStyle={{ minHeight: "100%", width: "100%" }} >
-                    <View style={styles.bgimg}>
-                        <Image tintColor={"#2985DB"} style={styles.booklet} source={require('../../assets/profilet.png')} />
-                        <View style={styles.titlearea} >
-                            <View style={{ borderWidth: 6, borderRadius: 100, marginRight: 5, borderColor: "#2985DB" }} >
-                                <View>
+                <ScrollView style={{ minWidth: "100%" }} >
+
+                    <TouchableOpacity activeOpacity={0.8} style={{ zIndex: 99 }} onPress={() => handleModal()} >
+                        <FontAwesome6 style={styles.menu} name="gear" size={27} color="#FFF" />
+                    </TouchableOpacity>
+                    <View style={{ paddingStart: 5, paddingEnd: 5, marginBottom: 50 }} >
+                        <View style={styles.bgimg}>
+                            <View style={styles.titlearea} >
+                                <View style={{ borderWidth: 6, borderRadius: 100, marginRight: 5, borderColor: "#2985DB" }} >
                                     <Image style={styles.notalberto} source={{ uri: Receitas.Foto }} />
-                                    <View>
-                                        <Image
-                                            source={require('../../assets/bandeira-nivel.png')}
-                                            style={styles.flag}
-                                        />
-                                        <Text style={styles.lvl} >Lv. {Receitas.Nivel}</Text>
-                                    </View>
+                                </View>
+                                <View style={{ flex: 1, justifyContent: 'center' }}>
+                                    <Text style={[styles.trilhaTit,]}>{Receitas.Nome}</Text>
+                                    <Text style={[styles.trilhaTit, { color: "rgba(255,255,255,0.85)", fontSize: 24 }]}>{Receitas.Titulo}</Text>
                                 </View>
                             </View>
-                            <View style={{ flex: 1, justifyContent: 'center' }}>
-                                <Text style={[styles.trilhaTit,]}>{Receitas.Nome}</Text>
-                                <Text style={[styles.trilhaTit, { marginTop: 15, color: "rgba(255,255,255,0.85)", fontSize: 24 }]}>{Receitas.Titulo}</Text>
-                            </View>
-                        </View>
-                        <View style={{ alignSelf: "center", marginVertical: 20, marginBottom: 50 }} >
-                            <View style={{ backgroundColor: "#296CAA", width: width - 40, height: 35, position: 'absolute', borderRadius: 12, marginTop: 15 }} />
-                            <Progress.Bar
-                                style={{ borderWidth: 4, borderColor: "#296CAA", justifyContent: 'center' }}
-                                progress={progressToBar}
-                                width={width - 40}
-                                height={35}
-                                borderRadius={12}
-                                color={"#2985DB"}
-                                borderWidth={0}
-                                unfilledColor={progressToBar != 1 ? "#FFF" : item.CorFill}
-                            ><Text style={{ position: 'absolute', alignSelf: 'center', color: progressToBar != 1 ? "rgba(0,0,0,0.75)" : "#FFF", fontSize: 23, fontWeight: 'bold' }}  >XP: {Receitas.Exp} / {totalXp}</Text></Progress.Bar>
                         </View>
                     </View>
 
-                    <View style={styles.moneycontainer} >
-                        <View style={{ backgroundColor: "#2985DB", width: "100%", height: "100%", position: 'absolute', borderRadius: 20, marginTop: 5 }} />
-                        <TouchableOpacity activeOpacity={0.9} style={styles.moneyarea} onPress={() => handleModal()} >
-                            <FontAwesome6 name='gear' size={37} color={"#FFF"} />
-                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} >
-                                <Text style={styles.monay} >Configurações</Text>
+                    <View style={{ paddingStart: 5, paddingEnd: 5, marginBottom: 60 }} >
+                        <View style={styles.bgimg}>
+                            <View style={{ flex: 1, justifyContent: 'center', paddingVertical: 20 }}>
+                                <Text style={[styles.trilhaTit, { backgroundColor: "#2985DB", borderRadius: 20, padding: 5 }]}>Nível {Receitas.Nivel}</Text>
+                                <View style={{ alignSelf: "center", marginTop: 25 }} >
+
+                                    <Progress.Bar
+                                        style={{ justifyContent: 'center' }}
+                                        progress={progressToBar}
+                                        width={width - 50}
+                                        height={45}
+                                        borderRadius={20}
+                                        color={"#FFF"}
+                                        borderWidth={0}
+                                        unfilledColor={progressToBar != 1 ? "rgba(255,255,255,0.6)" : item.CorFill}
+                                    ><Text style={{ position: 'absolute', alignSelf: 'center', color: progressToBar != 1 ? "rgba(0,0,0,0.65)" : "#FFF", fontSize: 23, fontWeight: 'bold' }}  >XP: {Receitas.Exp} / {totalXp}</Text></Progress.Bar>
+                                </View>
                             </View>
-                        </TouchableOpacity>
+                        </View>
                     </View>
-                    <View style={styles.badgearea} >
-                        <Text style={styles.badgetitle} >Insígnias</Text>
-                        <View style={styles.stepslist} >
-                            <View style={styles.badges} >
-                                <Badges data={Receitas.Insignias} />
+
+                    <View style={{ paddingStart: 5, paddingEnd: 5 }} >
+                        <View style={styles.badgearea} >
+                            <Text style={styles.badgetitle} >Insígnias</Text>
+                            <View style={styles.stepslist} >
+                                <View style={styles.badges} >
+                                    <Badges data={Receitas.Insignias} />
+                                </View>
                             </View>
                         </View>
                     </View>
@@ -192,14 +189,22 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF',
         alignItems: 'center',
         justifyContent: 'flex-start',
-        paddingBottom: 80
     },
     bgimg: {
         width: "100%",
         borderRadius: 20,
-        marginBottom: 45,
+        borderWidth: 6,
+        borderBottomWidth: 9,
+        borderColor: "#2985DB",
         backgroundColor: "#3B98EF",
         alignItems: 'center'
+    },
+    menu: {
+        position: "absolute",
+        alignSelf: 'flex-end',
+        padding: 20,
+        paddingRight: 25
+
     },
     booklet: {
         height: '100%',
@@ -209,9 +214,9 @@ const styles = StyleSheet.create({
     },
     titlearea: {
         width: '100%',
-        paddingStart: 20,
+        paddingStart: 10,
         paddingEnd: 10,
-        marginTop: 35,
+        marginVertical: 15,
         zIndex: 98,
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -219,8 +224,8 @@ const styles = StyleSheet.create({
 
     },
     notalberto: {
-        width: 120,
-        height: 120,
+        width: 115,
+        height: 115,
         borderRadius: 100,
 
     },

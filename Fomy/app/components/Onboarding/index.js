@@ -125,18 +125,7 @@ const OnboardingItem = ({ item, navigation, index, x, size }) => {
 
 
             <View style={{ flex: 0.3 }}>
-                {index == 0 ? (
-                    <>
-                        <FontAwesome style={{ position: 'absolute', right: 15 }} name="arrow-right" color={"rgba(0,0,0,0.75)"} size={27} />
-                    </>
-                ) : (
-                    <>
-                        <FontAwesome style={{ position: 'absolute', left: 15 }} name="arrow-left" color={"rgba(0,0,0,0.75)"} size={27} />
-                        {index + 1 != size &&
-                            <FontAwesome style={{ position: 'absolute', right: 15 }} name="arrow-right" color={"rgba(0,0,0,0.75)"} size={27} />
-                        }
-                    </>
-                )}
+                
                 <Text style={styles.title}>{item.NomeTrilha}</Text>
                 <Text style={styles.description}>{item.Descricao}</Text>
 
@@ -197,7 +186,18 @@ const OnboardingItem = ({ item, navigation, index, x, size }) => {
                 )}
 
             </View>
-
+            {index == 0 ? (
+                    <>
+                        <FontAwesome style={{ position: 'absolute', right: 25, bottom: 120 }} name="arrow-right" color={"rgba(0,0,0,0.57)"} size={25} />
+                    </>
+                ) : (
+                    <>
+                        <FontAwesome style={{ position: 'absolute', left: 25, bottom: 120 }} name="arrow-left" color={"rgba(0,0,0,0.57)"} size={25} />
+                        {index + 1 != size &&
+                            <FontAwesome style={{ position: 'absolute', right: 25 , bottom: 120}} name="arrow-right" color={"rgba(0,0,0,0.57)"} size={25} />
+                        }
+                    </>
+                )}
         </View>
 
 

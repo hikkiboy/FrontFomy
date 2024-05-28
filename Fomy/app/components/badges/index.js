@@ -10,8 +10,8 @@ export function Badges({ data }) {
     
     const height = Dimensions.get("window").height
     const width = Dimensions.get("window").width
-    const [imageHeight, setImageHeight] = useState(109.25)
-    const [imageWidth, setImageWidth] = useState(104.5)
+    const [imageHeight, setImageHeight] = useState(114.7125)
+    const [imageWidth, setImageWidth] = useState(109.725)
     const [margin, setMargin] = useState(12)
     const [selectedBadge, setSelectedBadge] = useState()
 
@@ -80,7 +80,6 @@ export function Badges({ data }) {
                 data={Insignias}
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                scrollEnabled={true}
                 renderItem={({item, index}) => {
                     return(
                         <TouchableOpacity activeOpacity={0.9} 
@@ -97,7 +96,7 @@ export function Badges({ data }) {
                     )
                     
                 }}
-                ItemSeparatorComponent={<View style={{ width: 20, height: 20 }} />}
+                ItemSeparatorComponent={<View style={{ width: 25, height: 25 }} />}
             />
             <Modal visible={visible}
                 onRequestClose={checkBadge} 
@@ -118,8 +117,8 @@ export function Badges({ data }) {
 const styles = StyleSheet.create({
     container:{
         alignItems: 'center',
-        marginVertical: 20,
-        marginTop: 24.25
+        marginVertical: 25,
+        marginTop: 30.3125
     },
     thebadge:{
         alignItems: 'center',
