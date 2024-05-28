@@ -43,17 +43,13 @@ export default function Routes({ loggedIn, loading }) {
   React.useEffect(() => {
     if (loading == false) {
       if (loggedIn) {
-    if (loading == false) {
-      if (loggedIn) {
         setInitialRoute("HomeStart")
-        setTimeout(() => { navigation.navigate("HomeStart", { screen: "Home" }) }, 220)
         setTimeout(() => { navigation.navigate("HomeStart", { screen: "Home" }) }, 220)
       } else {
         navigation.navigate("Login")
         setInitialRoute("Login")
       }
     }
-  }, [loggedIn, loading])
   }, [loggedIn, loading])
   return (
     <Stack.Navigator initialRouteName={initialRoute} backBehavior="initialRoute" >
@@ -63,11 +59,15 @@ export default function Routes({ loggedIn, loading }) {
         component={Loading}
         options={{ headerShown: false }}
       />
+      <Stack.Screen
+        name="Profile"
+        component={Profile}
+        options={{ headerShown: false }}
+      />
       {<Stack.Screen
         name="Fetch"
         component={Fetch}
         options={{ headerShown: false }}
-      />}
       />}
       <Stack.Screen
         name="Cadastro"
@@ -99,36 +99,30 @@ export default function Routes({ loggedIn, loading }) {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-      <Stack.Screen
         name="Trilha"
         component={Trilha}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
       <Stack.Screen
         name="Configs"
         component={Configs}
         options={{ headerShown: true }}
       />
       <Stack.Screen
-      <Stack.Screen
         name="DeleteAccount"
         component={DeleteAccount}
         options={{ headerShown: true }}
       />
-      <Stack.Screen
       <Stack.Screen
         name="AccountConfig"
         component={AccountConfig}
         options={{ headerShown: true }}
       />
       <Stack.Screen
-      <Stack.Screen
         name="AlterPassword"
         component={AlterPassword}
         options={{ headerShown: true }}
       />
-      <Stack.Screen
       <Stack.Screen
         name="AlterEmail"
         component={AlterEmail}
@@ -136,13 +130,10 @@ export default function Routes({ loggedIn, loading }) {
       />
 
       <Stack.Screen
-
-      <Stack.Screen
         name="Preparo"
         component={Preparo}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
       <Stack.Screen
         name="Passos"
         component={Passos}
@@ -180,7 +171,6 @@ export default function Routes({ loggedIn, loading }) {
       />
 
     </Stack.Navigator>
-
 
   );
 }
@@ -240,8 +230,6 @@ export function TabNavigatior() {
         )
       }} />
 
-      {/*<Tab.Screen name = "Trilhas" component={Fetch}options={{headerShown: false}}/>*/}
-    </Tab.Navigator>
       {/*<Tab.Screen name = "Trilhas" component={Fetch}options={{headerShown: false}}/>*/}
     </Tab.Navigator>
   )
