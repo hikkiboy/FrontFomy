@@ -184,7 +184,7 @@ useEffect(() => {
        <SafeAreaView style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false} >
         {/* <Button title='debug' onPress={() => console.log(arr)}></Button>  */}
-            <TouchableOpacity onPress={ () => navigation.goBack() } style={styles.goback} ><FontAwesome name="arrow-left" size={30} color="white" /></TouchableOpacity>
+            <TouchableOpacity onPress={ () => { navigation.goBack(); Vibration.cancel(); stopSound(); } } style={styles.goback} ><FontAwesome name="arrow-left" size={30} color="white" /></TouchableOpacity>
           <View style={[styles.imagebak, {
             backgroundColor: corDinamica,
             borderColor: route.params.paramKey[3]

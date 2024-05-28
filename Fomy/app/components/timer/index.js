@@ -60,7 +60,7 @@ export default class TimerPasso extends Component {
           <View style={styles.rightarea} >
             <Timer
               style={[styles.timer]}
-              totalDuration={5}
+              totalDuration={this.props.totalDuration * 1000}
               start={this.state.timerStart}
               reset={this.state.timerReset}
               options={options}
