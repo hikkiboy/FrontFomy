@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image,FlatList,TouchableWithoutFeedback, TouchableOpacity, ImageBackground, ScrollView, Animated, Platform } from 'react-native';
+import { StyleSheet, Text, View, Image,FlatList,TouchableWithoutFeedback, TouchableOpacity,Vibration, ImageBackground, ScrollView, Animated, Platform, AppState, AppEvent} from 'react-native';
 import Modal from "react-native-modal";
 import { app, app_DB } from '../../../firebaseConfig'
 import { collection, onSnapshot, query, where, orderBy,documentId, collectionGroup } from '@firebase/firestore'
@@ -10,9 +10,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import VideoPassos from '../videopasso';
 import { Foundation } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { Dimensions } from 'react-native';
+import { Dimensions} from 'react-native';
 import { useSharedValue, Extrapolate, interpolate, useAnimatedStyle } from 'react-native-reanimated';
+import TimerPasso from '../timer/index';
+import { stopSound } from '../timer/index';
+import { NavigationContainer } from '@react-navigation/native';
 
+
+//import Timer from '../timer';
 
 
 export default function Passos({route, props, navigation}) {
@@ -26,6 +31,12 @@ export default function Passos({route, props, navigation}) {
   const [totalPassos, settotalPassos] = useState([])
   const [current, setCurrent] = useState(0)
   const {width} = Dimensions.get('window');
+  //
+  const [isTimerStart, setIsTimerStart] = useState(false);
+  const [isStopwatchStart, setIsStopwatchStart] = useState(false);
+  const [timerDuration, setTimerDuration] = useState(90000);
+  const [resetTimer, setResetTimer] = useState(false);
+  const [resetStopwatch, setResetStopwatch] = useState(false);
   
   const corDinamica = route.params.paramKey[1]
   console.log("-------------COR---------------")
@@ -115,6 +126,8 @@ function pa(i, fwd){
     navigation.goBack()
   } else{
     //coloquei isso o replace prq ele tava mandando o id com espaço (?????) ai o query n funfava
+    Vibration.cancel()
+    stopSound()
     navigation.navigate("Parabens", {paramKey:[Receitas[0].Parabenizacao,Receitas[0].id.replace(/\s/g, ""), Receitas[0].Trilha]})
   }
 }
@@ -157,13 +170,21 @@ try {
   console.log(error)
   console.log("asldmçlsadm")
 }
+useEffect(() => {
+  const handleAppStateChange = (nextAppState) => {
+    if (nextAppState === 'background') {
+      Vibration.cancel();
+    }
+  };
 
+  AppState.addEventListener('change', handleAppStateChange);
 
+}, []);
   return (
        <SafeAreaView style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false} >
         {/* <Button title='debug' onPress={() => console.log(arr)}></Button>  */}
-            <TouchableOpacity onPress={ () => navigation.goBack() } style={styles.goback} ><FontAwesome name="arrow-left" size={30} color="white" /></TouchableOpacity>
+            <TouchableOpacity onPress={ () => { navigation.goBack(); Vibration.cancel(); stopSound(); } } style={styles.goback} ><FontAwesome name="arrow-left" size={30} color="white" /></TouchableOpacity>
           <View style={[styles.imagebak, {
             backgroundColor: corDinamica,
             borderColor: route.params.paramKey[3]
@@ -176,7 +197,14 @@ try {
                 <Text style={styles.titulopassotexto}>{Passo.Titulo}</Text>
               </View>
             </View>
-            <VideoPassos idVideo={Passo.VideoPasso}/>
+              {Passo.Timer ? (
+                <TimerPasso totalDuration={Passo.Timer}/>
+              ) : (
+                stopSound(),
+                Vibration.cancel(),
+                <VideoPassos idVideo={Passo.VideoPasso}/>
+              )}
+          
           </View>
 
 
@@ -196,11 +224,12 @@ try {
                 borderColor: route.params.paramKey[3],
               }]}/>
             </View>
-            <View style={styles.spaceinbetween}/>
+            <View style={styles.spaceinbetween}/>            
           </View>
           <View style={styles.spaceinbetween2}/>
 
         </ScrollView>
+        <View style={styles.spaceinbetween2}/>
 
         <View style={[styles.passoAtualArea, {borderColor: corDinamica }]}>
           <FlatList 
@@ -427,7 +456,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2F2F2',
     zIndex: 0,
     width: '100%',
-    height: 20,
+    height: 30,
   },
   traco:{
     width: 90,
