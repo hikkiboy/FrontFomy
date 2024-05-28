@@ -17,7 +17,7 @@ export function Badges({ data }) {
 
     useEffect(()=>{
 
-        if(data.Insignias[0] != "" ){
+        if(data != "" ){
     
         const insigniasRef = collection(app_DB, 'Insignias')
 
@@ -25,7 +25,7 @@ export function Badges({ data }) {
     
         const q = query(
             insigniasRef,
-            where(documentId(), 'in', data.Insignias)
+            where(documentId(), 'in', data)
         )
     
         

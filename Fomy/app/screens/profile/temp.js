@@ -1,5 +1,5 @@
-import { View, StyleSheet, Image, Text, TouchableOpacity, Modal, TextInput, ScrollView, ActivityIndicator, Dimensions } from "react-native"
-import { Feather, FontAwesome, FontAwesome6 } from 'react-native-vector-icons'
+import { View, StyleSheet, Image, Text, TouchableOpacity, Modal, TextInput, ScrollView, ActivityIndicator } from "react-native"
+import { Feather, FontAwesome } from 'react-native-vector-icons'
 import { useState, useEffect } from "react"
 import { ActionModal } from "../../components/actionmodal"
 import { Badges } from "../../components/badges"
@@ -19,7 +19,6 @@ const Profile = ({ navigation }) => {
     const [newName, setNewName] = useState('')
     const [totalXp, setTotalXP] = useState(0)
     const [progressToBar, setProgressToBar] = useState(0)
-    const width = Dimensions.get('window').width
 
     useEffect(() => {
         const login = onAuthStateChanged(app_auth, (user) => {
@@ -102,59 +101,64 @@ const Profile = ({ navigation }) => {
         <SafeAreaView style={styles.container} >
             {Receitas.length != 0 ? (
                 <ScrollView contentContainerStyle={{ minHeight: "100%", width: "100%" }} >
-                    <View style={styles.bgimg}>
-                        <Image tintColor={"#2985DB"} style={styles.booklet} source={require('../../assets/profilet.png')} />
-                        <View style={styles.titlearea} >
-                            <View style={{ borderWidth: 6, borderRadius: 100, marginRight: 5, borderColor: "#2985DB" }} >
-                                <View>
-                                    <Image style={styles.notalberto} source={{ uri: Receitas.Foto }} />
-                                    <View>
-                                        <Image
-                                            source={require('../../assets/bandeira-nivel.png')}
-                                            style={styles.flag}
-                                        />
-                                        <Text style={styles.lvl} >Lv. {Receitas.Nivel}</Text>
+                    <TouchableOpacity style={{ zIndex: 99 }} onPress={() => handleModal()} >
+                        <Feather style={styles.menu} name="menu" size={35} color="#000" />
+                    </TouchableOpacity>
+                    <View style={styles.pfpstuff} >
+                        <View style={styles.bgpfp} ></View>
+                        <View style={styles.brdrpfp} >
+                            <Image
+                                source={{ uri: Receitas.Foto }}
+                                style={styles.pfp}
+
+                            />
+                        </View>
+                        <View>
+                            <Image
+                                source={require('../../assets/bandeira-nivel.png')}
+                                style={styles.flag}
+                            />
+                            <Text style={styles.lvl} >Lv. {Receitas.Nivel}</Text>
+                        </View>
+                        {inputOn == false ? (
+                            <View style={{ alignItems: 'center', alignSelf: 'center', justifyContent: 'center' }} >
+                                <Text style={styles.name} >{Receitas.Nome}</Text>
+                                <Text style={styles.title} >{Receitas.Titulo}</Text>
+                                <Progress.Bar style={{ justifyContent: 'center', marginTop: 45 }}
+                                    progress={progressToBar}
+                                    width={325}
+                                    height={40}
+                                    borderRadius={9}
+                                    color="#FA787D"
+                                    borderWidth={0}
+                                    unfilledColor="#EFEFEF"
+                                ><Text style={styles.exp} >EXP: {Receitas.Exp} / {totalXp}</Text></Progress.Bar>
+                            </View>
+                        ) : (
+                            <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 20, marginBottom: 38, width: "100%", paddingHorizontal: 20 }} >
+                                <View style={styles.inputarea} >
+                                    <TextInput enterKeyHint={"done"} value={newName} onChangeText={(text) => setNewName(text)} autoFocus={true} maxLength={35} placeholder="Novo nome" style={styles.nameinput} />
+                                </View>
+                                <View style={{ flexDirection: 'row', marginTop: 25, justifyContent: 'center', alignItems: 'center' }} >
+                                    <TouchableOpacity activeOpacity={0.8} style={[styles.inputbutton, { backgroundColor: '#70D872', borderColor: '#5DC15F' }]} onPress={() => handleUpdate(true)} ><FontAwesome name="check" size={50} color="#FFF" /></TouchableOpacity>
+                                    <View style={{ width: 50 }} />
+                                    <TouchableOpacity activeOpacity={0.8} style={[styles.inputbutton, { backgroundColor: '#FA787D', borderColor: '#E15F64' }]} onPress={() => handleUpdate(false)} ><FontAwesome name="close" size={50} color="#FFF" /></TouchableOpacity>
+                                </View>
+                            </View>
+                        )}
+                        <View style={{ width: "100%", height: 150 }} />
+                        {Receitas.Insignias.length != 0 &&
+                            <View style={styles.badgearea} >
+                                <Text style={styles.badgetitle} >Insígnias</Text>
+                                <View style={styles.stepslist} >
+                                    <View style={styles.badges} >
+                                        <Badges data={Receitas.Insignias} />
                                     </View>
                                 </View>
                             </View>
-                            <View style={{ flex: 1, justifyContent: 'center' }}>
-                                <Text style={[styles.trilhaTit,]}>{Receitas.Nome}</Text>
-                                <Text style={[styles.trilhaTit, { marginTop: 15, color: "rgba(255,255,255,0.85)", fontSize: 24 }]}>{Receitas.Titulo}</Text>
-                            </View>
-                        </View>
-                        <View style={{ alignSelf: "center", marginVertical: 20, marginBottom: 50 }} >
-                            <View style={{ backgroundColor: "#296CAA", width: width - 40, height: 35, position: 'absolute', borderRadius: 12, marginTop: 15 }} />
-                            <Progress.Bar
-                                style={{ borderWidth: 4, borderColor: "#296CAA", justifyContent: 'center' }}
-                                progress={progressToBar}
-                                width={width - 40}
-                                height={35}
-                                borderRadius={12}
-                                color={"#2985DB"}
-                                borderWidth={0}
-                                unfilledColor={progressToBar != 1 ? "#FFF" : item.CorFill}
-                            ><Text style={{ position: 'absolute', alignSelf: 'center', color: progressToBar != 1 ? "rgba(0,0,0,0.75)" : "#FFF", fontSize: 23, fontWeight: 'bold' }}  >XP: {Receitas.Exp} / {totalXp}</Text></Progress.Bar>
-                        </View>
-                    </View>
+                        }
 
-                    <View style={styles.moneycontainer} >
-                        <View style={{ backgroundColor: "#2985DB", width: "100%", height: "100%", position: 'absolute', borderRadius: 20, marginTop: 5 }} />
-                        <TouchableOpacity activeOpacity={0.9} style={styles.moneyarea} onPress={() => handleModal()} >
-                            <FontAwesome6 name='gear' size={37} color={"#FFF"} />
-                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} >
-                                <Text style={styles.monay} >Configurações</Text>
-                            </View>
-                        </TouchableOpacity>
                     </View>
-                    <View style={styles.badgearea} >
-                        <Text style={styles.badgetitle} >Insígnias</Text>
-                        <View style={styles.stepslist} >
-                            <View style={styles.badges} >
-                                <Badges data={Receitas.Insignias} />
-                            </View>
-                        </View>
-                    </View>
-
 
                     <Modal visible={visible}
                         onRequestClose={handleModal}
@@ -187,93 +191,98 @@ export default Profile
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        height: "100%",
         display: 'flex',
-        backgroundColor: '#FFF',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        paddingBottom: 80
+        backgroundColor: "#FFF"
     },
-    bgimg: {
-        width: "100%",
-        borderRadius: 20,
-        marginBottom: 45,
-        backgroundColor: "#3B98EF",
-        alignItems: 'center'
-    },
-    booklet: {
-        height: '100%',
-        width: '100%',
-        position: 'absolute',
-        resizeMode: 'stretch'
-    },
-    titlearea: {
-        width: '100%',
-        paddingStart: 20,
-        paddingEnd: 10,
-        marginTop: 35,
-        zIndex: 98,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-
-    },
-    notalberto: {
-        width: 120,
-        height: 120,
+    pfp: {
+        width: 175,
+        height: 175,
         borderRadius: 100,
+    },
+    pfpstuff: {
+        alignItems: 'center',
+        flex: 1
+    },
+    bgpfp: {
+        backgroundColor: "#3B98EF",
+        width: '100%',
+        height: 130,
+        position: "absolute"
+    },
+    brdrpfp: {
+        width: 195,
+        height: 195,
+        borderRadius: 150,
+        borderWidth: 10,
+        marginBottom: -100,
+        borderColor: "#FFF",
+        backgroundColor: "#EFEFEF",
+        marginTop: 35
+    },
+    name: {
+        alignSelf: 'center',
+        fontSize: 29,
+        marginTop: 15,
+        fontWeight: 'bold',
+        color: "#303030"
+    },
+    inputarea: {
+        alignItems: 'center',
+        alignSelf: 'center',
+        paddingHorizontal: 12,
+        paddingVertical: 2,
+        borderRadius: 15,
+        width: "100%"
 
+    },
+    inputbutton: {
+        borderWidth: 5,
+        borderBottomWidth: 7,
+        borderRadius: 15,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 100,
+        paddingVertical: 5
+    },
+    nameinput: {
+        textAlign: 'center',
+        fontSize: 29,
+        color: "#303030"
+
+    },
+    title: {
+        alignSelf: 'center',
+        fontSize: 24,
+        fontWeight: '600',
+        color: "#909090"
     },
     flag: {
         alignSelf: 'center',
-        position: 'absolute',
-        width: 145.6,
-        height: 33.6,
-        bottom: -10
+        width: 208,
+        height: 48,
+        marginTop: 60
     },
     lvl: {
         alignSelf: 'center',
-        fontSize: 22,
+        fontSize: 27,
         position: "absolute",
-        bottom: -5,
+        marginTop: 60,
         fontWeight: '700'
 
     },
-    trilhaTit: {
-        textAlign: 'center',
-        marginBottom: 5,
-        fontSize: 28,
-        fontWeight: "bold",
-        color: "#FFF",
-        //fontFamily: FontFamily.leagueSpartanBold
+    menu: {
+        position: "absolute",
+        alignSelf: 'flex-end',
+        padding: 15,
+
     },
     exp: {
         position: 'absolute',
         alignSelf: 'center',
-        color: "rgba(255,255,255,0.95)",
+        color: "rgba(0,0,0,0.4)",
         fontWeight: 'bold',
         fontSize: 27
-    },
-    moneycontainer: {
-        width: "100%",
-        marginBottom: 140
-    },
-    moneyarea: {
-        backgroundColor: "#3B98EF",
-        borderColor: "#2985DB",
-        borderRadius: 20,
-        borderWidth: 6,
-        width: "100%",
-        paddingStart: 50,
-        paddingVertical: 15,
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexDirection: 'row'
-    },
-    monay: {
-        color: "#FFF",
-        fontSize: 30,
-        fontWeight: 'bold'
     },
     badgearea: {
         backgroundColor: "#EFEFEF",
