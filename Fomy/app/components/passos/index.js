@@ -121,7 +121,8 @@ export default function Passos({ route, props, navigation }) {
     } else if (i - 1 == 0 && fwd == false) {
       navigation.goBack()
     } else {
-      //coloquei isso o replace prq ele tava mandando o id com espaço (?????) ai o query n funfava
+      Vibration.cancel()
+      stopSound()
       if (userRecipes.includes(key) && route.params.origin[0] == "Trilha") {
         navigation.navigate("Trilha", { paramKey: [route.params.trilha[0], route.params.description[0], route.params.paramKey[1], route.params.paramKey[2], route.params.paramKey[3]] })
       } else if (userRecipes.includes(key) && route.params.origin[0] == "Book") {
@@ -129,8 +130,6 @@ export default function Passos({ route, props, navigation }) {
       } else {
         navigation.navigate("Parabens", { paramKey: [Receitas[0].Parabenizacao, Receitas[0].id.replace(/\s/g, ""), Receitas[0].Trilha], cores: [route.params.paramKey[1], route.params.paramKey[3], route.params.paramKey[2]] })
       }
-      Vibration.cancel()
-      stopSound()
     }
   }
 
@@ -167,38 +166,49 @@ export default function Passos({ route, props, navigation }) {
         console.log("Im blue dabadee dabadaa  (o tamanho tava 0)");
       }
     }, [xednIllorcSlaitint])
+
   } catch (error) {
     console.log(error)
     console.log("asldmçlsadm")
   }
+  useEffect(() => {
+    const handleAppStateChange = (nextAppState) => {
+      if (nextAppState === 'background') {
+        Vibration.cancel();
+      }
+    };
+
+    AppState.addEventListener('change', handleAppStateChange);
+
+  }, []);
 
 
   return (
-       <SafeAreaView style={styles.container}>
-        <ScrollView showsVerticalScrollIndicator={false} >
+    <SafeAreaView style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false} >
         {/* <Button title='debug' onPress={() => console.log(arr)}></Button>  */}
-            <TouchableOpacity onPress={ () => { navigation.goBack(); Vibration.cancel(); stopSound(); } } style={styles.goback} ><FontAwesome name="arrow-left" size={30} color="white" /></TouchableOpacity>
-          <View style={[styles.imagebak, {
-            backgroundColor: corDinamica,
-            borderColor: route.params.paramKey[3]
-          }]}>
-            <View style={styles.areatitulo}>
-              <View style={[styles.titulopasso,{
-                borderColor: route.params.paramKey[2],
-                backgroundColor: route.params.paramKey[3],
-              }]}>
-                <Text style={styles.titulopassotexto}>{Passo.Titulo}</Text>
-              </View>
+        <TouchableOpacity onPress={() => { navigation.goBack(); Vibration.cancel(); stopSound(); }} style={styles.goback} ><FontAwesome name="arrow-left" size={30} color="white" /></TouchableOpacity>
+        <View style={[styles.imagebak, {
+          backgroundColor: corDinamica,
+          borderColor: route.params.paramKey[3]
+        }]}>
+          <View style={styles.areatitulo}>
+            <View style={[styles.titulopasso, {
+              borderColor: route.params.paramKey[2],
+              backgroundColor: route.params.paramKey[3],
+            }]}>
+              <Text style={styles.titulopassotexto}>{Passo.Titulo}</Text>
             </View>
-              {Passo.Timer ? (
-                <TimerPasso totalDuration={Passo.Timer}/>
-              ) : (
-                stopSound(),
-                Vibration.cancel(),
-                <VideoPassos idVideo={Passo.VideoPasso}/>
-              )}
-          
           </View>
+          {Passo.Timer ? (
+            <TimerPasso totalDuration={Passo.Timer} />
+          ) : (
+            stopSound(),
+            Vibration.cancel(),
+            <VideoPassos idVideo={Passo.VideoPasso} />
+          )}
+
+        </View>
 
 
         <View style={styles.buttons} >
