@@ -6,8 +6,7 @@ import { useState, useEffect, useLayoutEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Feather from 'react-native-vector-icons/Feather'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import {FontAwesome, FontAwesome6} from 'react-native-vector-icons'
 
 
 export default function AlterEmail({ navigation }){
@@ -101,7 +100,7 @@ export default function AlterEmail({ navigation }){
                         onChangeText={(text) => setEmail(text)}
                         secureTextEntry={true}
                     ></TextInput>
-                    <Feather name="mail" size={27} />
+                    <FontAwesome6 color={"#303030"} name="at" size={25} />
                 </View>
                 <View style={styles.inputextarea}>
                     <TextInput
@@ -112,7 +111,7 @@ export default function AlterEmail({ navigation }){
                         onChangeText={(text) => setNovoEmail(text)}
                         secureTextEntry={true}
                     ></TextInput>
-                    <Feather name="mail" size={27} />
+                    <FontAwesome6 color={"#303030"} name="at" size={25} />
                 </View>
                 <View style={styles.inputextarea}>
                     <TextInput
@@ -123,7 +122,7 @@ export default function AlterEmail({ navigation }){
                         onChangeText={(text) => setSenha(text)}
                         secureTextEntry={true}
                     ></TextInput>
-                    <Feather name="lock" size={27} />
+                    <FontAwesome6 color={"#303030"} name="lock" size={25} />
                 </View>
             </View>
 

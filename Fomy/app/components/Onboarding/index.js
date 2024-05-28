@@ -4,11 +4,12 @@ import { useEffect, useState } from 'react'
 import { doc, collection, query, where, onSnapshot, Firestore, documentId, orderBy } from 'firebase/firestore'
 import { app_auth, app_DB } from '../../../firebaseConfig'
 import Animated, { Extrapolate, interpolate, useAnimatedRef, useAnimatedStyle, useSharedValue } from 'react-native-reanimated'
+import { FontAwesome } from 'react-native-vector-icons'
 import Trilha from '../trilha'
 
 
 
-const OnboardingItem = ({ item, navigation, index, x }) => {
+const OnboardingItem = ({ item, navigation, index, x, size }) => {
 
 
     const [Usuarios, setUsuarios] = useState([]);
@@ -124,6 +125,7 @@ const OnboardingItem = ({ item, navigation, index, x }) => {
 
 
             <View style={{ flex: 0.3 }}>
+                
                 <Text style={styles.title}>{item.NomeTrilha}</Text>
                 <Text style={styles.description}>{item.Descricao}</Text>
 
@@ -134,7 +136,7 @@ const OnboardingItem = ({ item, navigation, index, x }) => {
 
                 {item.NomeTrilha == "Gourmet" && prem == true && (
                     <>
-                        <TouchableOpacity onPress={() => navigation.navigate("Trilha", { paramKey: [item.NomeTrilha, item.Descricao, item.Cor, item.CorBorda, item.CorFill] })} style={[styles.buttonRegistro, { borderColor: item.CorBorda, backgroundColor: item.CorFill }]} title='Registrar' >
+                        <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate("Trilha", { paramKey: [item.NomeTrilha, item.Descricao, item.Cor, item.CorBorda, item.CorFill] })} style={[styles.buttonRegistro, { borderColor: item.CorBorda, backgroundColor: item.CorFill }]} title='Registrar' >
                             <Text style={[styles.botaoTexto]}>Entrar</Text>
                         </TouchableOpacity>
                         <View style={{ alignSelf: "center", marginTop: "10%", }} >
@@ -184,7 +186,18 @@ const OnboardingItem = ({ item, navigation, index, x }) => {
                 )}
 
             </View>
-
+            {index == 0 ? (
+                    <>
+                        <FontAwesome style={{ position: 'absolute', right: 25, bottom: 120 }} name="arrow-right" color={"rgba(0,0,0,0.57)"} size={25} />
+                    </>
+                ) : (
+                    <>
+                        <FontAwesome style={{ position: 'absolute', left: 25, bottom: 120 }} name="arrow-left" color={"rgba(0,0,0,0.57)"} size={25} />
+                        {index + 1 != size &&
+                            <FontAwesome style={{ position: 'absolute', right: 25 , bottom: 120}} name="arrow-right" color={"rgba(0,0,0,0.57)"} size={25} />
+                        }
+                    </>
+                )}
         </View>
 
 

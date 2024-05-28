@@ -1,46 +1,35 @@
-import { View, StyleSheet, Image, Text, TouchableOpacity, Modal, TextInput, Alert, Dimensions, ScrollView, AppRegistry, ActivityIndicator } from "react-native"
-import Feather from 'react-native-vector-icons/Feather'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import { View, StyleSheet, Image, Text, TouchableOpacity, Modal, TextInput, ScrollView, ActivityIndicator, Dimensions } from "react-native"
+import { Feather, FontAwesome, FontAwesome6 } from 'react-native-vector-icons'
 import { useState, useEffect } from "react"
 import { ActionModal } from "../../components/actionmodal"
 import { Badges } from "../../components/badges"
-import { app_auth, app_BKT, app_DB } from '../../../firebaseConfig'
+import { app_auth, app_DB } from '../../../firebaseConfig'
 import { doc, collection, query, where, onSnapshot, documentId, updateDoc } from 'firebase/firestore'
 import { onAuthStateChanged } from "firebase/auth"
 import * as Progress from "react-native-progress"
 import { SafeAreaView } from "react-native-safe-area-context"
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 
 
-export default function Profile({ navigation }) {
+const Profile = ({ navigation }) => {
 
-    const [Receitas, setReceitas] = useState()
-    const [user, setUser] = useState()
-    const height = Dimensions.get("window").height
+    const [Receitas, setReceitas] = useState([])
     const [visible, setVisible] = useState(false)
     const [inputOn, setInputOn] = useState(false)
     const [newName, setNewName] = useState('')
-
-    let visibleInput = null
-    let visibleClose = null
-    let visibleSend = null
+    const [totalXp, setTotalXP] = useState(0)
+    const [progressToBar, setProgressToBar] = useState(0)
+    const width = Dimensions.get('window').width
 
     useEffect(() => {
         const login = onAuthStateChanged(app_auth, (user) => {
             try {
-                //the setUser works as a way to make the dependecy (app_auth.currentUser.uid) actually make useEffect happen
-                //don't know exactly why it works like that, but it works
-                //there's still the problem that it flashes the old user for a sec when working through asyncstorage
-                //but I think this is better than updating the profile each time the user accesses it
                 const receitaRef = collection(app_DB, 'Usuarios')
 
                 const q = query(
                     receitaRef,
                     where(documentId(), '==', app_auth.currentUser.uid)
                 )
-
-                setUser(app_auth.currentUser.uid)
 
                 const subscriver = onSnapshot(q, {
                     next: (snapshot) => {
@@ -53,8 +42,10 @@ export default function Profile({ navigation }) {
 
                             })
                         })
-                        setReceitas(receitas)
-                        console.log(app_auth.currentUser.email)
+                        setReceitas(receitas[0])
+                        let total = 200 + (((receitas[0].Nivel - 1) * receitas[0].Nivel) * 10)
+                        setTotalXP(total)
+                        setProgressToBar(receitas[0].Exp / total)
                         console.log("Queried the profile, reason: auth state update.")
 
 
@@ -74,28 +65,23 @@ export default function Profile({ navigation }) {
 
     const handleModal = () => {
         setVisible(!visible);
+        setInputOn(false);
+        setNewName('');
     }
 
     const handleModalSignOut = () => {
         setVisible(!visible);
-        setReceitas();
+        setReceitas([]);
         app_auth.signOut();
         AsyncStorage.clear();
-        ReactNativeAsyncStorage.clear();
     }
 
     const handleInput = () => {
-        setVisible(false)
         setInputOn(true);
     }
 
-    const closeThisBitchUp = () => {
-        setNewName('')
-        setInputOn(false);
-    }
-
-    const handleUpdate = async () => {
-        if (newName != '') {
+    const handleUpdate = async (update) => {
+        if (newName != '' && update) {
             try {
                 const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
                 await updateDoc(userRef, {
@@ -108,222 +94,197 @@ export default function Profile({ navigation }) {
                 alert("Ocorreu um erro " + error)
             }
         } else {
+            setNewName('')
             setInputOn(false);
         }
     };
 
-    if (Receitas != undefined) {
-        let nome = Receitas[0].Nome
-        let titulo = Receitas[0].Titulo
+    return (
+        <SafeAreaView style={styles.container} >
+            {Receitas.length != 0 ? (
+                <ScrollView style={{ minWidth: "100%" }} >
 
-        let totalXp = 200 + (((Receitas[0].Nivel - 1) * Receitas[0].Nivel) * 10)
-        let progressToBar = (Receitas[0].Exp / totalXp)
-
-        let progressMyBar = (
-            <Progress.Bar style={{ position: 'absolute' }}
-                progress={progressToBar}
-                width={325}
-                height={40}
-                borderRadius={9}
-                color="#FA787D"
-                borderWidth={0}
-                unfilledColor="#EFEFEF"
-            />
-        )
-        let progressExp = (
-            <Text style={styles.exp} >EXP: {Receitas != undefined ? Receitas[0].Exp : 0} / {totalXp}</Text>
-        )
-
-        if (inputOn) {
-            nome = null
-            titulo = null
-            progressMyBar = null
-            progressExp = null
-            visibleInput = (<TextInput enterKeyHint={"done"} value={newName} onChangeText={(text) => setNewName(text)} autoFocus={true} maxLength={35} placeholder="Digite o nome" style={styles.nameinput} />)
-            visibleSend = (<TouchableOpacity style={{ marginRight: 30 }} onPress={handleUpdate} ><Ionicons name="checkmark-circle" size={50} color="#70D872" /></TouchableOpacity>)
-            visibleClose = (<TouchableOpacity onPress={closeThisBitchUp} ><Ionicons name="close-circle" size={50} color="#FA787D" /></TouchableOpacity>);
-        }
-
-        return (
-            <SafeAreaView style={styles.container} >
-                <ScrollView contentContainerStyle={{ minHeight: "100%", width: "100%" }} >
-                    <TouchableOpacity style={{ zIndex: 99 }} onPress={handleModal} >
-                        <Feather style={styles.menu} name="menu" size={35} color="#000" />
+                    <TouchableOpacity activeOpacity={0.8} style={{ zIndex: 99 }} onPress={() => handleModal()} >
+                        <FontAwesome6 style={styles.menu} name="gear" size={27} color="#FFF" />
                     </TouchableOpacity>
-                    <View style={styles.pfpstuff} >
-                        <View style={styles.bgpfp} ></View>
-                        <View style={styles.brdrpfp} >
-                            <Image
-                                source={{ uri: Receitas[0].Foto }}
-                                style={styles.pfp}
-
-                            />
-                        </View>
-                        <View>
-                            <Image
-                                source={require('../../assets/bandeira-nivel.png')}
-                                style={styles.flag}
-                            />
-                            <Text style={styles.lvl} >Lv. {Receitas[0].Nivel}</Text>
-                            <View>
-                                <Text style={styles.name} >{nome}</Text>
-                                <Text style={styles.title} >{titulo}</Text>
-
-                                <View style={styles.inputarea} >
-                                    {visibleInput}
+                    <View style={{ paddingStart: 5, paddingEnd: 5, marginBottom: 50 }} >
+                        <View style={styles.bgimg}>
+                            <View style={styles.titlearea} >
+                                <View style={{ borderWidth: 6, borderRadius: 100, marginRight: 5, borderColor: "#2985DB" }} >
+                                    <Image style={styles.notalberto} source={{ uri: Receitas.Foto }} />
                                 </View>
-                                <View style={styles.buttonarea} >
-                                    {visibleSend}
-                                    {visibleClose}
+                                <View style={{ flex: 1, justifyContent: 'center' }}>
+                                    <Text style={[styles.trilhaTit,]}>{Receitas.Nome}</Text>
+                                    <Text style={[styles.trilhaTit, { color: "rgba(255,255,255,0.85)", fontSize: 24 }]}>{Receitas.Titulo}</Text>
                                 </View>
                             </View>
                         </View>
-                        <View style={styles.progressbar} >
-                            {progressMyBar}
-                            {progressExp}
-
-                        </View>
-
-                        <View style={{ flex: 1, width: "100%" }} />
-                        <View style={styles.badgearea} >
-                            <Text style={styles.badgetitle} >Insígnias</Text>
-                            <View style={styles.stepslist} >
-                                <View style={styles.badges} >
-                                    <Badges data={Receitas[0]} />
-                                </View>
-                            </View>
-                        </View>
-
                     </View>
+
+                    <View style={{ paddingStart: 5, paddingEnd: 5, marginBottom: 60 }} >
+                        <View style={styles.bgimg}>
+                            <View style={{ flex: 1, justifyContent: 'center', paddingVertical: 20 }}>
+                                <Text style={[styles.trilhaTit, { backgroundColor: "#2985DB", borderRadius: 20, padding: 5 }]}>Nível {Receitas.Nivel}</Text>
+                                <View style={{ alignSelf: "center", marginTop: 25 }} >
+
+                                    <Progress.Bar
+                                        style={{ justifyContent: 'center' }}
+                                        progress={progressToBar}
+                                        width={width - 50}
+                                        height={45}
+                                        borderRadius={20}
+                                        color={"#FFF"}
+                                        borderWidth={0}
+                                        unfilledColor={progressToBar != 1 ? "rgba(255,255,255,0.6)" : item.CorFill}
+                                    ><Text style={{ position: 'absolute', alignSelf: 'center', color: progressToBar != 1 ? "rgba(0,0,0,0.65)" : "#FFF", fontSize: 23, fontWeight: 'bold' }}  >XP: {Receitas.Exp} / {totalXp}</Text></Progress.Bar>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+                    {Receitas.Insignias.length != 0 &&
+                        <View style={{ paddingStart: 5, paddingEnd: 5 }} >
+                            <View style={styles.badgearea} >
+                                <Text style={styles.badgetitle} >Insígnias</Text>
+                                <View style={styles.stepslist} >
+                                    <View style={styles.badges} >
+                                        <Badges data={Receitas.Insignias} />
+                                    </View>
+                                </View>
+                            </View>
+                        </View>
+                    }
+
+                    <Modal visible={visible}
+                        onRequestClose={handleModal}
+                        animationType="slide"
+                        transparent={true}
+                    >
+                        <ActionModal
+                            handleActionOff={handleModalSignOut}
+                            handleAction={handleModal}
+                            navigation={navigation}
+                            handleName={handleInput}
+                            userImage={Receitas.Foto}
+                            input={inputOn}
+                            changeInput={setInputOn}
+                            name={newName}
+                            nameChange={setNewName}
+                            update={handleUpdate}
+
+                        />
+                    </Modal>
                 </ScrollView>
+            ) : (
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "#FFF" }} >
+                    <ActivityIndicator size={120} color={"#3B98EF"} />
+                    <Text style={{ marginTop: 15, fontSize: 20, textAlign: 'center', width: "90%" }} >Carregando...</Text>
+                </View>
+            )
+            }
 
-                <Modal visible={visible}
-                    onRequestClose={handleModal}
-                    animationType="slide"
-                    transparent={true}
-                >
-                    <ActionModal
-                        handleActionOff={handleModalSignOut}
-                        handleAction={handleModal}
-                        navigation={navigation}
-                        handleName={handleInput}
-                        userImage={Receitas[0].Foto}
-
-                    />
-                </Modal>
-
-            </SafeAreaView>
-        )
-    } else {
-        return (
-            <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "#FFF" }} >
-                <ActivityIndicator size={120} color={"#3B98EF"} />
-                <Text style={{ marginTop: 15, fontSize: 20, textAlign: 'center', width: "90%" }} >Carregando...</Text>
-            </SafeAreaView>
-        );
-    };
+        </SafeAreaView>
+    )
 }
+
+export default Profile
 
 const styles = StyleSheet.create({
     container: {
-        height: "100%",
+        flex: 1,
         display: 'flex',
-        backgroundColor: "#FFF"
-    },
-    pfp: {
-        width: 175,
-        height: 175,
-        borderRadius: 100,
-    },
-    pfpstuff: {
+        backgroundColor: '#FFF',
         alignItems: 'center',
-        flex: 1
+        justifyContent: 'flex-start',
     },
-    bgpfp: {
+    bgimg: {
+        width: "100%",
+        borderRadius: 20,
+        borderWidth: 6,
+        borderBottomWidth: 9,
+        borderColor: "#2985DB",
         backgroundColor: "#3B98EF",
-        width: '100%',
-        height: 130,
-        position: "absolute"
-    },
-    brdrpfp: {
-        width: 195,
-        height: 195,
-        borderRadius: 150,
-        borderWidth: 10,
-        marginBottom: -100,
-        borderColor: "#FFF",
-        backgroundColor: "#EFEFEF",
-        marginTop: 35
-    },
-    name: {
-        alignSelf: 'center',
-        fontSize: 29,
-        marginTop: 12,
-        fontWeight: 'bold',
-        color: "#303030"
-    },
-    nameinput: {
-        backgroundColor: "#3B98EF",
-        paddingHorizontal: 12,
-        borderRadius: 15,
-        textAlign: 'center',
-        width: 320,
-        fontSize: 29
-
-    },
-    title: {
-        alignSelf: 'center',
-        fontSize: 24,
-        fontWeight: '600',
-        color: "#909090"
-    },
-    flag: {
-        alignSelf: 'center',
-        width: 208,
-        height: 48,
-        marginTop: 60
-    },
-    lvl: {
-        alignSelf: 'center',
-        fontSize: 27,
-        position: "absolute",
-        marginTop: 60,
-        fontWeight: '700'
-
+        alignItems: 'center'
     },
     menu: {
         position: "absolute",
         alignSelf: 'flex-end',
-        padding: 15,
+        padding: 20,
+        paddingRight: 25
 
     },
-    inputarea: {
+    booklet: {
+        height: '100%',
+        width: '100%',
         position: 'absolute',
-        marginTop: 23,
-        alignItems: 'center',
-        alignSelf: 'center'
-
+        resizeMode: 'stretch'
     },
-    buttonarea: {
+    titlearea: {
+        width: '100%',
+        paddingStart: 10,
+        paddingEnd: 10,
+        marginVertical: 15,
+        zIndex: 98,
         flexDirection: 'row',
-        justifyContent: 'space-around',
-        marginTop: 70,
-        position: 'absolute',
-        alignSelf: 'center',
+        justifyContent: 'space-between',
+        alignItems: 'center',
 
+    },
+    notalberto: {
+        width: 115,
+        height: 115,
+        borderRadius: 100,
+
+    },
+    flag: {
+        alignSelf: 'center',
+        position: 'absolute',
+        width: 145.6,
+        height: 33.6,
+        bottom: -10
+    },
+    lvl: {
+        alignSelf: 'center',
+        fontSize: 22,
+        position: "absolute",
+        bottom: -5,
+        fontWeight: '700'
+
+    },
+    trilhaTit: {
+        textAlign: 'center',
+        marginBottom: 5,
+        fontSize: 28,
+        fontWeight: "bold",
+        color: "#FFF",
+        //fontFamily: FontFamily.leagueSpartanBold
     },
     exp: {
         position: 'absolute',
         alignSelf: 'center',
-        color: "rgba(0,0,0,0.4)",
+        color: "rgba(255,255,255,0.95)",
         fontWeight: 'bold',
         fontSize: 27
     },
-    progressbar: {
-        justifyContent: 'center',
+    moneycontainer: {
+        width: "100%",
+        marginBottom: 140
+    },
+    moneyarea: {
+        backgroundColor: "#3B98EF",
+        borderColor: "#2985DB",
+        borderRadius: 20,
+        borderWidth: 6,
+        width: "100%",
+        paddingStart: 50,
+        paddingVertical: 15,
         alignItems: 'center',
-        marginTop: 45,
-        marginBottom: 100
+        justifyContent: 'space-between',
+        flexDirection: 'row'
+    },
+    monay: {
+        color: "#FFF",
+        fontSize: 30,
+        fontWeight: 'bold'
     },
     badgearea: {
         backgroundColor: "#EFEFEF",

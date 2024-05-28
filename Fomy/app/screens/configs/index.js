@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, StyleSheet, TextInput, Pressable } from "
 import { app_auth } from '../../../firebaseConfig'
 import { useLayoutEffect } from "react"
 import { SafeAreaView } from "react-native-safe-area-context"
-import { Feather, FontAwesome } from 'react-native-vector-icons'
+import { Feather, FontAwesome, FontAwesome6 } from 'react-native-vector-icons'
 import { ScrollView } from "react-native"
 
 
@@ -71,7 +71,7 @@ export default function Configs ({navigation}){
                 <View style={styles.deletearea} >
                     <TouchableOpacity style={styles.delete} onPress={ () => navigation.navigate("DeleteAccount")} activeOpacity={0.9} >
                         <Text style={[styles.action, {color: "#E15F64"}]} >Deletar Conta</Text>
-                        <Feather color="#E15F64" name="user-x" size={24} />
+                        <FontAwesome6 color="#E15F64" name="fire" size={24} />
                     </TouchableOpacity>
                 </View>
 

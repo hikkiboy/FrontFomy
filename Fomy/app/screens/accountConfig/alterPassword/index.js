@@ -5,8 +5,7 @@ import { collection, deleteDoc, doc, query, where, onSnapshot, documentId } from
 import { useState, useEffect, useLayoutEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import Feather from 'react-native-vector-icons/Feather'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import {FontAwesome, FontAwesome6} from 'react-native-vector-icons'
 
 
 export default function AlterPassword({ navigation }){
@@ -117,7 +116,7 @@ export default function AlterPassword({ navigation }){
                         onChangeText={(text) => setSenha(text)}
                         secureTextEntry={true}
                     />
-                    <Feather name="lock" size={27} />
+                    <FontAwesome6 color={"#303030"} name="lock" size={25} />
                 </View>
                 <View style={styles.inputextarea}>
                     <TextInput
@@ -128,7 +127,7 @@ export default function AlterPassword({ navigation }){
                         onChangeText={(text) => setNovaSenha(text)}
                         secureTextEntry={true}
                     />
-                    <Feather name="lock" size={27} />
+                    <FontAwesome6 color={"#303030"} name="lock" size={25} />
                 </View>
             </View>
 

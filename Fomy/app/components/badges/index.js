@@ -10,14 +10,14 @@ export function Badges({ data }) {
     
     const height = Dimensions.get("window").height
     const width = Dimensions.get("window").width
-    const [imageHeight, setImageHeight] = useState(109.25)
-    const [imageWidth, setImageWidth] = useState(104.5)
+    const [imageHeight, setImageHeight] = useState(114.7125)
+    const [imageWidth, setImageWidth] = useState(109.725)
     const [margin, setMargin] = useState(12)
     const [selectedBadge, setSelectedBadge] = useState()
 
     useEffect(()=>{
 
-        if(data.Insignias[0] != "" ){
+        if(data != "" ){
     
         const insigniasRef = collection(app_DB, 'Insignias')
 
@@ -25,7 +25,7 @@ export function Badges({ data }) {
     
         const q = query(
             insigniasRef,
-            where(documentId(), 'in', data.Insignias)
+            where(documentId(), 'in', data)
         )
     
         
@@ -78,25 +78,25 @@ export function Badges({ data }) {
         <View style={[styles.container]} >
             <FlatList
                 data={Insignias}
-                scrollEnabled={false}
-                numColumns={3}
+                horizontal
+                showsHorizontalScrollIndicator={false}
                 renderItem={({item, index}) => {
                     return(
                         <TouchableOpacity activeOpacity={0.9} 
-                                          style={styles.thebadge}
+                                          style={[styles.thebadge, {marginLeft: index == 0 && 10, marginRight: index + 1 == Insignias.length && 10 }]}
                                           onPress={() => checkBadge(index)}
                         >
                             <Image source={{ uri: item.Imagem }} 
                                    resizeMode='contain' 
                                    style={{width: imageWidth, 
-                                           height: imageHeight, 
-                                           marginRight: (index + 1) % 3 == 0 ? 0 : margin,
+                                           height: imageHeight,
                                          }}
                             />
                         </TouchableOpacity>
                     )
                     
                 }}
+                ItemSeparatorComponent={<View style={{ width: 25, height: 25 }} />}
             />
             <Modal visible={visible}
                 onRequestClose={checkBadge} 
@@ -117,8 +117,8 @@ export function Badges({ data }) {
 const styles = StyleSheet.create({
     container:{
         alignItems: 'center',
-        marginVertical: 20,
-        marginTop: 24.25
+        marginVertical: 25,
+        marginTop: 30.3125
     },
     thebadge:{
         alignItems: 'center',

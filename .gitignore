@@ -33,3 +33,7 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+#no api for u
+Fomy/firebaseConfig.js
+/Fomy/firebaseConfig.js

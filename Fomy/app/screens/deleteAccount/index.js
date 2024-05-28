@@ -8,7 +8,7 @@ import { ref, deleteObject } from "firebase/storage";
 import { useState, useEffect, useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Feather from 'react-native-vector-icons/Feather'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import {FontAwesome, FontAwesome6} from 'react-native-vector-icons'
 
 
 export default function DeleteAccount({ navigation }){
@@ -116,13 +116,13 @@ export default function DeleteAccount({ navigation }){
                         onChangeText={(text) => setSenha(text)}
                         secureTextEntry={true}
                     />
-                    <Feather name="lock" size={27} />
+                    <FontAwesome6 color={"#303030"} name="lock" size={27} />
                 </View>
             </View>
             <View style={styles.deletearea} >
                 <TouchableOpacity style={styles.delete} onPress={DeleteAll} activeOpacity={0.9} >
                     <Text style={styles.action} >Confirmar</Text>
-                    <FontAwesome color={"#FFF"} name="eraser" size={25} />
+                    <FontAwesome6 color={"#FFF"} name="eraser" size={25} />
                 </TouchableOpacity>
             </View>
 

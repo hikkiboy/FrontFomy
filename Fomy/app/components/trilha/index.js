@@ -14,6 +14,7 @@ export default function Trilha({ route, navigation }) {
   const [Receitas, setReceitas] = useState([]);
   const [modal, setModal] = useState([])
   const [onde, setOnde] = useState()
+  const [feito, setFeito] = useState([])
   const [bg, setBg] = useState();
 
 
@@ -73,7 +74,7 @@ export default function Trilha({ route, navigation }) {
           })
         })
         setOnde(receitas)
-
+        setFeito(receitas[0].ReceitasFeitas)
 
 
       }
@@ -174,6 +175,8 @@ export default function Trilha({ route, navigation }) {
             >
               <ModalTrilha
                 handleAction={handleModal}
+                userRecipes={feito}
+                description={route.params.paramKey[1]}
                 data={modal}
                 navigation={navigation}
                 cor={route.params.paramKey[2]}
@@ -205,6 +208,8 @@ export default function Trilha({ route, navigation }) {
             >
               <ModalTrilha
                 handleAction={handleModal}
+                userRecipes={feito}
+                description={route.params.paramKey[1]}
                 data={modal}
                 navigation={navigation}
                 cor={route.params.paramKey[2]}

@@ -88,7 +88,7 @@ const Home = ({ navigation }) => {
                 onScroll={onScroll}
                 data={Receitas}
                 renderItem={({ item, index }) => {
-                    return <OnboardingItem item={item} index={index} x={x} navigation={navigation} />
+                    return <OnboardingItem size={Receitas.length} item={item} index={index} x={x} navigation={navigation} />
                 }}
                 keyExtractor={item => item.key}
                 scrollEventThrottle={16}
