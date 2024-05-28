@@ -159,7 +159,7 @@ const OnboardingItem = ({ item, navigation, index, x, size }) => {
                 {/* SE A TRILHA NÃO FOR A GOURMET RENDERIZA O BOTÃO*/}
                 {item.NomeTrilha != "Gourmet" && (
                     <>
-                        <TouchableOpacity onPress={() => navigation.navigate("Trilha", { paramKey: [item.NomeTrilha, item.Descricao, item.Cor, item.CorBorda, item.CorFill] })} style={[styles.buttonRegistro, { borderColor: item.CorBorda, backgroundColor: item.CorFill }]} title='Registrar' >
+                        <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate("Trilha", { paramKey: [item.NomeTrilha, item.Descricao, item.Cor, item.CorBorda, item.CorFill] })} style={[styles.buttonRegistro, { borderColor: item.CorBorda, backgroundColor: item.CorFill }]} title='Registrar' >
                             <Text style={[styles.botaoTexto]}>Entrar</Text>
                         </TouchableOpacity>
                         <View style={{ alignSelf: "center", marginTop: "10%", }} >
