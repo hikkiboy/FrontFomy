@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, TouchableOpacity, ActivityIndicator, StyleSheet, Image, Dimensions, Modal } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, ActivityIndicator, StyleSheet, Image, Dimensions, Modal, Platform } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { app_auth } from "../../firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Logo } from "../components/logo";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { sendPasswordResetEmail } from "firebase/auth";
-import { Feather } from 'react-native-vector-icons'
+import { Feather, FontAwesome6 } from 'react-native-vector-icons'
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const PasswordResets = () => {
@@ -193,7 +193,7 @@ const PasswordResets = () => {
             autoCapitalize="none"
             onChangeText={(text) => setEmail(text)}
           />
-        <Feather name="mail" size={27} color={"rgba(0,0,0,0.5)"} />
+        <FontAwesome6 name="at" size={26} color={"#303030"} />
       </View>
       <TouchableOpacity title="Enviar" style={[styles.buttonLogin, { height: stuffHeight }]} onPress={PasswordReset}>
         <Text style={[styles.text, { fontSize: fontSize }]}>Redefinir Senha</Text>

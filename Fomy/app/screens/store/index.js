@@ -236,6 +236,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     width: "100%",
     flex: 1,
+    marginBottom: 70
   },
   itemcontainer: {
     width: "100%",

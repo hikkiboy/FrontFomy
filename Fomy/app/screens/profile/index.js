@@ -65,6 +65,8 @@ const Profile = ({ navigation }) => {
 
     const handleModal = () => {
         setVisible(!visible);
+        setInputOn(false);
+        setNewName('');
     }
 
     const handleModalSignOut = () => {
@@ -75,7 +77,6 @@ const Profile = ({ navigation }) => {
     }
 
     const handleInput = () => {
-        setVisible(false)
         setInputOn(true);
     }
 
@@ -140,18 +141,18 @@ const Profile = ({ navigation }) => {
                             </View>
                         </View>
                     </View>
-
-                    <View style={{ paddingStart: 5, paddingEnd: 5 }} >
-                        <View style={styles.badgearea} >
-                            <Text style={styles.badgetitle} >Insígnias</Text>
-                            <View style={styles.stepslist} >
-                                <View style={styles.badges} >
-                                    <Badges data={Receitas.Insignias} />
+                    {Receitas.Insignias.length != 0 &&
+                        <View style={{ paddingStart: 5, paddingEnd: 5 }} >
+                            <View style={styles.badgearea} >
+                                <Text style={styles.badgetitle} >Insígnias</Text>
+                                <View style={styles.stepslist} >
+                                    <View style={styles.badges} >
+                                        <Badges data={Receitas.Insignias} />
+                                    </View>
                                 </View>
                             </View>
                         </View>
-                    </View>
-
+                    }
 
                     <Modal visible={visible}
                         onRequestClose={handleModal}
@@ -164,6 +165,11 @@ const Profile = ({ navigation }) => {
                             navigation={navigation}
                             handleName={handleInput}
                             userImage={Receitas.Foto}
+                            input={inputOn}
+                            changeInput={setInputOn}
+                            name={newName}
+                            nameChange={setNewName}
+                            update={handleUpdate}
 
                         />
                     </Modal>
