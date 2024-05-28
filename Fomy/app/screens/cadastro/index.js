@@ -9,6 +9,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { Feather } from 'react-native-vector-icons'
 import { FontAwesome } from 'react-native-vector-icons'
 import { Overlay } from 'react-native-elements';
+import { ModalTerm } from '../../components/actionmodal/modalterms'; 
 
 
 
@@ -34,6 +35,16 @@ const Cadastro = ({ navigation }) => {
     const [problem, setProblem] = useState(false);
     const [whatError, setWhatError] = useState("");
     const auth = app_auth;
+
+    const [modalVisible, setModalVisible] = useState(false);
+
+    const handleOpenModal = () => {
+      setModalVisible(true);
+    };
+  
+    const handleCloseModal = () => {
+      setModalVisible(false);
+    };
 
     useEffect(() => {
       if(height <= 700){
@@ -217,10 +228,20 @@ const Cadastro = ({ navigation }) => {
           <Text style={[styles.text, {fontSize: fontSize}]}>Começar jornada!</Text>
         </TouchableOpacity>
 
+        <Modal 
+                animationType="slide"
+                visible={modalVisible}
+                onRequestClose={handleCloseModal}
+            >
+            <ModalTerm handleCloseModal={handleCloseModal} />    
+          </Modal>
+
         <Text style={{ alignItems: 'center', textAlign: 'center', alignContent: 'center', marginTop: 20, width: "85%", fontSize: fontSize -4, flexDirection: 'row'}} >Ao criar uma conta, você concorda com nossos </Text>
-        <TouchableOpacity style={{ alignItems: 'center', alignContent: 'center' }} activeOpacity={0.8} >
+        <TouchableOpacity style={{ alignItems: 'center', alignContent: 'center' }} activeOpacity={0.8} onPress={handleOpenModal} >
           <Text style={{ color: "red", fontSize: fontSize -4, alignSelf: 'center' }}>Termos de serviço</Text>
         </TouchableOpacity>
+
+
 
         </KeyboardAwareScrollView>
 
@@ -276,5 +297,12 @@ const styles = StyleSheet.create({
   forgotPassword:{
     alignSelf: "center",
     opacity: 0.4
-  }
+  },
+
+  modalArea: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#62bc63',
+},
 });

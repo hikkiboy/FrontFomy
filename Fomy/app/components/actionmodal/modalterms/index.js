@@ -1,29 +1,62 @@
-import { View, Image, StyleSheet, Text, FlatList, TouchableOpacity, TextInput, LogBox, ScrollView, Modal } from 'react-native'
-import { useState, useEffect } from 'react'
-import { FontAwesome5, Feather, Octicons, FontAwesome, MaterialCommunityIcons } from 'react-native-vector-icons'
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React from 'react';
+import { SafeAreaView, ScrollView, Text, Button, StyleSheet, View, TouchableOpacity } from 'react-native';
 
-//ASLKDMASFMALGMLGSA
-
-export function ModalTerm() {
-
+export function ModalTerm({ handleCloseModal }) {
     return (
-        <SafeAreaView style={styles.container} >
-            <ScrollView>
-   
-            </ScrollView>
-        </SafeAreaView>
-    )
-
-
+        <View style={styles.modal}>
+         
+                <Text style={styles.modalText}>vai tomanocu</Text>
+                <TouchableOpacity style={styles.buttonRegistro} title="Fechate" onPress={handleCloseModal}>
+                    <Text style={[styles.botaoTexto]}>Fechate</Text>
+                </TouchableOpacity>
+           
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "#FFF",
-        borderRadius: 25,
-        width: "100%",
         flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
-    
-})
+    modal: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'white',
+    },
+    modalContent: {
+        width: '80%',
+        padding: 20,
+        backgroundColor: '#62bc63',
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modalText: {
+        marginBottom: 20,
+        fontSize: 18,
+        color: '#62bc63'
+    },
+    buttonRegistro: {
+        alignSelf: "center",
+        fontSize: 20,
+        fontWeight: "bold",
+        padding: 13,
+        paddingLeft: 40,
+        paddingRight: 40,
+        borderWidth: 4,
+        borderBottomWidth: 8,
+        marginTop: 20,
+        marginBottom: 5,
+        borderRadius: 15,
+        width: 250,
+    },
+    botaoTexto: {
+        fontWeight: 'bold',
+        fontSize: 25,
+        textAlign: 'center',
+        color: "#000"
+    },
+});
