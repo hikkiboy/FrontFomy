@@ -137,10 +137,10 @@ export default function Closet({ route }) {
           </View>
         </ScrollView>
       ) : (
-        <>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}} >
           <ActivityIndicator size={120} color={"#ED8A07"} />
           <Text style={{ marginTop: 15, fontSize: 20, textAlign: 'center', width: "90%" }} >Carregando...</Text>
-        </>
+        </View>
       )}
 
 
@@ -154,7 +154,8 @@ export default function Closet({ route }) {
 
 const styles = StyleSheet.create({
   container: {
-    height: "100%",
+    width: "100%",
+    flex: 1,
     display: 'flex',
     backgroundColor: "#FFF"
   },
