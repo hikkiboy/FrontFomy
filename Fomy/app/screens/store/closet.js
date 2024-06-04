@@ -2,6 +2,7 @@ import { View, Image, StyleSheet, Text, ScrollView, Button, FlatList, Touchable,
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { app, app_DB, app_auth } from '../../../firebaseConfig'
 import { collection, onSnapshot, query, where, orderBy, documentId, doc, updateDoc } from '@firebase/firestore'
+import { onAuthStateChanged } from 'firebase/auth'
 import React, { useEffect, useState } from 'react'
 import AlbertoCustom from '../../components/customalberto'
 import LazyList from '../../components/lazylist'
@@ -43,9 +44,16 @@ export default function Closet({ route }) {
   }
 
   useEffect(() => {
+    try {
+      const login = onAuthStateChanged(app_auth, () => {
+        getUser();
+      })
 
-    getUser();
+      return () => login();
 
+    } catch (error) {
+      console.log(error);
+    }
 
   }, [])
 
@@ -82,10 +90,12 @@ export default function Closet({ route }) {
       })
 
       return () => subscriver()
+    } else {
+      setRealDawg([])
     }
 
   }
-    , [user])
+    , [user, app_auth.currentUser])
 
   //console.log(itens)
 
@@ -137,7 +147,7 @@ export default function Closet({ route }) {
           </View>
         </ScrollView>
       ) : (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}} >
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} >
           <ActivityIndicator size={120} color={"#ED8A07"} />
           <Text style={{ marginTop: 15, fontSize: 20, textAlign: 'center', width: "90%" }} >Carregando...</Text>
         </View>

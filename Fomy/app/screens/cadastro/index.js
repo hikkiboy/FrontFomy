@@ -72,7 +72,7 @@ const Cadastro = ({ navigation }) => {
           Alergias: [],
           Exp: 0,
           Foto: "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Pfps%2Falbertobutpfp.png?alt=media&token=d75260c5-3ad6-4142-a202-4d127b293cf4",
-          Itens: ["1", "2", "3", "4"],
+          Itens: ["1", "5", "6", "9"],
           Moedas: 0,
           Nivel: 1,
           Nome: nome,
@@ -84,7 +84,7 @@ const Cadastro = ({ navigation }) => {
           Doces: 0,
           Gourmet: 0,
           Refeições: 0,
-          ItensAli: ["https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/alberto%2Fcustom-parts%2Fhead%2Falberto.ClassicHat.png?alt=media&token=cfa43ad3-4717-4f98-b05d-0493c85da229", "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/alberto%2Falbertoeyes.png?alt=media&token=96eab812-a198-43f0-b1b7-40f8be93a9b4", "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/alberto%2Falbertoboca.png?alt=media&token=b5e9e700-4bb6-4936-aeb4-479fead9d6f8", "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/alberto%2Falbertobody.png?alt=media&token=07cfd898-edd4-4551-883c-093e07af8b97"]
+          ItensAli: ["https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/alberto%2Fcustom-parts%2Fhead%2Fascasd.png?alt=media&token=d4daa64a-3a87-45bf-a1bb-5bfbe725c220", "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/alberto%2Fcustom-parts%2Feyes%2Falberto_com_olhos.png?alt=media&token=f0983ab6-477f-4ccd-8d59-aa8e19059aab", "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/alberto%2Fcustom-parts%2Fmouth%2Falberto_with_rasds.png?alt=media&token=16852973-97b8-4a4d-ba24-bf96717fd8c4", "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/alberto%2Falbertobody.png?alt=media&token=07cfd898-edd4-4551-883c-093e07af8b97"]
 
         })
 

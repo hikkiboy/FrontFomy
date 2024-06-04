@@ -1,8 +1,9 @@
 import { View, Text, Image, useWindowDimensions, StyleSheet, Button, FlatList, TouchableOpacity, ProgressBarAndroidBase } from 'react-native'
 import * as Progress from 'react-native-progress'
 import { useEffect, useState } from 'react'
-import { doc, collection, query, where, onSnapshot, Firestore, documentId, orderBy } from 'firebase/firestore'
+import { doc, collection, query, where, onSnapshot, Firestore, documentId, orderBy, } from 'firebase/firestore'
 import { app_auth, app_DB } from '../../../firebaseConfig'
+import { onAuthStateChanged } from "firebase/auth"
 import Animated, { Extrapolate, interpolate, useAnimatedRef, useAnimatedStyle, useSharedValue } from 'react-native-reanimated'
 import { FontAwesome } from 'react-native-vector-icons'
 import Trilha from '../trilha'
@@ -17,44 +18,51 @@ const OnboardingItem = ({ item, navigation, index, x, size }) => {
     const [progress, setProgress] = useState(0)
 
     useEffect(() => {
-        let proget = 0
+        try {
+            const login = onAuthStateChanged(app_auth, (user) => {
+                let proget = 0
 
-        const receitaRef = collection(app_DB, 'Usuarios')
+                const receitaRef = collection(app_DB, 'Usuarios')
 
-        const q = query(
-            receitaRef,
-            where(documentId(), '==', app_auth.currentUser.uid)
+                const q = query(
+                    receitaRef,
+                    where(documentId(), '==', app_auth.currentUser.uid)
 
-        )
-        const subscriver = onSnapshot(q, {
-            next: (snapshot) => {
-                const receitas = []
+                )
+                const subscriver = onSnapshot(q, {
+                    next: (snapshot) => {
+                        const receitas = []
 
-                snapshot.docs.forEach(doc => {
-                    receitas.push({
-                        key: doc.id,
-                        ...doc.data(),
+                        snapshot.docs.forEach(doc => {
+                            receitas.push({
+                                key: doc.id,
+                                ...doc.data(),
 
-                    })
+                            })
+                        })
+                        setUsuarios(receitas)
+                        if (item.NomeTrilha == "Básico") {
+                            proget = receitas[0].Básico;
+                        } else if (item.NomeTrilha == "Doces") {
+                            proget = receitas[0].Doces;
+                        } else if (item.NomeTrilha == "Gourmet") {
+                            proget = receitas[0].Gourmet;
+                        } else if (item.NomeTrilha == "Refeições") {
+                            proget = receitas[0].Refeições;
+                        }
+                        setProgressToBar(proget / item.NumeroReceitas)
+                        setProgress(proget)
+                        //console.log(receitas)
+                        //console.log(receitaRef)
+                    }
                 })
-                setUsuarios(receitas)
-                if (item.NomeTrilha == "Básico") {
-                    proget = receitas[0].Básico;
-                } else if (item.NomeTrilha == "Doces") {
-                    proget = receitas[0].Doces;
-                } else if (item.NomeTrilha == "Gourmet") {
-                    proget = receitas[0].Gourmet;
-                } else if (item.NomeTrilha == "Refeições") {
-                    proget = receitas[0].Refeições;
-                }
-                setProgressToBar(proget / item.NumeroReceitas)
-                setProgress(proget)
-                //console.log(receitas)
-                //console.log(receitaRef)
-            }
-        })
-        return () => subscriver()
+                return () => subscriver()
+            })
 
+            return () => login();
+        } catch (error) {
+            print(error)
+        }
     }, [])
 
 
@@ -125,7 +133,7 @@ const OnboardingItem = ({ item, navigation, index, x, size }) => {
 
 
             <View style={{ flex: 0.3 }}>
-                
+
                 <Text style={styles.title}>{item.NomeTrilha}</Text>
                 <Text style={styles.description}>{item.Descricao}</Text>
 
@@ -187,17 +195,17 @@ const OnboardingItem = ({ item, navigation, index, x, size }) => {
 
             </View>
             {index == 0 ? (
-                    <>
+                <>
+                    <FontAwesome style={{ position: 'absolute', right: 25, bottom: 120 }} name="arrow-right" color={"rgba(0,0,0,0.57)"} size={25} />
+                </>
+            ) : (
+                <>
+                    <FontAwesome style={{ position: 'absolute', left: 25, bottom: 120 }} name="arrow-left" color={"rgba(0,0,0,0.57)"} size={25} />
+                    {index + 1 != size &&
                         <FontAwesome style={{ position: 'absolute', right: 25, bottom: 120 }} name="arrow-right" color={"rgba(0,0,0,0.57)"} size={25} />
-                    </>
-                ) : (
-                    <>
-                        <FontAwesome style={{ position: 'absolute', left: 25, bottom: 120 }} name="arrow-left" color={"rgba(0,0,0,0.57)"} size={25} />
-                        {index + 1 != size &&
-                            <FontAwesome style={{ position: 'absolute', right: 25 , bottom: 120}} name="arrow-right" color={"rgba(0,0,0,0.57)"} size={25} />
-                        }
-                    </>
-                )}
+                    }
+                </>
+            )}
         </View>
 
 

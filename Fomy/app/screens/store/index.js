@@ -283,7 +283,7 @@ const styles = StyleSheet.create({
   },
   itemprice: {
     textAlign: 'center',
-    fontSize: 30,
+    fontSize: 25,
     fontWeight: 'bold',
     color: "#FFF",
   },

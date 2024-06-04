@@ -22,8 +22,8 @@ const Profile = ({ navigation }) => {
     const width = Dimensions.get('window').width
 
     useEffect(() => {
-        const login = onAuthStateChanged(app_auth, (user) => {
-            try {
+        try {
+            const login = onAuthStateChanged(app_auth, (user) => {
                 const receitaRef = collection(app_DB, 'Usuarios')
 
                 const q = query(
@@ -54,13 +54,14 @@ const Profile = ({ navigation }) => {
                 })
 
                 return () => subscriver()
-            } catch (error) {
-                console.log("User uid error, probably logged off")
-            }
 
-        });
+            });
 
-        return () => login();
+            return () => login();
+
+        } catch (error) {
+            console.log("User uid error, probably logged off")
+        }
     }, []);
 
     const handleModal = () => {

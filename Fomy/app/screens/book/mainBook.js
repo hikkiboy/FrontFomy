@@ -63,9 +63,8 @@ const MainBook = ({ navigation }) => {
     }
 
     useEffect(() => {
-
-        const login = onAuthStateChanged(app_auth, () => {
-            try {
+        try {
+            const login = onAuthStateChanged(app_auth, (bah) => {
                 const userRef = collection(app_DB, 'Usuarios')
 
                 const q = query(
@@ -92,11 +91,12 @@ const MainBook = ({ navigation }) => {
                 })
 
                 return () => subscriver()
-            } catch (error) {
-            }
-        })
-        return () => login();
+            })
+            return () => login();
 
+        } catch (error) {
+            print(error)
+        }
     }, [])
 
     useEffect(() => {
@@ -134,8 +134,8 @@ const MainBook = ({ navigation }) => {
 
         //var cart = user.Cart
 
-        const login = onAuthStateChanged(app_auth, () => {
-            try {
+        try {
+            const login = onAuthStateChanged(app_auth, () => {
                 if (user.ReceitasFeitas != undefined && user.ReceitasFeitas != {} && user.ReceitasFeitas != "" && user.ReceitasFeitas != null) {
                     try {
                         const listingRef = collection(app_DB, 'Receitas')
@@ -174,14 +174,16 @@ const MainBook = ({ navigation }) => {
                         console.log(error);
                     }
                     setListing([])
-                    console.log("unlisted");
+                    console.log("unlisted: ", app_auth.currentUser.email);
                 }
-            } catch (error) {
-            }
-        })
-        return () => login()
+            })
+            return () => login()
 
-    }, [user])
+        } catch (error) {
+            print(error)
+        }
+
+    }, [user, app_auth.currentUser])
 
     useEffect(() => {
         if (listing.length != 0 && user.ReceitasFeitas != undefined && user.ReceitasFeitas != {} && user.ReceitasFeitas != "" && user.ReceitasFeitas != null) {
