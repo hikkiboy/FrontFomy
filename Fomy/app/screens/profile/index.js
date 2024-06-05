@@ -9,7 +9,9 @@ import { onAuthStateChanged } from "firebase/auth"
 import * as Progress from "react-native-progress"
 import { SafeAreaView } from "react-native-safe-area-context"
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import { LogBox } from "react-native"
 
+LogBox.ignoreAllLogs(); //Ignore all log notifications
 
 const Profile = ({ navigation }) => {
 

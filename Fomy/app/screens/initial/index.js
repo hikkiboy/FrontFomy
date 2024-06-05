@@ -7,10 +7,10 @@ import { Octicons } from '@expo/vector-icons';
 import { useIsFocused } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import * as NavigationBar from 'expo-navigation-bar'
+import { LogBox } from 'react-native';
 
 
-
-
+LogBox.ignoreAllLogs(); //Ignore all log notifications
 
 const Login = ({navigation}) => {
   const height = Dimensions.get("window").height
