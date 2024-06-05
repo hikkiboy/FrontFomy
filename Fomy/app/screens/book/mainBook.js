@@ -193,7 +193,7 @@ const MainBook = ({ navigation }) => {
 
     const handleSearch = () => {
         if (search != "") {
-            navigation.navigate("Search", { paramKey: [search], recipes: [listing], trilha: [trilha], premium: [user.Premium] })
+            navigation.navigate("Search", { paramKey: [search], recipes: [listing], trilha: [trilha], premium: [user.Premium], user: [user.ReceitasFeitas] })
         }
     }
     const handleModal = (name) => {

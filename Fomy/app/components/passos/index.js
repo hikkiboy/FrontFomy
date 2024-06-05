@@ -128,7 +128,7 @@ export default function Passos({ route, props, navigation }) {
       } else if (userRecipes.includes(key) && route.params.origin[0] == "Book") {
         navigation.navigate("HomeStart")
       } else {
-        navigation.navigate("Parabens", { paramKey: [Receitas[0].Parabenizacao, Receitas[0].id.replace(/\s/g, ""), Receitas[0].Trilha], cores: [route.params.paramKey[1], route.params.paramKey[3], route.params.paramKey[2]] })
+        navigation.navigate("Parabens", { paramKey: [Receitas[0].Parabenizacao, Receitas[0].id.replace(/\s/g, ""), Receitas[0].Trilha], cores: [route.params.paramKey[1], route.params.paramKey[3], route.params.paramKey[2]], navigate: [route.params.trilha[0], route.params.description[0], route.params.paramKey[1], route.params.paramKey[2], route.params.paramKey[3]] })
       }
     }
   }

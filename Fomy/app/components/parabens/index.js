@@ -234,7 +234,7 @@ export default function Parabens({ navigation, route }) {
           <View style={{ marginTop: 25, width: "100%", paddingHorizontal: 20 }} >
             <Text style={styles.parabenstexto}>{route.params.paramKey[0]}</Text>
           </View>
-          <TouchableOpacity style={{ width: "100%", paddingHorizontal: 20, alignSelf: 'center' }} onPress={() => navigation.navigate('HomeStart')}>
+          <TouchableOpacity style={{ width: "100%", paddingHorizontal: 20, alignSelf: 'center' }} onPress={() => navigation.navigate("Trilha", { paramKey: [route.params.navigate[0], route.params.navigate[1], route.params.navigate[2], route.params.navigate[3], route.params.navigate[4]] })}>
             <View style={styles.butao}>
               <Text style={styles.textobutao}>OBA!</Text>
             </View>

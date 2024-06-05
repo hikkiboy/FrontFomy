@@ -21,6 +21,7 @@ export function Search({ navigation, route }) {
   const arei = Object.values(done).map((item) => item.Nome);
   const trilha = route.params.trilha[0]
   const premium = route.params.premium[0]
+  const userStuff = route.params.user[0]
 
   LogBox.ignoreLogs([
     'Non-serializable values were found in the navigation state',
@@ -175,7 +176,7 @@ export function Search({ navigation, route }) {
                   {premium == false && item.NomeTrilha == "Gourmet" ? (
                     <View />
                   ) : (
-                    <TouchableOpacity activeOpacity={0.8} style={styles.row} onPress={() => navigation.navigate('Preparo', { paramKey: [item.Nome, trilha[whyReact[index]].Cor, item.Icone, trilha[whyReact[index]].CorBorda, trilha[whyReact[index]].CorFill] })}>
+                    <TouchableOpacity activeOpacity={0.8} style={styles.row} onPress={() => navigation.navigate('Preparo', { paramKey: [item.Nome, trilha[whyReact[index]].Cor, item.Icone, trilha[whyReact[index]].CorBorda, trilha[whyReact[index]].CorFill], user: [userStuff], origin: ["Book"], description: [""] })}>
                       <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: '#E9E9E9', position: 'absolute', borderRadius: 20, marginTop: 6 }]} />
                       <View style={[{ height: '100%', width: '100%', zIndex: 1, backgroundColor: "#FFF", position: 'absolute', borderRadius: 20, borderColor: '#E9E9E9', borderWidth: 7 }]} />
                       <View style={[{ height: '100%', width: 120, zIndex: 1, backgroundColor: '#D383E3', position: 'absolute', borderRadius: 20, marginTop: 6 }]} />
