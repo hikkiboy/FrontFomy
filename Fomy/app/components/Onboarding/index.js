@@ -63,7 +63,7 @@ const OnboardingItem = ({ item, navigation, index, x, size }) => {
         } catch (error) {
             print(error)
         }
-    }, [])
+    }, [app_auth.currentUser])
 
 
 

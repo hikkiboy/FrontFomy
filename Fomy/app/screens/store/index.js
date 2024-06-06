@@ -2,8 +2,9 @@ import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, TextInput,
 import { SafeAreaView } from 'react-native-safe-area-context';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6'
 import { useEffect, useState } from 'react'
+import { onAuthStateChanged } from "firebase/auth"
 import { app_auth, app_DB } from '../../../firebaseConfig'
-import { doc, collection, query, where, onSnapshot, documentId } from 'firebase/firestore'
+import { doc, collection, query, where, onSnapshot, documentId, updateDoc, arrayUnion } from 'firebase/firestore'
 
 export default function Store({ navigation }) {
 
@@ -14,7 +15,6 @@ export default function Store({ navigation }) {
 
 
   useEffect(() => {
-
     const receitaRef = collection(app_DB, 'Itens')
 
     const q = query(
@@ -38,7 +38,7 @@ export default function Store({ navigation }) {
       }
     })
 
-    return () => subscriver()
+    return () => subscriver();
 
   }, [])
 
@@ -46,17 +46,19 @@ export default function Store({ navigation }) {
   async function UpdateArray(img, index) {
     if (buy == index) {
       setBuy()
-      let moedas = await user[0].Moedas
-      let preco = await itens[index].Valor
+      let moedas = user[0].Moedas
+      let preco = itens[index].Valor
+      let newMoedas = moedas - preco
       const userRef = doc(app_DB, 'Usuarios', app_auth.currentUser.uid)
 
       console.log(!user[0].Itens.find((element) => element == img))
 
 
       if (moedas >= preco && !user[0].Itens.find((element) => element == img)) {
+        console.log("hellooooo");
         await updateDoc(userRef, {
           Itens: arrayUnion(img),
-          Moedas: moedas - preco
+          Moedas: newMoedas
         })
       }
       else {
@@ -70,34 +72,43 @@ export default function Store({ navigation }) {
 
   useEffect(() => {
 
-    const receitaRef = collection(app_DB, 'Usuarios')
+    try {
+      const login = onAuthStateChanged(app_auth, (user) => {
 
-    const q = query(
-      receitaRef,
-      where(documentId(), '==', app_auth.currentUser.uid),
+        const receitaRef = collection(app_DB, 'Usuarios')
 
-    )
-    const subscriver = onSnapshot(q, {
-      next: (snapshot) => {
-        const receitas = []
-        snapshot.docs.forEach(doc => {
-          receitas.push({
-            key: doc.id,
-            ...doc.data(),
+        const q = query(
+          receitaRef,
+          where(documentId(), '==', app_auth.currentUser.uid),
 
-          })
+        )
+        const subscriver = onSnapshot(q, {
+          next: (snapshot) => {
+            const receitas = []
+            snapshot.docs.forEach(doc => {
+              receitas.push({
+                key: doc.id,
+                ...doc.data(),
+
+              })
+            })
+            setUser(receitas)
+            setUserStuff(receitas[0].Itens)
+
+          }
         })
-        setUser(receitas)
-        setUserStuff(receitas[0].Itens)
 
-      }
-    })
+        return () => subscriver()
 
-    return () => subscriver()
+      })
+      return () => login();
+
+    } catch (error) {
+      console.log(error);
+    }
 
 
-
-  }, [])
+  }, [app_auth.currentUser])
 
   return (
     <SafeAreaView style={styles.container}>
