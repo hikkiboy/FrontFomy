@@ -110,7 +110,7 @@ const Profile = ({ navigation }) => {
                     <TouchableOpacity activeOpacity={0.8} style={{ zIndex: 99 }} onPress={() => handleModal()} >
                         <FontAwesome6 style={styles.menu} name="gear" size={27} color="#FFF" />
                     </TouchableOpacity>
-                    <View style={{ paddingStart: 5, paddingEnd: 5, marginBottom: 50 }} >
+                    <View style={{ paddingStart: 5, paddingEnd: 5, marginBottom: 50, marginTop: 5 }} >
                         <View style={styles.bgimg}>
                             <View style={styles.titlearea} >
                                 <View style={{ borderWidth: 6, borderRadius: 100, marginRight: 5, borderColor: "#2985DB" }} >

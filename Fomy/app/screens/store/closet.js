@@ -114,11 +114,13 @@ export default function Closet({ route }) {
     <SafeAreaView style={styles.container}>
       {realDawg != null && realDawg.length != 0 ? (
         <ScrollView contentContainerStyle={{ minHeight: "100%", width: "100%" }} >
-          <View style={styles.bgimg}>
-            <Image tintColor={"#ED8A07"} style={styles.booklet} source={require('../../assets/booklet.png')} />
-            <View style={styles.titlearea} >
-              <Text style={styles.trilhaTit}>Armário</Text>
-              <AlbertoCustom width={250} height={250} />
+          <View style={{ paddingHorizontal: 5, paddingTop: 5 }} >
+            <View style={styles.bgimg}>
+              <Image tintColor={"#ED8A07"} style={styles.booklet} source={require('../../assets/booklet.png')} />
+              <View style={styles.titlearea} >
+                <Text style={styles.trilhaTit}>Armário</Text>
+                <AlbertoCustom width={250} height={250} />
+              </View>
             </View>
           </View>
           <View style={styles.badgearea} >

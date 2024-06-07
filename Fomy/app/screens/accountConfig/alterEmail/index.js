@@ -98,7 +98,6 @@ export default function AlterEmail({ navigation }){
                         placeholder="Insira seu e-mail atual"
                         autoCapitalize="none"
                         onChangeText={(text) => setEmail(text)}
-                        secureTextEntry={true}
                     ></TextInput>
                     <FontAwesome6 color={"#303030"} name="at" size={25} />
                 </View>
@@ -109,7 +108,6 @@ export default function AlterEmail({ navigation }){
                         placeholder="Insira seu e-mail novo"
                         autoCapitalize="none"
                         onChangeText={(text) => setNovoEmail(text)}
-                        secureTextEntry={true}
                     ></TextInput>
                     <FontAwesome6 color={"#303030"} name="at" size={25} />
                 </View>

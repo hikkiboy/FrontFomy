@@ -147,20 +147,21 @@ export default function Trilha({ route, navigation }) {
       </TouchableOpacity>
       <ScrollView>
 
-        <View style={[styles.bgimg, { backgroundColor: route.params.paramKey[2] }]}>
-          <Image tintColor={route.params.paramKey[4]} style={styles.booklet} source={require('../../assets/booklet.png')} />
-          <View style={styles.titlearea} >
-            <Image style={{ width: 108, height: 139, marginRight: 5 }} source={require('../../assets/betterAlberto.png')} />
+        <View style={{ paddingHorizontal: 5, paddingTop: 5 }} >
+          <View style={[styles.bgimg, { backgroundColor: route.params.paramKey[2] }]}>
+            <Image tintColor={route.params.paramKey[4]} style={styles.booklet} source={require('../../assets/booklet.png')} />
+            <View style={styles.titlearea} >
+              <Image style={{ width: 108, height: 139, marginRight: 5 }} source={require('../../assets/betterAlberto.png')} />
 
-            <View style={{ flex: 1, justifyContent: 'center' }}>
-              <Text style={[styles.trilhaTit]}>{route.params.paramKey[0]}</Text>
-              <Text style={[styles.textoTrilha]}>{route.params.paramKey[1]}</Text>
+              <View style={{ flex: 1, justifyContent: 'center' }}>
+                <Text style={[styles.trilhaTit]}>{route.params.paramKey[0]}</Text>
+                <Text style={[styles.textoTrilha]}>{route.params.paramKey[1]}</Text>
+              </View>
             </View>
+            {/*<View style={[{ height: '100%', width: '100%',borderRadius: 20, zIndex: 1, position: 'absolute', borderBottomWidth: 6,  borderColor: "rgba(0,0,0,0.10)" }]} />*/}
+
           </View>
-          {/*<View style={[{ height: '100%', width: '100%',borderRadius: 20, zIndex: 1, position: 'absolute', borderBottomWidth: 6,  borderColor: "rgba(0,0,0,0.10)" }]} />*/}
-
         </View>
-
 
         {/* <View style={styles.linha}></View> */}
         {/* fazer um flat list pra gerar as fases  */}
@@ -328,8 +329,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 9,
     position: 'absolute',
     zIndex: 99,
-    top: 10,
-    left: 8,
+    top: 15,
+    left: 13,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 100

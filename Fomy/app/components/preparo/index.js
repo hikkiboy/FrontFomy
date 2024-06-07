@@ -97,20 +97,22 @@ export default function Preparo({ route, props, navigation }) {
 
             {/*I moved the title card and servings inside this flatlist and removed the scrollview
                  I haven't noticed any problems with that, and it removed the error that kept appearing*/}
-            <View style={[styles.bgimg, { backgroundColor: route.params.paramKey[1] }]} >
-              <View style={styles.titlearea}>
-                <View style={styles.title}>
-                  <Text style={styles.titletxt}>{route.params.paramKey[0]}</Text>
-                  <TouchableOpacity activeOpacity={0.8} style={[styles.seeimgbtn, { borderColor: route.params.paramKey[3], backgroundColor: route.params.paramKey[4] }]} >
-                    <Text style={[styles.titletxt, { fontSize: 20 }]} >Ver foto</Text>
-                  </TouchableOpacity>
+            <View style={{ paddingHorizontal: 5, paddingTop: 5 }} >
+              <View style={[styles.bgimg, { backgroundColor: route.params.paramKey[1] }]} >
+                <View style={styles.titlearea}>
+                  <View style={styles.title}>
+                    <Text style={styles.titletxt}>{route.params.paramKey[0]}</Text>
+                    <TouchableOpacity activeOpacity={0.8} style={[styles.seeimgbtn, { borderColor: route.params.paramKey[3], backgroundColor: route.params.paramKey[4] }]} >
+                      <Text style={[styles.titletxt, { fontSize: 20 }]} >Ver foto</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <Image
+                    source={{ uri: route.params.paramKey[2] }}
+                    style={styles.image}
+                  />
                 </View>
-                <Image
-                  source={{ uri: route.params.paramKey[2] }}
-                  style={styles.image}
-                />
+                <View style={[{ height: '100%', width: '100%', borderRadius: 20, zIndex: 1, position: 'absolute', borderBottomWidth: 11, borderWidth: 8, borderColor: route.params.paramKey[4] }]} />
               </View>
-              <View style={[{ height: '100%', width: '100%', borderRadius: 20, zIndex: 1, position: 'absolute', borderBottomWidth: 11, borderWidth: 8, borderColor: route.params.paramKey[4] }]} />
             </View>
 
             <View style={{ paddingStart: 25, paddingEnd: 25 }} >
@@ -266,8 +268,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 9,
     position: 'absolute',
     zIndex: 99,
-    top: 10,
-    left: 8,
+    top: 15,
+    left: 13,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 100

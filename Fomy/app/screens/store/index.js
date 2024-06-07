@@ -114,12 +114,14 @@ export default function Store({ navigation }) {
     <SafeAreaView style={styles.container}>
       {user != undefined && user != null &&
         <ScrollView style={{ minWidth: "100%" }} >
-          <View style={styles.bgimg}>
-            <Image style={styles.booklet} source={require('../../assets/darkstorelet.png')} />
-            <View style={styles.titlearea} >
-              <Image style={{ width: 119, height: 144 }} source={require('../../assets/evenMoreRichAlberto.png')} />
-              <View style={{ flex: 1, justifyContent: 'center' }}>
-                <Text style={styles.trilhaTit}>Loja</Text>
+          <View style={{ paddingHorizontal: 5, paddingTop: 5 }} >
+            <View style={styles.bgimg}>
+              <Image style={styles.booklet} source={require('../../assets/darkstorelet.png')} />
+              <View style={styles.titlearea} >
+                <Image style={{ width: 119, height: 144 }} source={require('../../assets/evenMoreRichAlberto.png')} />
+                <View style={{ flex: 1, justifyContent: 'center' }}>
+                  <Text style={styles.trilhaTit}>Loja</Text>
+                </View>
               </View>
             </View>
           </View>
