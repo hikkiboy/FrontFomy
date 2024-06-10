@@ -32,11 +32,7 @@ export default function Passos({ route, props, navigation }) {
   const [current, setCurrent] = useState(0)
   const { width } = Dimensions.get('window');
   //
-  const [isTimerStart, setIsTimerStart] = useState(false);
-  const [isStopwatchStart, setIsStopwatchStart] = useState(false);
-  const [timerDuration, setTimerDuration] = useState(90000);
-  const [resetTimer, setResetTimer] = useState(false);
-  const [resetStopwatch, setResetStopwatch] = useState(false);
+  const [rerender, setRerender] = useState(true)
 
   const corDinamica = route.params.paramKey[1]
   const userRecipes = route.params.user[0]
@@ -88,12 +84,21 @@ export default function Passos({ route, props, navigation }) {
 
   }, [])
 
+  useEffect(() => {
+    if (!rerender) {
+      setTimeout(() => {
+        setRerender(true)
+      }, 5)
+    }
+  }, [Passo.Timer])
+
   const _colors = {
     ativo: corDinamica,
     inativo: `#F2F2F2`
   }
 
   function pa(i, fwd) {
+    setRerender(false)
     if (i < Receitas.length && fwd == true) {
       i++;
       setCalcula(i);
@@ -134,6 +139,7 @@ export default function Passos({ route, props, navigation }) {
   }
 
   function pasquared(the) {
+    setRerender(false)
     setCalcula(the + 1)
     console.log("calcula: ", calcula, "index: ", the)
     setPasso(Receitas[(the)])
@@ -200,7 +206,7 @@ export default function Passos({ route, props, navigation }) {
               <Text style={styles.titulopassotexto}>{Passo.Titulo}</Text>
             </View>
           </View>
-          {Passo.Timer ? (
+          {Passo.Timer && rerender ? (
             <TimerPasso totalDuration={Passo.Timer} />
           ) : (
             stopSound(),
