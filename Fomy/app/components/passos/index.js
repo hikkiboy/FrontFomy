@@ -86,9 +86,7 @@ export default function Passos({ route, props, navigation }) {
 
   useEffect(() => {
     if (!rerender) {
-      setTimeout(() => {
-        setRerender(true)
-      }, 5)
+      setRerender(true)
     }
   }, [Passo.Timer])
 
@@ -191,29 +189,35 @@ export default function Passos({ route, props, navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false} >
+      <ScrollView style={{ backgroundColor: '#F2F2F2' }} showsVerticalScrollIndicator={false} >
         {/* <Button title='debug' onPress={() => console.log(arr)}></Button>  */}
         <TouchableOpacity onPress={() => { navigation.goBack(); Vibration.cancel(); stopSound(); }} style={styles.goback} ><FontAwesome name="arrow-left" size={30} color="white" /></TouchableOpacity>
-        <View style={[styles.imagebak, {
-          backgroundColor: corDinamica,
-          borderColor: route.params.paramKey[3]
-        }]}>
-          <View style={styles.areatitulo}>
-            <View style={[styles.titulopasso, {
-              borderColor: route.params.paramKey[2],
-              backgroundColor: route.params.paramKey[3],
-            }]}>
-              <Text style={styles.titulopassotexto}>{Passo.Titulo}</Text>
+        <View style={{ backgroundColor: '#FFF' }} >
+          <View style={[styles.imagebak, {
+            backgroundColor: corDinamica,
+            borderColor: route.params.paramKey[3],
+            zIndex: 2
+          }]}>
+            <View style={styles.areatitulo}>
+              <View style={[styles.titulopasso, {
+                borderColor: route.params.paramKey[2],
+                backgroundColor: route.params.paramKey[3],
+              }]}>
+                <Text style={styles.titulopassotexto}>{Passo.Titulo}</Text>
+              </View>
             </View>
+            {Passo.Timer && rerender ? (
+              <TimerPasso totalDuration={Passo.Timer} />
+            ) : (
+              stopSound(),
+              Vibration.cancel(),
+              Passo.VideoPasso ? (
+                <VideoPassos idVideo={Passo.VideoPasso} />
+              ) : (
+                Passo.Timer && <View style={{ height: 183 }} />
+              )
+            )}
           </View>
-          {Passo.Timer && rerender ? (
-            <TimerPasso totalDuration={Passo.Timer} />
-          ) : (
-            stopSound(),
-            Vibration.cancel(),
-            <VideoPassos idVideo={Passo.VideoPasso} />
-          )}
-
         </View>
 
 
@@ -235,7 +239,6 @@ export default function Passos({ route, props, navigation }) {
           </View>
           <View style={styles.spaceinbetween} />
         </View>
-        <View style={styles.spaceinbetween2} />
 
       </ScrollView>
 
@@ -349,7 +352,7 @@ const styles = StyleSheet.create({
 
   },
   descpassoarea: {
-    marginBottom: 40,
+    marginBottom: 50,
   },
   descpasso: {
     zIndex: 2,
@@ -397,8 +400,9 @@ const styles = StyleSheet.create({
   buttons: {
     justifyContent: 'center',
     flexDirection: 'row',
-    marginVertical: 30,
+    paddingVertical: 30,
     alignItems: 'center',
+    backgroundColor: '#FFF'
   },
   stepbak: {
     marginHorizontal: 20,
@@ -454,18 +458,11 @@ const styles = StyleSheet.create({
     zIndex: 9
   },
   spaceinbetween: {
-    backgroundColor: '#F2F2F2',
+    backgroundColor: '#FFF',
     zIndex: 0,
     width: '100%',
-    height: '600%',
-    marginTop: 20,
+    height: '50%',
     position: 'absolute'
-  },
-  spaceinbetween2: {
-    backgroundColor: '#F2F2F2',
-    zIndex: 0,
-    width: '100%',
-    height: 30,
   },
   traco: {
     width: 90,
