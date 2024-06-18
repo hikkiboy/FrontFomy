@@ -3,7 +3,7 @@ import { Button } from "react-native-elements"
 import { Route } from '@react-navigation/native';
 import { useEffect, useState } from "react";
 import { collection, onSnapshot, query, where, orderBy, documentId } from "firebase/firestore";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5"
+import { MaterialCommunityIcons, FontAwesome, FontAwesome6 } from "react-native-vector-icons"
 
 
 export function ModalTrilha({ handleAction, data, navigation, cor, bg, setBg, borderColor, Fill, userRecipes, description }) {
@@ -24,15 +24,21 @@ export function ModalTrilha({ handleAction, data, navigation, cor, bg, setBg, bo
                     </View>
                     <View style={styles.stats} >
                         <View style={styles.statarea} >
-                            <Image style={styles.imagestats} source={require("../../../assets/coins.png")} />
+                            <View style={styles.iconcontainer} >
+                                <FontAwesome6 color={"#FAB151"} name="piggy-bank" size={30} />
+                            </View>
                             <Text style={styles.textostats}>+{data.Moedas}</Text>
                         </View>
                         <View style={styles.statarea} >
-                            <Image style={styles.imagestats} tintColor={cor} source={require("../../../assets/exp-up.png")} />
-                            <Text style={styles.textostats}>+{data.Exp} Exp</Text>
+                            <View style={styles.iconcontainer} >
+                                <FontAwesome color={"#70D872"} name="plus" size={33} />
+                            </View>
+                            <Text style={styles.textostats}>{data.Exp} exp</Text>
                         </View>
-                        <View style={styles.statarea} >
-                            <FontAwesome5 style={styles.clock} color={"#6EACEF"} name="clock" size={25} />
+                        <View style={[styles.statarea, { marginTop: 10 }]} >
+                            <View style={styles.iconcontainer} >
+                                <MaterialCommunityIcons color={"#3B98EF"} name="clock" size={30} />
+                            </View>
                             <Text style={styles.textostats}>{data.Tempo} min</Text>
                         </View>
                     </View>
@@ -101,7 +107,8 @@ const styles = StyleSheet.create({
     linha: {
         width: 205.5,
         height: 7.5,
-        marginTop: 8
+        marginTop: 8,
+        resizeMode: 'stretch'
 
     },
     stats: {
@@ -122,12 +129,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-start',
-        marginVertical: 10
+        marginVertical: 12
     },
-    imagestats: {
-        height: 26,
-        width: 26,
-        marginRight: 10
+    iconcontainer: {
+        width: 35,
+        alignItems: 'center',
+        marginRight: 15
     },
     clock: {
         marginLeft: 0.5,

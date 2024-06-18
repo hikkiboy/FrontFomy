@@ -209,30 +209,27 @@ export default function Parabens({ navigation, route }) {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={{ flex: 1 }} >
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.goback} ><FontAwesome name="arrow-left" size={30} color="white" /></TouchableOpacity>
-        <View style={[styles.imagebak, {
-          backgroundColor: cor,
-          borderColor: corFill,
-          flex: 0.8,
-        }]}>
-          <View style={{ flex: 0.5 }} />
-          <View style={styles.areatitulo}>
-            <View style={[styles.titulopasso, {
-              borderColor: corBorda,
-              backgroundColor: corFill,
-            }]}>
-              <Text style={styles.titulopassotexto}>PARABÉNS!</Text>
-            </View>
+
+        <View style={styles.thisthing} >
+          <View style={[styles.whydoyoudothis, {
+            backgroundColor: cor,
+            borderColor: corFill,
+          }]} >
+            <TouchableOpacity activeOpacity={0.8} style={{ position: 'absolute', paddingBottom: 6, paddingStart: 10 }} onPress={() => navigation.goBack()} >
+              <FontAwesome size={30} color={"#FFF"} name='arrow-left' />
+            </TouchableOpacity>
+            <Text style={styles.titulopassotexto}>Parabéns!</Text>
           </View>
-          <View style={{ flex: 1 }} />
         </View>
         <View style={styles.belowimage} >
-          <View style={styles.teacharea} >
-            <Image style={styles.confetti} source={require("../../assets/confetti2.gif")} />
-            <Image style={styles.charimage} source={require("../../assets/betterAlberto.png")} />
-          </View>
-          <View style={{ marginTop: 25, width: "100%", paddingHorizontal: 20 }} >
-            <Text style={styles.parabenstexto}>{route.params.paramKey[0]}</Text>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} >
+            <View style={styles.teacharea} >
+              <Image style={styles.confetti} source={require("../../assets/confetti2.gif")} />
+              <Image style={styles.charimage} source={require("../../assets/betterAlberto.png")} />
+            </View>
+            <View style={{ marginTop: 25, width: "100%", paddingHorizontal: 20 }} >
+              <Text style={styles.parabenstexto}>{route.params.paramKey[0]}</Text>
+            </View>
           </View>
           <TouchableOpacity style={{ width: "100%", paddingHorizontal: 20, alignSelf: 'center' }} onPress={() => navigation.navigate("Trilha", { paramKey: [route.params.navigate[0], route.params.navigate[1], route.params.navigate[2], route.params.navigate[3], route.params.navigate[4]] })}>
             <View style={styles.butao}>
@@ -265,19 +262,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 100
   },
-  imagebak: {
+  thisthing: {
+    paddingHorizontal: 10,
+    width: "100%",
+    marginVertical: 20,
+    marginBottom: 40
+  },
+  whydoyoudothis: {
+    backgroundColor: "#D383E3",
+    paddingVertical: 8,
+    borderColor: "#be48d5",
+    borderWidth: 7,
+    borderBottomWidth: 13,
     borderRadius: 20,
-    backgroundColor: '#62BC63',
-    borderColor: '#4A8E4B',
-    borderBottomWidth: 10,
-    borderBottomRightRadius: 20,
-    borderTopStartRadius: 0,
-    borderTopEndRadius: 0,
-    borderStartWidth: 4,
-    borderEndWidth: 4,
-    borderTopWidth: 4,
-
-
+    justifyContent: 'center',
   },
   areatitulo: {
     marginTop: 50,
@@ -315,9 +313,9 @@ const styles = StyleSheet.create({
   },
   belowimage: {
     alignItems: 'center',
-    justifyContent: 'flex-end',
-    marginTop: 150,
-    backgroundColor: "#FFF"
+    backgroundColor: "#FFF",
+    flex: 1,
+    paddingBottom: 70
   },
   teacharea: {
     width: '100%',
@@ -327,14 +325,12 @@ const styles = StyleSheet.create({
   confetti: {
     height: 300,
     width: "100%",
-    marginTop: -150,
     position: 'absolute',
     resizeMode: 'contain'
   },
   charimage: {
     height: 300,
     width: 244,
-    marginTop: -175,
     zIndex: 3
   },
   charsombra: {
@@ -359,7 +355,7 @@ const styles = StyleSheet.create({
   parabenstexto: {
     fontSize: 20,
     textAlign: 'center',
-    width: "100%"
+    maxWidth: "100%"
   },
   butao: {
     backgroundColor: '#FAB151',

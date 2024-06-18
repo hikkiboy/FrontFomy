@@ -13,6 +13,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
 import { useSharedValue, Extrapolate, interpolate, useAnimatedStyle } from 'react-native-reanimated';
 import TimerPasso from '../timer/index';
+import TimerPassoRerender from '../timer/timer2';
 import { stopSound } from '../timer/index';
 import { NavigationContainer } from '@react-navigation/native';
 
@@ -214,7 +215,7 @@ export default function Passos({ route, props, navigation }) {
               Passo.VideoPasso ? (
                 <VideoPassos idVideo={Passo.VideoPasso} />
               ) : (
-                Passo.Timer && <View style={{ height: 183 }} />
+                Passo.Timer && !rerender && <TimerPassoRerender totalDuration={Passo.Timer} />
               )
             )}
           </View>
