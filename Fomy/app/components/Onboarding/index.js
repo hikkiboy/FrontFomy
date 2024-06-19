@@ -189,7 +189,10 @@ const OnboardingItem = ({ item, navigation, index, x, size }) => {
                 {/* SE FOR A GOURMET E NAO TIVER PREMIUM RENDERIZA O TEXTO*/}
                 {item.NomeTrilha == "Gourmet" && prem == false && (
                     <>
-                        <Text style={styles.premiumDesc}>Você Precisa obter o premium para ter acesso a essa trilha</Text>
+                        <TouchableOpacity activeOpacity={0.8} style={[styles.buttonRegistro, { borderColor: item.CorBorda, backgroundColor: item.CorFill }]} title='Registrar' >
+                            <Text style={[styles.botaoTexto]}>Comprar</Text>
+                            <Text style={[styles.botaoTexto, { marginTop: 2 }]}>Premium</Text>
+                        </TouchableOpacity>
                     </>
                 )}
 

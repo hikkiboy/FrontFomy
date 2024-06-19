@@ -227,9 +227,18 @@ export default function Parabens({ navigation, route }) {
               <Image style={styles.confetti} source={require("../../assets/confetti2.gif")} />
               <Image style={styles.charimage} source={require("../../assets/betterAlberto.png")} />
             </View>
-            <View style={{ marginTop: 25, width: "100%", paddingHorizontal: 20 }} >
-              <Text style={styles.parabenstexto}>{route.params.paramKey[0]}</Text>
+            <View style={styles.descpassoarea}>
+          <Image style={styles.triangle} tintColor={cor} source={require("../../assets/little_triangle_thing.png")} />
+          <View style={{ width: '100%', zIndex: 2 }} >
+            <View style={[styles.viewpasso, { borderColor: corFill }]} >
+              <Text style={styles.descpasso} >{route.params.paramKey[0]}</Text>
             </View>
+            <View style={[styles.descpassoBehind, {
+              borderColor: corBorda,
+            }]} />
+          </View>
+          <View style={styles.spaceinbetween} />
+        </View>
           </View>
           <TouchableOpacity style={{ width: "100%", paddingHorizontal: 20, alignSelf: 'center' }} onPress={() => navigation.navigate("Trilha", { paramKey: [route.params.navigate[0], route.params.navigate[1], route.params.navigate[2], route.params.navigate[3], route.params.navigate[4]] })}>
             <View style={styles.butao}>
