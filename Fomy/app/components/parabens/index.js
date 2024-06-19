@@ -1,7 +1,7 @@
 
 import { StyleSheet, Text, View, Image, FlatList, TouchableWithoutFeedback, TouchableOpacity, ImageBackground, ScrollView } from 'react-native';
 import React, { useEffect, useState } from 'react'
-import { FontAwesome } from 'react-native-vector-icons'
+import { FontAwesome, FontAwesome6 } from 'react-native-vector-icons'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { collection, onSnapshot, query, where, orderBy, documentId, doc, updateDoc, arrayUnion } from '@firebase/firestore'
 import { app_DB, app_auth } from '../../../firebaseConfig';
@@ -208,39 +208,49 @@ export default function Parabens({ navigation, route }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={{ flex: 1 }} >
+      <ScrollView style={{ backgroundColor: '#FFF', minWidth: '100%', minHeight: '100%' }} showsVerticalScrollIndicator={false} >
 
         <View style={styles.thisthing} >
           <View style={[styles.whydoyoudothis, {
             backgroundColor: cor,
             borderColor: corFill,
           }]} >
-            <TouchableOpacity activeOpacity={0.8} style={{ position: 'absolute', paddingBottom: 6, paddingStart: 10 }} onPress={() => navigation.goBack()} >
+            <TouchableOpacity activeOpacity={0.8} style={{ position: 'absolute', paddingBottom: 6, paddingStart: 10, zIndex: 99 }} onPress={() => navigation.goBack()} >
               <FontAwesome size={30} color={"#FFF"} name='arrow-left' />
             </TouchableOpacity>
             <Text style={styles.titulopassotexto}>Parabéns!</Text>
           </View>
         </View>
         <View style={styles.belowimage} >
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} >
+          <View style={styles.gainsarea} >
+            <View style={styles.statarea} >
+              <FontAwesome6 style={{ marginRight: 7 }}  color={"#FAB151"} name="piggy-bank" size={30} />
+              <Text style={styles.textostats}>+{Moeda}</Text>
+            </View>
+            <View style={{ width: 20, height: 20 }} />
+            <View style={styles.statarea} >
+              <FontAwesome style={{ marginRight: 7 }} color={"#70D872"} name="plus" size={33} />
+              <Text style={styles.textostats}>{XP} exp</Text>
+            </View>
+          </View>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginBottom: 25 }} >
             <View style={styles.teacharea} >
               <Image style={styles.confetti} source={require("../../assets/confetti2.gif")} />
               <Image style={styles.charimage} source={require("../../assets/betterAlberto.png")} />
             </View>
-            <View style={styles.descpassoarea}>
-          <Image style={styles.triangle} tintColor={cor} source={require("../../assets/little_triangle_thing.png")} />
-          <View style={{ width: '100%', zIndex: 2 }} >
-            <View style={[styles.viewpasso, { borderColor: corFill }]} >
-              <Text style={styles.descpasso} >{route.params.paramKey[0]}</Text>
+          </View>
+          <View style={styles.descpassoarea}>
+            <Image style={styles.triangle} tintColor={cor} source={require("../../assets/little_triangle_thing.png")} />
+            <View style={{ width: '100%', zIndex: 2 }} >
+              <View style={[styles.viewpasso, { borderColor: cor }]} >
+                <Text style={styles.descpasso} >{route.params.paramKey[0]}</Text>
+              </View>
+              <View style={[styles.descpassoBehind, {
+                borderColor: corFill,
+              }]} />
             </View>
-            <View style={[styles.descpassoBehind, {
-              borderColor: corBorda,
-            }]} />
           </View>
-          <View style={styles.spaceinbetween} />
-        </View>
-          </View>
-          <TouchableOpacity style={{ width: "100%", paddingHorizontal: 20, alignSelf: 'center' }} onPress={() => navigation.navigate("Trilha", { paramKey: [route.params.navigate[0], route.params.navigate[1], route.params.navigate[2], route.params.navigate[3], route.params.navigate[4]] })}>
+          <TouchableOpacity style={{ width: "100%", paddingHorizontal: 10, alignSelf: 'center' }} onPress={() => navigation.navigate("Trilha", { paramKey: [route.params.navigate[0], route.params.navigate[1], route.params.navigate[2], route.params.navigate[3], route.params.navigate[4]] })}>
             <View style={styles.butao}>
               <Text style={styles.textobutao}>OBA!</Text>
             </View>
@@ -269,13 +279,11 @@ const styles = StyleSheet.create({
     left: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 100
+    borderRadius: 100,
   },
   thisthing: {
     paddingHorizontal: 10,
     width: "100%",
-    marginVertical: 20,
-    marginBottom: 40
   },
   whydoyoudothis: {
     backgroundColor: "#D383E3",
@@ -320,16 +328,67 @@ const styles = StyleSheet.create({
     textAlign: 'center'
 
   },
-  belowimage: {
-    alignItems: 'center',
-    backgroundColor: "#FFF",
-    flex: 1,
-    paddingBottom: 70
-  },
+
   teacharea: {
     width: '100%',
     alignItems: 'center'
 
+  },
+  belowimage: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+  },
+  descpassoarea: {
+    width: '100%',
+    paddingHorizontal: 10,
+    marginBottom: 65
+  },
+  descpasso: {
+    zIndex: 2,
+    fontSize: 18,
+    textAlign: 'center',
+    fontWeight: '600',
+    color: "#303030",
+    //marginVertical: 100
+
+  },
+  viewpasso: {
+    zIndex: 3,
+    width: '100%',
+    alignSelf: 'center',
+    borderRadius: 20,
+    borderWidth: 8,
+    paddingVertical: 15,
+    backgroundColor: 'white',
+    paddingHorizontal: 30,
+  },
+  descpassoBehind: {
+    zIndex: 1,
+    borderColor: '#4A8E4B',
+    width: '100%',
+    height: '100%',
+    marginTop: 9,
+    alignSelf: 'center',
+    position: 'absolute',
+    borderRadius: 20,
+    borderWidth: 10,
+  },
+  triangle: {
+    height: 27.6,
+    width: 46.2,
+    alignSelf: 'center',
+    position: 'absolute',
+    marginTop: -21,
+    zIndex: 99
+  },
+
+  spaceinbetween: {
+    backgroundColor: '#FFF',
+    zIndex: 0,
+    width: '100%',
+    height: '50%',
+    position: 'absolute'
   },
   confetti: {
     height: 300,
@@ -366,6 +425,28 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     maxWidth: "100%"
   },
+  gainsarea: {
+    width: '100%',
+    paddingHorizontal: 10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginVertical: 15
+  },
+  statarea: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  iconcontainer: {
+    width: 35,
+    alignItems: 'center',
+    marginRight: 15
+  },
+  textostats: {
+    fontWeight: 'bold',
+    fontSize: 25,
+    color: "#505050"
+  },
   butao: {
     backgroundColor: '#FAB151',
     borderColor: '#ED8A07',
@@ -377,7 +458,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 10,
-    marginTop: 50
   },
   textobutao: {
     fontWeight: 'bold',
