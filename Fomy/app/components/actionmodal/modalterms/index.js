@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
         width: "100%",
         backgroundColor:"#70d872",
         borderColor: "#5dc15f",
-        marginBottom:80
+        marginBottom:40
     },
     botaoTexto: {
         fontWeight: 'bold',
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
 
     },
     modalTitle:{
-        marginBottom: 20,
+        marginBottom: 60,
         fontSize: 35,
         color: "#5dc15f",
         marginTop:20,
@@ -183,9 +183,9 @@ const styles = StyleSheet.create({
     backiconarea: {
         padding: 7,
         paddingHorizontal: 9,
-        width: "13%",
+        position: 'absolute',
         zIndex: 99,
-        
+        top: 10,
         right: 8,
         alignItems: 'center',
         justifyContent: 'center',
@@ -197,11 +197,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: "#000"
     },
-    backarea:{
-        backgroundColor: "#FFF",
-        alignItems: "flex-end",
-        marginTop: 10
-    },
+
     container: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -210,9 +206,8 @@ const styles = StyleSheet.create({
         width: 108,
         height: 139,
         marginRight: 5,
+        marginBottom: 50
       },
-      status: {
-        backgroundColor: "#FFF",
-      },
+  
      
 });

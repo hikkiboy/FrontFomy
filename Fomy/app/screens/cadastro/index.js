@@ -10,6 +10,10 @@ import { Feather } from 'react-native-vector-icons'
 import { FontAwesome } from 'react-native-vector-icons'
 import { Overlay } from 'react-native-elements';
 import { ModalTerm } from '../../components/actionmodal/modalterms'; 
+import Checkbox from 'expo-checkbox';
+
+
+
 
 
 
@@ -35,6 +39,8 @@ const Cadastro = ({ navigation }) => {
     const [problem, setProblem] = useState(false);
     const [whatError, setWhatError] = useState("");
     const auth = app_auth;
+
+    const [isChecked, setChecked] = useState(false);
 
     const [modalVisible, setModalVisible] = useState(false);
 
@@ -65,7 +71,7 @@ const Cadastro = ({ navigation }) => {
           setBg("rgba(0,0,0,0.1)");
         }, 250)
         setCreated(false)
-        if(nome == "" || senha == "" || email == "" ){
+        if(nome == "" || senha == "" || email == "" || isChecked == false ){
             setTimeout(() => {
               setBg();
               setLoading(false);
@@ -224,6 +230,20 @@ const Cadastro = ({ navigation }) => {
           onChangeText={(text) => setSenha(text)} secureTextEntry={true}/>
           <Feather name="lock" size={27} color={"rgba(0,0,0,0.5)"} />
         </View>
+
+        {/* <TouchableOpacity style = {[styles.buttonPolitics, { height: stuffHeight - 20 }]} title = 'Política de Privacidade' onPress={handleOpenModal}>
+          <Text style={[styles.text, {fontSize: fontSize}]}>TESTE</Text>
+        </TouchableOpacity> */}
+
+      <View style={styles.section}>
+        <Checkbox style={styles.checkbox} value={isChecked} onValueChange={setChecked} color={"green"} />
+        <Text style={{ display: 'flex', flexDirection: 'column', alignSelf: 'center', textAlign: 'center', fontSize: fontSize -6,fontWeight: "bold"}} >Concordo com a </Text>
+        <TouchableOpacity style={{ alignSelf: 'center' }} activeOpacity={0.8} onPress={handleOpenModal} >
+          <Text style={{ display: 'flex', flexDirection: 'column', alignSelf: 'center', textAlign: 'center', fontSize: fontSize -6, color: "green", fontWeight: "bold" }}>política de privacidade</Text>
+        </TouchableOpacity>
+      </View>
+
+
         <TouchableOpacity style = {[styles.buttonLogin, { height: stuffHeight }]} title = 'Registrar' onPress={SignUp}>
           <Text style={[styles.text, {fontSize: fontSize}]}>Começar jornada!</Text>
         </TouchableOpacity>
@@ -236,11 +256,21 @@ const Cadastro = ({ navigation }) => {
             <ModalTerm handleCloseModal={handleCloseModal} />    
           </Modal>
 
-        <Text style={{ alignItems: 'center', textAlign: 'center', alignContent: 'center', marginTop: 20, width: "85%", fontSize: fontSize -4, flexDirection: 'row'}} >Ao criar uma conta, você concorda com nossos </Text>
-        <TouchableOpacity style={{ alignItems: 'center', alignContent: 'center' }} activeOpacity={0.8} onPress={handleOpenModal} >
-          <Text style={{ color: "red", fontSize: fontSize -4, alignSelf: 'center' }}>Termos de serviço</Text>
-        </TouchableOpacity>
+        
 
+    
+
+
+   
+
+        {/* <Text style={{ alignItems: 'center', textAlign: 'center', alignContent: 'center', marginTop: 40, width: "85%", fontSize: fontSize -6, flexDirection: 'row'}} >Ao criar uma conta, você concorda com nossos </Text>
+        <TouchableOpacity style={{ alignItems: 'center', alignContent: 'center' }} activeOpacity={0.8} onPress={handleOpenModal} >
+          <Text style={{ color: "red", fontSize: fontSize -6, alignSelf: 'center', marginTop: 4 }}>Termos de serviço</Text>
+        </TouchableOpacity> */}
+
+   
+
+        
 
 
         </KeyboardAwareScrollView>
@@ -305,5 +335,31 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#62bc63',
 },
+  buttonPolitics:{
+    marginTop: "7%",
+    backgroundColor: '#70d872',
+    width: "35%",
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 15,
+    borderColor: '#62bc63',
+    borderBottomWidth: 8,
+    borderWidth: 5
+  },
+
+  section: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  paragraph: {
+    fontSize: 15,
+  },
+  checkbox: {
+    margin: 8,
+    borderRadius: 5,
+    
+    
+  },
+
 
 });
