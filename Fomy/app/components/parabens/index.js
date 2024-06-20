@@ -223,14 +223,17 @@ export default function Parabens({ navigation, route }) {
         </View>
         <View style={styles.belowimage} >
           <View style={styles.gainsarea} >
-            <View style={styles.statarea} >
-              <FontAwesome6 style={{ marginRight: 7 }}  color={"#FAB151"} name="piggy-bank" size={30} />
-              <Text style={styles.textostats}>+{Moeda}</Text>
-            </View>
-            <View style={{ width: 20, height: 20 }} />
-            <View style={styles.statarea} >
-              <FontAwesome style={{ marginRight: 7 }} color={"#70D872"} name="plus" size={33} />
-              <Text style={styles.textostats}>{XP} exp</Text>
+            <Text style={[styles.titulopassotexto, { color: "#000", fontSize: 25 }]} >Você ganhou:</Text>
+            <View style={styles.gainsstuff} >
+              <View style={styles.statarea} >
+                <FontAwesome6 style={{ marginRight: 8 }} color={"#FAB151"} name="piggy-bank" size={26} />
+                <Text style={styles.textostats}>+{Moeda}</Text>
+              </View>
+              <View style={{ width: 30, height: 20 }} />
+              <View style={styles.statarea} >
+                <FontAwesome style={{ marginRight: 8 }} color={"#70D872"} name="plus" size={30} />
+                <Text style={styles.textostats}>{XP} exp</Text>
+              </View>
             </View>
           </View>
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginBottom: 25 }} >
@@ -284,6 +287,7 @@ const styles = StyleSheet.create({
   thisthing: {
     paddingHorizontal: 10,
     width: "100%",
+    marginTop: 10
   },
   whydoyoudothis: {
     backgroundColor: "#D383E3",
@@ -342,7 +346,7 @@ const styles = StyleSheet.create({
   descpassoarea: {
     width: '100%',
     paddingHorizontal: 10,
-    marginBottom: 65
+    marginBottom: 55
   },
   descpasso: {
     zIndex: 2,
@@ -428,9 +432,16 @@ const styles = StyleSheet.create({
   gainsarea: {
     width: '100%',
     paddingHorizontal: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+    marginBottom: 10
+  },
+  gainsstuff: {
+    width: '100%',
     flexDirection: 'row',
     justifyContent: 'center',
-    marginVertical: 15
+    marginTop: 15
   },
   statarea: {
     flexDirection: 'row',
