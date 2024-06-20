@@ -113,39 +113,49 @@ export default function Closet({ route }) {
   return (
     <SafeAreaView style={styles.container}>
       {realDawg != null && realDawg.length != 0 ? (
-        <ScrollView contentContainerStyle={{ minHeight: "100%", width: "100%" }} >
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }} >
           <View style={{ paddingHorizontal: 5, paddingTop: 5 }} >
             <View style={styles.bgimg}>
               <Image tintColor={"#ED8A07"} style={styles.booklet} source={require('../../assets/booklet.png')} />
               <View style={styles.titlearea} >
                 <Text style={styles.trilhaTit}>Armário</Text>
-                <AlbertoCustom width={250} height={250} />
+                <AlbertoCustom width={145} height={145} />
               </View>
             </View>
           </View>
-          <View style={styles.badgearea} >
-            <Text style={styles.badgetitle} >Chapéus</Text>
-            <View style={styles.badges} >
-              <LazyList data={realDawg.filter((item) => item.Posição == 0)} update={porra} />
-            </View>
-          </View>
-          <View style={styles.badgearea} >
-            <Text style={styles.badgetitle} >Olhos</Text>
-            <View style={styles.badges} >
-              <LazyList data={realDawg.filter((item) => item.Posição == 1)} update={porra} />
-            </View>
-          </View>
-          <View style={styles.badgearea} >
-            <Text style={styles.badgetitle} >Boca</Text>
-            <View style={styles.badges} >
-              <LazyList data={realDawg.filter((item) => item.Posição == 2)} update={porra} />
-            </View>
-          </View>
-          <View style={styles.badgearea} >
-            <Text style={styles.badgetitle} >Corpo</Text>
-            <View style={styles.badges} >
-              <LazyList data={realDawg.filter((item) => item.Posição == 3)} update={porra} />
-            </View>
+          <View style={{ paddingHorizontal: 5 }} >
+            {realDawg.filter((item) => item.Posição == 0).length > 0 &&
+              <View style={styles.badgearea} >
+                <Text style={styles.badgetitle} >Chapéus</Text>
+                <View style={styles.badges} >
+                  <LazyList data={realDawg.filter((item) => item.Posição == 0)} update={porra} />
+                </View>
+              </View>
+            }
+            {realDawg.filter((item) => item.Posição == 1).length > 0 &&
+              <View style={styles.badgearea} >
+                <Text style={styles.badgetitle} >Olhos</Text>
+                <View style={styles.badges} >
+                  <LazyList data={realDawg.filter((item) => item.Posição == 1)} update={porra} />
+                </View>
+              </View>
+            }
+            {realDawg.filter((item) => item.Posição == 2).length > 0 &&
+              <View style={styles.badgearea} >
+                <Text style={styles.badgetitle} >Boca</Text>
+                <View style={styles.badges} >
+                  <LazyList data={realDawg.filter((item) => item.Posição == 2)} update={porra} />
+                </View>
+              </View>
+            }
+            {realDawg.filter((item) => item.Posição == 3).length > 0 &&
+              <View style={styles.badgearea} >
+                <Text style={styles.badgetitle} >Corpo</Text>
+                <View style={styles.badges} >
+                  <LazyList data={realDawg.filter((item) => item.Posição == 3)} update={porra} />
+                </View>
+              </View>
+            }
           </View>
         </ScrollView>
       ) : (
@@ -157,7 +167,7 @@ export default function Closet({ route }) {
 
 
 
-    </SafeAreaView>
+    </SafeAreaView >
   )
 
 }
@@ -185,16 +195,18 @@ const styles = StyleSheet.create({
   },
   titlearea: {
     width: '100%',
-    marginTop: 20,
-    marginBottom: -50,
+    paddingStart: 40,
+    paddingEnd: 40,
+    marginVertical: 35,
     zIndex: 98,
-    justifyContent: 'center',
+    flexDirection: 'row-reverse',
+    justifyContent: 'space-between',
     alignItems: 'center',
 
   },
   trilhaTit: {
     textAlign: 'center',
-    marginBottom: 10,
+    marginBottom: 5,
     fontSize: 42,
     fontWeight: "bold",
     color: "#FFF",

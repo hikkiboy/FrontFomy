@@ -165,19 +165,19 @@ export default function Parabens({ navigation, route }) {
             //console.log("------atualizou xp do perfil------\n\n")
             const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
             //User levels up, untested
-            if(addExp >= LevelUp){
+            if (addExp >= LevelUp) {
               addExp -= LevelUp
               let addLevel = (LevelUpLevel + 1)
               let newLevelUp = Math.round(LevelUp * 1.35)
-              console.log("User leveled up to: ",addLevel)
+              console.log("User leveled up to: ", addLevel)
               await updateDoc(userRef, {
-              ReceitasFeitas: arrayUnion(Receita),
-              Exp: addExp,
-              Moedas: addMoeda,
-              ExpLevel: newLevelUp,
-              Nivel: addLevel
-            });
-            } else{
+                ReceitasFeitas: arrayUnion(Receita),
+                Exp: addExp,
+                Moedas: addMoeda,
+                ExpLevel: newLevelUp,
+                Nivel: addLevel
+              });
+            } else {
               await updateDoc(userRef, {
                 ReceitasFeitas: arrayUnion(Receita),
                 Exp: addExp,
@@ -241,18 +241,18 @@ export default function Parabens({ navigation, route }) {
           </View>
         </View>
         <View style={styles.gainsarea} >
-            <View style={styles.gainsstuff} >
-              <View style={styles.statarea} >
-                <FontAwesome6 style={{ marginRight: 8 }} color={"#FAB151"} name="piggy-bank" size={26} />
-                <Text style={styles.textostats}>+{Moeda}</Text>
-              </View>
-              <View style={{ width: 40, height: 20 }} />
-              <View style={styles.statarea} >
-                <FontAwesome style={{ marginRight: 8 }} color={"#70D872"} name="plus" size={30} />
-                <Text style={styles.textostats}>{XP} exp</Text>
-              </View>
+          <View style={styles.gainsstuff} >
+            <View style={styles.statarea} >
+              <FontAwesome6 style={{ marginRight: 8 }} color={"#FAB151"} name="piggy-bank" size={26} />
+              <Text style={styles.textostats}>+{Moeda}</Text>
+            </View>
+            <View style={{ width: 40, height: 20 }} />
+            <View style={styles.statarea} >
+              <FontAwesome style={{ marginRight: 8 }} color={"#70D872"} name="plus" size={30} />
+              <Text style={styles.textostats}>{XP} exp</Text>
             </View>
           </View>
+        </View>
         <View style={styles.belowimage} >
           <View style={{ justifyContent: 'center', alignItems: 'center' }} >
             <View style={styles.teacharea} >
@@ -271,7 +271,7 @@ export default function Parabens({ navigation, route }) {
               }]} />
             </View>
           </View>
-          <TouchableOpacity style={{ width: "100%", paddingHorizontal: 10, alignSelf: 'center'}} onPress={() => navigation.navigate("Trilha", { paramKey: [route.params.navigate[0], route.params.navigate[1], route.params.navigate[2], route.params.navigate[3], route.params.navigate[4]] })}>
+          <TouchableOpacity style={{ width: "100%", paddingHorizontal: 10, alignSelf: 'center' }} onPress={() => navigation.navigate("Trilha", { paramKey: [route.params.navigate[0], route.params.navigate[1], route.params.navigate[2], route.params.navigate[3], route.params.navigate[4]] })}>
             <View style={styles.butao}>
               <Text style={styles.textobutao}>OBA!</Text>
             </View>
