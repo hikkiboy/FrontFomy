@@ -6,7 +6,8 @@ import { Route } from '@react-navigation/native';
 import { Button, ButtonGroup, Icon } from 'react-native-elements';
 import { ModalTrilha } from '../actionmodal/modaltrilha';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, AntDesign } from '@expo/vector-icons';
+
 
 
 
@@ -258,9 +259,10 @@ export default function Trilha({ route, navigation }) {
 
                     )}
                     {onde + 1 > Receitas[Receitas.indexOf(item)].Posicao && (
-
-                      <Image style={styles.estrela} source={require('../../assets/estrelha-trilha.png')} />
-
+                      <View>
+                      <AntDesign size={80} color={'#decd37'} name='star' alignSelf='center' borderColor={"#d4c32c"} zIndex={99} />
+                      {/* <AntDesign style={styles.star} position={"absolute"} size={87} color={'#a89c13'} name='star' alignSelf='center' borderColor={"#a89c13"}  /> */}
+                      </View>
                     )}
                     {onde + 1 < Receitas[Receitas.indexOf(item)].Posicao && (
 
@@ -476,6 +478,10 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
     alignSelf: 'center',
+  },
+  star:{
+    
+   down: 30
   }
 
 });
