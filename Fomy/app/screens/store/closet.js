@@ -118,7 +118,7 @@ export default function Closet({ route }) {
             <View style={styles.bgimg}>
               <Image tintColor={"#ED8A07"} style={styles.booklet} source={require('../../assets/booklet.png')} />
               <View style={styles.titlearea} >
-                <Text style={styles.trilhaTit}>Armário</Text>
+                <Text style={styles.trilhaTit}>Roupas</Text>
                 <AlbertoCustom width={144} height={144} />
               </View>
             </View>
