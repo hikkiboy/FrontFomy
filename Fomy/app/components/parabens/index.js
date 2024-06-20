@@ -12,6 +12,7 @@ export default function Parabens({ navigation, route }) {
   const Receita = route?.params.paramKey[1]
   const [XP, setXP] = useState()
   const [LevelUp, setLevelUp] = useState()
+  const [LevelUpLevel, setLevelUpLevel] = useState()
   const [ExpAtual, setExpAtual] = useState()
   const [ReceitasFeitas, setReceitasFeitas] = useState([])
   const [DocesQ, setDocesQ] = useState()
@@ -53,6 +54,7 @@ export default function Parabens({ navigation, route }) {
         setDocesQ(userq)
         setMAtual(userq[0].Moedas)
         setLevelUp(userq[0].ExpLevel)
+        setLevelUpLevel(userq[0].Nivel)
         //console.log("------------------ LOGS DE SET DO USER ATUAL ---------------------")
         //console.log()
         //console.log("Current XP: ", userq[0].Exp)
@@ -165,14 +167,16 @@ export default function Parabens({ navigation, route }) {
             //User levels up, untested
             if(addExp >= LevelUp){
               addExp -= LevelUp
-              let newLevelUp = (LevelUp * 1.25)
+              let addLevel = (LevelUpLevel + 1)
+              let newLevelUp = Math.round(LevelUp * 1.35)
+              console.log("User leveled up to: ",addLevel)
               await updateDoc(userRef, {
               ReceitasFeitas: arrayUnion(Receita),
               Exp: addExp,
               Moedas: addMoeda,
-              ExpLevel: newLevelUp
+              ExpLevel: newLevelUp,
+              Nivel: addLevel
             });
-            console.log("User leveled up!")
             } else{
               await updateDoc(userRef, {
                 ReceitasFeitas: arrayUnion(Receita),
@@ -223,7 +227,7 @@ export default function Parabens({ navigation, route }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={{ backgroundColor: '#FFF', minWidth: '100%', minHeight: '100%' }} showsVerticalScrollIndicator={false} >
+      <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: "#FFF" }}>
 
         <View style={styles.thisthing} >
           <View style={[styles.whydoyoudothis, {
@@ -236,22 +240,21 @@ export default function Parabens({ navigation, route }) {
             <Text style={styles.titulopassotexto}>Parabéns!</Text>
           </View>
         </View>
-        <View style={styles.belowimage} >
-          <View style={styles.gainsarea} >
-            <Text style={[styles.titulopassotexto, { color: "#000", fontSize: 25 }]} >Você ganhou:</Text>
+        <View style={styles.gainsarea} >
             <View style={styles.gainsstuff} >
               <View style={styles.statarea} >
                 <FontAwesome6 style={{ marginRight: 8 }} color={"#FAB151"} name="piggy-bank" size={26} />
                 <Text style={styles.textostats}>+{Moeda}</Text>
               </View>
-              <View style={{ width: 30, height: 20 }} />
+              <View style={{ width: 40, height: 20 }} />
               <View style={styles.statarea} >
                 <FontAwesome style={{ marginRight: 8 }} color={"#70D872"} name="plus" size={30} />
                 <Text style={styles.textostats}>{XP} exp</Text>
               </View>
             </View>
           </View>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginBottom: 25 }} >
+        <View style={styles.belowimage} >
+          <View style={{ justifyContent: 'center', alignItems: 'center' }} >
             <View style={styles.teacharea} >
               <Image style={styles.confetti} source={require("../../assets/confetti2.gif")} />
               <Image style={styles.charimage} source={require("../../assets/betterAlberto.png")} />
@@ -268,7 +271,7 @@ export default function Parabens({ navigation, route }) {
               }]} />
             </View>
           </View>
-          <TouchableOpacity style={{ width: "100%", paddingHorizontal: 10, alignSelf: 'center' }} onPress={() => navigation.navigate("Trilha", { paramKey: [route.params.navigate[0], route.params.navigate[1], route.params.navigate[2], route.params.navigate[3], route.params.navigate[4]] })}>
+          <TouchableOpacity style={{ width: "100%", paddingHorizontal: 10, alignSelf: 'center'}} onPress={() => navigation.navigate("Trilha", { paramKey: [route.params.navigate[0], route.params.navigate[1], route.params.navigate[2], route.params.navigate[3], route.params.navigate[4]] })}>
             <View style={styles.butao}>
               <Text style={styles.textobutao}>OBA!</Text>
             </View>
@@ -302,7 +305,7 @@ const styles = StyleSheet.create({
   thisthing: {
     paddingHorizontal: 10,
     width: "100%",
-    marginTop: 10
+    marginTop: 10,
   },
   whydoyoudothis: {
     backgroundColor: "#D383E3",
@@ -361,7 +364,7 @@ const styles = StyleSheet.create({
   descpassoarea: {
     width: '100%',
     paddingHorizontal: 10,
-    marginBottom: 55
+    marginTop: 30
   },
   descpasso: {
     zIndex: 2,
@@ -449,14 +452,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 20,
-    marginBottom: 10
+    marginVertical: 30,
   },
   gainsstuff: {
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 15
   },
   statarea: {
     flexDirection: 'row',
@@ -484,6 +485,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 10,
+    marginVertical: 50
   },
   textobutao: {
     fontWeight: 'bold',

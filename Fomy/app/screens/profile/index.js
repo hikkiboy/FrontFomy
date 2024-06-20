@@ -220,9 +220,8 @@ const styles = StyleSheet.create({
     },
     titlearea: {
         width: '100%',
-        paddingStart: 10,
-        paddingEnd: 10,
-        marginVertical: 15,
+        paddingHorizontal: 10,
+        marginVertical: 25,
         zIndex: 98,
         flexDirection: 'row',
         justifyContent: 'space-between',
