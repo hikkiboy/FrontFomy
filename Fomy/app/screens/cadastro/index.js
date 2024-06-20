@@ -8,6 +8,11 @@ import { doc, setDoc } from "firebase/firestore";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Feather, FontAwesome6, FontAwesome } from 'react-native-vector-icons'
 import { Overlay } from 'react-native-elements';
+import { ModalTerm } from '../../components/actionmodal/modalterms';
+import Checkbox from 'expo-checkbox';
+
+
+
 
 
 
@@ -34,6 +39,18 @@ const Cadastro = ({ navigation }) => {
   const [whatError, setWhatError] = useState("");
   const auth = app_auth;
 
+  const [isChecked, setChecked] = useState(false);
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleOpenModal = () => {
+    setModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
+  };
+
   useEffect(() => {
     if (height <= 700) {
       //console.log("tela pequena");
@@ -53,7 +70,7 @@ const Cadastro = ({ navigation }) => {
       setBg("rgba(0,0,0,0.1)");
     }, 250)
     setCreated(false)
-    if (nome == "" || senha == "" || email == "") {
+    if (nome == "" || senha == "" || email == "" || isChecked == false) {
       setTimeout(() => {
         setBg();
         setLoading(false);
@@ -213,9 +230,23 @@ const Cadastro = ({ navigation }) => {
           onChangeText={(text) => setSenha(text)} secureTextEntry={true} />
         <FontAwesome6 name="lock" size={25} color={"#303030"} />
       </View>
+      <View style={styles.section}>
+        <Checkbox style={styles.checkbox} value={isChecked} onValueChange={setChecked} color={"green"} />
+        <Text style={{ display: 'flex', flexDirection: 'column', alignSelf: 'center', textAlign: 'center', fontSize: fontSize - 6, fontWeight: "bold" }} >Concordo com a </Text>
+        <TouchableOpacity style={{ alignSelf: 'center' }} activeOpacity={0.8} onPress={handleOpenModal} >
+          <Text style={{ display: 'flex', flexDirection: 'column', alignSelf: 'center', textAlign: 'center', fontSize: fontSize - 6, color: "green", fontWeight: "bold" }}>política de privacidade</Text>
+        </TouchableOpacity>
+      </View>
       <TouchableOpacity activeOpacity={0.8} style={[styles.buttonLogin, { height: stuffHeight }]} title='Registrar' onPress={SignUp}>
         <Text style={[styles.text, { fontSize: fontSize }]}>Começar jornada!</Text>
       </TouchableOpacity>
+      <Modal
+        animationType="slide"
+        visible={modalVisible}
+        onRequestClose={handleCloseModal}
+      >
+        <ModalTerm handleCloseModal={handleCloseModal} />
+      </Modal>
 
     </KeyboardAwareScrollView>
 
@@ -271,5 +302,39 @@ const styles = StyleSheet.create({
   forgotPassword: {
     alignSelf: "center",
     opacity: 0.4
-  }
+  },
+
+  modalArea: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#62bc63',
+  },
+  buttonPolitics: {
+    marginTop: "7%",
+    backgroundColor: '#70d872',
+    width: "35%",
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 15,
+    borderColor: '#62bc63',
+    borderBottomWidth: 8,
+    borderWidth: 5
+  },
+
+  section: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  paragraph: {
+    fontSize: 15,
+  },
+  checkbox: {
+    margin: 8,
+    borderRadius: 5,
+
+
+  },
+
+
 });
