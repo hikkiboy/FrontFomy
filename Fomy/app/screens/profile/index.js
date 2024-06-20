@@ -19,7 +19,6 @@ const Profile = ({ navigation }) => {
     const [visible, setVisible] = useState(false)
     const [inputOn, setInputOn] = useState(false)
     const [newName, setNewName] = useState('')
-    const [totalXp, setTotalXP] = useState(0)
     const [progressToBar, setProgressToBar] = useState(0)
     const width = Dimensions.get('window').width
 
@@ -45,9 +44,7 @@ const Profile = ({ navigation }) => {
                             })
                         })
                         setReceitas(receitas[0])
-                        let total = 200 + (((receitas[0].Nivel - 1) * receitas[0].Nivel) * 10)
-                        setTotalXP(total)
-                        setProgressToBar(receitas[0].Exp / total)
+                        setProgressToBar(receitas[0].Exp / receitas[0].ExpLevel)
                         console.log("Queried the profile, reason: auth state update.")
 
 
@@ -139,7 +136,7 @@ const Profile = ({ navigation }) => {
                                         color={"#FFF"}
                                         borderWidth={0}
                                         unfilledColor={progressToBar != 1 ? "rgba(255,255,255,0.6)" : item.CorFill}
-                                    ><Text style={{ position: 'absolute', alignSelf: 'center', color: progressToBar != 1 ? "rgba(0,0,0,0.65)" : "#FFF", fontSize: 23, fontWeight: 'bold' }}  >XP: {Receitas.Exp} / {totalXp}</Text></Progress.Bar>
+                                    ><Text style={{ position: 'absolute', alignSelf: 'center', color: progressToBar != 1 ? "rgba(0,0,0,0.65)" : "#FFF", fontSize: 23, fontWeight: 'bold' }}  >XP: {Receitas.Exp} / {Receitas.ExpLevel}</Text></Progress.Bar>
                                 </View>
                             </View>
                         </View>

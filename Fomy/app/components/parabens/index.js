@@ -11,6 +11,7 @@ export default function Parabens({ navigation, route }) {
 
   const Receita = route?.params.paramKey[1]
   const [XP, setXP] = useState()
+  const [LevelUp, setLevelUp] = useState()
   const [ExpAtual, setExpAtual] = useState()
   const [ReceitasFeitas, setReceitasFeitas] = useState([])
   const [DocesQ, setDocesQ] = useState()
@@ -51,6 +52,7 @@ export default function Parabens({ navigation, route }) {
         setReceitasFeitas(userq[0].ReceitasFeitas)
         setDocesQ(userq)
         setMAtual(userq[0].Moedas)
+        setLevelUp(userq[0].ExpLevel)
         //console.log("------------------ LOGS DE SET DO USER ATUAL ---------------------")
         //console.log()
         //console.log("Current XP: ", userq[0].Exp)
@@ -154,17 +156,30 @@ export default function Parabens({ navigation, route }) {
 
           //Coloquei em uma variavel prq tava dando erro colocando dentro do UpdateDoc
           //Ou só foi um pequeno bug e isso n arrumou nada mas whatever quem liga
-          var addExp = (ExpAtual + XP)
-          var addMoeda = (MAtual + Moeda)
+          let addExp = (ExpAtual + XP)
+          let addMoeda = (MAtual + Moeda)
           //console.log("poggers",MAtual, Moeda)
           try {
             //console.log("------atualizou xp do perfil------\n\n")
             const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
-            await updateDoc(userRef, {
+            //User levels up, untested
+            if(addExp >= LevelUp){
+              addExp -= LevelUp
+              let newLevelUp = (LevelUp * 1.25)
+              await updateDoc(userRef, {
               ReceitasFeitas: arrayUnion(Receita),
               Exp: addExp,
-              Moedas: addMoeda
+              Moedas: addMoeda,
+              ExpLevel: newLevelUp
             });
+            console.log("User leveled up!")
+            } else{
+              await updateDoc(userRef, {
+                ReceitasFeitas: arrayUnion(Receita),
+                Exp: addExp,
+                Moedas: addMoeda,
+              });
+            }
             if (route?.params.paramKey[2] == 'Refeições') {
               const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
               await updateDoc(userRef, {
