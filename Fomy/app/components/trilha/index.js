@@ -6,7 +6,8 @@ import { Route } from '@react-navigation/native';
 import { Button, ButtonGroup, Icon } from 'react-native-elements';
 import { ModalTrilha } from '../actionmodal/modaltrilha';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { FontAwesome, AntDesign } from '@expo/vector-icons';
+import { FontAwesome, AntDesign, FontAwesome5} from '@expo/vector-icons';
+
 
 
 
@@ -255,12 +256,13 @@ export default function Trilha({ route, navigation }) {
 
                     {onde + 1 == Receitas[Receitas.indexOf(item)].Posicao && (
 
-                      <Image style={styles.bandeira} source={require('../../assets/Bandeira-Trilha.png')} />
+                      <FontAwesome5 size={80} color={"rgba(0,0,0,0.6)"} name={"flag-checkered"} alignSelf='center'  zIndex={99} />
 
                     )}
                     {onde + 1 > Receitas[Receitas.indexOf(item)].Posicao && (
-                      <View>
-                      <AntDesign size={80} color={'#decd37'} name='star' alignSelf='center' borderColor={"#d4c32c"} zIndex={99} />
+            //  "#ffe902"
+                     <View>
+                      <AntDesign size={80} color={route?.params.paramKey[0] != "Gourmet" ? '#f9eb4f' : "#fcdf07"} name={"star"} alignSelf='center'  zIndex={99} />
                       {/* <AntDesign style={styles.star} position={"absolute"} size={87} color={'#a89c13'} name='star' alignSelf='center' borderColor={"#a89c13"}  /> */}
                       </View>
                     )}
@@ -300,7 +302,7 @@ export default function Trilha({ route, navigation }) {
 
                     )}
                     {onde + 1 < Receitas[Receitas.indexOf(item)].Posicao && (
-                      <FontAwesome style={styles.cadeado} name="lock" size={50} color={route.params.paramKey[3]} />
+                      <FontAwesome style={styles.cadeado} name="lock" size={48} color={route.params.paramKey[3]} />
                     )}
                   </View>
 
@@ -467,7 +469,8 @@ const styles = StyleSheet.create({
   },
   cadeado: {
     alignSelf: 'center',
-    marginTop: 20
+    marginBottom: -7,
+    marginTop: 11
   },
   estrela: {
     width: 80,
