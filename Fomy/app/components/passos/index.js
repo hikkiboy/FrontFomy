@@ -16,6 +16,7 @@ import TimerPasso from '../timer/index';
 import TimerPassoRerender from '../timer/timer2';
 import { stopSound } from '../timer/index';
 import { NavigationContainer } from '@react-navigation/native';
+import AlbertoCustom from '../customalberto';
 
 
 //import Timer from '../timer';
@@ -224,7 +225,8 @@ export default function Passos({ route, props, navigation }) {
 
         <View style={styles.buttons} >
           <TouchableOpacity style={styles.stepbak} onPress={() => pa(calcula, false)} ><Foundation name="refresh" size={49} color="#FFF" /></TouchableOpacity>
-          <Image style={styles.charimage} source={require("../../assets/betterAlberto.png")} />
+          {/* <Image style={styles.charimage} source={require("../../assets/betterAlberto.png")} /> */}
+          <AlbertoCustom width={150} height={150}/>
           <TouchableOpacity style={styles.stepfwd} onPress={() => pa(calcula, true)} ><FontAwesome name={"check"} size={45} color="#FFF" /></TouchableOpacity>
         </View>
 
@@ -388,6 +390,7 @@ const styles = StyleSheet.create({
   charimage: {
     height: 144,
     width: 119,
+    left: -1,
     alignSelf: 'center'
   },
   triangle: {

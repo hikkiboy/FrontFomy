@@ -122,6 +122,7 @@ const OnboardingItem = ({ item, navigation, index, x, size }) => {
             )}
             {item.Imagem != "" && item.Imagem != "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Icones-Trilhas%2Fpalela2.png?alt=media&token=cf307cc6-f909-4491-b133-607cfc151b3d" && (
                 <View style={styles.imageContainer} >
+                    
                     {/* <Image source={require("../../assets/betterAlberto.png")} style={[styles.mascote]} /> */}
                     <AlbertoCustom style={[styles.customalbi]} width={250} height={250}/>
                     <Image source={{ uri: item.Imagem }} style={[styles.acessorio, { height: 135, width: 135 }]} />
