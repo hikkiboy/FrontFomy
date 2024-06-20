@@ -1,7 +1,7 @@
 
 import { StyleSheet, Text, View, Image, FlatList, TouchableWithoutFeedback, TouchableOpacity, ImageBackground, ScrollView } from 'react-native';
 import React, { useEffect, useState } from 'react'
-import { FontAwesome } from 'react-native-vector-icons'
+import { FontAwesome, FontAwesome6 } from 'react-native-vector-icons'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { collection, onSnapshot, query, where, orderBy, documentId, doc, updateDoc, arrayUnion } from '@firebase/firestore'
 import { app_DB, app_auth } from '../../../firebaseConfig';
@@ -11,6 +11,8 @@ export default function Parabens({ navigation, route }) {
 
   const Receita = route?.params.paramKey[1]
   const [XP, setXP] = useState()
+  const [LevelUp, setLevelUp] = useState()
+  const [LevelUpLevel, setLevelUpLevel] = useState()
   const [ExpAtual, setExpAtual] = useState()
   const [ReceitasFeitas, setReceitasFeitas] = useState([])
   const [DocesQ, setDocesQ] = useState()
@@ -51,6 +53,8 @@ export default function Parabens({ navigation, route }) {
         setReceitasFeitas(userq[0].ReceitasFeitas)
         setDocesQ(userq)
         setMAtual(userq[0].Moedas)
+        setLevelUp(userq[0].ExpLevel)
+        setLevelUpLevel(userq[0].Nivel)
         //console.log("------------------ LOGS DE SET DO USER ATUAL ---------------------")
         //console.log()
         //console.log("Current XP: ", userq[0].Exp)
@@ -154,17 +158,32 @@ export default function Parabens({ navigation, route }) {
 
           //Coloquei em uma variavel prq tava dando erro colocando dentro do UpdateDoc
           //Ou só foi um pequeno bug e isso n arrumou nada mas whatever quem liga
-          var addExp = (ExpAtual + XP)
-          var addMoeda = (MAtual + Moeda)
+          let addExp = (ExpAtual + XP)
+          let addMoeda = (MAtual + Moeda)
           //console.log("poggers",MAtual, Moeda)
           try {
             //console.log("------atualizou xp do perfil------\n\n")
             const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
-            await updateDoc(userRef, {
-              ReceitasFeitas: arrayUnion(Receita),
-              Exp: addExp,
-              Moedas: addMoeda
-            });
+            //User levels up, untested
+            if (addExp >= LevelUp) {
+              addExp -= LevelUp
+              let addLevel = (LevelUpLevel + 1)
+              let newLevelUp = Math.round(LevelUp * 1.35)
+              console.log("User leveled up to: ", addLevel)
+              await updateDoc(userRef, {
+                ReceitasFeitas: arrayUnion(Receita),
+                Exp: addExp,
+                Moedas: addMoeda,
+                ExpLevel: newLevelUp,
+                Nivel: addLevel
+              });
+            } else {
+              await updateDoc(userRef, {
+                ReceitasFeitas: arrayUnion(Receita),
+                Exp: addExp,
+                Moedas: addMoeda,
+              });
+            }
             if (route?.params.paramKey[2] == 'Refeições') {
               const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
               await updateDoc(userRef, {
@@ -208,33 +227,51 @@ export default function Parabens({ navigation, route }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={{ flex: 1 }} >
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.goback} ><FontAwesome name="arrow-left" size={30} color="white" /></TouchableOpacity>
-        <View style={[styles.imagebak, {
-          backgroundColor: cor,
-          borderColor: corFill,
-          flex: 0.8,
-        }]}>
-          <View style={{ flex: 0.5 }} />
-          <View style={styles.areatitulo}>
-            <View style={[styles.titulopasso, {
-              borderColor: corBorda,
-              backgroundColor: corFill,
-            }]}>
-              <Text style={styles.titulopassotexto}>PARABÉNS!</Text>
+      <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: "#FFF" }}>
+
+        <View style={styles.thisthing} >
+          <View style={[styles.whydoyoudothis, {
+            backgroundColor: cor,
+            borderColor: corFill,
+          }]} >
+            <TouchableOpacity activeOpacity={0.8} style={{ position: 'absolute', paddingBottom: 6, paddingStart: 10, zIndex: 99 }} onPress={() => navigation.goBack()} >
+              <FontAwesome size={30} color={"#FFF"} name='arrow-left' />
+            </TouchableOpacity>
+            <Text style={styles.titulopassotexto}>Parabéns!</Text>
+          </View>
+        </View>
+        <View style={styles.gainsarea} >
+          <View style={styles.gainsstuff} >
+            <View style={styles.statarea} >
+              <FontAwesome6 style={{ marginRight: 8 }} color={"#FAB151"} name="piggy-bank" size={26} />
+              <Text style={styles.textostats}>+{Moeda}</Text>
+            </View>
+            <View style={{ width: 40, height: 20 }} />
+            <View style={styles.statarea} >
+              <FontAwesome style={{ marginRight: 8 }} color={"#70D872"} name="plus" size={30} />
+              <Text style={styles.textostats}>{XP} exp</Text>
             </View>
           </View>
-          <View style={{ flex: 1 }} />
         </View>
         <View style={styles.belowimage} >
-          <View style={styles.teacharea} >
-            <Image style={styles.confetti} source={require("../../assets/confetti2.gif")} />
-            <Image style={styles.charimage} source={require("../../assets/betterAlberto.png")} />
+          <View style={{ justifyContent: 'center', alignItems: 'center' }} >
+            <View style={styles.teacharea} >
+              <Image style={styles.confetti} source={require("../../assets/confetti2.gif")} />
+              <Image style={styles.charimage} source={require("../../assets/betterAlberto.png")} />
+            </View>
           </View>
-          <View style={{ marginTop: 25, width: "100%", paddingHorizontal: 20 }} >
-            <Text style={styles.parabenstexto}>{route.params.paramKey[0]}</Text>
+          <View style={styles.descpassoarea}>
+            <Image style={styles.triangle} tintColor={cor} source={require("../../assets/little_triangle_thing.png")} />
+            <View style={{ width: '100%', zIndex: 2 }} >
+              <View style={[styles.viewpasso, { borderColor: cor }]} >
+                <Text style={styles.descpasso} >{route.params.paramKey[0]}</Text>
+              </View>
+              <View style={[styles.descpassoBehind, {
+                borderColor: corFill,
+              }]} />
+            </View>
           </View>
-          <TouchableOpacity style={{ width: "100%", paddingHorizontal: 20, alignSelf: 'center' }} onPress={() => navigation.navigate("Trilha", { paramKey: [route.params.navigate[0], route.params.navigate[1], route.params.navigate[2], route.params.navigate[3], route.params.navigate[4]] })}>
+          <TouchableOpacity style={{ width: "100%", paddingHorizontal: 10, alignSelf: 'center' }} onPress={() => navigation.navigate("Trilha", { paramKey: [route.params.navigate[0], route.params.navigate[1], route.params.navigate[2], route.params.navigate[3], route.params.navigate[4]] })}>
             <View style={styles.butao}>
               <Text style={styles.textobutao}>OBA!</Text>
             </View>
@@ -263,21 +300,21 @@ const styles = StyleSheet.create({
     left: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 100
+    borderRadius: 100,
   },
-  imagebak: {
+  thisthing: {
+    paddingHorizontal: 10,
+    width: "100%",
+    marginTop: 10,
+  },
+  whydoyoudothis: {
+    backgroundColor: "#D383E3",
+    paddingVertical: 8,
+    borderColor: "#be48d5",
+    borderWidth: 7,
+    borderBottomWidth: 13,
     borderRadius: 20,
-    backgroundColor: '#62BC63',
-    borderColor: '#4A8E4B',
-    borderBottomWidth: 10,
-    borderBottomRightRadius: 20,
-    borderTopStartRadius: 0,
-    borderTopEndRadius: 0,
-    borderStartWidth: 4,
-    borderEndWidth: 4,
-    borderTopWidth: 4,
-
-
+    justifyContent: 'center',
   },
   areatitulo: {
     marginTop: 50,
@@ -313,28 +350,77 @@ const styles = StyleSheet.create({
     textAlign: 'center'
 
   },
-  belowimage: {
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    marginTop: 150,
-    backgroundColor: "#FFF"
-  },
+
   teacharea: {
     width: '100%',
     alignItems: 'center'
 
   },
+  belowimage: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+  },
+  descpassoarea: {
+    width: '100%',
+    paddingHorizontal: 10,
+    marginTop: 30
+  },
+  descpasso: {
+    zIndex: 2,
+    fontSize: 18,
+    textAlign: 'center',
+    fontWeight: '600',
+    color: "#303030",
+    //marginVertical: 100
+
+  },
+  viewpasso: {
+    zIndex: 3,
+    width: '100%',
+    alignSelf: 'center',
+    borderRadius: 20,
+    borderWidth: 8,
+    paddingVertical: 15,
+    backgroundColor: 'white',
+    paddingHorizontal: 30,
+  },
+  descpassoBehind: {
+    zIndex: 1,
+    borderColor: '#4A8E4B',
+    width: '100%',
+    height: '100%',
+    marginTop: 9,
+    alignSelf: 'center',
+    position: 'absolute',
+    borderRadius: 20,
+    borderWidth: 10,
+  },
+  triangle: {
+    height: 27.6,
+    width: 46.2,
+    alignSelf: 'center',
+    position: 'absolute',
+    marginTop: -21,
+    zIndex: 99
+  },
+
+  spaceinbetween: {
+    backgroundColor: '#FFF',
+    zIndex: 0,
+    width: '100%',
+    height: '50%',
+    position: 'absolute'
+  },
   confetti: {
     height: 300,
     width: "100%",
-    marginTop: -150,
     position: 'absolute',
     resizeMode: 'contain'
   },
   charimage: {
     height: 300,
     width: 244,
-    marginTop: -175,
     zIndex: 3
   },
   charsombra: {
@@ -359,7 +445,34 @@ const styles = StyleSheet.create({
   parabenstexto: {
     fontSize: 20,
     textAlign: 'center',
-    width: "100%"
+    maxWidth: "100%"
+  },
+  gainsarea: {
+    width: '100%',
+    paddingHorizontal: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 30,
+  },
+  gainsstuff: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  statarea: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  iconcontainer: {
+    width: 35,
+    alignItems: 'center',
+    marginRight: 15
+  },
+  textostats: {
+    fontWeight: 'bold',
+    fontSize: 25,
+    color: "#505050"
   },
   butao: {
     backgroundColor: '#FAB151',
@@ -372,7 +485,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 10,
-    marginTop: 50
+    marginVertical: 50
   },
   textobutao: {
     fontWeight: 'bold',
