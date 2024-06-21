@@ -2,7 +2,7 @@ import { View, Image, StyleSheet, Text, FlatList, TouchableOpacity, TextInput, L
 import { app, app_DB, app_auth } from '../../../firebaseConfig'
 import { onAuthStateChanged } from "firebase/auth"
 import { useState, useEffect } from 'react'
-import { FontAwesome5, Feather, Octicons, FontAwesome, MaterialCommunityIcons } from 'react-native-vector-icons'
+import { FontAwesome5, Feather, Octicons, FontAwesome, MaterialCommunityIcons, FontAwesome6 } from 'react-native-vector-icons'
 import { collection, deleteDoc, doc, query, where, onSnapshot, documentId, orderBy } from "firebase/firestore";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ModalBook } from '../../components/actionmodal/modalbook'
@@ -265,7 +265,7 @@ const MainBook = ({ navigation }) => {
                                                     {item.Tempo != null && item.Tempo != undefined && (
                                                         <View style={styles.timezone} >
                                                             <>
-                                                                <FontAwesome5 name="clock" size={20} color={"#505050"} />
+                                                                <FontAwesome6 name="clock" size={20} color={"#505050"} />
                                                                 <Text style={styles.timetxt} >{item.Tempo} minutos</Text>
                                                             </>
                                                         </View>

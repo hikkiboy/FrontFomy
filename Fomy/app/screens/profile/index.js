@@ -102,7 +102,7 @@ const Profile = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container} >
             {Receitas.length != 0 ? (
-                <ScrollView style={{ minWidth: "100%" }} >
+                <ScrollView style={{ flexGrow: 1 }} >
 
                     <TouchableOpacity activeOpacity={0.8} style={{ zIndex: 99 }} onPress={() => handleModal()} >
                         <FontAwesome6 style={styles.menu} name="gear" size={27} color="#FFF" />
@@ -115,39 +115,48 @@ const Profile = ({ navigation }) => {
                                 </View>
                                 <View style={{ flex: 1, justifyContent: 'center' }}>
                                     <Text style={[styles.trilhaTit,]}>{Receitas.Nome}</Text>
-                                    <Text style={[styles.trilhaTit, { color: "rgba(255,255,255,0.85)", fontSize: 24 }]}>{Receitas.Titulo}</Text>
+                                    <Text style={[styles.trilhaTit, { color: "rgba(255,255,255,0.85)", fontSize: 23 }]}>{Receitas.Titulo}</Text>
                                 </View>
                             </View>
                         </View>
                     </View>
-
-                    <View style={{ paddingStart: 5, paddingEnd: 5, marginBottom: 60 }} >
-                        <View style={styles.bgimg}>
-                            <View style={{ flex: 1, justifyContent: 'center', paddingVertical: 20 }}>
-                                <Text style={[styles.trilhaTit, { backgroundColor: "#2985DB", borderRadius: 20, padding: 5 }]}>Nível {Receitas.Nivel}</Text>
-                                <View style={{ alignSelf: "center", marginTop: 25 }} >
-
-                                    <Progress.Bar
-                                        style={{ justifyContent: 'center' }}
-                                        progress={progressToBar}
-                                        width={width - 50}
-                                        height={45}
-                                        borderRadius={20}
-                                        color={"#FFF"}
-                                        borderWidth={0}
-                                        unfilledColor={progressToBar != 1 ? "rgba(255,255,255,0.6)" : item.CorFill}
-                                    ><Text style={{ position: 'absolute', alignSelf: 'center', color: progressToBar != 1 ? "rgba(0,0,0,0.65)" : "#FFF", fontSize: 23, fontWeight: 'bold' }}  >XP: {Receitas.Exp} / {Receitas.ExpLevel}</Text></Progress.Bar>
+                    <View style={{ marginBottom: 70 }} >
+                        <View style={{ width: "100%", alignItems: 'center' }}>
+                            <View style={{ width: "100%", paddingHorizontal: 10 }} >
+                                <View style={{ backgroundColor: "#3B98EF", borderRadius: 15, paddingVertical: 6, borderWidth: 6, borderBottomWidth: 9, borderColor: "#2985DB" }} >
+                                    <Text style={[styles.trilhaTit, { marginBottom: 0 }]}>Nível {Receitas.Nivel}</Text>
                                 </View>
+                            </View>
+                            <View style={{ alignSelf: "center", marginTop: 30, paddingBottom: 5 }} >
+                                <Progress.Bar
+                                    style={{ justifyContent: 'center' }}
+                                    progress={progressToBar}
+                                    width={width - 20}
+                                    height={47}
+                                    borderRadius={15}
+                                    color={"#3B98EF"}
+                                    borderColor={"#FFF"}
+                                    unfilledColor={progressToBar != 1 ? "#E9E9E9" : item.CorFill}
+                                >
+                                    <Text style={{ position: 'absolute', alignSelf: 'center', color: progressToBar != 1 ? "rgba(0,0,0,0.65)" : "#FFF", fontSize: 25, fontWeight: 'bold' }}  >XP: {Receitas.Exp} / {Receitas.ExpLevel}</Text>
+                                </Progress.Bar>
                             </View>
                         </View>
                     </View>
+                    <View style={{ flex: 1 }} />
                     {Receitas.Insignias.length != 0 &&
-                        <View style={{ paddingStart: 5, paddingEnd: 5 }} >
-                            <View style={styles.badgearea} >
-                                <Text style={styles.badgetitle} >Insígnias</Text>
-                                <View style={styles.stepslist} >
-                                    <View style={styles.badges} >
-                                        <Badges data={Receitas.Insignias} />
+                        <View style={{ width: "100%", alignItems: 'center' }} >
+                            <View style={{ width: "100%", paddingHorizontal: 10 }} >
+                                <View style={{ backgroundColor: "#3B98EF", borderRadius: 15, paddingVertical: 6, borderWidth: 6, borderBottomWidth: 9, borderColor: "#2985DB" }} >
+                                    <Text style={[styles.trilhaTit, { marginBottom: 0 }]}>Insígnias</Text>
+                                </View>
+                            </View>
+                            <View style={{ width: "100%", paddingHorizontal: 10 }} >
+                                <View style={styles.badgearea} >
+                                    <View style={styles.stepslist} >
+                                        <View style={styles.badges} >
+                                            <Badges data={Receitas.Insignias} />
+                                        </View>
                                     </View>
                                 </View>
                             </View>
@@ -209,7 +218,6 @@ const styles = StyleSheet.create({
         position: "absolute",
         alignSelf: 'flex-end',
         padding: 20,
-        paddingRight: 25
 
     },
     booklet: {
@@ -221,7 +229,7 @@ const styles = StyleSheet.create({
     titlearea: {
         width: '100%',
         paddingHorizontal: 10,
-        marginVertical: 25,
+        marginVertical: 20,
         zIndex: 98,
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -252,7 +260,7 @@ const styles = StyleSheet.create({
     trilhaTit: {
         textAlign: 'center',
         marginBottom: 5,
-        fontSize: 28,
+        fontSize: 25,
         fontWeight: "bold",
         color: "#FFF",
         //fontFamily: FontFamily.leagueSpartanBold
@@ -286,17 +294,14 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     badgearea: {
-        backgroundColor: "#EFEFEF",
+        backgroundColor: "#FFF",
         width: '100%',
-        borderRadius: 20,
-        padding: 15,
-        paddingBottom: 18,
-        paddingTop: 12,
+        borderRadius: 15,
+        marginTop: 30,
         marginBottom: 70,
-        backgroundColor: "#3B98EF",
-        borderColor: "#2985DB",
-        borderWidth: 7,
-        borderBottomWidth: 10
+        borderColor: "#E9E9E9",
+        borderWidth: 6,
+        borderBottomWidth: 9
 
     },
     badgetitle: {
@@ -311,7 +316,6 @@ const styles = StyleSheet.create({
     badges: {
         backgroundColor: '#FFF',
         borderRadius: 15,
-        marginTop: 12
 
     },
 
