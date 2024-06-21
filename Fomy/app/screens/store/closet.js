@@ -6,12 +6,15 @@ import { onAuthStateChanged } from 'firebase/auth'
 import React, { useEffect, useState } from 'react'
 import AlbertoCustom from '../../components/customalberto'
 import LazyList from '../../components/lazylist'
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5"
 
 export default function Closet({ route }) {
 
   const [user, setUser] = useState()
 
   const [realDawg, setRealDawg] = useState([])
+
+  const [finished, setFinished] = useState(false)
 
 
   //console.log(route.params.user[0])
@@ -58,39 +61,47 @@ export default function Closet({ route }) {
   }, [])
 
   useEffect(() => {
-    if (user != null) {
+    try {
+      if (user != null && user[0].Itens.length > 0) {
 
-      const itensRef = collection(app_DB, 'Itens')
-
-
-
-      const q = query(
-        itensRef,
-        where(documentId(), 'in', user[0].Itens)
-      )
+        const itensRef = collection(app_DB, 'Itens')
 
 
 
-      const subscriver = onSnapshot(q, {
-        next: (snapshot) => {
-          const insignias = []
+        const q = query(
+          itensRef,
+          where(documentId(), 'in', user[0].Itens)
+        )
 
-          snapshot.docs.forEach(doc => {
-            insignias.push({
-              key: doc.id,
-              ...doc.data(),
 
+
+        const subscriver = onSnapshot(q, {
+          next: (snapshot) => {
+            const insignias = []
+
+            snapshot.docs.forEach(doc => {
+              insignias.push({
+                key: doc.id,
+                ...doc.data(),
+
+              })
             })
-          })
-          setRealDawg(insignias)
-          console.log(realDawg)
+            setRealDawg(insignias)
+            console.log(realDawg)
+            setFinished(true)
 
+          }
+        })
 
-        }
-      })
-
-      return () => subscriver()
-    } else {
+        return () => subscriver()
+      } else if (user != null && user[0].Itens.length === 0) {
+        setRealDawg([])
+        setFinished(true)
+      } else {
+        setRealDawg([])
+      }
+    } catch (error) {
+      console.log(error);
       setRealDawg([])
     }
 
@@ -114,11 +125,13 @@ export default function Closet({ route }) {
     <SafeAreaView style={styles.container}>
       {realDawg != null && realDawg.length != 0 ? (
         <ScrollView contentContainerStyle={{ flexGrow: 1 }} >
-          <View style={{ paddingHorizontal: 5, paddingTop: 5}} >
+          <View style={{ paddingHorizontal: 5, paddingTop: 5 }} >
             <View style={styles.bgimg}>
               <Image tintColor={"#ED8A07"} style={styles.booklet} source={require('../../assets/booklet.png')} />
               <View style={styles.titlearea} >
-                <Text style={styles.trilhaTit}>Armário</Text>
+                <View style={{ flex: 1 }} >
+                  <Text style={styles.trilhaTit}>Roupas</Text>
+                </View>
                 <AlbertoCustom width={144} height={144} />
               </View>
             </View>
@@ -149,7 +162,7 @@ export default function Closet({ route }) {
               </View>
             }
             {realDawg.filter((item) => item.Posição == 3).length > 0 &&
-              <View style={styles.badgearea} >
+              <View style={[styles.badgearea, { marginBottom: 80 }]} >
                 <Text style={styles.badgetitle} >Corpo</Text>
                 <View style={styles.badges} >
                   <LazyList data={realDawg.filter((item) => item.Posição == 3)} update={porra} />
@@ -158,6 +171,12 @@ export default function Closet({ route }) {
             }
           </View>
         </ScrollView>
+      ) : finished ? (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} >
+          <FontAwesome5 color="#505050" name="wind" size={175} />
+          <Text style={[styles.nothingtxt, { marginTop: 20 }]} >Seu Armário está vazio...</Text>
+          <Text style={[styles.nothingtxt, { fontSize: 23, marginTop: 50 }]} >Compre uma roupa para colocar no Alberto!</Text>
+        </View>
       ) : (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} >
           <ActivityIndicator size={120} color={"#ED8A07"} />
@@ -195,8 +214,8 @@ const styles = StyleSheet.create({
   },
   titlearea: {
     width: '100%',
-    paddingStart: 40,
-    paddingEnd: 40,
+    paddingStart: 30,
+    paddingEnd: 30,
     marginVertical: 35,
     zIndex: 98,
     flexDirection: 'row-reverse',
@@ -240,5 +259,12 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     marginTop: 12
   },
-
+  nothingtxt: {
+    fontWeight: "bold",
+    width: "85%",
+    textAlign: "center",
+    fontSize: 25,
+    color: "#505050"
+    //marginTop: 35
+  },
 });

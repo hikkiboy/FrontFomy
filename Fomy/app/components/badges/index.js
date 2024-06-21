@@ -96,7 +96,7 @@ export function Badges({ data }) {
                     )
                     
                 }}
-                ItemSeparatorComponent={<View style={{ width: 25, height: 25 }} />}
+                ItemSeparatorComponent={<View style={{ width: 20, height: 25 }} />}
             />
             <Modal visible={visible}
                 onRequestClose={checkBadge} 
@@ -117,8 +117,8 @@ export function Badges({ data }) {
 const styles = StyleSheet.create({
     container:{
         alignItems: 'center',
-        marginVertical: 25,
-        marginTop: 30.3125
+        marginBottom: 20,
+        marginTop: 24.25
     },
     thebadge:{
         alignItems: 'center',
