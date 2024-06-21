@@ -70,6 +70,20 @@ export default function Store({ navigation }) {
     }
   }
 
+  async function buyPremium() {
+    if (!user[0].Premium) {
+      const userRef = doc(app_DB, 'Usuarios', app_auth.currentUser.uid)
+
+      await updateDoc(userRef, {
+        Premium: true
+      }).then(() => {
+        console.log("updatou")
+      }).catch((error) => {
+        console.log(error)
+      })
+    }
+  }
+
   useEffect(() => {
 
     try {
@@ -125,6 +139,20 @@ export default function Store({ navigation }) {
               </View>
             </View>
           </View>
+          {!user[0].Premium &&
+            <View style={{ paddingHorizontal: 5, paddingTop: 5 }} >
+              <TouchableOpacity activeOpacity={0.8} style={styles.bgpremium} onPress={() => buyPremium()} >
+                <View style={styles.premiumarea} >
+                  {/* <Image style={{ width: 119, height: 144 }} source={require('../../assets/evenMoreRichAlberto.png')} /> */}
+                  <View style={{ flex: 1, justifyContent: 'center' }}>
+                    <Text style={styles.premiumTit}>Comprar Premium</Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            </View>
+          }
+
+
           <View style={styles.moneycontainer} >
             <View style={styles.moneyarea} >
               <FontAwesome6 name='piggy-bank' size={37} color={"#FFF"} />
@@ -194,7 +222,7 @@ const styles = StyleSheet.create({
   bgimg: {
     width: "100%",
     borderRadius: 20,
-    marginBottom: 45,
+    marginBottom: 30,
     backgroundColor: "#FAB151",
   },
   booklet: {
@@ -300,5 +328,30 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: "#FFF",
   },
+  bgpremium: {
+    width: "100%",
+    borderRadius: 20,
+    marginBottom: 45,
+    backgroundColor: "#BC4246",
+    borderColor: "#95233F",
+    borderWidth: 8,
+  },
+  premiumTit: {
+    textAlign: 'center',
+    marginBottom: 5,
+    fontSize: 32,
+    fontWeight: "bold",
+    color: "#FFF",
+  },
+  premiumarea: {
+    width: '100%',
+    paddingStart: 10,
+    paddingEnd: 10,
+    marginVertical: 15,
+    zIndex: 98,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  }
 
 });

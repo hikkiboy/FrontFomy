@@ -128,60 +128,62 @@ const Profile = ({ navigation }) => {
                                 </View>
                             </View>
                             <View style={{ alignSelf: "center", marginTop: 30, paddingBottom: 5 }} >
-                                <Progress.Bar
-                                    style={{ justifyContent: 'center' }}
-                                    progress={progressToBar}
-                                    width={width - 20}
-                                    height={47}
-                                    borderRadius={15}
-                                    color={"#3B98EF"}
-                                    borderColor={"#FFF"}
-                                    unfilledColor={progressToBar != 1 ? "#E9E9E9" : item.CorFill}
-                                >
-                                    <Text style={{ position: 'absolute', alignSelf: 'center', color: progressToBar != 1 ? "rgba(0,0,0,0.65)" : "#FFF", fontSize: 25, fontWeight: 'bold' }}  >XP: {Receitas.Exp} / {Receitas.ExpLevel}</Text>
-                                </Progress.Bar>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={{ flex: 1 }} />
-                    {Receitas.Insignias.length != 0 &&
-                        <View style={{ width: "100%", alignItems: 'center' }} >
-                            <View style={{ width: "100%", paddingHorizontal: 10 }} >
-                                <View style={{ backgroundColor: "#3B98EF", borderRadius: 15, paddingVertical: 6, borderWidth: 6, borderBottomWidth: 9, borderColor: "#2985DB" }} >
-                                    <Text style={[styles.trilhaTit, { marginBottom: 0 }]}>Insígnias</Text>
+                                <View style={{ width: width - 20, height: "100%", backgroundColor: "#e9e9e9", position: 'absolute', borderRadius: 20, marginTop: 2 }}/>
+                                    <Progress.Bar
+                                        style={{ justifyContent: 'center' }}
+                                        progress={progressToBar}
+                                        width={width - 20}
+                                        height={47}
+                                        borderRadius={15}
+                                        borderWidth={5}
+                                        color={"#3B98EF"}
+                                        borderColor={"#e9e9e9"}
+                                        unfilledColor={progressToBar != 1 ? "#FFF" : item.CorFill}
+                                    >
+                                        <Text style={{ position: 'absolute', alignSelf: 'center', color: progressToBar != 1 ? "rgba(0,0,0,0.65)" : "#FFF", fontSize: 25, fontWeight: 'bold' }}  >XP: {Receitas.Exp} / {Receitas.ExpLevel}</Text>
+                                    </Progress.Bar>
                                 </View>
                             </View>
-                            <View style={{ width: "100%", paddingHorizontal: 10 }} >
-                                <View style={styles.badgearea} >
-                                    <View style={styles.stepslist} >
-                                        <View style={styles.badges} >
-                                            <Badges data={Receitas.Insignias} />
+                        </View>
+                        <View style={{ flex: 1 }} />
+                        {Receitas.Insignias.length != 0 &&
+                            <View style={{ width: "100%", alignItems: 'center' }} >
+                                <View style={{ width: "100%", paddingHorizontal: 10 }} >
+                                    <View style={{ backgroundColor: "#3B98EF", borderRadius: 15, paddingVertical: 6, borderWidth: 6, borderBottomWidth: 9, borderColor: "#2985DB" }} >
+                                        <Text style={[styles.trilhaTit, { marginBottom: 0 }]}>Insígnias</Text>
+                                    </View>
+                                </View>
+                                <View style={{ width: "100%", paddingHorizontal: 10 }} >
+                                    <View style={styles.badgearea} >
+                                        <View style={styles.stepslist} >
+                                            <View style={styles.badges} >
+                                                <Badges data={Receitas.Insignias} />
+                                            </View>
                                         </View>
                                     </View>
                                 </View>
                             </View>
-                        </View>
-                    }
+                        }
 
-                    <Modal visible={visible}
-                        onRequestClose={handleModal}
-                        animationType="slide"
-                        transparent={true}
-                    >
-                        <ActionModal
-                            handleActionOff={handleModalSignOut}
-                            handleAction={handleModal}
-                            navigation={navigation}
-                            handleName={handleInput}
-                            userImage={Receitas.Foto}
-                            input={inputOn}
-                            changeInput={setInputOn}
-                            name={newName}
-                            nameChange={setNewName}
-                            update={handleUpdate}
+                        <Modal visible={visible}
+                            onRequestClose={handleModal}
+                            animationType="slide"
+                            transparent={true}
+                        >
+                            <ActionModal
+                                handleActionOff={handleModalSignOut}
+                                handleAction={handleModal}
+                                navigation={navigation}
+                                handleName={handleInput}
+                                userImage={Receitas.Foto}
+                                input={inputOn}
+                                changeInput={setInputOn}
+                                name={newName}
+                                nameChange={setNewName}
+                                update={handleUpdate}
 
-                        />
-                    </Modal>
+                            />
+                        </Modal>
                 </ScrollView>
             ) : (
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "#FFF" }} >

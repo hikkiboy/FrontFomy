@@ -7,6 +7,7 @@ import { onAuthStateChanged } from "firebase/auth"
 import Animated, { Extrapolate, interpolate, useAnimatedRef, useAnimatedStyle, useSharedValue } from 'react-native-reanimated'
 import { FontAwesome } from 'react-native-vector-icons'
 import Trilha from '../trilha'
+import Store from '../../screens/store'
 
 
 
@@ -189,7 +190,7 @@ const OnboardingItem = ({ item, navigation, index, x, size }) => {
                 {/* SE FOR A GOURMET E NAO TIVER PREMIUM RENDERIZA O TEXTO*/}
                 {item.NomeTrilha == "Gourmet" && prem == false && (
                     <>
-                        <TouchableOpacity activeOpacity={0.8} style={[styles.buttonRegistro, { borderColor: item.CorBorda, backgroundColor: item.CorFill }]} title='Registrar' >
+                        <TouchableOpacity activeOpacity={0.8} style={[styles.buttonRegistro, { borderColor: item.CorBorda, backgroundColor: item.CorFill }]} title='Registrar' onPress={() => navigation.navigate("Store")} >
                             <Text style={[styles.botaoTexto]}>Comprar</Text>
                             <Text style={[styles.botaoTexto, { marginTop: 2 }]}>Premium</Text>
                         </TouchableOpacity>
