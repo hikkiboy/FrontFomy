@@ -149,7 +149,7 @@ export default function Closet({ route }) {
               </View>
             }
             {realDawg.filter((item) => item.Posição == 3).length > 0 &&
-              <View style={styles.badgearea} >
+              <View style={[styles.badgearea, {  marginBottom: 80 }]} >
                 <Text style={styles.badgetitle} >Corpo</Text>
                 <View style={styles.badges} >
                   <LazyList data={realDawg.filter((item) => item.Posição == 3)} update={porra} />
