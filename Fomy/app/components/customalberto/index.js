@@ -40,8 +40,8 @@ export default function AlbertoCustom({ width, height }) {
   }, [])
 
 
-  //console.log('Se leu, o alberto custom ta sendo usado');
-  //console.log(aberto[0].ItensAli)
+  console.log('Se leu, o alberto custom ta sendo usado');
+  //console.log(aberto)
 
 
   return (
