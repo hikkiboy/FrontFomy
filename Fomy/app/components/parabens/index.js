@@ -5,10 +5,13 @@ import { FontAwesome, FontAwesome6 } from 'react-native-vector-icons'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { collection, onSnapshot, query, where, orderBy, documentId, doc, updateDoc, arrayUnion } from '@firebase/firestore'
 import { app_DB, app_auth } from '../../../firebaseConfig';
+import AlbertoCustom from '../customalberto';
+import { useIsFocused } from '@react-navigation/native'
 
 
 export default function Parabens({ navigation, route }) {
 
+  const isFocused = useIsFocused();
   const Receita = route?.params.paramKey[1]
   const [XP, setXP] = useState()
   const [LevelUp, setLevelUp] = useState()
@@ -257,7 +260,10 @@ export default function Parabens({ navigation, route }) {
           <View style={{ justifyContent: 'center', alignItems: 'center' }} >
             <View style={styles.teacharea} >
               <Image style={styles.confetti} source={require("../../assets/confetti2.gif")} />
-              <Image style={styles.charimage} source={require("../../assets/betterAlberto.png")} />
+              {isFocused == true && (
+                <AlbertoCustom width={270} height={270}/>
+              )}
+              {/* <Image style={styles.charimage} source={require("../../assets/betterAlberto.png")} /> */}
             </View>
           </View>
           <View style={styles.descpassoarea}>

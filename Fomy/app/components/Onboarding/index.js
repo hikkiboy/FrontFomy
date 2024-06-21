@@ -6,14 +6,14 @@ import { app_auth, app_DB } from '../../../firebaseConfig'
 import { onAuthStateChanged } from "firebase/auth"
 import Animated, { Extrapolate, interpolate, useAnimatedRef, useAnimatedStyle, useSharedValue } from 'react-native-reanimated'
 import { FontAwesome } from 'react-native-vector-icons'
-import Trilha from '../trilha'
-import Store from '../../screens/store'
+import AlbertoCustom from '../../components/customalberto'
+import { useIsFocused } from '@react-navigation/native'
 
 
 
 const OnboardingItem = ({ item, navigation, index, x, size }) => {
 
-
+    const isFocused = useIsFocused();
     const [Usuarios, setUsuarios] = useState([]);
     const [progressToBar, setProgressToBar] = useState(0)
     const [progress, setProgress] = useState(0)
@@ -116,19 +116,31 @@ const OnboardingItem = ({ item, navigation, index, x, size }) => {
             {item.Imagem == "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Icones-Trilhas%2Fpalela2.png?alt=media&token=cf307cc6-f909-4491-b133-607cfc151b3d" && (
 
                 <View style={styles.imageContainer} >
-                    <Image source={require("../../assets/betterAlberto.png")} style={[styles.mascote]} />
+                    {/* <Image source={require("../../assets/betterAlberto.png")} style={[styles.mascote]} /> */}
+                    {isFocused == true && (
+                        <AlbertoCustom style={[styles.mascote]} width={250} height={250}/> 
+                    )}
                     <Image source={{ uri: item.Imagem }} style={[styles.acessorio, { height: 175, width: 175 }]} />
                 </View>
             )}
             {item.Imagem != "" && item.Imagem != "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Icones-Trilhas%2Fpalela2.png?alt=media&token=cf307cc6-f909-4491-b133-607cfc151b3d" && (
                 <View style={styles.imageContainer} >
-                    <Image source={require("../../assets/betterAlberto.png")} style={[styles.mascote]} />
+                    
+                    {/* <Image source={require("../../assets/betterAlberto.png")} style={[styles.mascote]} /> */}
+                    {isFocused == true && (
+                         <AlbertoCustom style={[styles.customalbi]} width={250} height={250}/>
+                    )}
+                   
                     <Image source={{ uri: item.Imagem }} style={[styles.acessorio, { height: 135, width: 135 }]} />
                 </View>
             )}
             {item.Imagem == "" && (
-                <View style={[styles.imageContainer, { justifyContent: 'center' }]} >
-                    <Image source={require("../../assets/betterAlberto.png")} style={[styles.mascote]} />
+                <View style={[styles.imageContainer, { justifyContent: 'center'}]} >
+                    {/* <Image source={require("../../assets/betterAlberto.png")} style={[styles.mascote]} /> */}
+                    {isFocused == true && (
+                        <AlbertoCustom style={[styles.customalbi]} width={250} height={250}/>
+                    )}
+                    
                 </View>
             )}
 
@@ -258,10 +270,10 @@ const styles = StyleSheet.create({
     },
     mascote: {
         height: 241,
-        width: 199
+        width: 199,
     },
     acessorio: {
-        marginRight: -50,
+        marginRight: -70,
         resizeMode: 'contain'
     },
     itemContainer: {
@@ -300,6 +312,10 @@ const styles = StyleSheet.create({
         marginBottom: 10
 
     },
+    customalbi:{
+        left: 100,
+        backgroundColor: 'red'
+    }
 
 })
 
