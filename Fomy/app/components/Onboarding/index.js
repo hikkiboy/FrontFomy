@@ -7,12 +7,13 @@ import { onAuthStateChanged } from "firebase/auth"
 import Animated, { Extrapolate, interpolate, useAnimatedRef, useAnimatedStyle, useSharedValue } from 'react-native-reanimated'
 import { FontAwesome } from 'react-native-vector-icons'
 import AlbertoCustom from '../../components/customalberto'
+import { useIsFocused } from '@react-navigation/native'
 
 
 
 const OnboardingItem = ({ item, navigation, index, x, size }) => {
 
-
+    const isFocused = useIsFocused();
     const [Usuarios, setUsuarios] = useState([]);
     const [progressToBar, setProgressToBar] = useState(0)
     const [progress, setProgress] = useState(0)
@@ -116,7 +117,9 @@ const OnboardingItem = ({ item, navigation, index, x, size }) => {
 
                 <View style={styles.imageContainer} >
                     {/* <Image source={require("../../assets/betterAlberto.png")} style={[styles.mascote]} /> */}
-                    <AlbertoCustom style={[styles.mascote]} width={250} height={250}/> 
+                    {isFocused == true && (
+                        <AlbertoCustom style={[styles.mascote]} width={250} height={250}/> 
+                    )}
                     <Image source={{ uri: item.Imagem }} style={[styles.acessorio, { height: 175, width: 175 }]} />
                 </View>
             )}
@@ -124,14 +127,20 @@ const OnboardingItem = ({ item, navigation, index, x, size }) => {
                 <View style={styles.imageContainer} >
                     
                     {/* <Image source={require("../../assets/betterAlberto.png")} style={[styles.mascote]} /> */}
-                    <AlbertoCustom style={[styles.customalbi]} width={250} height={250}/>
+                    {isFocused == true && (
+                         <AlbertoCustom style={[styles.customalbi]} width={250} height={250}/>
+                    )}
+                   
                     <Image source={{ uri: item.Imagem }} style={[styles.acessorio, { height: 135, width: 135 }]} />
                 </View>
             )}
             {item.Imagem == "" && (
                 <View style={[styles.imageContainer, { justifyContent: 'center'}]} >
                     {/* <Image source={require("../../assets/betterAlberto.png")} style={[styles.mascote]} /> */}
-                    <AlbertoCustom style={[styles.customalbi]} width={250} height={250}/>
+                    {isFocused == true && (
+                        <AlbertoCustom style={[styles.customalbi]} width={250} height={250}/>
+                    )}
+                    
                 </View>
             )}
 
