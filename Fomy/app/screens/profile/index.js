@@ -128,7 +128,7 @@ const Profile = ({ navigation }) => {
                                 </View>
                             </View>
                             <View style={{ alignSelf: "center", marginTop: 30, paddingBottom: 5 }} >
-                                <View style={{ width: width - 20, height: "100%", backgroundColor: "#e9e9e9", position: 'absolute', borderRadius: 20, marginTop: 2 }}/>
+                                {/* <View style={{ width: width - 20, height: "100%", backgroundColor: "#e9e9e9", position: 'absolute', borderRadius: 20, marginTop: 2 }}/> */}
                                     <Progress.Bar
                                         style={{ justifyContent: 'center' }}
                                         progress={progressToBar}
@@ -137,8 +137,8 @@ const Profile = ({ navigation }) => {
                                         borderRadius={15}
                                         borderWidth={5}
                                         color={"#3B98EF"}
-                                        borderColor={"#e9e9e9"}
-                                        unfilledColor={progressToBar != 1 ? "#FFF" : item.CorFill}
+                                        borderColor={"#FFF"}
+                                        unfilledColor={progressToBar != 1 ? "#e9e9e9" : item.CorFill}
                                     >
                                         <Text style={{ position: 'absolute', alignSelf: 'center', color: progressToBar != 1 ? "rgba(0,0,0,0.65)" : "#FFF", fontSize: 25, fontWeight: 'bold' }}  >XP: {Receitas.Exp} / {Receitas.ExpLevel}</Text>
                                     </Progress.Bar>
