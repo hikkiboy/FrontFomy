@@ -93,12 +93,12 @@ const Login = ({navigation}) => {
           <TouchableOpacity style={[styles.buttonCadastroGoogle, { height: (stuffHeight - 10) }]} onPress={ () => navigation.navigate('Loginpage')}>
             
             <Text style={[ styles.login ,{ fontSize: fontSize }]} >Entre com </Text>
-            <Text style={{ color: "#4285f4", fontSize: fontSize, fontWeight: "bold" }} >G</Text>
-            <Text style={{ color: "#ea4335", fontSize: fontSize, fontWeight: "bold" }} >o</Text>
-            <Text style={{ color: "#fbbc05", fontSize: fontSize, fontWeight: "bold" }} >o</Text>
-            <Text style={{ color: "#4285f4", fontSize: fontSize, fontWeight: "bold" }} >g</Text>
-            <Text style={{ color: "#34a853", fontSize: fontSize, fontWeight: "bold" }} >l</Text>
-            <Text style={{ color: "#ea4335", fontSize: fontSize, fontWeight: "bold" }} >e</Text>
+            <Text style={{ color: "#4285f4", fontSize: fontSize,fontFamily: 'FredokaSemibold' }} >G</Text>
+            <Text style={{ color: "#ea4335", fontSize: fontSize,fontFamily: 'FredokaSemibold' }} >o</Text>
+            <Text style={{ color: "#fbbc05", fontSize: fontSize,fontFamily: 'FredokaSemibold' }} >o</Text>
+            <Text style={{ color: "#4285f4", fontSize: fontSize,fontFamily: 'FredokaSemibold' }} >g</Text>
+            <Text style={{ color: "#34a853", fontSize: fontSize,fontFamily: 'FredokaSemibold' }} >l</Text>
+            <Text style={{ color: "#ea4335", fontSize: fontSize,fontFamily: 'FredokaSemibold' }} >e</Text>
           </TouchableOpacity>
   
         
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     
   },
   login:{
-    fontWeight: 'bold',
+    fontFamily: "FredokaSemibold",
     opacity: 0.7,
   },
   loginGoogle:{
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     marginBottom: 5,
     color: "rgba(0,0,0,0.7)",
-    fontWeight: "bold"
+    fontFamily: "FredokaSemibold"
     
   },
 
