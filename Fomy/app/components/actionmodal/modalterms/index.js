@@ -181,8 +181,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 9,
         position: 'absolute',
         zIndex: 99,
-        top: 10,
-        right: 8,
+        top: 15,
+        right: 13,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 100

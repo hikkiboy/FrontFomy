@@ -92,7 +92,7 @@ const Login = ({navigation}) => {
 
           <TouchableOpacity style={[styles.buttonCadastroGoogle, { height: (stuffHeight - 10) }]} onPress={ () => navigation.navigate('Loginpage')}>
             
-            <Text style={[ styles.login ,{ fontSize: fontSize }]} >Entre com </Text>
+            <Text style={[ styles.login ,{ fontSize: fontSize, color: "#303030" }]} >Entre com </Text>
             <Text style={{ color: "#4285f4", fontSize: fontSize,fontFamily: 'FredokaSemibold' }} >G</Text>
             <Text style={{ color: "#ea4335", fontSize: fontSize,fontFamily: 'FredokaSemibold' }} >o</Text>
             <Text style={{ color: "#fbbc05", fontSize: fontSize,fontFamily: 'FredokaSemibold' }} >o</Text>
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
   },
   login:{
     fontFamily: "FredokaSemibold",
-    opacity: 0.7,
+    color: "#303030"
   },
   loginGoogle:{
     fontSize: 28,
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
   otherOptions:{
     marginHorizontal: 10,
     marginBottom: 5,
-    color: "rgba(0,0,0,0.7)",
+    color: "#505050",
     fontFamily: "FredokaSemibold"
     
   },

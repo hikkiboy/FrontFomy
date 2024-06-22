@@ -101,7 +101,7 @@ const Cadastro = ({ navigation }) => {
           Doces: 0,
           Gourmet: 0,
           Refeições: 0,
-          ItensAli: ["chef","","",""],
+          ItensAli: ["chef", "", "", ""],
           ExpLevel: 50
 
         })
@@ -150,7 +150,7 @@ const Cadastro = ({ navigation }) => {
             <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', zIndex: 99, alignItems: 'center', backgroundColor: bg }} >
               <View style={{ backgroundColor: "#FFF", height: 275, width: "100%", borderTopLeftRadius: 25, borderTopRightRadius: 25, alignItems: 'center' }} >
                 <View style={{ alignItems: 'center', width: "100%", height: "25%", justifyContent: 'center' }} >
-                  <Text style={{ textAlign: 'center', fontSize: 25, fontFamily: "FredokaBold" }} >{created ? ("Perfil criado!") : ("Criando perfil...")}</Text>
+                  <Text style={{ textAlign: 'center', fontSize: 28, fontFamily: "FredokaBold", color: "#303030" }} >{created ? ("Perfil criado!") : ("Criando perfil...")}</Text>
                 </View>
                 <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'center' }} >
                   {created ? (
@@ -184,7 +184,7 @@ const Cadastro = ({ navigation }) => {
             <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', zIndex: 99, alignItems: 'center' }} >
               <View style={{ backgroundColor: "#FFF", height: 275, width: "100%", borderTopLeftRadius: 25, borderTopRightRadius: 25, alignItems: 'center' }} >
                 <View style={{ alignItems: 'center', width: "100%", height: "25%", justifyContent: 'center' }} >
-                  <Text style={{ textAlign: 'center', fontSize: 25, fontFamily: "FredokaBold" }} >{created ? ("Perfil criado!") : ("Criando perfil...")}</Text>
+                  <Text style={{ textAlign: 'center', fontSize: 28, fontFamily: "FredokaBold", color: "#303030" }} >{created ? ("Perfil criado!") : ("Criando perfil...")}</Text>
                 </View>
                 <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'center' }} >
                   {created ? (
@@ -210,9 +210,9 @@ const Cadastro = ({ navigation }) => {
         <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "rgba(0,0,0,0.2)" }} >
           <View style={{ alignItems: 'center', backgroundColor: '#FFF', borderRadius: 15, width: "90%", paddingVertical: 20, paddingBottom: 30 }} >
             <Feather name="alert-triangle" size={80} color="#fa787d" />
-            <Text style={{ fontSize: 19, fontFamily: "FredokaSemibold", marginBottom: "12%", marginTop: "3%", width: "90%", textAlign: 'center' }} >{whatError}</Text>
+            <Text style={{ fontSize: 19, color: "#505050", fontFamily: "FredokaMedium", marginBottom: "12%", marginTop: "3%", width: "90%", textAlign: 'center' }} >{whatError}</Text>
             <TouchableOpacity style={{ backgroundColor: "#fa787d", width: "90%", alignItems: 'center', justifyContent: 'center', borderRadius: 15, height: 45, borderWidth: 4, borderBottomWidth: 6, borderColor: '#f1555a' }} onPress={() => setProblem(false)} >
-              <Text style={{ fontSize: 18, fontFamily: "FredokaSemibold", color: '#000', opacity: 0.7 }} >Beleza, foi mal!</Text>
+              <Text style={{ fontSize: 18, fontFamily: "FredokaSemibold", color: "#303030" }} >Beleza, foi mal!</Text>
             </TouchableOpacity>
           </View>
         </SafeAreaView>
@@ -229,14 +229,14 @@ const Cadastro = ({ navigation }) => {
           onChangeText={(text) => setEmail(text)} />
         <FontAwesome6 name="at" size={25} color={"#303030"} />
       </View>
-      <View style={[styles.inputArea, { height: (stuffHeight - 7) }]} >
+      <View style={[styles.inputArea, { height: (stuffHeight - 7), marginBottom: 20 }]} >
         <TextInput value={senha} style={[styles.input, { fontSize: (fontSize - 2) }]} placeholder='Senha' autoCapitalize='none'
           onChangeText={(text) => setSenha(text)} secureTextEntry={true} />
         <FontAwesome6 name="lock" size={25} color={"#303030"} />
       </View>
       <View style={styles.section}>
         <Checkbox style={styles.checkbox} value={isChecked} onValueChange={setChecked} color={"green"} />
-        <Text style={{ display: 'flex', flexDirection: 'column', alignSelf: 'center', textAlign: 'center', fontSize: fontSize - 5, fontFamily: "FredokaMedium" }} >Concordo com a </Text>
+        <Text style={{ display: 'flex', flexDirection: 'column', alignSelf: 'center', textAlign: 'center', fontSize: fontSize - 5, fontFamily: "FredokaMedium", color: "#505050" }} >Concordo com a </Text>
         <TouchableOpacity style={{ alignSelf: 'center' }} activeOpacity={0.8} onPress={handleOpenModal} >
           <Text style={{ display: 'flex', flexDirection: 'column', alignSelf: 'center', textAlign: 'center', fontSize: fontSize - 5, color: "green", fontFamily: "FredokaMedium" }}>política de privacidade</Text>
         </TouchableOpacity>
@@ -290,7 +290,7 @@ const styles = StyleSheet.create({
     fontFamily: "FredokaMedium"
   },
   buttonLogin: {
-    marginTop: "7%",
+    marginTop: 30,
     backgroundColor: '#70d872',
     width: "85%",
     alignItems: 'center',
@@ -302,7 +302,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: "FredokaSemibold",
-    opacity: 0.7,
+    color: "#303030"
   },
   forgotPassword: {
     alignSelf: "center",
