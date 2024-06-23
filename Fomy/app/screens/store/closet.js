@@ -130,7 +130,7 @@ export default function Closet({ route }) {
               <Image tintColor={"#ED8A07"} style={styles.booklet} source={require('../../assets/booklet.png')} />
               <View style={styles.titlearea} >
                 <View style={{ flex: 1 }} >
-                  <Text style={styles.trilhaTit}>Roupas</Text>
+                  <Text allowFontScaling={false} style={styles.trilhaTit}>Roupas</Text>
                 </View>
                 <AlbertoCustom width={144} height={144} />
               </View>
@@ -142,7 +142,7 @@ export default function Closet({ route }) {
 
                 <View style={{ width: "100%" }} >
                   <View style={{ backgroundColor: "#FAB151", borderRadius: 15, paddingVertical: 6, borderWidth: 6, borderBottomWidth: 9, borderColor: "#ED8A07" }} >
-                    <Text style={styles.badgetitle} >Chapéus</Text>
+                    <Text allowFontScaling={false} style={styles.badgetitle} >Chapéus</Text>
                   </View>
                 </View>
                 <View style={styles.badgearea} >
@@ -156,7 +156,7 @@ export default function Closet({ route }) {
               <View style={{ width: "100%", alignItems: 'center' }} >
                 <View style={{ width: "100%" }} >
                   <View style={{ backgroundColor: "#FAB151", borderRadius: 15, paddingVertical: 6, borderWidth: 6, borderBottomWidth: 9, borderColor: "#ED8A07" }} >
-                    <Text style={styles.badgetitle} >Olhos</Text>
+                    <Text allowFontScaling={false} style={styles.badgetitle} >Olhos</Text>
                   </View>
                 </View>
                 <View style={styles.badgearea} >
@@ -170,7 +170,7 @@ export default function Closet({ route }) {
               <View style={{ width: "100%", alignItems: 'center' }} >
                 <View style={{ width: "100%"}} >
                   <View style={{ backgroundColor: "#FAB151", borderRadius: 15, paddingVertical: 6, borderWidth: 6, borderBottomWidth: 9, borderColor: "#ED8A07" }} >
-                    <Text style={styles.badgetitle} >Boca</Text>
+                    <Text allowFontScaling={false} style={styles.badgetitle} >Boca</Text>
                   </View>
                 </View>
                 <View style={styles.badgearea} >
@@ -184,7 +184,7 @@ export default function Closet({ route }) {
               <View style={{ width: "100%", alignItems: 'center' }} >
                 <View style={{ width: "100%"}} >
                   <View style={{ backgroundColor: "#FAB151", borderRadius: 15, paddingVertical: 6, borderWidth: 6, borderBottomWidth: 9, borderColor: "#ED8A07" }} >
-                    <Text style={styles.badgetitle} >Corpo</Text>
+                    <Text allowFontScaling={false} style={styles.badgetitle} >Corpo</Text>
                   </View>
                 </View>
                 <View style={[styles.badgearea, { marginBottom: 80 }]} >
@@ -199,13 +199,13 @@ export default function Closet({ route }) {
       ) : finished ? (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} >
           <FontAwesome5 color="#505050" name="wind" size={175} />
-          <Text style={[styles.nothingtxt, { marginTop: 20 }]} >Seu Armário está vazio...</Text>
-          <Text style={[styles.nothingtxt, { fontSize: 23, marginTop: 50, fontFamily: "FredokaMedium" }]} >Compre uma roupa para colocar no Alberto!</Text>
+          <Text allowFontScaling={false} style={[styles.nothingtxt, { marginTop: 20 }]} >Seu Armário está vazio...</Text>
+          <Text allowFontScaling={false} style={[styles.nothingtxt, { fontSize: 23, marginTop: 50, fontFamily: "FredokaMedium" }]} >Compre uma roupa para colocar no Alberto!</Text>
         </View>
       ) : (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} >
           <ActivityIndicator size={120} color={"#ED8A07"} />
-          <Text style={{ marginTop: 15, fontSize: 22, fontFamily: "FredokaSemibold", textAlign: 'center', width: "90%" }} >Carregando...</Text>
+          <Text allowFontScaling={false} style={{ marginTop: 15, fontSize: 22, fontFamily: "FredokaSemibold", textAlign: 'center', width: "90%" }} >Carregando...</Text>
         </View>
       )}
 

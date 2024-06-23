@@ -150,11 +150,11 @@ const Cadastro = ({ navigation }) => {
             <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', zIndex: 99, alignItems: 'center', backgroundColor: bg }} >
               <View style={{ backgroundColor: "#FFF", height: 275, width: "100%", borderTopLeftRadius: 25, borderTopRightRadius: 25, alignItems: 'center' }} >
                 <View style={{ alignItems: 'center', width: "100%", height: "25%", justifyContent: 'center' }} >
-                  <Text style={{ textAlign: 'center', fontSize: 28, fontFamily: "FredokaBold", color: "#303030" }} >{created ? ("Perfil criado!") : ("Criando perfil...")}</Text>
+                  <Text allowFontScaling={false} style={{ textAlign: 'center', fontSize: 28, fontFamily: "FredokaBold", color: "#303030" }} >{created ? ("Perfil criado!") : ("Criando perfil...")}</Text>
                 </View>
                 <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'center' }} >
                   {created ? (
-                    <Feather name="check" size={120} color="#70d872" />
+                    <FontAwesome6 name="check" size={120} color="#70d872" />
                   ) : (
                     <ActivityIndicator color="#70d872" />
                   )
@@ -184,11 +184,11 @@ const Cadastro = ({ navigation }) => {
             <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', zIndex: 99, alignItems: 'center' }} >
               <View style={{ backgroundColor: "#FFF", height: 275, width: "100%", borderTopLeftRadius: 25, borderTopRightRadius: 25, alignItems: 'center' }} >
                 <View style={{ alignItems: 'center', width: "100%", height: "25%", justifyContent: 'center' }} >
-                  <Text style={{ textAlign: 'center', fontSize: 28, fontFamily: "FredokaBold", color: "#303030" }} >{created ? ("Perfil criado!") : ("Criando perfil...")}</Text>
+                  <Text allowFontScaling={false} style={{ textAlign: 'center', fontSize: 28, fontFamily: "FredokaBold", color: "#303030" }} >{created ? ("Perfil criado!") : ("Criando perfil...")}</Text>
                 </View>
                 <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'center' }} >
                   {created ? (
-                    <Feather name="check" size={120} color="#70d872" />
+                    <FontAwesome6 name="check" size={120} color="#70d872" />
                   ) : (
                     <ActivityIndicator size={90} color="#70d872" />
                   )
@@ -207,12 +207,13 @@ const Cadastro = ({ navigation }) => {
         transparent={true}
         animationType='fade'
       >
-        <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "rgba(0,0,0,0.2)" }} >
-          <View style={{ alignItems: 'center', backgroundColor: '#FFF', borderRadius: 15, width: "90%", paddingVertical: 20, paddingBottom: 30 }} >
-            <Feather name="alert-triangle" size={80} color="#fa787d" />
-            <Text style={{ fontSize: 19, color: "#505050", fontFamily: "FredokaMedium", marginBottom: "12%", marginTop: "3%", width: "90%", textAlign: 'center' }} >{whatError}</Text>
-            <TouchableOpacity style={{ backgroundColor: "#fa787d", width: "90%", alignItems: 'center', justifyContent: 'center', borderRadius: 15, height: 45, borderWidth: 4, borderBottomWidth: 6, borderColor: '#f1555a' }} onPress={() => setProblem(false)} >
-              <Text style={{ fontSize: 18, fontFamily: "FredokaSemibold", color: "#303030" }} >Beleza, foi mal!</Text>
+        <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "rgba(0,0,0,0.2)", paddingHorizontal: 10 }} >
+          <View style={{ alignItems: 'center', backgroundColor: '#FFF', borderRadius: 15, width: "100%", paddingVertical: 30, paddingHorizontal: 10 }} >
+            <FontAwesome6 name="triangle-exclamation" size={80} color="#f1555a" />
+            <Text allowFontScaling={false} style={{ fontSize: 25, color: "#f1555a", fontFamily: "FredokaSemibold", marginBottom: 20, marginTop: 15, width: "100%", textAlign: 'center', paddingHorizontal: 10 }} >Ocorreu um erro!</Text>
+            <Text allowFontScaling={false} style={{ fontSize: 21, color: "#505050", fontFamily: "FredokaMedium", marginBottom: 45, width: "100%", textAlign: 'center', paddingHorizontal: 10 }} >{whatError}</Text>
+            <TouchableOpacity style={{ backgroundColor: "#fa787d", width: "100%", alignItems: 'center', justifyContent: 'center', borderRadius: 15, paddingVertical: 8, borderWidth: 6, borderBottomWidth: 9, borderColor: '#f1555a' }} onPress={() => setProblem(false)} >
+              <Text allowFontScaling={false} style={{ fontSize: 24, fontFamily: "FredokaSemibold", color: "#303030" }} >Beleza, foi mal!</Text>
             </TouchableOpacity>
           </View>
         </SafeAreaView>
@@ -221,28 +222,28 @@ const Cadastro = ({ navigation }) => {
       <Image style={[styles.logo, { width: imageWidth, height: imageHeight }]} source={require("../../assets/logo-full.png")} />
 
       <View style={[styles.inputArea, { height: (stuffHeight - 7) }]} >
-        <TextInput value={nome} style={[styles.input, { fontSize: (fontSize - 2) }]} placeholder='Nome' autoCapitalize='none' onChangeText={(text) => setNome(text)} />
+        <TextInput allowFontScaling={false} value={nome} style={[styles.input, { fontSize: (fontSize - 2) }]} placeholder='Nome' autoCapitalize='none' onChangeText={(text) => setNome(text)} />
         <FontAwesome6 name="user-large" size={25} color={"#303030"} />
       </View>
       <View style={[styles.inputArea, { height: (stuffHeight - 7) }]} >
-        <TextInput value={email} style={[styles.input, { fontSize: (fontSize - 2) }]} placeholder='Email' autoCapitalize='none'
+        <TextInput allowFontScaling={false} value={email} style={[styles.input, { fontSize: (fontSize - 2) }]} placeholder='Email' autoCapitalize='none'
           onChangeText={(text) => setEmail(text)} />
         <FontAwesome6 name="at" size={25} color={"#303030"} />
       </View>
       <View style={[styles.inputArea, { height: (stuffHeight - 7), marginBottom: 20 }]} >
-        <TextInput value={senha} style={[styles.input, { fontSize: (fontSize - 2) }]} placeholder='Senha' autoCapitalize='none'
+        <TextInput allowFontScaling={false} value={senha} style={[styles.input, { fontSize: (fontSize - 2) }]} placeholder='Senha' autoCapitalize='none'
           onChangeText={(text) => setSenha(text)} secureTextEntry={true} />
         <FontAwesome6 name="lock" size={25} color={"#303030"} />
       </View>
       <View style={styles.section}>
         <Checkbox style={styles.checkbox} value={isChecked} onValueChange={setChecked} color={"green"} />
-        <Text style={{ display: 'flex', flexDirection: 'column', alignSelf: 'center', textAlign: 'center', fontSize: fontSize - 5, fontFamily: "FredokaMedium", color: "#505050" }} >Concordo com a </Text>
+        <Text allowFontScaling={false} style={{ display: 'flex', flexDirection: 'column', alignSelf: 'center', textAlign: 'center', fontSize: fontSize - 5, fontFamily: "FredokaMedium", color: "#505050" }} >Concordo com a </Text>
         <TouchableOpacity style={{ alignSelf: 'center' }} activeOpacity={0.8} onPress={handleOpenModal} >
-          <Text style={{ display: 'flex', flexDirection: 'column', alignSelf: 'center', textAlign: 'center', fontSize: fontSize - 5, color: "green", fontFamily: "FredokaMedium" }}>política de privacidade</Text>
+          <Text allowFontScaling={false} style={{ display: 'flex', flexDirection: 'column', alignSelf: 'center', textAlign: 'center', fontSize: fontSize - 5, color: "green", fontFamily: "FredokaMedium" }}>política de privacidade</Text>
         </TouchableOpacity>
       </View>
       <TouchableOpacity activeOpacity={0.8} style={[styles.buttonLogin, { height: stuffHeight }]} title='Registrar' onPress={SignUp}>
-        <Text style={[styles.text, { fontSize: fontSize }]}>Começar jornada!</Text>
+        <Text allowFontScaling={false} style={[styles.text, { fontSize: fontSize }]}>Começar jornada!</Text>
       </TouchableOpacity>
       <Modal
         animationType="slide"
@@ -297,8 +298,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 15,
     borderColor: '#62bc63',
-    borderBottomWidth: 8,
-    borderWidth: 5
+    borderBottomWidth: 9,
+    borderWidth: 6
   },
   text: {
     fontFamily: "FredokaSemibold",

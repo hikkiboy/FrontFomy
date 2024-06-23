@@ -40,7 +40,7 @@ return(
   renderItem={({item}) => (
     <SafeAreaView>
         <TouchableOpacity onPress={() => navigation.navigate(item.NomeTrilha)}>
-        <Text>Trilha: {item.NomeTrilha}</Text>
+        <Text allowFontScaling={false}>Trilha: {item.NomeTrilha}</Text>
         </TouchableOpacity>
         </SafeAreaView>
   )}

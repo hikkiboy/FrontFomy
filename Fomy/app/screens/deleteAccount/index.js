@@ -23,7 +23,7 @@ export default function DeleteAccount({ navigation }){
                     <View style={{width: "100%", height: 55, backgroundColor: "#FFF", flexDirection: 'row', alignItems: 'center', borderRadius: 10 }} >
                         <TouchableOpacity style={{ width: "8.5%", marginStart: 20 }} onPress={() => navigation.goBack()} ><FontAwesome size={25} color={"#303030"} name='arrow-left' /></TouchableOpacity>
                         <View style={{ alignSelf: 'center', justifyContent: 'center', width: "100%", position: 'absolute' }} >
-                            <Text style={{ fontSize: 25, fontFamily: "FredokaSemibold", alignSelf: 'center', position: 'absolute', color: "#303030" }} >Deletar Conta</Text>
+                            <Text allowFontScaling={false} style={{ fontSize: 25, fontFamily: "FredokaSemibold", alignSelf: 'center', position: 'absolute', color: "#303030" }} >Deletar Conta</Text>
                         </View>
                     </View>
                 </View>
@@ -103,12 +103,12 @@ export default function DeleteAccount({ navigation }){
     <KeyboardAwareScrollView contentContainerStyle={styles.container}>
 
         <Image style={styles.depressoberto} source={require('../../assets/adepressoberto.png')}/>
-        <Text style={styles.depressoDialogue}>Vamos sentir sua falta...</Text>
+        <Text allowFontScaling={false} style={styles.depressoDialogue}>Vamos sentir sua falta...</Text>
         <View style={styles.content} >
        
             <View style={styles.inputarea} >
                 <View style={styles.inputextarea}>
-                    <TextInput
+                    <TextInput allowFontScaling={false}
                         value={senha}
                         style={styles.input}
                         placeholder="Insira sua senha"
@@ -121,7 +121,7 @@ export default function DeleteAccount({ navigation }){
             </View>
             <View style={styles.deletearea} >
                 <TouchableOpacity style={styles.delete} onPress={DeleteAll} activeOpacity={0.9} >
-                    <Text style={styles.action} >Confirmar</Text>
+                    <Text allowFontScaling={false} style={styles.action} >Confirmar</Text>
                     <FontAwesome6 color={"#FFF"} name="eraser" size={25} />
                 </TouchableOpacity>
             </View>

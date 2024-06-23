@@ -1,7 +1,7 @@
 
-import { StyleSheet, Text, View, Image, FlatList, TouchableWithoutFeedback, TouchableOpacity, ImageBackground, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, FlatList, TouchableWithoutFeedback, TouchableOpacity, ImageBackground, ScrollView, Modal } from 'react-native';
 import React, { useEffect, useState } from 'react'
-import { FontAwesome, FontAwesome6 } from 'react-native-vector-icons'
+import { FontAwesome, FontAwesome6, MaterialCommunityIcons } from 'react-native-vector-icons'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { collection, onSnapshot, query, where, orderBy, documentId, doc, updateDoc, arrayUnion } from '@firebase/firestore'
 import { app_DB, app_auth } from '../../../firebaseConfig';
@@ -24,6 +24,7 @@ export default function Parabens({ navigation, route }) {
   const cor = route.params.cores[0]
   const corFill = route.params.cores[1]
   const corBorda = route.params.cores[2]
+  const [congratulations, setCongratulations] = useState(false)
   //console.log("Current recipe key: ",route?.params.paramKey[1])
   //console.log("Current Trilha: ", route?.params.paramKey[2])
 
@@ -169,6 +170,7 @@ export default function Parabens({ navigation, route }) {
             const userRef = doc(app_DB, "Usuarios", app_auth.currentUser.uid);
             //User levels up, untested
             if (addExp >= LevelUp) {
+              setCongratulations(true)
               addExp -= LevelUp
               let addLevel = (LevelUpLevel + 1)
               let newLevelUp = Math.round(LevelUp * 1.35)
@@ -231,6 +233,22 @@ export default function Parabens({ navigation, route }) {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: "#FFF" }}>
+        <Modal
+          visible={congratulations}
+          transparent={true}
+          animationType='fade'
+        >
+          <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "rgba(0,0,0,0.2)", paddingHorizontal: 10 }} >
+            <View style={{ alignItems: 'center', backgroundColor: '#FFF', borderRadius: 15, width: "100%", paddingVertical: 30, paddingHorizontal: 10 }} >
+              <FontAwesome6 name="seedling" size={80} color={corFill} />
+              <Text allowFontScaling={false} style={{ fontSize: 25, color: corFill, fontFamily: "FredokaSemibold", marginBottom: 20, marginTop: 15, width: "100%", textAlign: 'center' }} >Aí sim!</Text>
+              <Text allowFontScaling={false} style={{ fontSize: 21, color: "#505050", fontFamily: "FredokaMedium", marginBottom: 45, width: "100%", textAlign: 'center' }} >Você subiu de nível!</Text>
+              <TouchableOpacity style={{ backgroundColor: cor, width: "100%", alignItems: 'center', justifyContent: 'center', borderRadius: 20, paddingVertical: 8 , borderWidth: 6, borderBottomWidth: 9, borderColor: corFill }} onPress={() => setCongratulations(false)} >
+                <Text allowFontScaling={false} style={{ fontSize: 24, fontFamily: "FredokaSemibold", color: "#303030" }} >Yay!</Text>
+              </TouchableOpacity>
+            </View>
+          </SafeAreaView>
+        </Modal>
 
         <View style={styles.thisthing} >
           <View style={[styles.whydoyoudothis, {
@@ -240,19 +258,19 @@ export default function Parabens({ navigation, route }) {
             <TouchableOpacity activeOpacity={0.8} style={{ position: 'absolute', paddingBottom: 6, paddingStart: 10, zIndex: 99 }} onPress={() => navigation.goBack()} >
               <FontAwesome size={30} color={"#FFF"} name='arrow-left' />
             </TouchableOpacity>
-            <Text style={styles.titulopassotexto}>Parabéns!</Text>
+            <Text allowFontScaling={false} style={styles.titulopassotexto}>Parabéns!</Text>
           </View>
         </View>
         <View style={styles.gainsarea} >
           <View style={styles.gainsstuff} >
             <View style={styles.statarea} >
-              <FontAwesome6 style={{ marginRight: 8 }} color={"#FAB151"} name="piggy-bank" size={26} />
-              <Text style={styles.textostats}>+{Moeda}</Text>
+              <FontAwesome6 style={{ marginRight: 8 }} color={"#FAB151"} name="piggy-bank" size={28} />
+              <Text allowFontScaling={false} style={[styles.textostats, { paddingBottom: 1 }]}>+{Moeda}</Text>
             </View>
             <View style={{ width: 40, height: 20 }} />
             <View style={styles.statarea} >
-              <FontAwesome style={{ marginRight: 8 }} color={"#70D872"} name="plus" size={30} />
-              <Text style={styles.textostats}>{XP} exp</Text>
+              <FontAwesome style={{ marginRight: 8, paddingTop: 3 }} color={"#70D872"} name="plus" size={31} />
+              <Text allowFontScaling={false} style={[styles.textostats, { paddingBottom: 1 }]}>{XP} exp</Text>
             </View>
           </View>
         </View>
@@ -261,7 +279,7 @@ export default function Parabens({ navigation, route }) {
             <View style={styles.teacharea} >
               <Image style={styles.confetti} source={require("../../assets/confetti2.gif")} />
               {isFocused == true && (
-                <AlbertoCustom width={270} height={270}/>
+                <AlbertoCustom width={270} height={270} />
               )}
               {/* <Image style={styles.charimage} source={require("../../assets/betterAlberto.png")} /> */}
             </View>
@@ -270,7 +288,7 @@ export default function Parabens({ navigation, route }) {
             <Image style={styles.triangle} tintColor={cor} source={require("../../assets/little_triangle_thing.png")} />
             <View style={{ width: '100%', zIndex: 2 }} >
               <View style={[styles.viewpasso, { borderColor: cor }]} >
-                <Text style={styles.descpasso} >{route.params.paramKey[0]}</Text>
+                <Text allowFontScaling={false} style={styles.descpasso} >{route.params.paramKey[0]}</Text>
               </View>
               <View style={[styles.descpassoBehind, {
                 borderColor: corFill,
@@ -279,7 +297,7 @@ export default function Parabens({ navigation, route }) {
           </View>
           <TouchableOpacity style={{ width: "100%", paddingHorizontal: 10, alignSelf: 'center' }} onPress={() => navigation.navigate("Trilha", { paramKey: [route.params.navigate[0], route.params.navigate[1], route.params.navigate[2], route.params.navigate[3], route.params.navigate[4]] })}>
             <View style={styles.butao}>
-              <Text style={styles.textobutao}>OBA!</Text>
+              <Text allowFontScaling={false} style={styles.textobutao}>OBA!</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -350,9 +368,8 @@ const styles = StyleSheet.create({
   },
   titulopassotexto: {
     fontSize: 30,
-    fontWeight: '600',
     color: "white",
-    fontWeight: 'bold',
+    fontFamily: "FredokaSemibold",
     textAlign: 'center'
 
   },
@@ -374,9 +391,9 @@ const styles = StyleSheet.create({
   },
   descpasso: {
     zIndex: 2,
-    fontSize: 18,
+    fontSize: 19,
     textAlign: 'center',
-    fontWeight: '600',
+    fontFamily: "FredokaMedium",
     color: "#303030",
     //marginVertical: 100
 
@@ -442,7 +459,7 @@ const styles = StyleSheet.create({
   },
   parabenstitulo: {
     color: '#427643',
-    fontWeight: 'bold',
+    fontFamily: "FredokaSemibold",
     alignSelf: 'center',
     fontSize: 30,
 
@@ -450,6 +467,7 @@ const styles = StyleSheet.create({
   },
   parabenstexto: {
     fontSize: 20,
+    fontFamily: "FredokaSemibold",
     textAlign: 'center',
     maxWidth: "100%"
   },
@@ -458,7 +476,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: 30,
+    marginTop: 30,
+    marginBottom: 20
   },
   gainsstuff: {
     width: '100%',
@@ -468,7 +487,7 @@ const styles = StyleSheet.create({
   statarea: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
   },
   iconcontainer: {
     width: 35,
@@ -476,26 +495,28 @@ const styles = StyleSheet.create({
     marginRight: 15
   },
   textostats: {
-    fontWeight: 'bold',
-    fontSize: 25,
+    fontFamily: "FredokaSemibold",
+    fontSize: 27,
     color: "#505050"
   },
   butao: {
     backgroundColor: '#FAB151',
     borderColor: '#ED8A07',
-    borderWidth: 4,
-    borderBottomWidth: 7,
+    borderWidth: 6,
+    borderBottomWidth: 9,
     width: "100%",
     borderRadius: 15,
-    fontWeight: 'bold',
+    fontFamily: "FredokaSemibold",
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 10,
-    marginVertical: 50
+    paddingVertical: 12,
+    marginVertical: 50,
+    marginTop: 55
   },
   textobutao: {
-    fontWeight: 'bold',
-    fontSize: 25,
+    fontFamily: "FredokaSemibold",
+    fontSize: 26,
+    color: "#303030"
   }
 
 

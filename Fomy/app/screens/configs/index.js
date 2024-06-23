@@ -16,7 +16,7 @@ export default function Configs ({navigation}){
                         <View style={{width: "100%", height: 55, backgroundColor: "#FFF", flexDirection: 'row', alignItems: 'center', borderRadius: 10 }} >
                             <TouchableOpacity style={{ width: "8.5%", marginStart: 20 }} onPress={() => navigation.goBack()} ><FontAwesome size={25} color={"#303030"} name='arrow-left' /></TouchableOpacity>
                             <View style={{ alignSelf: 'center', justifyContent: 'center', width: "100%", position: 'absolute' }} >
-                                <Text style={{ fontSize: 25, fontFamily: "FredokaSemibold", alignSelf: 'center', position: 'absolute', color: "#303030" }} >Configurações</Text>
+                                <Text allowFontScaling={false} style={{ fontSize: 25, fontFamily: "FredokaSemibold", alignSelf: 'center', position: 'absolute', color: "#303030" }} >Configurações</Text>
                             </View>
                         </View>
                     </View>
@@ -37,40 +37,40 @@ export default function Configs ({navigation}){
 
         <ScrollView style={{ minWidth: "100%", minHeight: "100%", marginTop: 50 }} >
             <View style={styles.content} >
-                <Text style={styles.title} >Preferências</Text>
+                <Text allowFontScaling={false} style={styles.title} >Preferências</Text>
                 <View style={styles.configlist} >
                     <TouchableOpacity style={styles.optionbutton} onPress={ () => navigation.navigate("AccountConfig")} activeOpacity={0.8} >
-                        <Text style={styles.option} >Conta</Text>
+                        <Text allowFontScaling={false} style={styles.option} >Conta</Text>
                         <Feather name="chevron-right" size={28} color={"#505050"} />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.optionbutton} activeOpacity={0.8} >
-                        <Text style={styles.option} >Notificações</Text>
+                        <Text allowFontScaling={false} style={styles.option} >Notificações</Text>
                         <Feather name="chevron-right" size={28} color={"#505050"} />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.lastoptionbutton} activeOpacity={0.8} >
-                        <Text style={styles.option} >Privacidade</Text>
-                        <Feather name="chevron-right" size={28} color={"#505050"} />
-                    </TouchableOpacity>
-                </View>
-
-                <Text style={styles.title} >Premium</Text>
-                <View style={styles.configlist} >
-                    <TouchableOpacity style={styles.lastoptionbutton} activeOpacity={0.8} >
-                        <Text style={styles.option} >Assinatura</Text>
+                        <Text allowFontScaling={false} style={styles.option} >Privacidade</Text>
                         <Feather name="chevron-right" size={28} color={"#505050"} />
                     </TouchableOpacity>
                 </View>
 
-                <Text style={styles.title} >Suporte</Text>
+                <Text allowFontScaling={false} style={styles.title} >Premium</Text>
                 <View style={styles.configlist} >
                     <TouchableOpacity style={styles.lastoptionbutton} activeOpacity={0.8} >
-                        <Text style={styles.option} >Atendimento</Text>
+                        <Text allowFontScaling={false} style={styles.option} >Assinatura</Text>
+                        <Feather name="chevron-right" size={28} color={"#505050"} />
+                    </TouchableOpacity>
+                </View>
+
+                <Text allowFontScaling={false} style={styles.title} >Suporte</Text>
+                <View style={styles.configlist} >
+                    <TouchableOpacity style={styles.lastoptionbutton} activeOpacity={0.8} >
+                        <Text allowFontScaling={false} style={styles.option} >Atendimento</Text>
                         <Feather name="chevron-right" size={28} color={"#505050"} />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.deletearea} >
                     <TouchableOpacity style={styles.delete} onPress={ () => navigation.navigate("DeleteAccount")} activeOpacity={0.9} >
-                        <Text style={[styles.action, {color: "#E15F64"}]} >Deletar Conta</Text>
+                        <Text allowFontScaling={false} style={[styles.action, {color: "#E15F64"}]} >Deletar Conta</Text>
                         <FontAwesome6 color="#E15F64" name="fire" size={24} />
                     </TouchableOpacity>
                 </View>

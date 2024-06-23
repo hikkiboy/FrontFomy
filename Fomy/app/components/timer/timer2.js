@@ -69,13 +69,13 @@ export default class TimerPassoRerender extends Component {
               getTime={this.getFormattedTime}
             />
             {!this.state.finished ? (
-              <TouchableOpacity activeOpacity={0.8} style={{ marginTop: 10 }} onPress={this.toggleTimer}>
+              <TouchableOpacity activeOpacity={0.8} style={{ marginTop: 12 }} onPress={this.toggleTimer}>
                 <FontAwesome5 name={!this.state.timerStart ? "play" : "pause"} size={25} color={!this.state.timerStart ? "#5DC15F" : "#E15F64"} />
               </TouchableOpacity>
             ) : (
               <>
                 <TouchableOpacity activeOpacity={0.8} style={styles.bigredbutton} onPress={() => stopSound()} >
-                  <Text style={styles.bigwhitetext} >Parar alarme</Text>
+                  <Text allowFontScaling={false} style={styles.bigwhitetext} >Parar alarme</Text>
                 </TouchableOpacity>
               </>
             )
@@ -114,7 +114,7 @@ const options = {
   text: {
     fontSize: 35,
     color: "#303030",
-    fontWeight: "bold"
+    fontFamily: "FredokaSemibold",
   },
 };
 

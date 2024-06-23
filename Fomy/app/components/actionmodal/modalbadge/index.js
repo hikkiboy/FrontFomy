@@ -12,8 +12,8 @@ export function ModalBadge({ checkBadge, data }){
             </TouchableOpacity>
             <View style={[styles.container, { alignItems: 'center', justifyContent: 'center' }]}>
                 <Image style={{ resizeMode: 'contain', width: 165, height: 172.5 }} source={{ uri : data.Imagem }} />
-                <Text style={styles.Titulo} >{data.Titulo}</Text>
-                <Text style={styles.Descricao} >{data.Descricao}</Text>
+                <Text allowFontScaling={false} style={styles.Titulo} >{data.Titulo}</Text>
+                <Text allowFontScaling={false} style={styles.Descricao} >{data.Descricao}</Text>
             </View>
         </SafeAreaView>
     )

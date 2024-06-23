@@ -151,7 +151,7 @@ export function Search({ navigation, route }) {
           <FontAwesome size={25} color={"#505050"} name='arrow-left' />
         </TouchableOpacity>
         <View style={styles.searchinputarea} >
-          <TextInput onSubmitEditing={() => handleSearch()} value={search} onChangeText={(text) => setSearch(text)} style={styles.searchinput} placeholder='Pesquisar' autoCapitalize='none' />
+          <TextInput allowFontScaling={false} onSubmitEditing={() => handleSearch()} value={search} onChangeText={(text) => setSearch(text)} style={styles.searchinput} placeholder='Pesquisar' autoCapitalize='none' />
           <TouchableOpacity onPress={() => handleSearch()} activeOpacity={0.8} style={styles.searchicon} >
             <FontAwesome name="search" size={25} color={"#505050"} />
           </TouchableOpacity>
@@ -163,7 +163,7 @@ export function Search({ navigation, route }) {
 
           <View style={styles.thisthing} >
             <View style={styles.whydoyoudothis} >
-              <Text style={styles.itemstxt} >Resultados</Text>
+              <Text allowFontScaling={false} style={styles.itemstxt} >Resultados</Text>
             </View>
           </View>
           <View style={styles.itemlist} >
@@ -187,12 +187,12 @@ export function Search({ navigation, route }) {
 
                       </View>
                       <View style={[styles.rightRow]} >
-                        <Text style={[styles.descricaoFase]}>{item.Nome}</Text>
+                        <Text allowFontScaling={false} style={[styles.descricaoFase]}>{item.Nome}</Text>
                         {item.Tempo != null && item.Tempo != undefined && (
                           <View style={styles.timezone} >
                             <>
                               <FontAwesome5 name="clock" size={20} color={"#505050"} />
-                              <Text style={styles.timetxt} >{item.Tempo} minutos</Text>
+                              <Text allowFontScaling={false} style={styles.timetxt} >{item.Tempo} minutos</Text>
                             </>
                           </View>
                         )}
@@ -211,13 +211,13 @@ export function Search({ navigation, route }) {
         <View style={styles.nothing} >
           {notFound ? (
             <>
-              <Text style={styles.nothingtxt} >Não conseguimos encontrar sua receita...</Text>
+              <Text allowFontScaling={false} style={styles.nothingtxt} >Não conseguimos encontrar sua receita...</Text>
               <Feather name="frown" size={150} color={"#505050"} />
             </>
           ) : (
             <>
               <ActivityIndicator size={120} color={"#D383E3"} />
-              <Text style={{ marginTop: 15, fontSize: 22, textAlign: 'center', width: "90%", fontFamily: "FredokaSemibold" }} >Procurando...</Text>
+              <Text allowFontScaling={false} style={{ marginTop: 15, fontSize: 22, textAlign: 'center', width: "90%", fontFamily: "FredokaSemibold" }} >Procurando...</Text>
             </>
           )}
         </View>

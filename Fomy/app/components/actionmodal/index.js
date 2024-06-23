@@ -15,19 +15,19 @@ export function ActionModal({ handleActionOff, handleAction, navigation, handleN
             <View style={{ backgroundColor: "rgba(0,0,0,0.08)", justifyContent: 'flex-end', borderRadius: 10 }} >
                 <View style={styles.content} >
                     <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => pickImage(userImage)} >
-                        <Text style={styles.action} >Alterar Foto</Text>
+                        <Text allowFontScaling={false} style={styles.action} >Alterar Foto</Text>
                         <FontAwesome6 color="#303030" name="camera" size={26} />
                     </TouchableOpacity>
 
                     {!input ? (
                         <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={handleName} >
-                            <Text style={styles.action} >Alterar Nome</Text>
+                            <Text allowFontScaling={false} style={styles.action} >Alterar Nome</Text>
                             <FontAwesome6 color="#303030" name="feather" size={26} />
                         </TouchableOpacity>
                     ) : (
                         <View>
                             <View style={styles.button} >
-                                <TextInput enterKeyHint={"done"} value={name} onChangeText={(text) => nameChange(text)} autoFocus={true} maxLength={30} placeholder="Novo nome" style={[styles.action, { flex: 1}]} />
+                                <TextInput allowFontScaling={false} enterKeyHint={"done"} value={name} onChangeText={(text) => nameChange(text)} autoFocus={true} maxLength={30} placeholder="Novo nome" style={[styles.action, { flex: 1}]} />
                                 <TouchableOpacity style={{ marginHorizontal: 20 }} activeOpacity={0.8} onPress={() => {changeInput(false);update(true)}} >
                                     <FontAwesome6 name="check" size={26} color="#303030" />
                                 </TouchableOpacity>
@@ -38,12 +38,12 @@ export function ActionModal({ handleActionOff, handleAction, navigation, handleN
                         </View>
                     )}
                     <TouchableOpacity style={styles.button} activeOpacity={0.9} onPress={() => { handleAction(); navigation.navigate('Configs') }}>
-                        <Text style={styles.action} >Configurações</Text>
+                        <Text allowFontScaling={false} style={styles.action} >Configurações</Text>
                         <FontAwesome6 color="#303030" name="gear" size={26} />
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.leave} activeOpacity={0.9} onPress={() => { handleActionOff() }} >
-                        <Text style={[styles.action, { color: "#E15F64" }]} >Sair</Text>
+                        <Text allowFontScaling={false} style={[styles.action, { color: "#E15F64" }]} >Sair</Text>
                         <FontAwesome6 color="#E15F64" name="right-from-bracket" size={26} />
                     </TouchableOpacity>
 

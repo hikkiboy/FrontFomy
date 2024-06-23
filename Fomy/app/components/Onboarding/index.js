@@ -146,8 +146,8 @@ const OnboardingItem = ({ item, navigation, index, x, size }) => {
                     </View>
                 )}
 
-                <Text style={styles.title}>{item.NomeTrilha}</Text>
-                <Text style={styles.description}>{item.Descricao}</Text>
+                <Text allowFontScaling={false} style={styles.title}>{item.NomeTrilha}</Text>
+                <Text allowFontScaling={false} style={styles.description}>{item.Descricao}</Text>
 
                 {/* <Progress.Bar style={styles.barra} unfilledColor='white' borderColor='black'   progress={Usuarios[0].ProgressoTrilhas[item.indexTrilha]}  width={250} height={20} color='#32a852'><Text style={{position:'absolute', flex:0, alignSelf: 'center'}}>{Usuarios[0].ProgressoTrilhas[item.indexTrilha] * 10} / {item.NumeroReceitas}</Text></Progress.Bar> */}
 
@@ -157,7 +157,7 @@ const OnboardingItem = ({ item, navigation, index, x, size }) => {
                 {item.NomeTrilha == "Gourmet" && prem == true && (
                     <>
                         <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate("Trilha", { paramKey: [item.NomeTrilha, item.Descricao, item.Cor, item.CorBorda, item.CorFill] })} style={[styles.buttonRegistro, { borderColor: item.CorBorda, backgroundColor: item.CorFill }]} title='Registrar' >
-                            <Text style={[styles.botaoTexto]}>Entrar</Text>
+                            <Text allowFontScaling={false} style={[styles.botaoTexto]}>Entrar</Text>
                         </TouchableOpacity>
                         <View style={{ alignSelf: "center", marginTop: "10%", }} >
                             <View style={{ backgroundColor: item.CorBorda, width: 250, height: 35, position: 'absolute', borderRadius: 12, marginTop: 12 }} />
@@ -170,7 +170,7 @@ const OnboardingItem = ({ item, navigation, index, x, size }) => {
                                 color={item.CorFill}
                                 borderWidth={0}
                                 unfilledColor={progressToBar != 1 ? "#FFF" : item.CorFill}
-                            ><Text style={{ position: 'absolute', alignSelf: 'center', color: progressToBar != 1 ? "#303030" : "#FFF", fontSize: 20, fontFamily: "FredokaSemibold" }}  >{progress}/{item.NumeroReceitas}</Text></Progress.Bar>
+                            ><Text allowFontScaling={false} style={{ position: 'absolute', alignSelf: 'center', color: progressToBar != 1 ? "#303030" : "#FFF", fontSize: 20, fontFamily: "FredokaSemibold" }}  >{progress}/{item.NumeroReceitas}</Text></Progress.Bar>
 
                         </View>
                     </>
@@ -180,7 +180,7 @@ const OnboardingItem = ({ item, navigation, index, x, size }) => {
                 {item.NomeTrilha != "Gourmet" && (
                     <>
                         <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate("Trilha", { paramKey: [item.NomeTrilha, item.Descricao, item.Cor, item.CorBorda, item.CorFill] })} style={[styles.buttonRegistro, { borderColor: item.CorBorda, backgroundColor: item.CorFill }]} title='Registrar' >
-                            <Text style={[styles.botaoTexto]}>Entrar</Text>
+                            <Text allowFontScaling={false} style={[styles.botaoTexto]}>Entrar</Text>
                         </TouchableOpacity>
                         <View style={{ alignSelf: "center", marginTop: "10%", }} >
                             <View style={{ backgroundColor: item.CorBorda, width: 250, height: 35, position: 'absolute', borderRadius: 12, marginTop: 12 }} />
@@ -193,7 +193,7 @@ const OnboardingItem = ({ item, navigation, index, x, size }) => {
                                 color={item.CorFill}
                                 borderWidth={0}
                                 unfilledColor={progressToBar != 1 ? "#FFF" : item.CorFill}
-                            ><Text style={{ position: 'absolute', alignSelf: 'center', color: progressToBar != 1 ? "#303030" : "#FFF", fontSize: 20, fontFamily: "FredokaSemibold" }}  >{progress}/{item.NumeroReceitas}</Text></Progress.Bar>
+                            ><Text allowFontScaling={false} style={{ position: 'absolute', alignSelf: 'center', color: progressToBar != 1 ? "#303030" : "#FFF", fontSize: 20, fontFamily: "FredokaSemibold" }}  >{progress}/{item.NumeroReceitas}</Text></Progress.Bar>
 
                         </View>
                     </>
@@ -202,25 +202,50 @@ const OnboardingItem = ({ item, navigation, index, x, size }) => {
                 {item.NomeTrilha == "Gourmet" && prem == false && (
                     <>
                         <TouchableOpacity activeOpacity={0.8} style={[styles.buttonRegistro, { borderColor: item.CorBorda, backgroundColor: item.CorFill }]} title='Registrar' onPress={() => navigation.navigate("Store")} >
-                            <Text style={[styles.botaoTexto]}>Comprar</Text>
-                            <Text style={[styles.botaoTexto, { marginTop: 2 }]}>Premium</Text>
+                            <Text allowFontScaling={false} style={[styles.botaoTexto]}>Comprar</Text>
+                            <Text allowFontScaling={false} style={[styles.botaoTexto, { marginTop: 2 }]}>Premium</Text>
                         </TouchableOpacity>
                     </>
                 )}
-
             </View>
+
             {index == 0 ? (
-                <>
-                    <FontAwesome style={{ position: 'absolute', right: 25, bottom: 120 }} name="arrow-right" color={"#303030"} size={25} />
-                </>
+                <View style={styles.dotarea} >
+                    <View style={styles.dotactive} />
+                    <View style={styles.dot} />
+                    <View style={styles.dot} />
+                    <View style={styles.dot} />
+                </View>
+            ) : index == 1 ? (
+                <View style={styles.dotarea} >
+                    <View style={styles.dot} />
+                    <View style={styles.dotactive} />
+                    <View style={styles.dot} />
+                    <View style={styles.dot} />
+                </View>
+            ) : index == 2 ? (
+                <View style={styles.dotarea} >
+                    <View style={styles.dot} />
+                    <View style={styles.dot} />
+                    <View style={styles.dotactive} />
+                    <View style={styles.dot} />
+                </View>
+            ) : index == 3 ? (
+                <View style={styles.dotarea} >
+                    <View style={styles.dot} />
+                    <View style={styles.dot} />
+                    <View style={styles.dot} />
+                    <View style={styles.dotactive} />
+                </View>
             ) : (
-                <>
-                    <FontAwesome style={{ position: 'absolute', left: 25, bottom: 120 }} name="arrow-left" color={"#303030"} size={25} />
-                    {index + 1 != size &&
-                        <FontAwesome style={{ position: 'absolute', right: 25, bottom: 120 }} name="arrow-right" color={"#303030"} size={25} />
-                    }
-                </>
+                <View style={styles.dotarea} >
+                    <View style={styles.dot} />
+                    <View style={styles.dot} />
+                    <View style={styles.dot} />
+                    <View style={styles.dotactive} />
+                </View>
             )}
+
         </View>
 
 
@@ -292,8 +317,8 @@ const styles = StyleSheet.create({
         padding: 15,
         paddingLeft: 40,
         paddingRight: 40,
-        borderWidth: 4,
-        borderBottomWidth: 8,
+        borderWidth: 6,
+        borderBottomWidth: 9,
         marginTop: 25,
         marginBottom: 5,
         borderRadius: 15,
@@ -313,6 +338,29 @@ const styles = StyleSheet.create({
     customalbi: {
         left: 100,
         backgroundColor: 'red'
+    },
+    dot: {
+        height: 10,
+        width: 10,
+        backgroundColor: "#303030",
+        opacity: 0.5,
+        borderRadius: 5,
+        marginHorizontal: 10
+    },
+    dotactive: {
+        height: 10,
+        width: 10,
+        backgroundColor: "#303030",
+        borderRadius: 5,
+        marginHorizontal: 10
+    },
+    dotarea: {
+        position: 'absolute',
+        flexDirection: 'row',
+        bottom: 105,
+        width: "100%",
+        justifyContent: 'center',
+        alignItems: 'flex-end',
     }
 
 })

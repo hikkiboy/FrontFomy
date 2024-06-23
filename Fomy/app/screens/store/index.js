@@ -134,7 +134,7 @@ export default function Store({ navigation }) {
               <View style={styles.titlearea} >
                 <Image style={{ width: 119, height: 144 }} source={require('../../assets/evenMoreRichAlberto.png')} />
                 <View style={{ flex: 1, justifyContent: 'center' }}>
-                  <Text style={styles.trilhaTit}>Loja</Text>
+                  <Text allowFontScaling={false} style={styles.trilhaTit}>Loja</Text>
                 </View>
               </View>
             </View>
@@ -144,7 +144,7 @@ export default function Store({ navigation }) {
               <TouchableOpacity activeOpacity={0.8} style={styles.bgpremium} onPress={() => buyPremium()} >
                 <View style={styles.premiumarea} >
                   <View style={{ flex: 1, justifyContent: 'center' }}>
-                    <Text style={styles.premiumTit}>Comprar Premium</Text>
+                    <Text allowFontScaling={false} style={styles.premiumTit}>Comprar Premium</Text>
                   </View>
                 </View>
               </TouchableOpacity>
@@ -156,7 +156,7 @@ export default function Store({ navigation }) {
             <View style={styles.moneyarea} >
               <FontAwesome6 name='piggy-bank' size={37} color={"#FFF"} />
               <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} >
-                <Text style={styles.monay} >{user != null && user[0].Moedas}</Text>
+                <Text allowFontScaling={false} style={styles.monay} >{user != null && user[0].Moedas}</Text>
               </View>
             </View>
           </View>
@@ -175,7 +175,7 @@ export default function Store({ navigation }) {
                     </View>
                     {userStuff.includes(item.key) ? (
                       <View style={styles.itemseebutton} >
-                        <Text style={styles.itemprice} >Comprado</Text>
+                        <Text allowFontScaling={false} style={styles.itemprice} >Comprado</Text>
                       </View>
                     ) : (
                       <TouchableOpacity activeOpacity={0.8}
@@ -184,7 +184,7 @@ export default function Store({ navigation }) {
                       >
                         {buy == index ? (
                           <>
-                            <Text style={styles.itemprice} >Comprar?</Text>
+                            <Text allowFontScaling={false} style={styles.itemprice} >Comprar?</Text>
                           </>
                         ) : (
                           <>
@@ -193,7 +193,7 @@ export default function Store({ navigation }) {
                             ) : (
                               <FontAwesome6 style={{ marginLeft: 2 }} name='lock' size={30} color={"#FFF"} />
                             )}
-                            <Text style={styles.itemprice} >{item.Valor}</Text>
+                            <Text allowFontScaling={false} style={styles.itemprice} >{item.Valor}</Text>
                           </>
                         )}
                       </TouchableOpacity>

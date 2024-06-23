@@ -101,10 +101,10 @@ export default function Preparo({ route, props, navigation }) {
               <View style={[styles.bgimg, { backgroundColor: route.params.paramKey[1] }]} >
                 <View style={styles.titlearea}>
                   <View style={styles.title}>
-                    <Text style={styles.titletxt}>{route.params.paramKey[0]}</Text>
-                    <TouchableOpacity activeOpacity={0.8} style={[styles.seeimgbtn, { borderColor: route.params.paramKey[3], backgroundColor: route.params.paramKey[4] }]} >
+                    <Text allowFontScaling={false} style={styles.titletxt}>{route.params.paramKey[0]}</Text>
+                    {/* <TouchableOpacity activeOpacity={0.8} style={[styles.seeimgbtn, { borderColor: route.params.paramKey[3], backgroundColor: route.params.paramKey[4] }]} >
                       <Text style={[styles.titletxt, { fontSize: 20 }]} >Ver foto</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                   </View>
                   <Image
                     source={{ uri: route.params.paramKey[2] }}
@@ -119,11 +119,11 @@ export default function Preparo({ route, props, navigation }) {
               <View style={[styles.bgimg, { backgroundColor: route.params.paramKey[1] }]} >
                 <View style={styles.portionarea}>
                   <View style={{ flexDirection: 'row-reverse', alignItems: 'center' }} >
-                    <Text style={[styles.titletxt, { marginHorizontal: 11, marginRight: 25, fontSize: 22 }]}>1</Text>
+                    <Text allowFontScaling={false} style={[styles.titletxt, { marginHorizontal: 11, marginRight: 25, fontSize: 22 }]}>1</Text>
                     <FontAwesome5 name='user-alt' size={20} color={"#FFF"} />
                   </View>
                   <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }} >
-                    <Text style={[styles.titletxt, { fontSize: 22 }]} >Porções</Text>
+                    <Text allowFontScaling={false} style={[styles.titletxt, { fontSize: 22 }]} >Porções</Text>
                     {/*<FontAwesome5 name='angle-down' size={40} color={"#FFF"} />*/}
                   </View>
                 </View>
@@ -134,18 +134,18 @@ export default function Preparo({ route, props, navigation }) {
 
 
             {/* <Button onPress={() => console.log(item)}></Button> */}
-            <View style={{ paddingStart: 25, paddingEnd: 25, marginTop: 35, marginBottom: 10 }} >
+            <View style={{ paddingStart: 25, paddingEnd: 25, marginTop: 35, marginBottom: 15 }} >
               <View style={styles.Ingredientesbg}>
                 <Image style={styles.Cesta} tintColor={"#FFF"} source={require('../../assets/Cesta.png')} />
-                <Text style={styles.IngredientesTexto}>Ingredientes</Text>
+                <Text allowFontScaling={false} style={styles.IngredientesTexto}>Ingredientes</Text>
               </View>
             </View>
 
-            <Text style={{ opacity: 0, position: 'absolute' }}>{arrayIng.push(item.Ingredientes)}</Text>
-            <Text style={{ opacity: 0, position: 'absolute' }}>{arrayBon.push(item.Bonus)}</Text>
-            <Text style={{ opacity: 0, position: 'absolute' }}>{arrayUtil.push(item.Utensilios)}</Text>
-            <Text style={{ opacity: 0, position: 'absolute' }}>{arrayprep.push(item.PassosSimp)}</Text>
-            <Text style={{ opacity: 0, position: 'absolute' }}>{arrayporc.push(item.Porcoes)}</Text>
+            <Text allowFontScaling={false} style={{ opacity: 0, position: 'absolute' }}>{arrayIng.push(item.Ingredientes)}</Text>
+            <Text allowFontScaling={false} style={{ opacity: 0, position: 'absolute' }}>{arrayBon.push(item.Bonus)}</Text>
+            <Text allowFontScaling={false} style={{ opacity: 0, position: 'absolute' }}>{arrayUtil.push(item.Utensilios)}</Text>
+            <Text allowFontScaling={false} style={{ opacity: 0, position: 'absolute' }}>{arrayprep.push(item.PassosSimp)}</Text>
+            <Text allowFontScaling={false} style={{ opacity: 0, position: 'absolute' }}>{arrayporc.push(item.Porcoes)}</Text>
 
             <View style={styles.IngredientesContain}>
               <FlatList nestedScrollEnabled
@@ -159,7 +159,7 @@ export default function Preparo({ route, props, navigation }) {
                       <Entypo name='check' color={'#3B98EF'} size={38} style={{ position: 'absolute', paddingBottom: 18 }} />
 
                       <View style={{ flex: 1, marginLeft: 10, }}>
-                        <Text style={styles.Ingredientes}>{item}</Text>
+                        <Text allowFontScaling={false} style={styles.Ingredientes}>{item}</Text>
                         <View style={{ backgroundColor: 'rgba(0,0,0,0.1)', borderRadius: 20, flex: 1, height: 7 }} />
                       </View>
                     </View>
@@ -192,9 +192,9 @@ export default function Preparo({ route, props, navigation }) {
                 )*/}
 
 
-              <View style={[styles.Ingredientesbg, { marginTop: 75, marginBottom: 10, backgroundColor: "#FAB151", borderColor: "#ED8A07" }]}>
+              <View style={[styles.Ingredientesbg, { marginTop: 75, marginBottom: 15, backgroundColor: "#FAB151", borderColor: "#ED8A07" }]}>
                 <Image style={styles.Cesta} tintColor={"#FFF"} source={require('../../assets/bowl.png')} />
-                <Text style={styles.IngredientesTexto}>Utensílios</Text>
+                <Text allowFontScaling={false} style={styles.IngredientesTexto}>Utensílios</Text>
               </View>
               <FlatList nestedScrollEnabled
                 data={arrayUtil[0]}
@@ -207,7 +207,7 @@ export default function Preparo({ route, props, navigation }) {
                       <Entypo name='check' color={'#FAB151'} size={38} style={{ position: 'absolute', paddingBottom: 18 }} />
 
                       <View style={{ flex: 1, marginLeft: 10, }}>
-                        <Text style={styles.Ingredientes}>{item}</Text>
+                        <Text allowFontScaling={false} style={styles.Ingredientes}>{item}</Text>
                         <View style={{ backgroundColor: 'rgba(0,0,0,0.1)', borderRadius: 20, flex: 1, height: 7 }} />
                       </View>
                     </View>
@@ -221,7 +221,7 @@ export default function Preparo({ route, props, navigation }) {
             <View style={[styles.bgimg, { backgroundColor: route.params.paramKey[1], marginBottom: 0 }]} >
               <View style={styles.titlearea}>
                 <View style={[styles.title, { flexDirection: 'row', justifyContent: 'space-between' }]}>
-                  <Text style={[styles.titletxt]}>Passos</Text>
+                  <Text allowFontScaling={false} style={[styles.titletxt]}>Passos</Text>
                   <TouchableOpacity style={[styles.stepsbtn, { backgroundColor: route.params.paramKey[4], borderColor: route.params.paramKey[3] }]} onPress={() => navigation.navigate('Passos', { paramKey: [item.key, route.params.paramKey[1], route.params.paramKey[3], route.params.paramKey[4]], user: [route.params.user[0]], origin: [route.params.origin[0]], trilha: [Receitas[0].NomeTrilha], description: [description] })} activeOpacity={0.8}>
                     <FontAwesome5 name='play' color={"#FFF"} size={32} />
                   </TouchableOpacity>
@@ -239,7 +239,7 @@ export default function Preparo({ route, props, navigation }) {
                       <View style={[styles.step, { backgroundColor: route.params.paramKey[1] }]} />
 
                       <View style={{ flex: 1, marginLeft: 10, }}>
-                        <Text style={styles.Ingredientes}>{item}</Text>
+                        <Text allowFontScaling={false} style={styles.Ingredientes}>{item}</Text>
                         <View style={{ backgroundColor: 'rgba(0,0,0,0.1)', borderRadius: 20, flex: 1, height: 7 }} />
                       </View>
                     </View>
@@ -295,8 +295,8 @@ const styles = StyleSheet.create({
     flex: 1
   },
   titletxt: {
-    fontWeight: 'bold',
-    fontSize: 25,
+    fontFamily: "FredokaSemibold",
+    fontSize: 26,
     color: "#FFF",
     textAlign: 'center',
     textAlignVertical: 'center',
@@ -363,10 +363,10 @@ const styles = StyleSheet.create({
     marginRight: 18
   },
   IngredientesTexto: {
-    fontSize: 22,
+    fontSize: 26,
     textAlign: 'center',
     color: '#FFF',
-    fontWeight: 'bold',
+    fontFamily: "FredokaSemibold",
     flex: 1
   },
   IngredientesContain: {
@@ -383,7 +383,7 @@ const styles = StyleSheet.create({
   },
   NumeroIngrediente: {
     fontSize: 30,
-    fontWeight: 'bold',
+    fontFamily: "FredokaSemibold",
     color: '#3B98EF'
   },
   checkmark: {
@@ -396,7 +396,7 @@ const styles = StyleSheet.create({
     marginBottom: 7,
   },
   Ingredientes: {
-    fontWeight: 'bold',
+    fontFamily: "FredokaMedium",
     fontSize: 20,
     color: "#505050",
     flex: 1,
@@ -417,7 +417,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     textAlign: 'center',
     color: '#FFF',
-    fontWeight: 'bold'
+    fontFamily: "FredokaMedium",
 
   },
   BonusNumContain: {
@@ -430,7 +430,7 @@ const styles = StyleSheet.create({
   },
   NumeroBonus: {
     fontSize: 30,
-    fontWeight: 'bold',
+    fontFamily: "FredokaSemibold",
     color: '#FAB151'
   },
   detail: {

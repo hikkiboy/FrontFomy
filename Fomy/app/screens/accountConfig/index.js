@@ -14,7 +14,7 @@ export default function Preferences ({navigation}){
                         <View style={{width: "100%", height: 55, backgroundColor: "#FFF", flexDirection: 'row', alignItems: 'center', borderRadius: 10 }} >
                             <TouchableOpacity style={{ width: "8.5%", marginStart: 20 }} onPress={() => navigation.goBack()} ><FontAwesome size={25} color={"#303030"} name='arrow-left' /></TouchableOpacity>
                             <View style={{ alignSelf: 'center', justifyContent: 'center', width: "100%", position: 'absolute' }} >
-                                <Text style={{ fontSize: 25, fontFamily: "FredokaSemibold", alignSelf: 'center', position: 'absolute', color: "#303030" }} >Conta</Text>
+                                <Text allowFontScaling={false} style={{ fontSize: 25, fontFamily: "FredokaSemibold", alignSelf: 'center', position: 'absolute', color: "#303030" }} >Conta</Text>
                             </View>
                         </View>
                     </View>
@@ -35,18 +35,18 @@ export default function Preferences ({navigation}){
 
         <ScrollView style={{ minWidth: "100%", minHeight: "100%", marginTop: 50 }} >
             <View style={styles.content} >
-                <Text style={styles.title} >Segurança</Text>
+                <Text allowFontScaling={false} style={styles.title} >Segurança</Text>
                 <View style={styles.configlist} >
                     <TouchableOpacity style={styles.optionbutton} onPress={ () => navigation.navigate("AlterPassword")} activeOpacity={0.8} >
-                        <Text style={styles.option} >Alterar Senha</Text>
+                        <Text allowFontScaling={false} style={styles.option} >Alterar Senha</Text>
                         <Feather name="chevron-right" size={28} color={"#505050"} />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.optionbutton} onPress={ () => navigation.navigate("AlterEmail")} activeOpacity={0.8} >
-                        <Text style={styles.option} >Alterar E-mail</Text>
+                        <Text allowFontScaling={false} style={styles.option} >Alterar E-mail</Text>
                         <Feather  name="chevron-right" size={28} color={"#505050"} />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.lastoptionbutton} activeOpacity={0.8} >
-                        <Text style={styles.option} >Verificação de 2 Etapas</Text>
+                        <Text allowFontScaling={false} style={styles.option} >Verificação de 2 Etapas</Text>
                         <Feather name="chevron-right" size={28} color={"#505050"} />
                     </TouchableOpacity>
                 </View>

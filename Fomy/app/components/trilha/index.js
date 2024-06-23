@@ -156,8 +156,8 @@ export default function Trilha({ route, navigation }) {
               <Image style={{ width: 108, height: 139, marginRight: 5 }} source={require('../../assets/betterAlberto.png')} />
 
               <View style={{ flex: 1, justifyContent: 'center' }}>
-                <Text style={[styles.trilhaTit]}>{route.params.paramKey[0]}</Text>
-                <Text style={[styles.textoTrilha]}>{route.params.paramKey[1]}</Text>
+                <Text allowFontScaling={false} style={[styles.trilhaTit]}>{route.params.paramKey[0]}</Text>
+                <Text allowFontScaling={false} style={[styles.textoTrilha]}>{route.params.paramKey[1]}</Text>
               </View>
             </View>
             {/*<View style={[{ height: '100%', width: '100%',borderRadius: 20, zIndex: 1, position: 'absolute', borderBottomWidth: 6,  borderColor: "rgba(0,0,0,0.10)" }]} />*/}
@@ -256,7 +256,7 @@ export default function Trilha({ route, navigation }) {
 
                     {onde + 1 == Receitas[Receitas.indexOf(item)].Posicao && (
 
-                      <FontAwesome5 size={80} color={"rgba(0,0,0,0.6)"} name={"flag-checkered"} alignSelf='center'  zIndex={99} />
+                      <FontAwesome5 size={80} color={"#303030"} name={"flag-checkered"} alignSelf='center'  zIndex={99} />
 
                     )}
                     {onde + 1 > Receitas[Receitas.indexOf(item)].Posicao && (
@@ -268,7 +268,7 @@ export default function Trilha({ route, navigation }) {
                     )}
                     {onde + 1 < Receitas[Receitas.indexOf(item)].Posicao && (
 
-                      <Text style={styles.textoFase}>{item.Posicao}</Text>
+                      <Text allowFontScaling={false} style={styles.textoFase}>{item.Posicao}</Text>
 
                     )}
 
@@ -277,7 +277,7 @@ export default function Trilha({ route, navigation }) {
 
                   </View>
                   <View style={[styles.rightRow, { borderColor: route.params.paramKey[4] }]} >
-                    <Text style={[styles.descricaoFase]}>{item.Nome}</Text>
+                    <Text allowFontScaling={false} style={[styles.descricaoFase]}>{item.Nome}</Text>
                     <Image style={styles.detail} source={require("../../assets/lines-detail.png")} />
                     {onde + 1 >= Receitas[Receitas.indexOf(item)].Posicao && (
                       <View style={[{ marginTop: 15, backgroundColor: route.params.paramKey[3], width: '100%', borderRadius: 15, zIndex: 4, marginBottom: 2 }]} >
@@ -296,7 +296,7 @@ export default function Trilha({ route, navigation }) {
                           onPress={() => handleModal(item)}
                           activeOpacity={0.8}
                         >
-                          <Text style={styles.buttonsee} >Ver receita</Text>
+                          <Text allowFontScaling={false} style={styles.buttonsee} >Ver receita</Text>
                         </TouchableOpacity>
                       </View>
 
@@ -394,7 +394,7 @@ const styles = StyleSheet.create({
   buttonsee: {
     color: "#FFF",
     fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily: "FredokaSemibold",
 
   },
   //fazer fonte depois
@@ -440,8 +440,8 @@ const styles = StyleSheet.create({
   textoFase: {
     alignSelf: 'center',
     fontSize: 70,
-    fontWeight: 'bold',
-    color: "rgba(0,0,0,0.6)",
+    fontFamily: "FredokaSemibold",
+    color: "#303030",
   },
   descricaoReceita: {
     alignSelf: 'center',

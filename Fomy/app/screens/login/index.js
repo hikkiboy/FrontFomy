@@ -124,7 +124,7 @@ const LoginPage = ({ navigation }) => {
                 </View>
                 <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'center' }} >
                   {entered ? (
-                    <Feather name="check" size={120} color="#fab151" />
+                    <FontAwesome6 name="check" size={120} color="#fab151" />
                   ) : (
                     <ActivityIndicator color="#fab151" />
                   )
@@ -154,11 +154,11 @@ const LoginPage = ({ navigation }) => {
             <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', zIndex: 99, alignItems: 'center' }} >
               <View style={{ backgroundColor: "#FFF", height: 275, width: "100%", borderTopLeftRadius: 25, borderTopRightRadius: 25, alignItems: 'center' }} >
                 <View style={{ alignItems: 'center', width: "100%", height: "25%", justifyContent: 'center' }} >
-                  <Text style={{ textAlign: 'center', fontSize: 28, fontFamily: "FredokaBold", color: "#303030" }} >{entered ? ("Sucesso!") : ("Entrando...")}</Text>
+                  <Text allowFontScaling={false} style={{ textAlign: 'center', fontSize: 28, fontFamily: "FredokaBold", color: "#303030" }} >{entered ? ("Sucesso!") : ("Entrando...")}</Text>
                 </View>
                 <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'center' }} >
                   {entered ? (
-                    <Feather name="check" size={120} color="#fab151" />
+                    <FontAwesome6 name="check" size={120} color="#fab151" />
                   ) : (
                     <ActivityIndicator size={90} color="#fab151" />
                   )
@@ -176,12 +176,13 @@ const LoginPage = ({ navigation }) => {
         transparent={true}
         animationType='fade'
       >
-        <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "rgba(0,0,0,0.2)" }} >
-          <View style={{ alignItems: 'center', backgroundColor: '#FFF', borderRadius: 15, width: "90%", paddingVertical: 20, paddingBottom: 30 }} >
-            <Feather name="alert-triangle" size={80} color="#fa787d" />
-            <Text style={{ fontSize: 19, color: "#505050", fontFamily: "FredokaMedium", marginBottom: "12%", marginTop: "3%", width: "90%", textAlign: 'center' }} >{whatError}</Text>
-            <TouchableOpacity style={{ backgroundColor: "#fa787d", width: "90%", alignItems: 'center', justifyContent: 'center', borderRadius: 15, height: 45, borderWidth: 4, borderBottomWidth: 6, borderColor: '#f1555a' }} onPress={() => setProblem(false)} >
-              <Text style={{ fontSize: 18, fontFamily: "FredokaSemibold", color: "#303030" }} >Beleza, foi mal!</Text>
+        <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "rgba(0,0,0,0.2)", paddingHorizontal: 10 }} >
+          <View style={{ alignItems: 'center', backgroundColor: '#FFF', borderRadius: 15, width: "100%", paddingVertical: 30, paddingHorizontal: 10 }} >
+            <FontAwesome6 name="triangle-exclamation" size={80} color="#f1555a" />
+            <Text allowFontScaling={false} style={{ fontSize: 25, color: "#f1555a", fontFamily: "FredokaSemibold", marginBottom: 20, marginTop: 15, width: "100%", textAlign: 'center', paddingHorizontal: 10 }} >Ocorreu um erro!</Text>
+            <Text allowFontScaling={false} style={{ fontSize: 21, color: "#505050", fontFamily: "FredokaMedium", marginBottom: 45, width: "100%", textAlign: 'center', paddingHorizontal: 10 }} >{whatError}</Text>
+            <TouchableOpacity style={{ backgroundColor: "#fa787d", width: "100%", alignItems: 'center', justifyContent: 'center', borderRadius: 15, paddingVertical: 8, borderWidth: 6, borderBottomWidth: 9, borderColor: '#f1555a' }} onPress={() => setProblem(false)} >
+              <Text allowFontScaling={false} style={{ fontSize: 24, fontFamily: "FredokaSemibold", color: "#303030" }} >Beleza, foi mal!</Text>
             </TouchableOpacity>
           </View>
         </SafeAreaView>
@@ -190,6 +191,7 @@ const LoginPage = ({ navigation }) => {
       <Image style={[styles.logo, { width: imageWidth, height: imageHeight }]} source={require("../../assets/logo-full.png")} />
       <View style={[styles.inputArea, { height: (stuffHeight - 7) }]} >
         <TextInput
+          allowFontScaling={false}
           value={email}
           style={[styles.input, { fontSize: (fontSize - 2) }]}
           placeholder="Email"
@@ -200,6 +202,7 @@ const LoginPage = ({ navigation }) => {
       </View>
       <View style={[styles.inputArea, { height: (stuffHeight - 7), marginBottom: 20 }]} >
         <TextInput
+          allowFontScaling={false}
           value={senha}
           style={[styles.input, { fontSize: (fontSize - 2) }]}
           placeholder="Senha"
@@ -210,15 +213,14 @@ const LoginPage = ({ navigation }) => {
         <FontAwesome6 name="lock" size={25} color={"#303030"} />
       </View>
       <TouchableOpacity activeOpacity={0.8} style={styles.forgotPassword} onPress={() => navigation.navigate('PasswordResets')}>
-        <Text style={[styles.textForgor, { fontSize: tinyText + 1 }]} >Esqueci minha senha</Text>
+        <Text allowFontScaling={false} style={[styles.textForgor, { fontSize: tinyText + 1 }]} >Esqueci minha senha</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        title="Entrar"
         style={[styles.buttonLogin, { height: stuffHeight }]}
         onPress={SignIn}
         activeOpacity={0.8}
       >
-        <Text style={[styles.text, { fontSize: fontSize }]}>Entrar</Text>
+        <Text allowFontScaling={false} style={[styles.text, { fontSize: fontSize }]}>Entrar</Text>
       </TouchableOpacity>
     </KeyboardAwareScrollView>
 
@@ -265,8 +267,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 15,
     borderColor: '#ed8a07',
-    borderBottomWidth: 8,
-    borderWidth: 5
+    borderBottomWidth: 9,
+    borderWidth: 6
 
   },
   text: {

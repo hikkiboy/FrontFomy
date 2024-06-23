@@ -22,82 +22,82 @@ export function ModalTerm({ handleCloseModal }) {
                         style={styles.image}
                         source={require('../../../assets/betterAlberto.png')}
                     />
-                    <Text style={styles.modalTitle}>Política de Privacidade</Text>
+                    <Text allowFontScaling={false} style={styles.modalTitle}>Política de Privacidade</Text>
                 </View>
 
 
-                <Text style={styles.modalSub}>O que é LGPD?</Text>
-                <Text style={styles.modalText}>A lei brasileira 13 709/2018, se consiste como a legislação brasileira que controla a privacidade e o uso/tratamento de dados pessoais.</Text>
+                <Text allowFontScaling={false} style={styles.modalSub}>O que é LGPD?</Text>
+                <Text allowFontScaling={false} style={styles.modalText}>A lei brasileira 13 709/2018, se consiste como a legislação brasileira que controla a privacidade e o uso/tratamento de dados pessoais.</Text>
 
-                <Text style={styles.modalSub}>Como a LGPD se aplica no Fomy?</Text>
-                <Text style={styles.modalText}>Como produtores e distribuidores de uma aplicação que será lançada para mobile via lojas de aplicativo (como Play Store e App Store), entregamos ao nosso usuário final um local seguro para realizar o download do Fomy, assegurando seu bem-estar e privacidade.</Text>
-                <Text style={styles.modalText}>Como empresa, consideramos:</Text>
-                <Text style={styles.modalText}>- Minimizar a coleta de dados, se atendo a dados necessários;</Text>
-                <Text style={styles.modalText}>- Mapear os dados necessários, para um melhor gerenciamento das necessidades;</Text>
-                <Text style={styles.modalText}>- Mostrar clareza e obter consentimento do usuário;</Text>
-                <Text style={styles.modalText}>- Informar os usuários sobre práticas de segurança e privacidades utilizadas;</Text>
-                <Text style={styles.modalText}>- Permitir que o usuário, podendo visualizá-los, modificá-los e deleta-los quando necessário.</Text>
+                <Text allowFontScaling={false} style={styles.modalSub}>Como a LGPD se aplica no Fomy?</Text>
+                <Text allowFontScaling={false} style={styles.modalText}>Como produtores e distribuidores de uma aplicação que será lançada para mobile via lojas de aplicativo (como Play Store e App Store), entregamos ao nosso usuário final um local seguro para realizar o download do Fomy, assegurando seu bem-estar e privacidade.</Text>
+                <Text allowFontScaling={false} style={styles.modalText}>Como empresa, consideramos:</Text>
+                <Text allowFontScaling={false} style={styles.modalText}>- Minimizar a coleta de dados, se atendo a dados necessários;</Text>
+                <Text allowFontScaling={false} style={styles.modalText}>- Mapear os dados necessários, para um melhor gerenciamento das necessidades;</Text>
+                <Text allowFontScaling={false} style={styles.modalText}>- Mostrar clareza e obter consentimento do usuário;</Text>
+                <Text allowFontScaling={false} style={styles.modalText}>- Informar os usuários sobre práticas de segurança e privacidades utilizadas;</Text>
+                <Text allowFontScaling={false} style={styles.modalText}>- Permitir que o usuário, podendo visualizá-los, modificá-los e deleta-los quando necessário.</Text>
 
-                <Text style={styles.modalSub}>Quais dados coletamos?</Text>
-                <Text style={styles.modalText}>Nós do Fomy, no momento, coletamos o e-mail do usuário durante o login e dados de interação com o app, caso disponibilizarmos o upgrade para Premium no app, precisaremos também coletar dados relacionados a pagamento, através do Google Play/App Store, caso o usuário compre o serviço.</Text>
-                <Text style={styles.modalSubTwo}>Por que coletamos o email?</Text>
-                <Text style={styles.modalText}>Coletamos o e-mail com o intuito de realizar o cadastro do usuário, criando um perfil e uma senha, salvando o progresso e informações do perfil, e permitindo outras funcionalidades, como “recuperar a senha”;</Text>
-                <Text style={styles.modalSubTwo}>Dados coletados por terceiros</Text>
-                <Text style={styles.modalText}>Como utilizamos o Firebase, serviço administrado pelo Google, é notável a possibilidade de uma extração de dados feita pelo próprio Google, com o objetivo de mapear dados para criação de algoritmos, por exemplo;</Text>
-                <Text style={styles.modalSubTwo}>Google Analytics</Text>
-                <Text style={styles.modalText}>Coletamos e analisamos certos comportamentos do usuário no aplicativo para podermos entender como melhorar a experiência do cliente;</Text>
-                <Text style={styles.modalSubTwo}>Google Ads</Text>
-                <Text style={styles.modalText}>O Google Ads exibirá anúncios customizados aos nossos usuários, através das métricas do próprio Google;</Text>
-                <Text style={styles.modalSub}>Consentimento:</Text>
-                <Text style={styles.modalText}>
+                <Text allowFontScaling={false} style={styles.modalSub}>Quais dados coletamos?</Text>
+                <Text allowFontScaling={false} style={styles.modalText}>Nós do Fomy, no momento, coletamos o e-mail do usuário durante o login e dados de interação com o app, caso disponibilizarmos o upgrade para Premium no app, precisaremos também coletar dados relacionados a pagamento, através do Google Play/App Store, caso o usuário compre o serviço.</Text>
+                <Text allowFontScaling={false} style={styles.modalSubTwo}>Por que coletamos o email?</Text>
+                <Text allowFontScaling={false} style={styles.modalText}>Coletamos o e-mail com o intuito de realizar o cadastro do usuário, criando um perfil e uma senha, salvando o progresso e informações do perfil, e permitindo outras funcionalidades, como “recuperar a senha”;</Text>
+                <Text allowFontScaling={false} style={styles.modalSubTwo}>Dados coletados por terceiros</Text>
+                <Text allowFontScaling={false} style={styles.modalText}>Como utilizamos o Firebase, serviço administrado pelo Google, é notável a possibilidade de uma extração de dados feita pelo próprio Google, com o objetivo de mapear dados para criação de algoritmos, por exemplo;</Text>
+                <Text allowFontScaling={false} style={styles.modalSubTwo}>Google Analytics</Text>
+                <Text allowFontScaling={false} style={styles.modalText}>Coletamos e analisamos certos comportamentos do usuário no aplicativo para podermos entender como melhorar a experiência do cliente;</Text>
+                <Text allowFontScaling={false} style={styles.modalSubTwo}>Google Ads</Text>
+                <Text allowFontScaling={false} style={styles.modalText}>O Google Ads exibirá anúncios customizados aos nossos usuários, através das métricas do próprio Google;</Text>
+                <Text allowFontScaling={false} style={styles.modalSub}>Consentimento:</Text>
+                <Text allowFontScaling={false} style={styles.modalText}>
                     Necessário usuário final consentir a utilização de seus dados coletados dentro do app (termo aparece ao realizar o cadastro no app).
                 </Text>
-                <Text style={styles.modalSub}>
+                <Text allowFontScaling={false} style={styles.modalSub}>
                     Direitos do usuário:
                 </Text>
-                <Text style={styles.modalText}>
+                <Text allowFontScaling={false} style={styles.modalText}>
                     Caso o usuário deseje ter acesso ou deletar seus dados do Fomy ele poderá realizar esta ação na tela de configurações em “Deletar conta”, assim todos os seus dados relacionados ao aplicativo serão deletados do banco de dados, incluindo sua conta. Para acessar os dados coletados é necessário visualiza-los no documento de termos e condições.
                 </Text>
-                <Text style={styles.modalSub}>
+                <Text allowFontScaling={false} style={styles.modalSub}>
                     Transparência:
                 </Text>
-                <Text style={styles.modalText}>
+                <Text allowFontScaling={false} style={styles.modalText}>
                     Mapeamento de todas as informações requisitadas, e sobre como dados são coletados, armazenados e utilizados pelo aplicativo.
                 </Text>
-                <Text style={styles.modalSub}>
+                <Text allowFontScaling={false} style={styles.modalSub}>
                     Utilização de APIs de terceiros:
                 </Text>
-                <Text style={styles.modalText}>
+                <Text allowFontScaling={false} style={styles.modalText}>
                     Diversas funcionalidades dependem de APIs externas, o que nos limita no quesito controle de segurança.
                 </Text>
-                <Text style={styles.modalSub}>
+                <Text allowFontScaling={false} style={styles.modalSub}>
                     Aprimoramento da segurança do app:
                 </Text>
-                <Text style={styles.modalText}>
+                <Text allowFontScaling={false} style={styles.modalText}>
                     Com o intuito de manter a segurança máxima do nosso aplicativo, temos como pontos de constante melhoria testar e mapear possíveis falhas de segurança, as quais podem evidenciar dados que não deveriam ser expostos.
                 </Text>
-                <Text style={styles.modalSub}>
+                <Text allowFontScaling={false} style={styles.modalSub}>
                     Utilização de lojas online seguras:
                 </Text>
-                <Text style={styles.modalText}>
+                <Text allowFontScaling={false} style={styles.modalText}>
                     Como dito anteriormente, utilizaremos do Google Play e a App Store para a disponibilização do nosso aplicativo, visto que, tais lojas estão cada vez mais atentas com a conformidade da LGPD. Dentre medidas que essas lojas utilizam, podemos citar:
                 </Text>
-                <Text style={styles.modalText}>
+                <Text allowFontScaling={false} style={styles.modalText}>
                     - Revisão das políticas de privacidade dos aplicativos para verificar se estão em conformidade com a LGPD e as outras legislações aplicáveis;
                 </Text>
-                <Text style={styles.modalText}>
+                <Text allowFontScaling={false} style={styles.modalText}>
                     - Avaliação das práticas de coleta e tratamento de dados dos aplicativos para garantir que estejam alinhadas com os princípios da LGPD;
                 </Text>
-                <Text style={styles.modalText}>
+                <Text allowFontScaling={false} style={styles.modalText}>
                     - Exigência de que os desenvolvedores forneçam informações claras e transparentes sobre o uso dos dados dos usuários;
                 </Text>
-                <Text style={styles.modalText}>
+                <Text allowFontScaling={false} style={styles.modalText}>
                     - Implementação de diretrizes e recursos para ajudar os desenvolvedores a criar aplicativos em conformidade com a LGPD e outras leis de proteção de dados.
                 </Text>
 
                 {/* <TouchableOpacity style={styles.buttonRegistro} onPress={handleCloseModal}> */}
                 <TouchableOpacity style={styles.buttonRegistro} onPress={() => Linking.openURL("https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.html&quot")}>
-                    <Text style={styles.botaoTexto}>
+                    <Text allowFontScaling={false} style={styles.botaoTexto}>
                         Ver LGPD
                     </Text>
                 </TouchableOpacity>
@@ -128,8 +128,8 @@ const styles = StyleSheet.create({
         padding: 13,
         paddingLeft: 40,
         paddingRight: 40,
-        borderWidth: 4,
-        borderBottomWidth: 8,
+        borderWidth: 6,
+        borderBottomWidth: 9,
         marginTop: 30,
         marginBottom: 5,
         borderRadius: 15,

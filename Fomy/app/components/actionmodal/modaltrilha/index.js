@@ -15,7 +15,7 @@ export function ModalTrilha({ handleAction, data, navigation, cor, bg, setBg, bo
 
             <View style={styles.content} >
                 <View style={styles.title} >
-                    <Text style={styles.titletext} >{data.Nome}</Text>
+                    <Text allowFontScaling={false} style={styles.titletext} >{data.Nome}</Text>
                     <Image style={styles.linha} source={require("../../../assets/lines-detail.png")} />
                 </View>
                 <View style={styles.blwtitle} >
@@ -27,19 +27,19 @@ export function ModalTrilha({ handleAction, data, navigation, cor, bg, setBg, bo
                             <View style={styles.iconcontainer} >
                                 <FontAwesome6 color={"#FAB151"} name="piggy-bank" size={30} />
                             </View>
-                            <Text style={styles.textostats}>+{data.Moedas}</Text>
+                            <Text allowFontScaling={false} style={styles.textostats}>+{data.Moedas}</Text>
                         </View>
                         <View style={styles.statarea} >
-                            <View style={styles.iconcontainer} >
+                            <View style={[styles.iconcontainer, {paddingTop: 2}]} >
                                 <FontAwesome color={"#70D872"} name="plus" size={33} />
                             </View>
-                            <Text style={styles.textostats}>{data.Exp} exp</Text>
+                            <Text allowFontScaling={false} style={[styles.textostats, {paddingBottom: 2}]}>{data.Exp} exp</Text>
                         </View>
                         <View style={[styles.statarea, { marginTop: 10 }]} >
                             <View style={styles.iconcontainer} >
                                 <MaterialCommunityIcons color={"#3B98EF"} name="clock" size={30} />
                             </View>
-                            <Text style={styles.textostats}>{data.Tempo} min</Text>
+                            <Text allowFontScaling={false} style={styles.textostats}>{data.Tempo} min</Text>
                         </View>
                     </View>
                 </View>
@@ -48,7 +48,7 @@ export function ModalTrilha({ handleAction, data, navigation, cor, bg, setBg, bo
 
                     <TouchableOpacity style={[{
                         backgroundColor: cor,
-                        paddingVertical: 4,
+                        paddingVertical: 5,
                         borderRadius: 15,
                         borderWidth: 4,
                         borderColor: Fill,
@@ -59,7 +59,7 @@ export function ModalTrilha({ handleAction, data, navigation, cor, bg, setBg, bo
                         onPress={() => { setBg(); setTimeout(() => { handleAction(); navigation.navigate('Preparo', { paramKey: [data.Nome, cor, data.Icone, borderColor, Fill], user: [userRecipes], origin: ["Trilha"], description: [description] }) }, 1) }}
                         activeOpacity={0.8}
                     >
-                        <Text style={styles.buttonsee} >Ver receita</Text>
+                        <Text allowFontScaling={false} style={styles.buttonsee} >Ver receita</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -86,22 +86,22 @@ const styles = StyleSheet.create({
     },
     buttonsee: {
         color: "#FFF",
-        fontSize: 23,
-        fontWeight: 'bold',
+        fontSize: 25,
+        fontFamily: "FredokaSemibold",
 
     },
     action: {
-        fontSize: 18,
-        fontWeight: '600'
+        fontSize: 20,
+        fontFamily: "FredokaSemibold",
     },
     title: {
         alignItems: 'center',
         marginBottom: 15
     },
     titletext: {
-        fontSize: 25,
-        marginBottom: 5,
-        fontWeight: 'bold',
+        fontSize: 27,
+        marginBottom: 7,
+        fontFamily: "FredokaBold",
         color: "#303030"
     },
     linha: {
@@ -122,8 +122,8 @@ const styles = StyleSheet.create({
         marginBottom: 15
     },
     icon: {
-        width: 105,
-        height: 105,
+        width: 110,
+        height: 110,
     },
     statarea: {
         flexDirection: 'row',
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
         marginRight: 11
     },
     textostats: {
-        fontWeight: 'bold',
+        fontFamily: "FredokaSemibold",
         fontSize: 25,
         color: "#505050"
     }
