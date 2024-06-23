@@ -35,14 +35,14 @@ const styles = StyleSheet.create({
       borderRadius: 100
     },
     Titulo:{
-        fontSize: 30,
-        fontWeight: 'bold',
+        fontSize: 32,
+        fontFamily: "FredokaSemibold",
         marginTop: 40,
         color: "#303030"
     },
     Descricao:{
         fontSize: 23,
-        fontWeight: '500',
+        fontFamily: "FredokaMedium",
         marginTop: 30,
         textAlign: 'center',
         maxWidth: "80%",

@@ -84,8 +84,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 25
     },
     action: {
-        fontSize: 20,
-        fontWeight: '600',
+        fontSize: 21,
+        fontFamily: "FredokaSemibold",
         color: "#303030"
     },
     leave: {

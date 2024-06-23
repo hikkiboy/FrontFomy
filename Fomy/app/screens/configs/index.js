@@ -16,7 +16,7 @@ export default function Configs ({navigation}){
                         <View style={{width: "100%", height: 55, backgroundColor: "#FFF", flexDirection: 'row', alignItems: 'center', borderRadius: 10 }} >
                             <TouchableOpacity style={{ width: "8.5%", marginStart: 20 }} onPress={() => navigation.goBack()} ><FontAwesome size={25} color={"#303030"} name='arrow-left' /></TouchableOpacity>
                             <View style={{ alignSelf: 'center', justifyContent: 'center', width: "100%", position: 'absolute' }} >
-                                <Text style={{ fontSize: 24, fontWeight: 'bold', alignSelf: 'center', position: 'absolute', color: "#303030" }} >Configurações</Text>
+                                <Text style={{ fontSize: 25, fontFamily: "FredokaSemibold", alignSelf: 'center', position: 'absolute', color: "#303030" }} >Configurações</Text>
                             </View>
                         </View>
                     </View>
@@ -97,8 +97,8 @@ title:{
     marginStart: 7,
     marginEnd: 7,
     marginBottom: 7,
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 25,
+    fontFamily: "FredokaSemibold",
     color: "#303030"
 },
 configlist:{
@@ -121,8 +121,8 @@ optionbutton:{
     alignItems: 'center'
 },
 option:{
-    fontWeight: 'bold',
-    fontSize: 18,
+    fontFamily: "FredokaSemibold",
+    fontSize: 20,
     color: "#505050"
 },
 lastoptionbutton:{
@@ -134,8 +134,8 @@ lastoptionbutton:{
 
 },
 action:{
-    fontSize: 18,
-    fontWeight: '600'
+    fontSize: 20,
+    fontFamily: "FredokaSemibold",
 },
 deletearea:{
     marginTop: 80,
