@@ -38,8 +38,8 @@ const LoginPage = ({ navigation }) => {
   const [fontSize, setFontSize] = useState(20);
   const [tinyText, setTinyText] = useState(17);
 
-  const [email, setEmail] = useState("coralinegaming93@gmail.com");
-  const [senha, setSenha] = useState("123456");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
 
   const [bg, setBg] = useState();
   const [loading, setLoading] = useState(false);
@@ -66,32 +66,43 @@ const LoginPage = ({ navigation }) => {
       setBg("rgba(0,0,0,0.1)");
     }, 250)
     setEntered(false);
-    try {
-      const response = await signInWithEmailAndPassword(auth, email, senha);
-
-      setEntered(true);
-      setTimeout(() => {
-        setBg();
-        setTimeout(() => { setLoading(false); }, 20);
-      }, 185);
-
-    } catch (error) {
+    if (senha == "" || email == "") {
       setTimeout(() => {
         setBg();
         setLoading(false);
       }, 200);
+      setWhatError("Preencha todos os campos!")
       setTimeout(() => {
         setProblem(true);
       }, 200);
-      console.log("erro: " + error);
-      if (error == "FirebaseError: Firebase: Error (auth/invalid-email).") {
-        setWhatError("Email inválido!");
-      } else if (error == "FirebaseError: Firebase: Error (auth/invalid-login-credentials).") {
-        setWhatError("Email ou senha errada!");
-      } else if (error == "FirebaseError: Firebase: Error (auth/missing-password).") {
-        setWhatError("Coloque uma senha!");
-      } else {
-        setWhatError("Ocorreu um erro com seu login: " + error);
+    } else {
+      try {
+        const response = await signInWithEmailAndPassword(auth, email, senha);
+
+        setEntered(true);
+        setTimeout(() => {
+          setBg();
+          setTimeout(() => { setLoading(false); }, 20);
+        }, 185);
+
+      } catch (error) {
+        setTimeout(() => {
+          setBg();
+          setLoading(false);
+        }, 200);
+        setTimeout(() => {
+          setProblem(true);
+        }, 200);
+        console.log("erro: " + error);
+        if (error == "FirebaseError: Firebase: Error (auth/invalid-email).") {
+          setWhatError("Email inválido!");
+        } else if (error == "FirebaseError: Firebase: Error (auth/invalid-login-credentials).") {
+          setWhatError("Email ou senha errada!");
+        } else if (error == "FirebaseError: Firebase: Error (auth/missing-password).") {
+          setWhatError("Coloque uma senha!");
+        } else {
+          setWhatError("Ocorreu um erro com seu login: " + error);
+        }
       }
     }
   };
@@ -109,11 +120,11 @@ const LoginPage = ({ navigation }) => {
             <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', zIndex: 99, alignItems: 'center', backgroundColor: bg }} >
               <View style={{ backgroundColor: "#FFF", height: 275, width: "100%", borderTopLeftRadius: 25, borderTopRightRadius: 25, alignItems: 'center' }} >
                 <View style={{ alignItems: 'center', width: "100%", height: "25%", justifyContent: 'center' }} >
-                  <Text style={{ textAlign: 'center', fontSize: 25, fontWeight: '800' }} >{entered ? ("Sucesso!") : ("Entrando...")}</Text>
+                  <Text style={{ textAlign: 'center', fontSize: 28, fontFamily: "FredokaBold", color: "#303030" }} >{entered ? ("Sucesso!") : ("Entrando...")}</Text>
                 </View>
                 <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'center' }} >
                   {entered ? (
-                    <Feather name="check" size={120} color="#fab151" />
+                    <FontAwesome6 name="check" size={120} color="#fab151" />
                   ) : (
                     <ActivityIndicator color="#fab151" />
                   )
@@ -130,6 +141,7 @@ const LoginPage = ({ navigation }) => {
             visible={loading}
             animationType="fade"
             transparent={true}
+            style={{ zIndex: 98 }}
           >
             <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', backgroundColor: "rgba(0,0,0,0.10)", zIndex: 98 }} ></View>
           </Modal>
@@ -137,15 +149,16 @@ const LoginPage = ({ navigation }) => {
             visible={loading}
             animationType="slide"
             transparent={true}
+            style={{ zIndex: 99 }}
           >
             <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', zIndex: 99, alignItems: 'center' }} >
               <View style={{ backgroundColor: "#FFF", height: 275, width: "100%", borderTopLeftRadius: 25, borderTopRightRadius: 25, alignItems: 'center' }} >
                 <View style={{ alignItems: 'center', width: "100%", height: "25%", justifyContent: 'center' }} >
-                  <Text style={{ textAlign: 'center', fontSize: 25, fontWeight: '800' }} >{entered ? ("Sucesso!") : ("Entrando...")}</Text>
+                  <Text allowFontScaling={false} style={{ textAlign: 'center', fontSize: 28, fontFamily: "FredokaBold", color: "#303030" }} >{entered ? ("Sucesso!") : ("Entrando...")}</Text>
                 </View>
                 <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'center' }} >
                   {entered ? (
-                    <Feather name="check" size={120} color="#fab151" />
+                    <FontAwesome6 name="check" size={120} color="#fab151" />
                   ) : (
                     <ActivityIndicator size={90} color="#fab151" />
                   )
@@ -163,12 +176,13 @@ const LoginPage = ({ navigation }) => {
         transparent={true}
         animationType='fade'
       >
-        <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "rgba(0,0,0,0.2)" }} >
-          <View style={{ alignItems: 'center', backgroundColor: '#FFF', borderRadius: 15, width: "90%", paddingVertical: 20, paddingBottom: 30 }} >
-            <Feather name="alert-triangle" size={80} color="#fa787d" />
-            <Text style={{ fontSize: 19, fontWeight: 'bold', marginBottom: "12%", marginTop: "3%", width: "90%", textAlign: 'center' }} >{whatError}</Text>
-            <TouchableOpacity style={{ backgroundColor: "#fa787d", width: "90%", alignItems: 'center', justifyContent: 'center', borderRadius: 15, height: 45, borderWidth: 4, borderBottomWidth: 6, borderColor: '#f1555a' }} onPress={() => setProblem(false)} >
-              <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#000', opacity: 0.7 }} >Beleza, foi mal!</Text>
+        <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "rgba(0,0,0,0.2)", paddingHorizontal: 10 }} >
+          <View style={{ alignItems: 'center', backgroundColor: '#FFF', borderRadius: 15, width: "100%", paddingVertical: 30, paddingHorizontal: 10 }} >
+            <FontAwesome6 name="triangle-exclamation" size={80} color="#f1555a" />
+            <Text allowFontScaling={false} style={{ fontSize: 25, color: "#f1555a", fontFamily: "FredokaSemibold", marginBottom: 20, marginTop: 15, width: "100%", textAlign: 'center', paddingHorizontal: 10 }} >Ocorreu um erro!</Text>
+            <Text allowFontScaling={false} style={{ fontSize: 21, color: "#505050", fontFamily: "FredokaMedium", marginBottom: 45, width: "100%", textAlign: 'center', paddingHorizontal: 10 }} >{whatError}</Text>
+            <TouchableOpacity style={{ backgroundColor: "#fa787d", width: "100%", alignItems: 'center', justifyContent: 'center', borderRadius: 15, paddingVertical: 8, borderWidth: 6, borderBottomWidth: 9, borderColor: '#f1555a' }} onPress={() => setProblem(false)} >
+              <Text allowFontScaling={false} style={{ fontSize: 24, fontFamily: "FredokaSemibold", color: "#303030" }} >Beleza, foi mal!</Text>
             </TouchableOpacity>
           </View>
         </SafeAreaView>
@@ -177,6 +191,7 @@ const LoginPage = ({ navigation }) => {
       <Image style={[styles.logo, { width: imageWidth, height: imageHeight }]} source={require("../../assets/logo-full.png")} />
       <View style={[styles.inputArea, { height: (stuffHeight - 7) }]} >
         <TextInput
+          allowFontScaling={false}
           value={email}
           style={[styles.input, { fontSize: (fontSize - 2) }]}
           placeholder="Email"
@@ -185,8 +200,9 @@ const LoginPage = ({ navigation }) => {
         />
         <FontAwesome6 name="at" size={25} color={"#303030"} />
       </View>
-      <View style={[styles.inputArea, { height: (stuffHeight - 7) }]} >
+      <View style={[styles.inputArea, { height: (stuffHeight - 7), marginBottom: 20 }]} >
         <TextInput
+          allowFontScaling={false}
           value={senha}
           style={[styles.input, { fontSize: (fontSize - 2) }]}
           placeholder="Senha"
@@ -197,15 +213,14 @@ const LoginPage = ({ navigation }) => {
         <FontAwesome6 name="lock" size={25} color={"#303030"} />
       </View>
       <TouchableOpacity activeOpacity={0.8} style={styles.forgotPassword} onPress={() => navigation.navigate('PasswordResets')}>
-        <Text style={[styles.textForgor, { fontSize: tinyText }]} >Esqueci minha senha</Text>
+        <Text allowFontScaling={false} style={[styles.textForgor, { fontSize: tinyText + 1 }]} >Esqueci minha senha</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        title="Entrar"
         style={[styles.buttonLogin, { height: stuffHeight }]}
         onPress={SignIn}
         activeOpacity={0.8}
       >
-        <Text style={[styles.text, { fontSize: fontSize }]}>Entrar</Text>
+        <Text allowFontScaling={false} style={[styles.text, { fontSize: fontSize }]}>Entrar</Text>
       </TouchableOpacity>
     </KeyboardAwareScrollView>
 
@@ -242,28 +257,29 @@ const styles = StyleSheet.create({
   input: {
     height: "100%",
     width: "80%",
+    fontFamily: "FredokaMedium"
   },
   buttonLogin: {
-    marginTop: "7%",
+    marginTop: 30,
     backgroundColor: '#fab151',
     width: "85%",
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 15,
     borderColor: '#ed8a07',
-    borderBottomWidth: 8,
-    borderWidth: 5
+    borderBottomWidth: 9,
+    borderWidth: 6
 
   },
   text: {
-    fontWeight: 'bold',
-    opacity: 0.7,
+    fontFamily: "FredokaSemibold",
+    color: "#303030",
   },
   textForgor: {
-    fontWeight: 'bold',
+    fontFamily: "FredokaMedium",
+    color: "#505050"
   },
   forgotPassword: {
     alignSelf: "center",
-    opacity: 0.4,
   }
 });

@@ -112,43 +112,42 @@ const OnboardingItem = ({ item, navigation, index, x, size }) => {
                 }, circleAnimation]} />
             </View>
 
-            {/* a estilização acontece daqui pra baixo */}
-            {item.Imagem == "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Icones-Trilhas%2Fpalela2.png?alt=media&token=cf307cc6-f909-4491-b133-607cfc151b3d" && (
+            <View style={{ flex: 1, justifyContent: 'center', paddingBottom: 70 }}>
 
-                <View style={styles.imageContainer} >
-                    {/* <Image source={require("../../assets/betterAlberto.png")} style={[styles.mascote]} /> */}
-                    {isFocused == true && (
-                        <AlbertoCustom style={[styles.mascote]} width={250} height={250}/> 
-                    )}
-                    <Image source={{ uri: item.Imagem }} style={[styles.acessorio, { height: 175, width: 175 }]} />
-                </View>
-            )}
-            {item.Imagem != "" && item.Imagem != "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Icones-Trilhas%2Fpalela2.png?alt=media&token=cf307cc6-f909-4491-b133-607cfc151b3d" && (
-                <View style={styles.imageContainer} >
-                    
-                    {/* <Image source={require("../../assets/betterAlberto.png")} style={[styles.mascote]} /> */}
-                    {isFocused == true && (
-                         <AlbertoCustom style={[styles.customalbi]} width={250} height={250}/>
-                    )}
-                   
-                    <Image source={{ uri: item.Imagem }} style={[styles.acessorio, { height: 135, width: 135 }]} />
-                </View>
-            )}
-            {item.Imagem == "" && (
-                <View style={[styles.imageContainer, { justifyContent: 'center'}]} >
-                    {/* <Image source={require("../../assets/betterAlberto.png")} style={[styles.mascote]} /> */}
-                    {isFocused == true && (
-                        <AlbertoCustom style={[styles.customalbi]} width={250} height={250}/>
-                    )}
-                    
-                </View>
-            )}
+                {/* a estilização acontece daqui pra baixo */}
+                {item.Imagem == "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Icones-Trilhas%2Fpalela2.png?alt=media&token=cf307cc6-f909-4491-b133-607cfc151b3d" && (
 
+                    <View style={styles.imageContainer} >
+                        {/* <Image source={require("../../assets/betterAlberto.png")} style={[styles.mascote]} /> */}
+                        {isFocused == true && (
+                            <AlbertoCustom style={[styles.mascote]} width={250} height={250} />
+                        )}
+                        <Image source={{ uri: item.Imagem }} style={[styles.acessorio, { height: 175, width: 175 }]} />
+                    </View>
+                )}
+                {item.Imagem != "" && item.Imagem != "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Icones-Trilhas%2Fpalela2.png?alt=media&token=cf307cc6-f909-4491-b133-607cfc151b3d" && (
+                    <View style={styles.imageContainer} >
 
-            <View style={{ flex: 0.3 }}>
+                        {/* <Image source={require("../../assets/betterAlberto.png")} style={[styles.mascote]} /> */}
+                        {isFocused == true && (
+                            <AlbertoCustom style={[styles.customalbi]} width={250} height={250} />
+                        )}
 
-                <Text style={styles.title}>{item.NomeTrilha}</Text>
-                <Text style={styles.description}>{item.Descricao}</Text>
+                        <Image source={{ uri: item.Imagem }} style={[styles.acessorio, { height: 135, width: 135 }]} />
+                    </View>
+                )}
+                {item.Imagem == "" && (
+                    <View style={[styles.imageContainer, { justifyContent: 'center' }]} >
+                        {/* <Image source={require("../../assets/betterAlberto.png")} style={[styles.mascote]} /> */}
+                        {isFocused == true && (
+                            <AlbertoCustom style={[styles.customalbi]} width={250} height={250} />
+                        )}
+
+                    </View>
+                )}
+
+                <Text allowFontScaling={false} style={styles.title}>{item.NomeTrilha}</Text>
+                <Text allowFontScaling={false} style={styles.description}>{item.Descricao}</Text>
 
                 {/* <Progress.Bar style={styles.barra} unfilledColor='white' borderColor='black'   progress={Usuarios[0].ProgressoTrilhas[item.indexTrilha]}  width={250} height={20} color='#32a852'><Text style={{position:'absolute', flex:0, alignSelf: 'center'}}>{Usuarios[0].ProgressoTrilhas[item.indexTrilha] * 10} / {item.NumeroReceitas}</Text></Progress.Bar> */}
 
@@ -158,20 +157,20 @@ const OnboardingItem = ({ item, navigation, index, x, size }) => {
                 {item.NomeTrilha == "Gourmet" && prem == true && (
                     <>
                         <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate("Trilha", { paramKey: [item.NomeTrilha, item.Descricao, item.Cor, item.CorBorda, item.CorFill] })} style={[styles.buttonRegistro, { borderColor: item.CorBorda, backgroundColor: item.CorFill }]} title='Registrar' >
-                            <Text style={[styles.botaoTexto]}>Entrar</Text>
+                            <Text allowFontScaling={false} style={[styles.botaoTexto]}>Entrar</Text>
                         </TouchableOpacity>
                         <View style={{ alignSelf: "center", marginTop: "10%", }} >
-                            <View style={{ backgroundColor: item.CorBorda, width: 250, height: 30, position: 'absolute', borderRadius: 12, marginTop: 12 }} />
+                            <View style={{ backgroundColor: item.CorBorda, width: 250, height: 35, position: 'absolute', borderRadius: 12, marginTop: 12 }} />
                             <Progress.Bar
                                 style={{ borderWidth: 4, borderColor: item.CorBorda, justifyContent: 'center' }}
                                 progress={progressToBar}
                                 width={250}
-                                height={30}
+                                height={35}
                                 borderRadius={12}
                                 color={item.CorFill}
                                 borderWidth={0}
                                 unfilledColor={progressToBar != 1 ? "#FFF" : item.CorFill}
-                            ><Text style={{ position: 'absolute', alignSelf: 'center', color: progressToBar != 1 ? "rgba(0,0,0,0.75)" : "#FFF", fontSize: 18, fontWeight: 'bold' }}  >{progress}/{item.NumeroReceitas}</Text></Progress.Bar>
+                            ><Text allowFontScaling={false} style={{ position: 'absolute', alignSelf: 'center', color: progressToBar != 1 ? "#303030" : "#FFF", fontSize: 20, fontFamily: "FredokaSemibold" }}  >{progress}/{item.NumeroReceitas}</Text></Progress.Bar>
 
                         </View>
                     </>
@@ -181,20 +180,20 @@ const OnboardingItem = ({ item, navigation, index, x, size }) => {
                 {item.NomeTrilha != "Gourmet" && (
                     <>
                         <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate("Trilha", { paramKey: [item.NomeTrilha, item.Descricao, item.Cor, item.CorBorda, item.CorFill] })} style={[styles.buttonRegistro, { borderColor: item.CorBorda, backgroundColor: item.CorFill }]} title='Registrar' >
-                            <Text style={[styles.botaoTexto]}>Entrar</Text>
+                            <Text allowFontScaling={false} style={[styles.botaoTexto]}>Entrar</Text>
                         </TouchableOpacity>
                         <View style={{ alignSelf: "center", marginTop: "10%", }} >
-                            <View style={{ backgroundColor: item.CorBorda, width: 250, height: 30, position: 'absolute', borderRadius: 12, marginTop: 12 }} />
+                            <View style={{ backgroundColor: item.CorBorda, width: 250, height: 35, position: 'absolute', borderRadius: 12, marginTop: 12 }} />
                             <Progress.Bar
                                 style={{ borderWidth: 4, borderColor: item.CorBorda, justifyContent: 'center' }}
                                 progress={progressToBar}
                                 width={250}
-                                height={30}
+                                height={35}
                                 borderRadius={12}
                                 color={item.CorFill}
                                 borderWidth={0}
                                 unfilledColor={progressToBar != 1 ? "#FFF" : item.CorFill}
-                            ><Text style={{ position: 'absolute', alignSelf: 'center', color: progressToBar != 1 ? "rgba(0,0,0,0.75)" : "#FFF", fontSize: 18, fontWeight: 'bold' }}  >{progress}/{item.NumeroReceitas}</Text></Progress.Bar>
+                            ><Text allowFontScaling={false} style={{ position: 'absolute', alignSelf: 'center', color: progressToBar != 1 ? "#303030" : "#FFF", fontSize: 20, fontFamily: "FredokaSemibold" }}  >{progress}/{item.NumeroReceitas}</Text></Progress.Bar>
 
                         </View>
                     </>
@@ -203,25 +202,50 @@ const OnboardingItem = ({ item, navigation, index, x, size }) => {
                 {item.NomeTrilha == "Gourmet" && prem == false && (
                     <>
                         <TouchableOpacity activeOpacity={0.8} style={[styles.buttonRegistro, { borderColor: item.CorBorda, backgroundColor: item.CorFill }]} title='Registrar' onPress={() => navigation.navigate("Store")} >
-                            <Text style={[styles.botaoTexto]}>Comprar</Text>
-                            <Text style={[styles.botaoTexto, { marginTop: 2 }]}>Premium</Text>
+                            <Text allowFontScaling={false} style={[styles.botaoTexto]}>Comprar</Text>
+                            <Text allowFontScaling={false} style={[styles.botaoTexto, { marginTop: 2 }]}>Premium</Text>
                         </TouchableOpacity>
                     </>
                 )}
-
             </View>
+
             {index == 0 ? (
-                <>
-                    <FontAwesome style={{ position: 'absolute', right: 25, bottom: 120 }} name="arrow-right" color={"rgba(0,0,0,0.57)"} size={25} />
-                </>
+                <View style={styles.dotarea} >
+                    <View style={styles.dotactive} />
+                    <View style={styles.dot} />
+                    <View style={styles.dot} />
+                    <View style={styles.dot} />
+                </View>
+            ) : index == 1 ? (
+                <View style={styles.dotarea} >
+                    <View style={styles.dot} />
+                    <View style={styles.dotactive} />
+                    <View style={styles.dot} />
+                    <View style={styles.dot} />
+                </View>
+            ) : index == 2 ? (
+                <View style={styles.dotarea} >
+                    <View style={styles.dot} />
+                    <View style={styles.dot} />
+                    <View style={styles.dotactive} />
+                    <View style={styles.dot} />
+                </View>
+            ) : index == 3 ? (
+                <View style={styles.dotarea} >
+                    <View style={styles.dot} />
+                    <View style={styles.dot} />
+                    <View style={styles.dot} />
+                    <View style={styles.dotactive} />
+                </View>
             ) : (
-                <>
-                    <FontAwesome style={{ position: 'absolute', left: 25, bottom: 120 }} name="arrow-left" color={"rgba(0,0,0,0.57)"} size={25} />
-                    {index + 1 != size &&
-                        <FontAwesome style={{ position: 'absolute', right: 25, bottom: 120 }} name="arrow-right" color={"rgba(0,0,0,0.57)"} size={25} />
-                    }
-                </>
+                <View style={styles.dotarea} >
+                    <View style={styles.dot} />
+                    <View style={styles.dot} />
+                    <View style={styles.dot} />
+                    <View style={styles.dotactive} />
+                </View>
             )}
+
         </View>
 
 
@@ -233,23 +257,24 @@ export default OnboardingItem
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: "35%"
+        justifyContent: 'center'
     },
     title: {
-        fontWeight: 'bold',
-        fontSize: 30,
+        fontFamily: "FredokaBold",
+        fontSize: 32,
         marginBottom: 10,
         textAlign: 'center',
-        color: 'rgba(0,0,0,0.75)'
+        color: '#303030'
     },
     description: {
-        fontWeight: 'bold',
-        fontSize: 20,
+        fontFamily: "FredokaSemibold",
+        fontSize: 23,
         minHeight: 55,
         marginTop: 7,
         textAlign: 'center',
         paddingHorizontal: 64,
-        color: 'rgba(0,0,0,0.6)'
+        color: '#303030',
+        opacity: 0.8
     },
     premiumDesc: {
         fontWeight: '300',
@@ -289,20 +314,18 @@ const styles = StyleSheet.create({
     },
     buttonRegistro: {
         alignSelf: "center",
-        fontSize: 20,
-        fontWeight: "bold",
-        padding: 13,
+        padding: 15,
         paddingLeft: 40,
         paddingRight: 40,
-        borderWidth: 4,
-        borderBottomWidth: 8,
-        marginTop: 20,
+        borderWidth: 6,
+        borderBottomWidth: 9,
+        marginTop: 25,
         marginBottom: 5,
         borderRadius: 15,
         width: 250,
     },
     botaoTexto: {
-        fontWeight: 'bold',
+        fontFamily: "FredokaSemibold",
         fontSize: 25,
         textAlign: 'center',
         color: "#FFF"
@@ -312,9 +335,32 @@ const styles = StyleSheet.create({
         marginBottom: 10
 
     },
-    customalbi:{
+    customalbi: {
         left: 100,
         backgroundColor: 'red'
+    },
+    dot: {
+        height: 10,
+        width: 10,
+        backgroundColor: "#303030",
+        opacity: 0.5,
+        borderRadius: 5,
+        marginHorizontal: 10
+    },
+    dotactive: {
+        height: 10,
+        width: 10,
+        backgroundColor: "#303030",
+        borderRadius: 5,
+        marginHorizontal: 10
+    },
+    dotarea: {
+        position: 'absolute',
+        flexDirection: 'row',
+        bottom: 105,
+        width: "100%",
+        justifyContent: 'center',
+        alignItems: 'flex-end',
     }
 
 })

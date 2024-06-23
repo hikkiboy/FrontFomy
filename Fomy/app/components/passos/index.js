@@ -205,7 +205,7 @@ export default function Passos({ route, props, navigation }) {
                 borderColor: route.params.paramKey[2],
                 backgroundColor: route.params.paramKey[3],
               }]}>
-                <Text style={styles.titulopassotexto}>{Passo.Titulo}</Text>
+                <Text allowFontScaling={false} style={styles.titulopassotexto}>{Passo.Titulo}</Text>
               </View>
             </View>
             {Passo.Timer && rerender ? (
@@ -234,7 +234,7 @@ export default function Passos({ route, props, navigation }) {
           <Image style={styles.triangle} tintColor={corDinamica} source={require("../../assets/little_triangle_thing.png")} />
           <View style={{ width: '100%', zIndex: 2 }} >
             <View style={[styles.viewpasso, { borderColor: corDinamica }]} >
-              <Text style={styles.descpasso} >{Passo.Passo}</Text>
+              <Text allowFontScaling={false} style={styles.descpasso} >{Passo.Passo}</Text>
             </View>
             <View style={[styles.descpassoBehind, {
               borderColor: route.params.paramKey[3],
@@ -270,12 +270,12 @@ export default function Passos({ route, props, navigation }) {
                   marginLeft: index == 0 ? (width / 2) - 38.5 : 10, //pega metade da tela menos metade do bloco
                   marginRight: index == Receitas.length - 1 ? (width / 2) - 38.5 : 10,
                   opacity: index == xednIllorcSlaitint ? 1 : 0.6,
-                  paddingVertical: index == xednIllorcSlaitint ? 0 : 4,
+                  paddingVertical: index == xednIllorcSlaitint ? 2 : 6,
                   width: index == xednIllorcSlaitint ? 77 : 56,
                   backgroundColor: corDinamica,
                   borderColor: route.params.paramKey[3]
                 }]}>
-                <Text style={[styles.passoAtualTexto, {
+                <Text allowFontScaling={false} style={[styles.passoAtualTexto, {
                   fontSize: index == xednIllorcSlaitint ? 50 : 30,
                 }]}>{item.Sequencia}</Text>
               </TouchableOpacity>
@@ -347,10 +347,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   titulopassotexto: {
-    fontSize: 20,
-    fontWeight: '600',
+    fontSize: 21,
     color: "white",
-    fontWeight: 'bold',
+    fontFamily: "FredokaSemibold",
     textAlign: 'center'
 
   },
@@ -359,9 +358,9 @@ const styles = StyleSheet.create({
   },
   descpasso: {
     zIndex: 2,
-    fontSize: 18,
+    fontSize: 19,
     textAlign: 'center',
-    fontWeight: '600',
+    fontFamily: "FredokaMedium",
     color: "#303030",
     //marginVertical: 100
 
@@ -455,7 +454,7 @@ const styles = StyleSheet.create({
   passoAtualTexto: {
     color: 'white',
     fontSize: 50,
-    fontWeight: 'bold',
+    fontFamily: "FredokaSemibold",
     textAlign: 'center',
     textAlignVertical: 'center',
     alignSelf: 'center',

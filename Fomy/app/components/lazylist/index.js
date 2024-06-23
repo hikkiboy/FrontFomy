@@ -3,7 +3,7 @@ import FontAwesome6 from 'react-native-vector-icons/FontAwesome6'
 
 export default function LazyList({ data, update }) {
     return (
-        <View >
+        <View style={{ paddingVertical: 12 }} >
             <FlatList
                 data={data}
                 horizontal

@@ -21,10 +21,10 @@ export function ImageUpload({ data, image, progress }) {
                     )
                     
                     }
-                    <Text style={styles.text} >Uploading...</Text>
+                    <Text allowFontScaling={false} style={styles.text} >Uploading...</Text>
                     <ImageBar progress={progress} />
                     <TouchableOpacity activeOpacity={0.9} style={styles.button} >
-                        <Text style={styles.buttontext} >Cancel</Text>
+                        <Text allowFontScaling={false} style={styles.buttontext} >Cancel</Text>
                     </TouchableOpacity>
                 </View>
             </Modal>

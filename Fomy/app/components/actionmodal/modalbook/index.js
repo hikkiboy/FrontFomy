@@ -42,7 +42,7 @@ export function ModalBook({ navigation, fullListing, user, fullTrilha, name, han
                         <TouchableOpacity activeOpacity={0.8} style={{ position: 'absolute', paddingBottom: 6, paddingStart: 10 }} onPress={() => handleModal(name)} >
                             <FontAwesome size={30} color={"#FFF"} name='arrow-left'/>
                         </TouchableOpacity>
-                        <Text style={{ alignSelf: 'center', fontWeight: 'bold', fontSize: 30, color: "#FFF" }} >{name}</Text>
+                        <Text allowFontScaling={false} style={{ alignSelf: 'center', fontFamily: "FredokaSemibold", fontSize: 30, color: "#FFF" }} >{name}</Text>
                     </View>
                 </View>
 
@@ -63,12 +63,12 @@ export function ModalBook({ navigation, fullListing, user, fullTrilha, name, han
 
                                 </View>
                                 <View style={[styles.rightRow]} >
-                                    <Text style={[styles.descricaoFase, { color: '#be48d5' }]}>{item.Nome}</Text>
+                                    <Text allowFontScaling={false}  style={[styles.descricaoFase, { color: '#be48d5' }]}>{item.Nome}</Text>
                                     {item.Tempo != null && item.Tempo != undefined && (
                                         <View style={styles.timezone} >
                                             <>
                                                 <FontAwesome5 name="clock" size={20} color={"#505050"} />
-                                                <Text style={styles.timetxt} >{item.Tempo} minutos</Text>
+                                                <Text allowFontScaling={false} style={styles.timetxt} >{item.Tempo} minutos</Text>
                                             </>
                                         </View>
                                     )}
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     },
     whydoyoudothis:{
         backgroundColor: "#D383E3",
-        paddingVertical: 7,
+        paddingVertical: 8,
         borderColor: "#be48d5",
         borderWidth: 7,
         borderBottomWidth: 13,
@@ -145,8 +145,8 @@ const styles = StyleSheet.create({
 
     },
     descricaoFase: {
-        fontSize: 19,
-        fontWeight: 'bold',
+        fontSize: 21,
+        fontFamily: "FredokaSemibold",
         textAlign: 'center',
         width: '100%',
         color: "#5DC15F"
@@ -155,13 +155,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 10
+        marginTop: 15
     },
     timetxt: {
-        fontSize: 17,
-        marginLeft: 5,
+        fontSize: 18,
+        marginLeft: 6,
         color: "#505050",
-        fontWeight: "500"
+        fontFamily: "FredokaMedium"
     },
     imagecontainer: {
         borderColor: '#70D872',

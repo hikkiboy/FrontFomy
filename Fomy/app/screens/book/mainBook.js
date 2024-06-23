@@ -204,10 +204,10 @@ const MainBook = ({ navigation }) => {
     return (
 
         <SafeAreaView style={styles.container} >
-            {listing.length != 0 && whyReact.length != 0 ? (
+            {listing.length != 0 && whyReact.length != 0 != 0 ? (
                 <>
                     <View style={styles.searcharea} >
-                        <TextInput onSubmitEditing={() => handleSearch()} value={search} onChangeText={(text) => setSearch(text)} style={styles.searchinput} placeholder='Pesquisar' autoCapitalize='none' />
+                        <TextInput allowFontScaling={false} onSubmitEditing={() => handleSearch()} value={search} onChangeText={(text) => setSearch(text)} style={styles.searchinput} placeholder='Pesquisar' autoCapitalize='none' />
                         <TouchableOpacity onPress={() => handleSearch()} style={styles.searchbutton} >
                             <FontAwesome name="search" style={styles.searchicon} size={25} color={"#505050"} />
                         </TouchableOpacity>
@@ -219,7 +219,7 @@ const MainBook = ({ navigation }) => {
                                 <View style={styles.titlearea} >
                                     <Image style={{ width: 119, height: 144 }} source={require('../../assets/dumbBookletAlberto.png')} />
                                     <View style={{ flex: 1, justifyContent: 'center' }}>
-                                        <Text style={styles.trilhaTit}>Livro de Receitas</Text>
+                                        <Text allowFontScaling={false} style={styles.trilhaTit}>Livro de Receitas</Text>
                                     </View>
                                 </View>
                             </View>
@@ -234,7 +234,7 @@ const MainBook = ({ navigation }) => {
                                 <View>
                                     <TouchableOpacity activeOpacity={0.8} onPress={() => handleModal(item.NomeTrilha)} style={[styles.button, { marginRight: index + 1 == trilhaNumber.length ? 10 : 25, marginLeft: index == 0 && 10 }]} >
                                         <MaterialCommunityIcons name={item.BookIcon} size={35} color={"#505050"} />
-                                        <Text style={styles.buttontitle} >{item.NomeTrilha}</Text>
+                                        <Text allowFontScaling={false} style={styles.buttontitle} >{item.NomeTrilha}</Text>
                                     </TouchableOpacity>
                                 </View>
                             )}
@@ -261,12 +261,12 @@ const MainBook = ({ navigation }) => {
 
                                                 </View>
                                                 <View style={[styles.rightRow]} >
-                                                    <Text style={[styles.descricaoFase, { color: '#be48d5' }]}>{item.Nome}</Text>
+                                                    <Text allowFontScaling={false} style={[styles.descricaoFase, { color: '#be48d5' }]}>{item.Nome}</Text>
                                                     {item.Tempo != null && item.Tempo != undefined && (
                                                         <View style={styles.timezone} >
                                                             <>
                                                                 <FontAwesome6 name="clock" size={20} color={"#505050"} />
-                                                                <Text style={styles.timetxt} >{item.Tempo} minutos</Text>
+                                                                <Text allowFontScaling={false} style={styles.timetxt} >{item.Tempo} minutos</Text>
                                                             </>
                                                         </View>
                                                     )}
@@ -286,13 +286,13 @@ const MainBook = ({ navigation }) => {
                     {terminated ? (
                         <>
                             <FontAwesome5 color="#505050" name="book" size={175} />
-                            <Text style={[styles.nothingtxt, { marginTop: 20 }]} >Seu livro está vazio...</Text>
-                            <Text style={[styles.nothingtxt, { fontSize: 23, marginTop: 50 }]} >Faça uma receita para acessa-la facilmente aqui!</Text>
+                            <Text allowFontScaling={false} style={[styles.nothingtxt, { marginTop: 20 }]} >Seu livro está vazio...</Text>
+                            <Text allowFontScaling={false} style={[styles.nothingtxt, { fontSize: 23, marginTop: 50, fontFamily: "FredokaMedium" }]} >Faça uma receita para acessa-la facilmente aqui!</Text>
                         </>
                     ) : (
                         <>
                             <ActivityIndicator size={120} color={"#D383E3"} />
-                            <Text style={{ marginTop: 15, fontSize: 20, textAlign: 'center', width: "90%" }} >Carregando...</Text>
+                            <Text allowFontScaling={false} style={{ marginTop: 15, fontSize: 22, fontFamily: "FredokaSemibold", textAlign: 'center', width: "90%" }} >Carregando...</Text>
                         </>
                     )}
                 </View>
@@ -363,7 +363,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginBottom: 5,
         fontSize: 42,
-        fontWeight: "bold",
+        fontFamily: "FredokaSemibold",
         color: "#FFF",
         //fontFamily: FontFamily.leagueSpartanBold
     },
@@ -383,7 +383,9 @@ const styles = StyleSheet.create({
     },
     buttontitle: {
         color: "#505050",
-        fontWeight: 'bold'
+        fontFamily: "FredokaSemibold",
+        fontSize: 15,
+        marginTop: 4
     },
     icon: {
         width: 65,
@@ -430,8 +432,8 @@ const styles = StyleSheet.create({
 
     },
     descricaoFase: {
-        fontSize: 19,
-        fontWeight: 'bold',
+        fontSize: 21,
+        fontFamily: "FredokaSemibold",
         textAlign: 'center',
         width: '100%',
         color: "#5DC15F"
@@ -440,13 +442,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 10
+        marginTop: 15
     },
     timetxt: {
-        fontSize: 17,
-        marginLeft: 5,
+        fontSize: 18,
+        marginLeft: 6,
         color: "#505050",
-        fontWeight: "500"
+        fontFamily: "FredokaMedium"
     },
     imagecontainer: {
         borderColor: '#70D872',
@@ -475,6 +477,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#F7F7F7",
         borderRadius: 25,
         fontSize: 20,
+        fontFamily: "FredokaMedium",
         width: "100%",
         paddingVertical: 10,
         paddingLeft: 15,
@@ -500,10 +503,10 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     nothingtxt: {
-        fontWeight: "bold",
+        fontFamily: "FredokaSemibold",
         width: "85%",
         textAlign: "center",
-        fontSize: 25,
+        fontSize: 26,
         color: "#505050"
         //marginTop: 35
     },

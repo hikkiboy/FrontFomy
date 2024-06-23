@@ -8,7 +8,7 @@ const Community = ({navigation}) => {
     
             <View style={styles.placeholder}>
                 <Image  style={styles.engiberto} source={require('../../assets/anengiberto.png')}/>
-                <Text style={styles.textoTemporario}>Feature em Desenvolvimento</Text>
+                <Text allowFontScaling={false} style={styles.textoTemporario}>Feature em Desenvolvimento</Text>
             </View>
             
         </SafeAreaView>    

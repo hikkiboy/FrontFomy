@@ -114,8 +114,8 @@ const Profile = ({ navigation }) => {
                                     <Image style={styles.notalberto} source={{ uri: Receitas.Foto }} />
                                 </View>
                                 <View style={{ flex: 1, justifyContent: 'center' }}>
-                                    <Text style={[styles.trilhaTit,]}>{Receitas.Nome}</Text>
-                                    <Text style={[styles.trilhaTit, { color: "rgba(255,255,255,0.85)", fontSize: 23 }]}>{Receitas.Titulo}</Text>
+                                    <Text allowFontScaling={false} style={[styles.trilhaTit, { fontSize: 27 }]}>{Receitas.Nome}</Text>
+                                    <Text allowFontScaling={false} style={[styles.trilhaTit, { color: "rgba(255,255,255,0.85)", fontSize: 23 }]}>{Receitas.Titulo}</Text>
                                 </View>
                             </View>
                         </View>
@@ -124,7 +124,7 @@ const Profile = ({ navigation }) => {
                         <View style={{ width: "100%", alignItems: 'center' }}>
                             <View style={{ width: "100%", paddingHorizontal: 10 }} >
                                 <View style={{ backgroundColor: "#3B98EF", borderRadius: 15, paddingVertical: 6, borderWidth: 6, borderBottomWidth: 9, borderColor: "#2985DB" }} >
-                                    <Text style={[styles.trilhaTit, { marginBottom: 0 }]}>Nível {Receitas.Nivel}</Text>
+                                    <Text allowFontScaling={false} style={[styles.trilhaTit, { marginBottom: 0 }]}>Nível {Receitas.Nivel}</Text>
                                 </View>
                             </View>
                             <View style={{ alignSelf: "center", marginTop: 30, paddingBottom: 5 }} >
@@ -140,7 +140,7 @@ const Profile = ({ navigation }) => {
                                         borderColor={"#FFF"}
                                         unfilledColor={progressToBar != 1 ? "#e9e9e9" : item.CorFill}
                                     >
-                                        <Text style={{ position: 'absolute', alignSelf: 'center', color: progressToBar != 1 ? "rgba(0,0,0,0.65)" : "#FFF", fontSize: 25, fontWeight: 'bold' }}  >XP: {Receitas.Exp} / {Receitas.ExpLevel}</Text>
+                                        <Text allowFontScaling={false} style={{ position: 'absolute', alignSelf: 'center', color: progressToBar != 1 ? "#303030" : "#FFF", fontSize: 25, fontFamily: "FredokaSemibold" }}  >XP: {Receitas.Exp} / {Receitas.ExpLevel}</Text>
                                     </Progress.Bar>
                                 </View>
                             </View>
@@ -150,7 +150,7 @@ const Profile = ({ navigation }) => {
                             <View style={{ width: "100%", alignItems: 'center' }} >
                                 <View style={{ width: "100%", paddingHorizontal: 10 }} >
                                     <View style={{ backgroundColor: "#3B98EF", borderRadius: 15, paddingVertical: 6, borderWidth: 6, borderBottomWidth: 9, borderColor: "#2985DB" }} >
-                                        <Text style={[styles.trilhaTit, { marginBottom: 0 }]}>Insígnias</Text>
+                                        <Text allowFontScaling={false} style={[styles.trilhaTit, { marginBottom: 0 }]}>Insígnias</Text>
                                     </View>
                                 </View>
                                 <View style={{ width: "100%", paddingHorizontal: 10 }} >
@@ -181,6 +181,7 @@ const Profile = ({ navigation }) => {
                                 name={newName}
                                 nameChange={setNewName}
                                 update={handleUpdate}
+                                premium={Receitas.Premium}
 
                             />
                         </Modal>
@@ -188,7 +189,7 @@ const Profile = ({ navigation }) => {
             ) : (
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "#FFF" }} >
                     <ActivityIndicator size={120} color={"#3B98EF"} />
-                    <Text style={{ marginTop: 15, fontSize: 20, textAlign: 'center', width: "90%" }} >Carregando...</Text>
+                    <Text allowFontScaling={false} style={{ marginTop: 15, fontSize: 22, fontFamily: "FredokaSemibold", textAlign: 'center', width: "90%" }} >Carregando...</Text>
                 </View>
             )
             }
@@ -205,7 +206,6 @@ const styles = StyleSheet.create({
         display: 'flex',
         backgroundColor: '#FFF',
         alignItems: 'center',
-        justifyContent: 'flex-start',
     },
     bgimg: {
         width: "100%",
@@ -262,8 +262,8 @@ const styles = StyleSheet.create({
     trilhaTit: {
         textAlign: 'center',
         marginBottom: 5,
-        fontSize: 25,
-        fontWeight: "bold",
+        fontSize: 26,
+        fontFamily: "FredokaSemibold",
         color: "#FFF",
         //fontFamily: FontFamily.leagueSpartanBold
     },
@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         alignSelf: 'center',
         color: "rgba(255,255,255,0.95)",
-        fontWeight: 'bold',
+        fontFamily: "FredokaSemibold",
         fontSize: 27
     },
     moneycontainer: {
@@ -293,7 +293,7 @@ const styles = StyleSheet.create({
     monay: {
         color: "#FFF",
         fontSize: 30,
-        fontWeight: 'bold'
+        
     },
     badgearea: {
         backgroundColor: "#FFF",

@@ -50,13 +50,13 @@ export default class TimerPasso extends Component {
     this.currentTime = time;
   }
 
-  
+
 
   render() {
     return (
       <View style={[styles.container]}>
         <View style={[styles.timerarea]}>
-          {!this.state.began ? <FontAwesome5 style={styles.lefticon} color='#5DC15F' name='clock' size={80} /> : <TouchableOpacity activeOpacity={0.8} onPress={() => {this.resetTimer(); stopSound();}} ><FontAwesome5 style={styles.lefticon} color='#E15F64' name='redo' size={78.5} /></TouchableOpacity>}
+          {!this.state.began ? <FontAwesome5 style={styles.lefticon} color='#5DC15F' name='clock' size={80} /> : <TouchableOpacity activeOpacity={0.8} onPress={() => { this.resetTimer(); stopSound(); }} ><FontAwesome5 style={styles.lefticon} color='#E15F64' name='redo' size={78.5} /></TouchableOpacity>}
           <View style={styles.rightarea} >
             <Timer
               style={[styles.timer]}
@@ -68,13 +68,13 @@ export default class TimerPasso extends Component {
               getTime={this.getFormattedTime}
             />
             {!this.state.finished ? (
-              <TouchableOpacity activeOpacity={0.8} style={{ marginTop: 10 }} onPress={this.toggleTimer}>
+              <TouchableOpacity activeOpacity={0.8} style={{ marginTop: 12 }} onPress={this.toggleTimer}>
                 <FontAwesome5 name={!this.state.timerStart ? "play" : "pause"} size={25} color={!this.state.timerStart ? "#5DC15F" : "#E15F64"} />
               </TouchableOpacity>
             ) : (
               <>
                 <TouchableOpacity activeOpacity={0.8} style={styles.bigredbutton} onPress={() => stopSound()} >
-                  <Text style={styles.bigwhitetext} >Parar alarme</Text>
+                  <Text allowFontScaling={false} style={styles.bigwhitetext} >Parar alarme</Text>
                 </TouchableOpacity>
               </>
             )
@@ -113,7 +113,7 @@ const options = {
   text: {
     fontSize: 35,
     color: "#303030",
-    fontWeight: "bold"
+    fontFamily: "FredokaSemibold",
   },
 };
 
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   },
   bigredbutton: {
     borderRadius: 20,
-    paddingVertical: 2,
+    paddingVertical: 3,
     borderColor: '#FA787D',
     borderWidth: 4,
     borderBottomWidth: 7,
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     marginTop: 5
   },
   bigwhitetext: {
-    fontWeight: 'bold',
+    fontFamily: "FredokaSemibold",
     fontSize: 20,
     color: '#E15F64'
   }

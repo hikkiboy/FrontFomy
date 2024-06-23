@@ -62,23 +62,15 @@ const Login = ({navigation}) => {
 
     return (
         <SafeAreaView style={styles.container} >
-          { Platform.OS === 'ios' ? (
-            <>
-              <StatusBar style='auto'/>
-            </>
-          ):(
-            <>
-            </>
-          )}
 
           <Image style={[styles.logo, { width: imageWidth, height: imageHeight }]} source={require("../../assets/logo-full.png")} />
     
           <TouchableOpacity style={[styles.buttonCadastro, { height: stuffHeight }]} onPress={() => navigation.navigate('Cadastro')}>
-            <Text style={[styles.login, {fontSize: fontSize}]}>Cadastro</Text>
+            <Text allowFontScaling={false} style={[styles.login, {fontSize: fontSize}]}>Cadastro</Text>
           </TouchableOpacity>
     
           <TouchableOpacity style={[styles.buttonLogin, { height: stuffHeight }]} onPress={ () => navigation.navigate('Loginpage')}>
-            <Text style={[styles.login, {fontSize: fontSize}]}>Login</Text>
+            <Text allowFontScaling={false} style={[styles.login, {fontSize: fontSize}]}>Login</Text>
           </TouchableOpacity>
     
           
@@ -86,19 +78,19 @@ const Login = ({navigation}) => {
           
           <View style={{flexDirection:"row", justifyContent: "center", alignItems: 'center'}}>
             <Octicons name="dash" size={80} color="#dbdbdb" />
-            <Text style={[styles.otherOptions, { fontSize: tinyText }]}> ou </Text>
+            <Text allowFontScaling={false} style={[styles.otherOptions, { fontSize: tinyText }]}> ou </Text>
             <Octicons name="dash" size={80} color="#dbdbdb" />
           </View>
 
           <TouchableOpacity style={[styles.buttonCadastroGoogle, { height: (stuffHeight - 10) }]} onPress={ () => navigation.navigate('Loginpage')}>
             
-            <Text style={[ styles.login ,{ fontSize: fontSize }]} >Entre com </Text>
-            <Text style={{ color: "#4285f4", fontSize: fontSize, fontWeight: "bold" }} >G</Text>
-            <Text style={{ color: "#ea4335", fontSize: fontSize, fontWeight: "bold" }} >o</Text>
-            <Text style={{ color: "#fbbc05", fontSize: fontSize, fontWeight: "bold" }} >o</Text>
-            <Text style={{ color: "#4285f4", fontSize: fontSize, fontWeight: "bold" }} >g</Text>
-            <Text style={{ color: "#34a853", fontSize: fontSize, fontWeight: "bold" }} >l</Text>
-            <Text style={{ color: "#ea4335", fontSize: fontSize, fontWeight: "bold" }} >e</Text>
+            <Text allowFontScaling={false} style={[ styles.login ,{ fontSize: fontSize, color: "#303030" }]} >Entre com </Text>
+            <Text allowFontScaling={false} style={{ color: "#4285f4", fontSize: fontSize,fontFamily: 'FredokaSemibold' }} >G</Text>
+            <Text allowFontScaling={false} style={{ color: "#ea4335", fontSize: fontSize,fontFamily: 'FredokaSemibold' }} >o</Text>
+            <Text allowFontScaling={false} style={{ color: "#fbbc05", fontSize: fontSize,fontFamily: 'FredokaSemibold' }} >o</Text>
+            <Text allowFontScaling={false} style={{ color: "#4285f4", fontSize: fontSize,fontFamily: 'FredokaSemibold' }} >g</Text>
+            <Text allowFontScaling={false} style={{ color: "#34a853", fontSize: fontSize,fontFamily: 'FredokaSemibold' }} >l</Text>
+            <Text allowFontScaling={false} style={{ color: "#ea4335", fontSize: fontSize,fontFamily: 'FredokaSemibold' }} >e</Text>
           </TouchableOpacity>
   
         
@@ -131,8 +123,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 15,
     borderColor: '#62bc63',
-    borderBottomWidth: 8,
-    borderWidth: 5
+    borderBottomWidth: 9,
+    borderWidth: 6
   },
   buttonLogin: {
     backgroundColor: '#fab151',
@@ -141,14 +133,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 15,
     borderColor: '#ed8a07',
-    borderBottomWidth: 8,
-    borderWidth: 5,
+    borderBottomWidth: 9,
+    borderWidth: 6,
     marginTop: "5%"
     
   },
   login:{
-    fontWeight: 'bold',
-    opacity: 0.7,
+    fontFamily: "FredokaSemibold",
+    color: "#303030"
   },
   loginGoogle:{
     fontSize: 28,
@@ -159,8 +151,8 @@ const styles = StyleSheet.create({
     width: "85%",
     borderRadius: 15,
     borderColor: '#dbdbdb',
-    borderBottomWidth: 8,
-    borderWidth: 5,
+    borderBottomWidth: 9,
+    borderWidth: 6,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center'
@@ -174,8 +166,8 @@ const styles = StyleSheet.create({
   otherOptions:{
     marginHorizontal: 10,
     marginBottom: 5,
-    color: "rgba(0,0,0,0.7)",
-    fontWeight: "bold"
+    color: "#505050",
+    fontFamily: "FredokaSemibold"
     
   },
 

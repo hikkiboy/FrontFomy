@@ -1,22 +1,66 @@
-import { View, Text, TouchableOpacity, StyleSheet, TextInput, Pressable } from "react-native"
-import { app_auth } from '../../../firebaseConfig'
-import { useLayoutEffect } from "react"
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, Pressable, Modal } from "react-native"
+import { app_auth, app_DB } from '../../../firebaseConfig'
+import { onAuthStateChanged } from "firebase/auth"
+import { collection, onSnapshot, documentId, where, query, updateDoc, doc } from "firebase/firestore"
+import { useLayoutEffect, useState, useEffect } from "react"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Feather, FontAwesome, FontAwesome6 } from 'react-native-vector-icons'
 import { ScrollView } from "react-native"
+import { ModalTerm } from "../../components/actionmodal/modalterms";
 
 
-export default function Configs ({navigation}){
+export default function Configs({ navigation, route }) {
 
-    useLayoutEffect(() =>{
+    const [modalVisible, setModalVisible] = useState(false);
+    const [premium, setPremium] = useState(route.params?.premium[0])
+
+    const handleOpenModal = () => {
+        setModalVisible(true);
+    };
+
+    const handleCloseModal = () => {
+        setModalVisible(false);
+    };
+
+    async function buyPremium() {
+        if (!premium) {
+            try {
+                const userRef = doc(app_DB, 'Usuarios', app_auth.currentUser.uid)
+                await updateDoc(userRef, {
+                    Premium: true
+                }).then(() => {
+                    setPremium(true)
+                    console.log("updatou")
+                })
+            } catch (error) {
+                console.log(error);
+            }
+        } else {
+            try {
+                const userRef = doc(app_DB, 'Usuarios', app_auth.currentUser.uid)
+
+                await updateDoc(userRef, {
+                    Premium: false
+                }).then(() => {
+                    setPremium(false)
+                    console.log("updatou")
+                })
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+    }
+
+    useLayoutEffect(() => {
         navigation.setOptions({
             header: () => (
                 <SafeAreaView style={{ flex: 1, display: 'flex' }} >
                     <View style={{ width: "100%", height: 65, backgroundColor: "rgba(0,0,0,0.1)", borderRadius: 10 }} >
-                        <View style={{width: "100%", height: 55, backgroundColor: "#FFF", flexDirection: 'row', alignItems: 'center', borderRadius: 10 }} >
+                        <View style={{ width: "100%", height: 55, backgroundColor: "#FFF", flexDirection: 'row', alignItems: 'center', borderRadius: 10 }} >
                             <TouchableOpacity style={{ width: "8.5%", marginStart: 20 }} onPress={() => navigation.goBack()} ><FontAwesome size={25} color={"#303030"} name='arrow-left' /></TouchableOpacity>
                             <View style={{ alignSelf: 'center', justifyContent: 'center', width: "100%", position: 'absolute' }} >
-                                <Text style={{ fontSize: 24, fontWeight: 'bold', alignSelf: 'center', position: 'absolute', color: "#303030" }} >Configurações</Text>
+                                <Text allowFontScaling={false} style={{ fontSize: 25, fontFamily: "FredokaSemibold", alignSelf: 'center', position: 'absolute', color: "#303030" }} >Configurações</Text>
                             </View>
                         </View>
                     </View>
@@ -31,130 +75,154 @@ export default function Configs ({navigation}){
             )*/
         })
     }, [navigation])
-    
-    return(
-    <SafeAreaView style={styles.container} >
 
-        <ScrollView style={{ minWidth: "100%", minHeight: "100%", marginTop: 50 }} >
-            <View style={styles.content} >
-                <Text style={styles.title} >Preferências</Text>
+    return (
+        <SafeAreaView style={styles.container} >
+
+            <ScrollView contentContainerStyle={styles.content} >
+
+                <View style={styles.bgpref}>
+                    <Text allowFontScaling={false} style={styles.title} >Conta</Text>
+                </View>
+
                 <View style={styles.configlist} >
-                    <TouchableOpacity style={styles.optionbutton} onPress={ () => navigation.navigate("AccountConfig")} activeOpacity={0.8} >
-                        <Text style={styles.option} >Conta</Text>
-                        <Feather name="chevron-right" size={28} color={"#505050"} />
+                    <TouchableOpacity style={styles.optionbutton} onPress={() => navigation.navigate("AlterPassword")} activeOpacity={0.8} >
+                        <Text allowFontScaling={false} style={styles.option} >Mudar senha</Text>
+                        <FontAwesome6 name="chevron-right" size={22} color={"#505050"} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.optionbutton} activeOpacity={0.8} >
-                        <Text style={styles.option} >Notificações</Text>
-                        <Feather name="chevron-right" size={28} color={"#505050"} />
+                    <TouchableOpacity style={styles.optionbutton} onPress={() => navigation.navigate("AlterEmail")} activeOpacity={0.8} >
+                        <Text allowFontScaling={false} style={styles.option} >Mudar email</Text>
+                        <FontAwesome6 name="chevron-right" size={22} color={"#505050"} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.lastoptionbutton} activeOpacity={0.8} >
-                        <Text style={styles.option} >Privacidade</Text>
-                        <Feather name="chevron-right" size={28} color={"#505050"} />
+                    <TouchableOpacity style={styles.lastoptionbutton} activeOpacity={0.8} onPress={handleOpenModal} >
+                        <Text allowFontScaling={false} style={styles.option} >Política de privacidade</Text>
+                        <FontAwesome6 name="chevron-right" size={22} color={"#505050"} />
                     </TouchableOpacity>
                 </View>
 
-                <Text style={styles.title} >Premium</Text>
-                <View style={styles.configlist} >
-                    <TouchableOpacity style={styles.lastoptionbutton} activeOpacity={0.8} >
-                        <Text style={styles.option} >Assinatura</Text>
-                        <Feather name="chevron-right" size={28} color={"#505050"} />
-                    </TouchableOpacity>
+                <View style={styles.bgpremium}>
+                    <Text allowFontScaling={false} style={styles.title} >Premium</Text>
                 </View>
-
-                <Text style={styles.title} >Suporte</Text>
-                <View style={styles.configlist} >
-                    <TouchableOpacity style={styles.lastoptionbutton} activeOpacity={0.8} >
-                        <Text style={styles.option} >Atendimento</Text>
-                        <Feather name="chevron-right" size={28} color={"#505050"} />
+                <View style={[styles.configlist, { marginBottom: 0 }]} >
+                    <TouchableOpacity onPress={() => buyPremium()} style={styles.lastoptionbutton} activeOpacity={0.8} >
+                        <Text allowFontScaling={false} style={styles.option} >{premium ? "Cancelar" : "Comprar"} Premium</Text>
+                        <FontAwesome6 name="chevron-right" size={22} color={"#505050"} />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.deletearea} >
-                    <TouchableOpacity style={styles.delete} onPress={ () => navigation.navigate("DeleteAccount")} activeOpacity={0.9} >
-                        <Text style={[styles.action, {color: "#E15F64"}]} >Deletar Conta</Text>
-                        <FontAwesome6 color="#E15F64" name="fire" size={24} />
+                    <TouchableOpacity style={styles.delete} onPress={() => navigation.navigate("DeleteAccount")} activeOpacity={0.9} >
+                        <Text allowFontScaling={false} style={[styles.action, { color: "#FFF", fontSize: 21 }]} >Deletar Conta</Text>
+                        <FontAwesome6 color="#FFF" name="fire" size={24} />
                     </TouchableOpacity>
                 </View>
 
+                <Modal
+                    animationType="slide"
+                    visible={modalVisible}
+                    onRequestClose={handleCloseModal}
+                >
+                    <ModalTerm handleCloseModal={handleCloseModal} />
+                </Modal>
 
-            </View>
-        </ScrollView>
 
-    </SafeAreaView>
-)}
+            </ScrollView>
+
+        </SafeAreaView>
+    )
+}
 
 const styles = StyleSheet.create({
-container:{
-    flex:1,
-    backgroundColor: "#FFFFFF",
+    container: {
+        flex: 1,
+        backgroundColor: "#FFFFFF",
 
-},
-content:{
-    paddingLeft: 15,
-    paddingRight: 15,
-    paddingBottom: 35,
-},
-title:{
-    marginStart: 7,
-    marginEnd: 7,
-    marginBottom: 7,
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: "#303030"
-},
-configlist:{
-    marginStart: 5,
-    marginEnd: 5,
-    borderWidth: 3,
-    borderRadius: 15,
-    borderColor: "rgba(0,0,0,0.18)",
-    marginBottom: 25
+    },
+    content: {
+        flexGrow: 1,
+        marginTop: 80,
+        paddingHorizontal: 10,
+    },
+    title: {
+        fontSize: 26,
+        fontFamily: "FredokaSemibold",
+        color: "#FFF",
+    },
+    configlist: {
+        borderWidth: 6,
+        borderBottomWidth: 9,
+        borderRadius: 20,
+        borderColor: "#E9E9E9",
+        marginBottom: 60
 
 
-},
-optionbutton:{
-    borderBottomWidth: 3,
-    borderColor: "rgba(0,0,0,0.18)",
-    paddingVertical: 8,
-    paddingHorizontal: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-},
-option:{
-    fontWeight: 'bold',
-    fontSize: 18,
-    color: "#505050"
-},
-lastoptionbutton:{
-    paddingVertical: 8,
-    paddingHorizontal: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
+    },
+    optionbutton: {
+        borderBottomWidth: 5,
+        borderColor: "#E9E9E9",
+        paddingVertical: 10,
+        paddingHorizontal: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    option: {
+        fontFamily: "FredokaSemibold",
+        fontSize: 20,
+        color: "#505050"
+    },
+    lastoptionbutton: {
+        paddingVertical: 10,
+        paddingHorizontal: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
 
-},
-action:{
-    fontSize: 18,
-    fontWeight: '600'
-},
-deletearea:{
-    marginTop: 80,
-    marginStart: 6,
-    marginEnd: 6,
-},
-delete:{
-    zIndex: 99,
-    backgroundColor: "#FFF",
-    borderRadius: 15,
-    padding: 10,
-    alignItems: 'center',
-    borderWidth: 5,
-    borderBottomWidth: 10,
-    borderColor: "#FA787D",
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 25
-}
+    },
+    action: {
+        fontSize: 20,
+        fontFamily: "FredokaSemibold",
+    },
+    deletearea: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        paddingBottom: 50
+    },
+    delete: {
+        zIndex: 99,
+        backgroundColor: "#FA787D",
+        borderRadius: 20,
+        padding: 10,
+        alignItems: 'center',
+        borderWidth: 5,
+        borderBottomWidth: 10,
+        borderColor: "#E15F64",
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 25
+    },
+    bgpref: {
+        width: "100%",
+        borderRadius: 20,
+        borderWidth: 6,
+        borderBottomWidth: 9,
+        borderColor: "#2985DB",
+        backgroundColor: "#3B98EF",
+        alignItems: 'center',
+        marginBottom: 30, 
+        paddingVertical: 5
+    },
+    bgpremium: {
+        width: "100%",
+        borderRadius: 20,
+        borderWidth: 6,
+        borderBottomWidth: 9,
+        borderColor: "#ED8A07",
+        backgroundColor: "#FAB151",
+        alignItems: 'center',
+        marginBottom: 30,
+        paddingVertical: 5
+    },
+
 
 })
 
