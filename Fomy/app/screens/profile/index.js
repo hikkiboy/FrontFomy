@@ -114,7 +114,7 @@ const Profile = ({ navigation }) => {
                                     <Image style={styles.notalberto} source={{ uri: Receitas.Foto }} />
                                 </View>
                                 <View style={{ flex: 1, justifyContent: 'center' }}>
-                                    <Text style={[styles.trilhaTit,]}>{Receitas.Nome}</Text>
+                                    <Text style={[styles.trilhaTit, { fontSize: 27 }]}>{Receitas.Nome}</Text>
                                     <Text style={[styles.trilhaTit, { color: "rgba(255,255,255,0.85)", fontSize: 23 }]}>{Receitas.Titulo}</Text>
                                 </View>
                             </View>

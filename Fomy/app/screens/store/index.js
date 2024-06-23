@@ -130,7 +130,7 @@ export default function Store({ navigation }) {
         <ScrollView style={{ minWidth: "100%" }} >
           <View style={{ paddingHorizontal: 5, paddingTop: 5 }} >
             <View style={styles.bgimg}>
-              <Image style={styles.booklet} source={require('../../assets/darkstorelet.png')} />
+              <Image style={styles.booklet} tintColor={"#E15F64"} source={require('../../assets/darkstorelet.png')} />
               <View style={styles.titlearea} >
                 <Image style={{ width: 119, height: 144 }} source={require('../../assets/evenMoreRichAlberto.png')} />
                 <View style={{ flex: 1, justifyContent: 'center' }}>
@@ -143,7 +143,6 @@ export default function Store({ navigation }) {
             <View style={{ paddingHorizontal: 5, paddingTop: 5 }} >
               <TouchableOpacity activeOpacity={0.8} style={styles.bgpremium} onPress={() => buyPremium()} >
                 <View style={styles.premiumarea} >
-                  {/* <Image style={{ width: 119, height: 144 }} source={require('../../assets/evenMoreRichAlberto.png')} /> */}
                   <View style={{ flex: 1, justifyContent: 'center' }}>
                     <Text style={styles.premiumTit}>Comprar Premium</Text>
                   </View>
@@ -223,7 +222,7 @@ const styles = StyleSheet.create({
     width: "100%",
     borderRadius: 20,
     marginBottom: 30,
-    backgroundColor: "#FAB151",
+    backgroundColor: "#FA787D",
   },
   booklet: {
     height: '100%',
@@ -246,7 +245,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 5,
     fontSize: 42,
-    fontWeight: "bold",
+    fontFamily: "FredokaSemibold",
     color: "#FFF",
     //fontFamily: FontFamily.leagueSpartanBold
   },
@@ -255,8 +254,8 @@ const styles = StyleSheet.create({
     marginBottom: 35
   },
   moneyarea: {
-    backgroundColor: "#FAB151",
-    borderColor: "#ED8A07",
+    backgroundColor: "#FA787D",
+    borderColor: "#E15F64",
     borderRadius: 20,
     borderWidth: 6,
     width: "55%",
@@ -270,7 +269,7 @@ const styles = StyleSheet.create({
   monay: {
     color: "#FFF",
     fontSize: 30,
-    fontWeight: 'bold'
+    fontFamily: "FredokaSemibold"
   },
   itemlist: {
     backgroundColor: "#FFF",
@@ -291,18 +290,18 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   itemhoopjumper: {
-    backgroundColor: '#FAB151',
+    backgroundColor: '#FA787D',
     width: '100%',
     height: '100%',
     position: 'absolute',
     borderRadius: 20,
     borderWidth: 6,
     borderBottomWidth: 9,
-    borderColor: "#ED8A07"
+    borderColor: "#E15F64"
   },
   itemimagearea: {
     borderRadius: 20,
-    borderColor: "#ED8A07",
+    borderColor: "#E15F64",
     backgroundColor: "#FFF",
     borderWidth: 6,
     paddingVertical: 20,
@@ -317,30 +316,33 @@ const styles = StyleSheet.create({
   },
   itemseebutton: {
     width: "100%",
-    padding: 8,
+    padding: 10,
+    paddingTop: 12,
+    paddingBottom: 14,
     paddingHorizontal: 15,
     alignItems: 'center',
     marginBottom: 9
   },
   itemprice: {
     textAlign: 'center',
-    fontSize: 25,
-    fontWeight: 'bold',
+    fontSize: 28,
+    fontFamily: "FredokaSemibold",
     color: "#FFF",
   },
   bgpremium: {
     width: "100%",
     borderRadius: 20,
     marginBottom: 45,
-    backgroundColor: "#BC4246",
-    borderColor: "#95233F",
-    borderWidth: 8,
+    backgroundColor: "#FAB151",
+    borderColor: "#ED8A07",
+    borderWidth: 6,
+    borderBottomWidth: 9
   },
   premiumTit: {
     textAlign: 'center',
     marginBottom: 5,
     fontSize: 32,
-    fontWeight: "bold",
+    fontFamily: "FredokaSemibold",
     color: "#FFF",
   },
   premiumarea: {

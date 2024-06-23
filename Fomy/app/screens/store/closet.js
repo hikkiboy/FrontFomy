@@ -136,36 +136,61 @@ export default function Closet({ route }) {
               </View>
             </View>
           </View>
-          <View style={{ paddingHorizontal: 5 }} >
+          <View style={{ paddingHorizontal: 10 }} >
             {realDawg.filter((item) => item.Posição == 0).length > 0 &&
-              <View style={styles.badgearea} >
-                <Text style={styles.badgetitle} >Chapéus</Text>
-                <View style={styles.badges} >
-                  <LazyList data={realDawg.filter((item) => item.Posição == 0)} update={porra} />
+              <View style={{ width: "100%", alignItems: 'center' }} >
+
+                <View style={{ width: "100%" }} >
+                  <View style={{ backgroundColor: "#FAB151", borderRadius: 15, paddingVertical: 6, borderWidth: 6, borderBottomWidth: 9, borderColor: "#ED8A07" }} >
+                    <Text style={styles.badgetitle} >Chapéus</Text>
+                  </View>
+                </View>
+                <View style={styles.badgearea} >
+                  <View style={styles.badges} >
+                    <LazyList data={realDawg.filter((item) => item.Posição == 0)} update={porra} />
+                  </View>
                 </View>
               </View>
             }
             {realDawg.filter((item) => item.Posição == 1).length > 0 &&
-              <View style={styles.badgearea} >
-                <Text style={styles.badgetitle} >Olhos</Text>
-                <View style={styles.badges} >
-                  <LazyList data={realDawg.filter((item) => item.Posição == 1)} update={porra} />
+              <View style={{ width: "100%", alignItems: 'center' }} >
+                <View style={{ width: "100%" }} >
+                  <View style={{ backgroundColor: "#FAB151", borderRadius: 15, paddingVertical: 6, borderWidth: 6, borderBottomWidth: 9, borderColor: "#ED8A07" }} >
+                    <Text style={styles.badgetitle} >Olhos</Text>
+                  </View>
+                </View>
+                <View style={styles.badgearea} >
+                  <View style={styles.badges} >
+                    <LazyList data={realDawg.filter((item) => item.Posição == 1)} update={porra} />
+                  </View>
                 </View>
               </View>
             }
             {realDawg.filter((item) => item.Posição == 2).length > 0 &&
-              <View style={styles.badgearea} >
-                <Text style={styles.badgetitle} >Boca</Text>
-                <View style={styles.badges} >
-                  <LazyList data={realDawg.filter((item) => item.Posição == 2)} update={porra} />
+              <View style={{ width: "100%", alignItems: 'center' }} >
+                <View style={{ width: "100%"}} >
+                  <View style={{ backgroundColor: "#FAB151", borderRadius: 15, paddingVertical: 6, borderWidth: 6, borderBottomWidth: 9, borderColor: "#ED8A07" }} >
+                    <Text style={styles.badgetitle} >Boca</Text>
+                  </View>
+                </View>
+                <View style={styles.badgearea} >
+                  <View style={styles.badges} >
+                    <LazyList data={realDawg.filter((item) => item.Posição == 2)} update={porra} />
+                  </View>
                 </View>
               </View>
             }
             {realDawg.filter((item) => item.Posição == 3).length > 0 &&
-              <View style={[styles.badgearea, { marginBottom: 80 }]} >
-                <Text style={styles.badgetitle} >Corpo</Text>
-                <View style={styles.badges} >
-                  <LazyList data={realDawg.filter((item) => item.Posição == 3)} update={porra} />
+              <View style={{ width: "100%", alignItems: 'center' }} >
+                <View style={{ width: "100%"}} >
+                  <View style={{ backgroundColor: "#FAB151", borderRadius: 15, paddingVertical: 6, borderWidth: 6, borderBottomWidth: 9, borderColor: "#ED8A07" }} >
+                    <Text style={styles.badgetitle} >Corpo</Text>
+                  </View>
+                </View>
+                <View style={[styles.badgearea, { marginBottom: 80 }]} >
+                  <View style={styles.badges} >
+                    <LazyList data={realDawg.filter((item) => item.Posição == 3)} update={porra} />
+                  </View>
                 </View>
               </View>
             }
@@ -175,12 +200,12 @@ export default function Closet({ route }) {
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} >
           <FontAwesome5 color="#505050" name="wind" size={175} />
           <Text style={[styles.nothingtxt, { marginTop: 20 }]} >Seu Armário está vazio...</Text>
-          <Text style={[styles.nothingtxt, { fontSize: 23, marginTop: 50 }]} >Compre uma roupa para colocar no Alberto!</Text>
+          <Text style={[styles.nothingtxt, { fontSize: 23, marginTop: 50, fontFamily: "FredokaMedium" }]} >Compre uma roupa para colocar no Alberto!</Text>
         </View>
       ) : (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} >
           <ActivityIndicator size={120} color={"#ED8A07"} />
-          <Text style={{ marginTop: 15, fontSize: 20, textAlign: 'center', width: "90%" }} >Carregando...</Text>
+          <Text style={{ marginTop: 15, fontSize: 22, fontFamily: "FredokaSemibold", textAlign: 'center', width: "90%" }} >Carregando...</Text>
         </View>
       )}
 
@@ -227,27 +252,24 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 5,
     fontSize: 42,
-    fontWeight: "bold",
+    fontFamily: "FredokaSemibold",
     color: "#FFF",
     //fontFamily: FontFamily.leagueSpartanBold
   },
   badgearea: {
-    backgroundColor: "#EFEFEF",
+    backgroundColor: "#FFF",
     width: '100%',
-    borderRadius: 20,
-    padding: 15,
-    paddingBottom: 18,
-    paddingTop: 12,
+    borderRadius: 15,
+    marginTop: 30,
     marginBottom: 70,
-    backgroundColor: "#FAB151",
-    borderColor: "#ED8A07",
-    borderWidth: 7,
-    borderBottomWidth: 10
+    borderColor: "#E9E9E9",
+    borderWidth: 6,
+    borderBottomWidth: 9,
 
   },
   badgetitle: {
-    fontWeight: 'bold',
-    fontSize: 27,
+    fontFamily: "FredokaSemibold",
+    fontSize: 26,
     color: "#FFF",
     textAlign: 'center',
     textAlignVertical: 'center',
@@ -257,13 +279,12 @@ const styles = StyleSheet.create({
   badges: {
     backgroundColor: '#FFF',
     borderRadius: 15,
-    marginTop: 12
   },
   nothingtxt: {
-    fontWeight: "bold",
+    fontFamily: "FredokaSemibold",
     width: "85%",
     textAlign: "center",
-    fontSize: 25,
+    fontSize: 26,
     color: "#505050"
     //marginTop: 35
   },

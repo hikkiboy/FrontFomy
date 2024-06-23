@@ -219,14 +219,14 @@ export function TabNavigatior() {
       <Tab.Screen name="Store" component={Store} options={{
         headerShown: false,
         tabBarIcon: ({ focused }) => (
-          <FontAwesome5 name="shopping-basket" size={31} color={focused ? "#ED8A07" : "#505050"} />
+          <FontAwesome5 name="shopping-basket" size={31} color={focused ? "#FA787D" : "#505050"} />
         )
       }} />
 
       <Tab.Screen name="Closet" component={Closet} options={{
         headerShown: false,
         tabBarIcon: ({ focused }) => (
-          <Image source={require("../assets/closet-icon-2.png")} style={{ width: 29, height: 29, resizeMode: 'contain' }}  tintColor={focused ? "#CC7606" : "#505050"} />
+          <Image source={require("../assets/closet-icon-2.png")} style={{ width: 29, height: 29, resizeMode: 'contain' }}  tintColor={focused ? "#FAB151" : "#505050"} />
         )
       }} />
 
