@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
     },
     description: {
         fontFamily: "FredokaSemibold",
-        fontSize: 21,
+        fontSize: 23,
         minHeight: 55,
         marginTop: 7,
         textAlign: 'center',

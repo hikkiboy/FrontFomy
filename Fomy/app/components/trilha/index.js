@@ -388,7 +388,7 @@ const styles = StyleSheet.create({
   detail: {
     width: '70%',
     height: 5,
-    marginTop: 7,
+    marginTop: 8,
     resizeMode: 'stretch'
   },
   buttonsee: {
@@ -400,16 +400,16 @@ const styles = StyleSheet.create({
   //fazer fonte depois
   trilhaTit: {
     textAlign: 'center',
-    marginBottom: 5,
+    marginBottom: 7,
     fontSize: 42,
-    fontWeight: "bold",
+    fontFamily: "FredokaSemibold",
     color: "#FFF",
     //fontFamily: FontFamily.leagueSpartanBold
   },
   textoTrilha: {
     alignSelf: 'center',
     fontSize: 22,
-    fontWeight: "bold",
+    fontFamily: "FredokaMedium",
     color: "#FFF",
     textAlign: 'center',
     alignSelf: 'center',
@@ -431,8 +431,8 @@ const styles = StyleSheet.create({
   },
 
   descricaoFase: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 21,
+    fontFamily: "FredokaSemibold",
     textAlign: 'center',
     width: '100%',
     color: "#303030"
