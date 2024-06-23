@@ -217,7 +217,7 @@ export function Search({ navigation, route }) {
           ) : (
             <>
               <ActivityIndicator size={120} color={"#D383E3"} />
-              <Text style={{ marginTop: 15, fontSize: 20, textAlign: 'center', width: "90%" }} >Procurando...</Text>
+              <Text style={{ marginTop: 15, fontSize: 22, textAlign: 'center', width: "90%", fontFamily: "FredokaSemibold" }} >Procurando...</Text>
             </>
           )}
         </View>
@@ -254,8 +254,8 @@ const styles = StyleSheet.create({
   },
   itemstxt: {
     color: "#FFF",
-    fontSize: 22,
-    fontWeight: 'bold',
+    fontSize: 30,
+    fontFamily: "FredokaSemibold",
     alignSelf: 'center'
   },
   itemlist: {
@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 5,
     fontSize: 42,
-    fontWeight: "bold",
+    fontFamily: "FredokaSemibold",
     color: "#be48d5",
     //fontFamily: FontFamily.leagueSpartanBold
   },
@@ -327,8 +327,8 @@ const styles = StyleSheet.create({
 
   },
   descricaoFase: {
-    fontSize: 19,
-    fontWeight: 'bold',
+    fontSize: 20,
+    fontFamily: "FredokaSemibold",
     textAlign: 'center',
     width: '100%',
     color: "#be48d5"
@@ -337,13 +337,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 10
+    marginTop: 15
   },
   timetxt: {
-    fontSize: 17,
-    marginLeft: 5,
+    fontSize: 18,
+    marginLeft: 6,
     color: "#505050",
-    fontWeight: "500"
+    fontFamily: "FredokaMedium"
   },
   imagecontainer: {
     borderColor: '#D383E3',
@@ -396,7 +396,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingLeft: 15,
     paddingRight: 60,
-    color: "#505050"
+    color: "#505050",
+    fontFamily: "FredokaMedium"
 
   },
   searchicon: {
@@ -413,12 +414,12 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   nothingtxt: {
-    fontWeight: "bold",
+    fontFamily: "FredokaSemibold",
     width: "85%",
     textAlign: "center",
-    fontSize: 25,
-    marginBottom: 15,
-    color: "#505050"
+    fontSize: 26,
+    color: "#505050",
+    marginBottom: 20,
   },
 
 });
