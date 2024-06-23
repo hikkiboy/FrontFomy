@@ -76,14 +76,6 @@ const Home = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            {Platform.OS === 'ios' ? (
-                <>
-                    <StatusBar style='auto' />
-                </>
-            ) : (
-                <>
-                </>
-            )}
             <Animated.FlatList
                 ref={flatListRef}
                 onScroll={onScroll}

@@ -23,6 +23,7 @@ import { useEffect, useState } from "react";
 import { app_auth } from "./firebaseConfig";
 
 import Routes, { TabNavigatior } from "./app/routes/stackRouter";
+import { StatusBar } from "expo-status-bar";
 
 const Stack = createNativeStackNavigator();
 
@@ -66,6 +67,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
+      <StatusBar style="dark" translucent={true} animated={true} />
       <Routes loggedIn={loggedIn} loading={loading} />
     </NavigationContainer>
   );

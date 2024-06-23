@@ -62,14 +62,6 @@ const Login = ({navigation}) => {
 
     return (
         <SafeAreaView style={styles.container} >
-          { Platform.OS === 'ios' ? (
-            <>
-              <StatusBar style='auto'/>
-            </>
-          ):(
-            <>
-            </>
-          )}
 
           <Image style={[styles.logo, { width: imageWidth, height: imageHeight }]} source={require("../../assets/logo-full.png")} />
     

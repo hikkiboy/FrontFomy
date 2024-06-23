@@ -181,6 +181,7 @@ const Profile = ({ navigation }) => {
                                 name={newName}
                                 nameChange={setNewName}
                                 update={handleUpdate}
+                                premium={Receitas.Premium}
 
                             />
                         </Modal>
@@ -205,7 +206,6 @@ const styles = StyleSheet.create({
         display: 'flex',
         backgroundColor: '#FFF',
         alignItems: 'center',
-        justifyContent: 'flex-start',
     },
     bgimg: {
         width: "100%",
