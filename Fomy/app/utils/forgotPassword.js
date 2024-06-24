@@ -11,8 +11,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 
 const PasswordResets = () => {
   const navigation = useNavigation();
-  const [email, setEmail] = useState("coralinegaming93@gmail.com");
-  const [senha, setSenha] = useState("");
+  const [email, setEmail] = useState("");
 
 
   const [bg, setBg] = useState();
