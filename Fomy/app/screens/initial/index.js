@@ -65,11 +65,11 @@ const Login = ({navigation}) => {
 
           <Image style={[styles.logo, { width: imageWidth, height: imageHeight }]} source={require("../../assets/logo-full.png")} />
     
-          <TouchableOpacity style={[styles.buttonCadastro, { height: stuffHeight }]} onPress={() => navigation.navigate('Cadastro')}>
+          <TouchableOpacity activeOpacity={0.8} style={[styles.buttonCadastro, { height: stuffHeight }]} onPress={() => navigation.navigate('Cadastro')}>
             <Text allowFontScaling={false} style={[styles.login, {fontSize: fontSize}]}>Cadastro</Text>
           </TouchableOpacity>
     
-          <TouchableOpacity style={[styles.buttonLogin, { height: stuffHeight }]} onPress={ () => navigation.navigate('Loginpage')}>
+          <TouchableOpacity activeOpacity={0.8} style={[styles.buttonLogin, { height: stuffHeight }]} onPress={ () => navigation.navigate('Loginpage')}>
             <Text allowFontScaling={false} style={[styles.login, {fontSize: fontSize}]}>Login</Text>
           </TouchableOpacity>
     
@@ -82,7 +82,7 @@ const Login = ({navigation}) => {
             <Octicons name="dash" size={80} color="#dbdbdb" />
           </View>
 
-          <TouchableOpacity style={[styles.buttonCadastroGoogle, { height: (stuffHeight - 10) }]} onPress={ () => navigation.navigate('Loginpage')}>
+          <TouchableOpacity activeOpacity={0.8} style={[styles.buttonCadastroGoogle, { height: (stuffHeight - 10) }]} onPress={ () => navigation.navigate('Loginpage')}>
             
             <Text allowFontScaling={false} style={[ styles.login ,{ fontSize: fontSize, color: "#303030" }]} >Entre com </Text>
             <Text allowFontScaling={false} style={{ color: "#4285f4", fontSize: fontSize,fontFamily: 'FredokaSemibold' }} >G</Text>

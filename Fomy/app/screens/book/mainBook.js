@@ -208,7 +208,7 @@ const MainBook = ({ navigation }) => {
                 <>
                     <View style={styles.searcharea} >
                         <TextInput allowFontScaling={false} onSubmitEditing={() => handleSearch()} value={search} onChangeText={(text) => setSearch(text)} style={styles.searchinput} placeholder='Pesquisar' autoCapitalize='none' />
-                        <TouchableOpacity onPress={() => handleSearch()} style={styles.searchbutton} >
+                        <TouchableOpacity activeOpacity={0.8} onPress={() => handleSearch()} style={styles.searchbutton} >
                             <FontAwesome name="search" style={styles.searchicon} size={25} color={"#505050"} />
                         </TouchableOpacity>
                     </View>

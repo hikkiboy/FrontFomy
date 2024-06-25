@@ -193,7 +193,7 @@ export default function Passos({ route, props, navigation }) {
     <SafeAreaView style={styles.container}>
       <ScrollView style={{ backgroundColor: '#F2F2F2' }} showsVerticalScrollIndicator={false} >
         {/* <Button title='debug' onPress={() => console.log(arr)}></Button>  */}
-        <TouchableOpacity onPress={() => { navigation.goBack(); Vibration.cancel(); stopSound(); }} style={styles.goback} ><FontAwesome name="arrow-left" size={30} color="white" /></TouchableOpacity>
+        <TouchableOpacity activeOpacity={0.8} onPress={() => { navigation.goBack(); Vibration.cancel(); stopSound(); }} style={styles.goback} ><FontAwesome name="arrow-left" size={30} color="white" /></TouchableOpacity>
         <View style={{ backgroundColor: '#FFF' }} >
           <View style={[styles.imagebak, {
             backgroundColor: corDinamica,
@@ -224,10 +224,10 @@ export default function Passos({ route, props, navigation }) {
 
 
         <View style={styles.buttons} >
-          <TouchableOpacity style={styles.stepbak} onPress={() => pa(calcula, false)} ><Foundation name="refresh" size={49} color="#FFF" /></TouchableOpacity>
+          <TouchableOpacity activeOpacity={0.8} style={styles.stepbak} onPress={() => pa(calcula, false)} ><Foundation name="refresh" size={49} color="#FFF" /></TouchableOpacity>
           {/* <Image style={styles.charimage} source={require("../../assets/betterAlberto.png")} /> */}
           <AlbertoCustom width={150} height={150}/>
-          <TouchableOpacity style={styles.stepfwd} onPress={() => pa(calcula, true)} ><FontAwesome name={"check"} size={45} color="#FFF" /></TouchableOpacity>
+          <TouchableOpacity activeOpacity={0.8} style={styles.stepfwd} onPress={() => pa(calcula, true)} ><FontAwesome name={"check"} size={45} color="#FFF" /></TouchableOpacity>
         </View>
 
         <View style={styles.descpassoarea}>

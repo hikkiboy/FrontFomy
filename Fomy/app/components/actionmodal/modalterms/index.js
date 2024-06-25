@@ -96,7 +96,7 @@ export function ModalTerm({ handleCloseModal }) {
                 </Text>
 
                 {/* <TouchableOpacity style={styles.buttonRegistro} onPress={handleCloseModal}> */}
-                <TouchableOpacity style={styles.buttonRegistro} onPress={() => Linking.openURL("https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm")}>
+                <TouchableOpacity activeOpacity={0.8} style={styles.buttonRegistro} onPress={() => Linking.openURL("https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm")}>
                     <Text allowFontScaling={false} style={styles.botaoTexto}>
                         Ver LGPD
                     </Text>

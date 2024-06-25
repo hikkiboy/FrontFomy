@@ -243,7 +243,7 @@ export default function Parabens({ navigation, route }) {
               <FontAwesome6 name="seedling" size={80} color={corFill} />
               <Text allowFontScaling={false} style={{ fontSize: 25, color: corFill, fontFamily: "FredokaSemibold", marginBottom: 20, marginTop: 15, width: "100%", textAlign: 'center' }} >Aí sim!</Text>
               <Text allowFontScaling={false} style={{ fontSize: 21, color: "#505050", fontFamily: "FredokaMedium", marginBottom: 45, width: "100%", textAlign: 'center' }} >Você subiu de nível!</Text>
-              <TouchableOpacity style={{ backgroundColor: cor, width: "100%", alignItems: 'center', justifyContent: 'center', borderRadius: 20, paddingVertical: 8 , borderWidth: 6, borderBottomWidth: 9, borderColor: corFill }} onPress={() => setCongratulations(false)} >
+              <TouchableOpacity activeOpacity={0.8} style={{ backgroundColor: cor, width: "100%", alignItems: 'center', justifyContent: 'center', borderRadius: 20, paddingVertical: 8 , borderWidth: 6, borderBottomWidth: 9, borderColor: corFill }} onPress={() => setCongratulations(false)} >
                 <Text allowFontScaling={false} style={{ fontSize: 24, fontFamily: "FredokaSemibold", color: "#303030" }} >Yay!</Text>
               </TouchableOpacity>
             </View>
@@ -295,7 +295,7 @@ export default function Parabens({ navigation, route }) {
               }]} />
             </View>
           </View>
-          <TouchableOpacity style={{ width: "100%", paddingHorizontal: 10, alignSelf: 'center' }} onPress={() => navigation.navigate("Trilha", { paramKey: [route.params.navigate[0], route.params.navigate[1], route.params.navigate[2], route.params.navigate[3], route.params.navigate[4]] })}>
+          <TouchableOpacity activeOpacity={0.8} style={{ width: "100%", paddingHorizontal: 10, alignSelf: 'center' }} onPress={() => navigation.navigate("Trilha", { paramKey: [route.params.navigate[0], route.params.navigate[1], route.params.navigate[2], route.params.navigate[3], route.params.navigate[4]] })}>
             <View style={styles.butao}>
               <Text allowFontScaling={false} style={styles.textobutao}>OBA!</Text>
             </View>

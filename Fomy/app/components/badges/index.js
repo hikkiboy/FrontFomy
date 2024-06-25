@@ -82,7 +82,7 @@ export function Badges({ data }) {
                 showsHorizontalScrollIndicator={false}
                 renderItem={({item, index}) => {
                     return(
-                        <TouchableOpacity activeOpacity={0.9} 
+                        <TouchableOpacity activeOpacity={0.8} 
                                           style={[styles.thebadge, {marginLeft: index == 0 && 10, marginRight: index + 1 == Insignias.length && 10 }]}
                                           onPress={() => checkBadge(index)}
                         >

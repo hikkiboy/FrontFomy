@@ -21,7 +21,7 @@ export default function DeleteAccount({ navigation }){
                 <SafeAreaView style={{ flex: 1, display: 'flex' }} >
                 <View style={{ width: "100%", height: 65, backgroundColor: "rgba(0,0,0,0.1)", borderRadius: 10 }} >
                     <View style={{width: "100%", height: 55, backgroundColor: "#FFF", flexDirection: 'row', alignItems: 'center', borderRadius: 10 }} >
-                        <TouchableOpacity style={{ width: "8.5%", marginStart: 20 }} onPress={() => navigation.goBack()} ><FontAwesome size={25} color={"#303030"} name='arrow-left' /></TouchableOpacity>
+                        <TouchableOpacity activeOpacity={0.8} style={{ width: "8.5%", marginStart: 20 }} onPress={() => navigation.goBack()} ><FontAwesome size={25} color={"#303030"} name='arrow-left' /></TouchableOpacity>
                         <View style={{ alignSelf: 'center', justifyContent: 'center', width: "100%", position: 'absolute' }} >
                             <Text allowFontScaling={false} style={{ fontSize: 25, fontFamily: "FredokaSemibold", alignSelf: 'center', position: 'absolute', color: "#303030" }} >Deletar Conta</Text>
                         </View>
@@ -120,7 +120,7 @@ export default function DeleteAccount({ navigation }){
                 </View>
             </View>
             <View style={styles.deletearea} >
-                <TouchableOpacity style={styles.delete} onPress={DeleteAll} activeOpacity={0.9} >
+                <TouchableOpacity style={styles.delete} onPress={DeleteAll} activeOpacity={0.8} >
                     <Text allowFontScaling={false} style={styles.action} >Confirmar</Text>
                     <FontAwesome6 color={"#FFF"} name="eraser" size={25} />
                 </TouchableOpacity>
