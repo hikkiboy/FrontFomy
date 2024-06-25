@@ -13,7 +13,6 @@ import Profile from "../screens/profile";
 import Login from "../screens/initial";
 import LoginPage from "../screens/login";
 import Cadastro from "../screens/cadastro";
-import Fetch from "../components/fetch/index"
 import Home from "../screens/home";
 import OnboardingItem from "../components/Onboarding/index";
 import PasswordResets from "../utils/forgotPassword";
@@ -64,11 +63,6 @@ export default function Routes({ loggedIn, loading }) {
         component={Profile}
         options={{ headerShown: false }}
       />
-      {<Stack.Screen
-        name="Fetch"
-        component={Fetch}
-        options={{ headerShown: false }}
-      />}
       <Stack.Screen
         name="Cadastro"
         component={Cadastro}
@@ -229,8 +223,6 @@ export function TabNavigatior() {
           <Image source={require("../assets/closet-icon-2.png")} style={{ width: 29, height: 29, resizeMode: 'contain' }}  tintColor={focused ? "#FAB151" : "#505050"} />
         )
       }} />
-
-      {/*<Tab.Screen name = "Trilhas" component={Fetch}options={{headerShown: false}}/>*/}
     </Tab.Navigator>
   )
 }
