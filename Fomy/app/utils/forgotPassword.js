@@ -79,7 +79,7 @@ const PasswordResets = () => {
                   <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'flex-start' }} >
                     <FontAwesome6 style={{ marginTop: "-5%" }} name="check" size={100} color="#70d872" />
                     <Text allowFontScaling={false} style={{ width: "90%", fontSize: 18, color: "#303030", textAlign: 'center', fontFamily: "FredokaMedium", marginBottom: "9%", marginTop: "1%" }} >Siga as instruções que enviamos</Text>
-                    <TouchableOpacity onPress={() => { setTimeout(() => { setBg(); }, 100); setTimeout(() => { setLoading(false); navigation.navigate("Loginpage") }, 120) }} style={{ width: "90%", alignItems: 'center', height: (stuffHeight - 5), justifyContent: 'center', borderRadius: 15, backgroundColor: '#70d872', borderWidth: 4, borderBottomWidth: 6, borderColor: '#62bc63' }} >
+                    <TouchableOpacity activeOpacity={0.8} onPress={() => { setTimeout(() => { setBg(); }, 100); setTimeout(() => { setLoading(false); navigation.navigate("Loginpage") }, 120) }} style={{ width: "90%", alignItems: 'center', height: (stuffHeight - 5), justifyContent: 'center', borderRadius: 15, backgroundColor: '#70d872', borderWidth: 4, borderBottomWidth: 6, borderColor: '#62bc63' }} >
                       <Text allowFontScaling={false} style={{ fontSize: (fontSize + 1), color: "#303030", fontFamily: "FredokaSemibold" }} >Voltar ao login</Text>
                     </TouchableOpacity>
                   </View>
@@ -120,7 +120,7 @@ const PasswordResets = () => {
                   <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'flex-start' }} >
                     <FontAwesome6 style={{ marginTop: "-5%" }} name="check" size={100} color="#70d872" />
                     <Text allowFontScaling={false} style={{ width: "90%", fontSize: 18, color: "#303030", textAlign: 'center', fontFamily: "FredokaMedium", marginBottom: "9%", marginTop: "1%" }} >Siga as instruções que enviamos</Text>
-                    <TouchableOpacity onPress={() => { setLoading(false); navigation.navigate("Loginpage") }} style={{ width: "90%", alignItems: 'center', height: (stuffHeight - 5), justifyContent: 'center', borderRadius: 15, backgroundColor: '#70d872', borderWidth: 6, borderBottomWidth: 9, borderColor: '#62bc63' }} >
+                    <TouchableOpacity activeOpacity={0.8} onPress={() => { setLoading(false); navigation.navigate("Loginpage") }} style={{ width: "90%", alignItems: 'center', height: (stuffHeight - 5), justifyContent: 'center', borderRadius: 15, backgroundColor: '#70d872', borderWidth: 6, borderBottomWidth: 9, borderColor: '#62bc63' }} >
                       <Text allowFontScaling={false} style={{ fontSize: (fontSize + 1), color: "#303030", fontFamily: "FredokaSemibold" }} >Voltar ao login</Text>
                     </TouchableOpacity>
                   </View>
@@ -149,7 +149,7 @@ const PasswordResets = () => {
             <FontAwesome6 name="triangle-exclamation" size={80} color="#f1555a" />
             <Text allowFontScaling={false} style={{ fontSize: 25, color: "#f1555a", fontFamily: "FredokaSemibold", marginBottom: 20, marginTop: 15, width: "100%", textAlign: 'center', paddingHorizontal: 10 }} >Ocorreu um erro!</Text>
             <Text allowFontScaling={false} style={{ fontSize: 21, color: "#505050", fontFamily: "FredokaMedium", marginBottom: 45, width: "100%", textAlign: 'center', paddingHorizontal: 10 }} >{whatError}</Text>
-            <TouchableOpacity style={{ backgroundColor: "#fa787d", width: "100%", alignItems: 'center', justifyContent: 'center', borderRadius: 15, paddingVertical: 8, borderWidth: 6, borderBottomWidth: 9, borderColor: '#f1555a' }} onPress={() => setProblem(false)} >
+            <TouchableOpacity activeOpacity={0.8} style={{ backgroundColor: "#fa787d", width: "100%", alignItems: 'center', justifyContent: 'center', borderRadius: 15, paddingVertical: 8, borderWidth: 6, borderBottomWidth: 9, borderColor: '#f1555a' }} onPress={() => setProblem(false)} >
               <Text allowFontScaling={false} style={{ fontSize: 24, fontFamily: "FredokaSemibold", color: "#303030" }} >Beleza, foi mal!</Text>
             </TouchableOpacity>
           </View>
@@ -168,7 +168,7 @@ const PasswordResets = () => {
         />
         <FontAwesome6 name="at" size={25} color={"#303030"} />
       </View>
-      <TouchableOpacity title="Enviar" style={[styles.buttonLogin, { height: stuffHeight }]} onPress={PasswordReset}>
+      <TouchableOpacity activeOpacity={0.8} title="Enviar" style={[styles.buttonLogin, { height: stuffHeight }]} onPress={PasswordReset}>
         <Text allowFontScaling={false} style={[styles.text, { fontSize: fontSize }]}>Redefinir Senha</Text>
       </TouchableOpacity>
     </KeyboardAwareScrollView>
