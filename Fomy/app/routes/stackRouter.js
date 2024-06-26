@@ -34,7 +34,7 @@ import Closet from "../screens/store/closet";
 
 const Stack = createNativeStackNavigator();
 
-export default function Routes({ loggedIn, loading }) {
+export default function Routes({ loggedIn, loading}) {
 
   const navigation = useNavigation();
   const [initialRoute, setInitialRoute] = React.useState("Loading")

@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Fomy",
-    "slug": "Fomy",
+    "slug": "fomy",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,7 +22,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.grupostationary.Fomy"
+      "package": "com.grupostationary.fomy"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -31,6 +31,8 @@
       "eas": {
         "projectId": "f4697afd-c8d6-4958-b086-9c0e4e816b77"
       }
-    }
+    },
+    "scheme": "fomy"
+
   }
 }

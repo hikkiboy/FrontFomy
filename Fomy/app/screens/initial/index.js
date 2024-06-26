@@ -1,4 +1,7 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Alert, Dimensions, BackHandler, Platform } from 'react-native';
+import * as Google from 'expo-auth-session/providers/google'
+import * as Web from 'expo-web-browser'
+import { User, onAuthStateChanged,GoogleAuthProvider,signInWithCredential } from "firebase/auth";
 import React, { useState, useEffect } from 'react'
 import { app_auth } from '../../../firebaseConfig'
 import { Logo } from '../../components/logo';
@@ -10,6 +13,8 @@ import * as NavigationBar from 'expo-navigation-bar'
 import { LogBox } from 'react-native';
 
 
+
+Web.maybeCompleteAuthSession();
 LogBox.ignoreAllLogs(); //Ignore all log notifications
 
 const Login = ({navigation}) => {
@@ -21,6 +26,31 @@ const Login = ({navigation}) => {
   const [googleHeight, setGoogleHeight] = useState(32)
   const [googleWidth, setGoogleWidth] = useState(32)
   const [ tinyText, setTinyText ] = useState(23);
+
+  const [userInfo, setUserInfo] = useState();
+
+const [request, response,promptAsync] = Google.useAuthRequest({
+  androidClientId: "27576730639-ffblej5o7ik0mho823rjj38iqe54eo7d.apps.googleusercontent.com"
+})
+
+useEffect(() => {
+  if (response?.type == 'success') {
+    const {id_token} = response.params;
+    const credential = GoogleAuthProvider.credential(id_token)
+    signInWithCredential(app_auth, credential)
+  }
+}, [response]);
+
+useEffect(() => {
+  const unsub = onAuthStateChanged(app_auth, async(user) =>{
+    if (user){
+      console.log(JSON.stringify(user, null, 2))
+    }
+    else{
+      console.log('wah')
+    }
+  })
+}, [])
 
   if(Platform.OS === 'android'){
     NavigationBar.setBackgroundColorAsync('#FFF');
@@ -82,7 +112,7 @@ const Login = ({navigation}) => {
             <Octicons name="dash" size={80} color="#dbdbdb" />
           </View>
 
-          <TouchableOpacity activeOpacity={0.8} style={[styles.buttonCadastroGoogle, { height: (stuffHeight - 10) }]} onPress={ () => navigation.navigate('Loginpage')}>
+          <TouchableOpacity activeOpacity={0.8} style={[styles.buttonCadastroGoogle, { height: (stuffHeight - 10) }]} onPress={ () => promptAsync()}>
             
             <Text allowFontScaling={false} style={[ styles.login ,{ fontSize: fontSize, color: "#303030" }]} >Entre com </Text>
             <Text allowFontScaling={false} style={{ color: "#4285f4", fontSize: fontSize,fontFamily: 'FredokaSemibold' }} >G</Text>

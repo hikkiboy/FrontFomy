@@ -1,6 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { User, onAuthStateChanged } from "firebase/auth";
+import { User, onAuthStateChanged,GoogleAuthProvider,signInWithCredential } from "firebase/auth";
+
 import {
   useFonts,
   Fredoka_300Light,
@@ -20,10 +21,12 @@ import {
 } from '@expo-google-fonts/poppins'
 
 import { useEffect, useState } from "react";
-import { app_auth } from "./firebaseConfig";
+import { app, app_auth } from "./firebaseConfig";
 
 import Routes, { TabNavigatior } from "./app/routes/stackRouter";
 import { StatusBar } from "expo-status-bar";
+import Login from "./app/screens/initial";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +35,7 @@ const HomeStack = createNativeStackNavigator();
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
+
 
   let [fontsLoaded] = useFonts({
     "FredokaLight": Fredoka_300Light,
@@ -65,10 +69,11 @@ export default function App() {
     return () => login();
   }, [fontsLoaded]);
 
+
   return (
     <NavigationContainer>
       <StatusBar style="dark" translucent={true} animated={true} />
-      <Routes loggedIn={loggedIn} loading={loading} />
+      <Routes loggedIn={loggedIn} loading={loading}/>
     </NavigationContainer>
   );
 }
