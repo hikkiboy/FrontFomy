@@ -1,23 +1,25 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Alert, Dimensions, BackHandler, Platform } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Alert, Dimensions, BackHandler, Platform, Modal } from 'react-native';
 import * as Google from 'expo-auth-session/providers/google'
 import * as Web from 'expo-web-browser'
-import { User, onAuthStateChanged,GoogleAuthProvider,signInWithCredential } from "firebase/auth";
+import { User, onAuthStateChanged, GoogleAuthProvider, signInWithCredential } from "firebase/auth";
 import React, { useState, useEffect } from 'react'
-import { app_auth } from '../../../firebaseConfig'
+import { app_auth, app_DB } from '../../../firebaseConfig'
 import { Logo } from '../../components/logo';
-import { AntDesign } from '@expo/vector-icons'; 
-import { Octicons } from '@expo/vector-icons'; 
+import { AntDesign } from '@expo/vector-icons';
+import { Octicons } from '@expo/vector-icons';
 import { useIsFocused } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import * as NavigationBar from 'expo-navigation-bar'
 import { LogBox } from 'react-native';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { FontAwesome6 } from 'react-native-vector-icons'
 
 
 
 Web.maybeCompleteAuthSession();
 LogBox.ignoreAllLogs(); //Ignore all log notifications
 
-const Login = ({navigation}) => {
+const Login = ({ navigation }) => {
   const height = Dimensions.get("window").height
   const [stuffHeight, setStuffHeight] = useState(85)
   const [imageHeight, setImageHeight] = useState(225.05)
@@ -25,59 +27,84 @@ const Login = ({navigation}) => {
   const [fontSize, setFontSize] = useState(23)
   const [googleHeight, setGoogleHeight] = useState(32)
   const [googleWidth, setGoogleWidth] = useState(32)
-  const [ tinyText, setTinyText ] = useState(23);
+  const [tinyText, setTinyText] = useState(23);
+  const [problem, setProblem] = useState(false);
 
   const [userInfo, setUserInfo] = useState();
 
-const [request, response,promptAsync] = Google.useAuthRequest({
-  androidClientId: "27576730639-ffblej5o7ik0mho823rjj38iqe54eo7d.apps.googleusercontent.com"
-})
-
-useEffect(() => {
-  if (response?.type == 'success') {
-    const {id_token} = response.params;
-    const credential = GoogleAuthProvider.credential(id_token)
-    signInWithCredential(app_auth, credential)
-  }
-}, [response]);
-
-useEffect(() => {
-  const unsub = onAuthStateChanged(app_auth, async(user) =>{
-    if (user){
-      console.log(JSON.stringify(user, null, 2))
-    }
-    else{
-      console.log('wah')
-    }
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    androidClientId: "27576730639-ffblej5o7ik0mho823rjj38iqe54eo7d.apps.googleusercontent.com"
   })
-}, [])
 
-  if(Platform.OS === 'android'){
+  useEffect(() => {
+    if (response?.type == 'success') {
+      const { id_token } = response.params;
+      const credential = GoogleAuthProvider.credential(id_token)
+      signInWithCredential(app_auth, credential).then(async () => {
+        const userRef = doc(app_DB, 'Usuarios', app_auth.currentUser.uid)
+        const docSnap = await getDoc(userRef);
+        if (docSnap.exists()) {
+          console.log("Document already exists");
+        } else {
+          try {
+            // Document doesn't exist, create it
+            const nameAccount = app_auth.currentUser.displayName ? app_auth.currentUser.displayName : "Alberto"
+            await setDoc(userRef, {
+              Alergias: [],
+              Exp: 0,
+              Foto: "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Pfps%2Falbertobutpfp.png?alt=media&token=d75260c5-3ad6-4142-a202-4d127b293cf4",
+              Itens: [],
+              Moedas: 0,
+              Nivel: 1,
+              Nome: nameAccount,
+              Premium: false,
+              ReceitasFeitas: [],
+              Insignias: ["Beta"],
+              Titulo: "Iniciante",
+              Básico: 0,
+              Doces: 0,
+              Gourmet: 0,
+              Refeições: 0,
+              ItensAli: ["chef", "", "", ""],
+              ExpLevel: 50
+            });
+            console.log("Document created successfully");
+          } catch (error) {
+            console.error("Error adding document: ", error);
+            app_auth.signOut()
+            setProblem(true)
+          }
+        }
+      })
+    }
+  }, [response]);
+
+  if (Platform.OS === 'android') {
     NavigationBar.setBackgroundColorAsync('#FFF');
   }
 
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    if(isFocused){
-        //console.log("focado inicial")
-        const backAction = () => {
-            BackHandler.exitApp()
-            return true;
-        };
-    
-        const backHandler = BackHandler.addEventListener(
-            'hardwareBackPress',
-            backAction,
-        );
-    
-        return () => backHandler.remove();
+    if (isFocused) {
+      //console.log("focado inicial")
+      const backAction = () => {
+        BackHandler.exitApp()
+        return true;
+      };
+
+      const backHandler = BackHandler.addEventListener(
+        'hardwareBackPress',
+        backAction,
+      );
+
+      return () => backHandler.remove();
     }
 
-},[isFocused])
-  
+  }, [isFocused])
+
   useEffect(() => {
-    if(height <= 700){
+    if (height <= 700) {
       //console.log("tela pequena")
       //console.log(height)
       setStuffHeight(75)
@@ -90,42 +117,58 @@ useEffect(() => {
     }
   })
 
-    return (
-        <SafeAreaView style={styles.container} >
-
-          <Image style={[styles.logo, { width: imageWidth, height: imageHeight }]} source={require("../../assets/logo-full.png")} />
-    
-          <TouchableOpacity activeOpacity={0.8} style={[styles.buttonCadastro, { height: stuffHeight }]} onPress={() => navigation.navigate('Cadastro')}>
-            <Text allowFontScaling={false} style={[styles.login, {fontSize: fontSize}]}>Cadastro</Text>
-          </TouchableOpacity>
-    
-          <TouchableOpacity activeOpacity={0.8} style={[styles.buttonLogin, { height: stuffHeight }]} onPress={ () => navigation.navigate('Loginpage')}>
-            <Text allowFontScaling={false} style={[styles.login, {fontSize: fontSize}]}>Login</Text>
-          </TouchableOpacity>
-    
-          
-          {/* <Image style={{width: "50%", height: "0.9%", resizeMode: "stretch", marginVertical: "10%"}} source={require("../../assets/lines-detail.png")} /> */}
-          
-          <View style={{flexDirection:"row", justifyContent: "center", alignItems: 'center'}}>
-            <Octicons name="dash" size={80} color="#dbdbdb" />
-            <Text allowFontScaling={false} style={[styles.otherOptions, { fontSize: tinyText }]}> ou </Text>
-            <Octicons name="dash" size={80} color="#dbdbdb" />
+  return (
+    <SafeAreaView style={styles.container} >
+      <Modal
+        visible={problem}
+        transparent={true}
+        animationType='fade'
+      >
+        <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "rgba(0,0,0,0.2)", paddingHorizontal: 10 }} >
+          <View style={{ alignItems: 'center', backgroundColor: '#FFF', borderRadius: 15, width: "100%", paddingVertical: 30, paddingHorizontal: 10 }} >
+            <FontAwesome6 name="triangle-exclamation" size={80} color="#f1555a" />
+            <Text allowFontScaling={false} style={{ fontSize: 25, color: "#f1555a", fontFamily: "FredokaSemibold", marginBottom: 20, marginTop: 15, width: "100%", textAlign: 'center', paddingHorizontal: 10 }} >Ocorreu um erro!</Text>
+            <Text allowFontScaling={false} style={{ fontSize: 21, color: "#505050", fontFamily: "FredokaMedium", marginBottom: 45, width: "100%", textAlign: 'center', paddingHorizontal: 10 }} >Tente novamente mais tarde ou use um outro método</Text>
+            <TouchableOpacity activeOpacity={0.8} style={{ backgroundColor: "#fa787d", width: "100%", alignItems: 'center', justifyContent: 'center', borderRadius: 15, paddingVertical: 8, borderWidth: 6, borderBottomWidth: 9, borderColor: '#f1555a' }} onPress={() => setProblem(false)} >
+              <Text allowFontScaling={false} style={{ fontSize: 24, fontFamily: "FredokaSemibold", color: "#303030" }} >Eita poxa!</Text>
+            </TouchableOpacity>
           </View>
+        </SafeAreaView>
+      </Modal>
 
-          <TouchableOpacity activeOpacity={0.8} style={[styles.buttonCadastroGoogle, { height: (stuffHeight - 10) }]} onPress={ () => promptAsync()}>
-            
-            <Text allowFontScaling={false} style={[ styles.login ,{ fontSize: fontSize, color: "#303030" }]} >Entre com </Text>
-            <Text allowFontScaling={false} style={{ color: "#4285f4", fontSize: fontSize,fontFamily: 'FredokaSemibold' }} >G</Text>
-            <Text allowFontScaling={false} style={{ color: "#ea4335", fontSize: fontSize,fontFamily: 'FredokaSemibold' }} >o</Text>
-            <Text allowFontScaling={false} style={{ color: "#fbbc05", fontSize: fontSize,fontFamily: 'FredokaSemibold' }} >o</Text>
-            <Text allowFontScaling={false} style={{ color: "#4285f4", fontSize: fontSize,fontFamily: 'FredokaSemibold' }} >g</Text>
-            <Text allowFontScaling={false} style={{ color: "#34a853", fontSize: fontSize,fontFamily: 'FredokaSemibold' }} >l</Text>
-            <Text allowFontScaling={false} style={{ color: "#ea4335", fontSize: fontSize,fontFamily: 'FredokaSemibold' }} >e</Text>
-          </TouchableOpacity>
-  
-        
-      </SafeAreaView>
-    )
+      <Image style={[styles.logo, { width: imageWidth, height: imageHeight }]} source={require("../../assets/logo-full.png")} />
+
+      <TouchableOpacity activeOpacity={0.8} style={[styles.buttonCadastro, { height: stuffHeight }]} onPress={() => navigation.navigate('Cadastro')}>
+        <Text allowFontScaling={false} style={[styles.login, { fontSize: fontSize }]}>Cadastro</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity activeOpacity={0.8} style={[styles.buttonLogin, { height: stuffHeight }]} onPress={() => navigation.navigate('Loginpage')}>
+        <Text allowFontScaling={false} style={[styles.login, { fontSize: fontSize }]}>Login</Text>
+      </TouchableOpacity>
+
+
+      {/* <Image style={{width: "50%", height: "0.9%", resizeMode: "stretch", marginVertical: "10%"}} source={require("../../assets/lines-detail.png")} /> */}
+
+      <View style={{ flexDirection: "row", justifyContent: "center", alignItems: 'center' }}>
+        <Octicons name="dash" size={80} color="#dbdbdb" />
+        <Text allowFontScaling={false} style={[styles.otherOptions, { fontSize: tinyText }]}> ou </Text>
+        <Octicons name="dash" size={80} color="#dbdbdb" />
+      </View>
+
+      <TouchableOpacity activeOpacity={0.8} style={[styles.buttonCadastroGoogle, { height: (stuffHeight - 10) }]} onPress={() => promptAsync()}>
+
+        <Text allowFontScaling={false} style={[styles.login, { fontSize: fontSize, color: "#303030" }]} >Entre com </Text>
+        <Text allowFontScaling={false} style={{ color: "#4285f4", fontSize: fontSize, fontFamily: 'FredokaSemibold' }} >G</Text>
+        <Text allowFontScaling={false} style={{ color: "#ea4335", fontSize: fontSize, fontFamily: 'FredokaSemibold' }} >o</Text>
+        <Text allowFontScaling={false} style={{ color: "#fbbc05", fontSize: fontSize, fontFamily: 'FredokaSemibold' }} >o</Text>
+        <Text allowFontScaling={false} style={{ color: "#4285f4", fontSize: fontSize, fontFamily: 'FredokaSemibold' }} >g</Text>
+        <Text allowFontScaling={false} style={{ color: "#34a853", fontSize: fontSize, fontFamily: 'FredokaSemibold' }} >l</Text>
+        <Text allowFontScaling={false} style={{ color: "#ea4335", fontSize: fontSize, fontFamily: 'FredokaSemibold' }} >e</Text>
+      </TouchableOpacity>
+
+
+    </SafeAreaView>
+  )
 }
 export default Login
 
@@ -134,7 +177,7 @@ export default Login
 
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     flex: 1,
     display: "flex",
     alignItems: 'center',
@@ -142,7 +185,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF"
 
   },
-  logo:{
+  logo: {
     marginBottom: "10%",
     resizeMode: 'stretch'
   },
@@ -166,13 +209,13 @@ const styles = StyleSheet.create({
     borderBottomWidth: 9,
     borderWidth: 6,
     marginTop: "5%"
-    
+
   },
-  login:{
+  login: {
     fontFamily: "FredokaSemibold",
     color: "#303030"
   },
-  loginGoogle:{
+  loginGoogle: {
     fontSize: 28,
     color: "#FFF"
   },
@@ -187,22 +230,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  loginsDiff:{
+  loginsDiff: {
     flexDirection: 'row',
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center'
   },
-  otherOptions:{
+  otherOptions: {
     marginHorizontal: 10,
     marginBottom: 5,
     color: "#505050",
     fontFamily: "FredokaSemibold"
-    
+
   },
 
-  
-  
+
+
 });
 
 
