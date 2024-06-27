@@ -132,7 +132,7 @@ const Profile = ({ navigation }) => {
                                     <Progress.Bar
                                         style={{ justifyContent: 'center' }}
                                         progress={progressToBar}
-                                        width={width - 20}
+                                        width={width - 10}
                                         height={47}
                                         borderRadius={15}
                                         borderWidth={5}

@@ -88,7 +88,16 @@ export default function Configs({ navigation, route }) {
                     transparent={true}
                     animationType='fade'
                 >
-                    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "rgba(0,0,0,0.2)", paddingHorizontal: 10 }} >
+                    <TouchableOpacity style={{ flex: 1, backgroundColor: "rgba(0,0,0,0.2)" }} onPress={() => setThanksAlert(false)} />
+                </Modal>
+
+                <Modal
+                    visible={thanksAlert}
+                    transparent={true}
+                    animationType='slide'
+                >
+                    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} >
+                        <TouchableOpacity style={{ flex: 1, width: '100%' }} onPress={() => setThanksAlert(false)} />
                         <View style={{ alignItems: 'center', backgroundColor: '#FFF', borderRadius: 15, width: "100%", paddingVertical: 30, paddingHorizontal: 10 }} >
                             <FontAwesome6 name="face-laugh" size={80} color={"#ED8A07"} />
                             <Text allowFontScaling={false} style={{ fontSize: 25, color: "#ED8A07", fontFamily: "FredokaSemibold", marginBottom: 20, marginTop: 15, width: "100%", textAlign: 'center' }} >Muito obrigado!</Text>

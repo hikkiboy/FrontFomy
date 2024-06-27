@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, TextInput, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, TextInput, FlatList, Modal } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6'
 import { useEffect, useState } from 'react'
@@ -12,6 +12,8 @@ export default function Store({ navigation }) {
   const [user, setUser] = useState()
   const [buy, setBuy] = useState()
   const [userStuff, setUserStuff] = useState([])
+  const [thanksAlert, setThanksAlert] = useState(false)
+
 
 
   useEffect(() => {
@@ -78,6 +80,7 @@ export default function Store({ navigation }) {
         Premium: true
       }).then(() => {
         console.log("updatou")
+        setThanksAlert(true)
       }).catch((error) => {
         console.log(error)
       })
@@ -128,6 +131,31 @@ export default function Store({ navigation }) {
     <SafeAreaView style={styles.container}>
       {user != undefined && user != null &&
         <ScrollView style={{ minWidth: "100%" }} >
+          <Modal
+            visible={thanksAlert}
+            transparent={true}
+            animationType='fade'
+          >
+            <TouchableOpacity style={{ flex: 1, backgroundColor: "rgba(0,0,0,0.2)" }} onPress={() => setThanksAlert(false)} />
+          </Modal>
+
+          <Modal
+            visible={thanksAlert}
+            transparent={true}
+            animationType='slide'
+          >
+            <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} >
+              <TouchableOpacity style={{ flex: 1, width: '100%' }} onPress={() => setThanksAlert(false)} />
+              <View style={{ alignItems: 'center', backgroundColor: '#FFF', borderRadius: 15, width: "100%", paddingVertical: 30, paddingHorizontal: 10 }} >
+                <FontAwesome6 name="face-laugh" size={80} color={"#ED8A07"} />
+                <Text allowFontScaling={false} style={{ fontSize: 25, color: "#ED8A07", fontFamily: "FredokaSemibold", marginBottom: 20, marginTop: 15, width: "100%", textAlign: 'center' }} >Muito obrigado!</Text>
+                <Text allowFontScaling={false} style={{ fontSize: 21, color: "#505050", fontFamily: "FredokaMedium", marginBottom: 45, width: "100%", textAlign: 'center' }} >Você assinando premium nos ajuda a continuar a fazer o que gostamos!</Text>
+                <TouchableOpacity activeOpacity={0.8} style={{ backgroundColor: "#FAB151", width: "100%", alignItems: 'center', justifyContent: 'center', borderRadius: 20, paddingVertical: 8, borderWidth: 6, borderBottomWidth: 9, borderColor: "#ED8A07" }} onPress={() => setThanksAlert(false)} >
+                  <Text allowFontScaling={false} style={{ fontSize: 24, fontFamily: "FredokaSemibold", color: "#303030" }} >Fechar</Text>
+                </TouchableOpacity>
+              </View>
+            </SafeAreaView>
+          </Modal>
           <View style={{ paddingHorizontal: 5, paddingTop: 5 }} >
             <View style={styles.bgimg}>
               <Image style={styles.booklet} tintColor={"#E15F64"} source={require('../../assets/darkstorelet.png')} />
