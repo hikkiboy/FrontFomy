@@ -111,7 +111,7 @@ const Profile = ({ navigation }) => {
                         <View style={styles.bgimg}>
                             <View style={styles.titlearea} >
                                 <View style={{ borderWidth: 6, borderRadius: 100, marginRight: 5, borderColor: "#2985DB" }} >
-                                    <Image style={styles.notalberto} source={{ uri: Receitas.Foto }} />
+                                    <Image style={styles.notalberto} source={{ uri: app_auth.currentUser.photoURL && Receitas.Foto == "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Pfps%2Falbertobutpfp.png?alt=media&token=d75260c5-3ad6-4142-a202-4d127b293cf4" ? app_auth.currentUser.photoURL : Receitas.Foto }} />
                                 </View>
                                 <View style={{ flex: 1, justifyContent: 'center' }}>
                                     <Text allowFontScaling={false} style={[styles.trilhaTit, { fontSize: 27 }]}>{Receitas.Nome}</Text>

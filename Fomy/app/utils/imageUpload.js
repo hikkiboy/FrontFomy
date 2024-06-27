@@ -41,7 +41,7 @@ async function uploadImage(uri, fileName, userImage) {
             getDownloadURL(uploadTask.snapshot.ref).then(async (downloadUrl) => {
                 //console.log("File available at: " + downloadUrl)
                 try {
-                    if (userImage != "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/albertobutcool%204.png?alt=media&token=175f4479-6c43-4ec3-b3e9-2d2a92471064") {
+                    if (userImage != "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Pfps%2Falbertobutpfp.png?alt=media&token=d75260c5-3ad6-4142-a202-4d127b293cf4") {
                         try {
                             deleteObject(ref(app_BKT, userImage))
                             console.log("Old image: ", userImage, "was deleted...");

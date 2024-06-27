@@ -60,11 +60,10 @@ const Login = ({ navigation }) => {
         } else {
           try {
             const nameAccount = app_auth.currentUser.displayName ? app_auth.currentUser.displayName : "Alberto"
-            const imageAccount = app_auth.currentUser.photoURL ? app_auth.currentUser.photoURL : "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Pfps%2Falbertobutpfp.png?alt=media&token=d75260c5-3ad6-4142-a202-4d127b293cf4"
             await setDoc(userRef, {
               Alergias: [],
               Exp: 0,
-              Foto: imageAccount,
+              Foto: "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Pfps%2Falbertobutpfp.png?alt=media&token=d75260c5-3ad6-4142-a202-4d127b293cf4",
               Itens: [],
               Moedas: 0,
               Nivel: 1,
@@ -78,7 +77,8 @@ const Login = ({ navigation }) => {
               Gourmet: 0,
               Refeições: 0,
               ItensAli: ["chef", "", "", ""],
-              ExpLevel: 50
+              ExpLevel: 50,
+              PremiumAntes: false
             });
             setEntered(true);
             setTimeout(() => {

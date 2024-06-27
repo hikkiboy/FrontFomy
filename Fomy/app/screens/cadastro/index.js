@@ -102,7 +102,8 @@ const Cadastro = ({ navigation }) => {
           Gourmet: 0,
           Refeições: 0,
           ItensAli: ["chef", "", "", ""],
-          ExpLevel: 50
+          ExpLevel: 50,
+          PremiumAntes: false
 
         })
 
