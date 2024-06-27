@@ -33,7 +33,7 @@ const Login = ({ navigation }) => {
   const [userInfo, setUserInfo] = useState();
 
   const [request, response, promptAsync] = Google.useAuthRequest({
-    androidClientId: "27576730639-ffblej5o7ik0mho823rjj38iqe54eo7d.apps.googleusercontent.com"
+    androidClientId: "27576730639-u9q1d4970q4oeb86dmfl69us2urnlibh.apps.googleusercontent.com",
   })
 
   useEffect(() => {
