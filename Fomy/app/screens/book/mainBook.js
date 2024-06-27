@@ -285,7 +285,7 @@ const MainBook = ({ navigation }) => {
                 <View style={styles.nothing} >
                     {terminated ? (
                         <>
-                            <FontAwesome5 color="#505050" name="book" size={175} />
+                            <FontAwesome6 color="#505050" name="book" size={175} />
                             <Text allowFontScaling={false} style={[styles.nothingtxt, { marginTop: 20 }]} >Seu livro está vazio...</Text>
                             <Text allowFontScaling={false} style={[styles.nothingtxt, { fontSize: 23, marginTop: 50, fontFamily: "FredokaMedium" }]} >Faça uma receita para acessa-la facilmente aqui!</Text>
                         </>
