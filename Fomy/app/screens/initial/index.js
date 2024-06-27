@@ -59,12 +59,12 @@ const Login = ({ navigation }) => {
           }, 185);
         } else {
           try {
-            // Document doesn't exist, create it
             const nameAccount = app_auth.currentUser.displayName ? app_auth.currentUser.displayName : "Alberto"
+            const imageAccount = app_auth.currentUser.photoURL ? app_auth.currentUser.photoURL : "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Pfps%2Falbertobutpfp.png?alt=media&token=d75260c5-3ad6-4142-a202-4d127b293cf4"
             await setDoc(userRef, {
               Alergias: [],
               Exp: 0,
-              Foto: "https://firebasestorage.googleapis.com/v0/b/fomy-5ea9c.appspot.com/o/Pfps%2Falbertobutpfp.png?alt=media&token=d75260c5-3ad6-4142-a202-4d127b293cf4",
+              Foto: imageAccount,
               Itens: [],
               Moedas: 0,
               Nivel: 1,
