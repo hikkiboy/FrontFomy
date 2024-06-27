@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Alert, Dimensions, BackHandler, Platform, Modal } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Alert, Dimensions, BackHandler, Platform, Modal, ActivityIndicator } from 'react-native';
 import * as Google from 'expo-auth-session/providers/google'
 import * as Web from 'expo-web-browser'
 import { User, onAuthStateChanged, GoogleAuthProvider, signInWithCredential } from "firebase/auth";
@@ -30,7 +30,9 @@ const Login = ({ navigation }) => {
   const [tinyText, setTinyText] = useState(23);
   const [problem, setProblem] = useState(false);
 
-  const [userInfo, setUserInfo] = useState();
+  const [bg, setBg] = useState();
+  const [loading, setLoading] = useState(false);
+  const [entered, setEntered] = useState(false);
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     androidClientId: "27576730639-u9q1d4970q4oeb86dmfl69us2urnlibh.apps.googleusercontent.com",
@@ -38,6 +40,11 @@ const Login = ({ navigation }) => {
 
   useEffect(() => {
     if (response?.type == 'success') {
+      setLoading(true);
+      setTimeout(() => {
+        setBg("rgba(0,0,0,0.1)");
+      }, 250)
+      setEntered(false);
       const { id_token } = response.params;
       const credential = GoogleAuthProvider.credential(id_token)
       signInWithCredential(app_auth, credential).then(async () => {
@@ -45,6 +52,11 @@ const Login = ({ navigation }) => {
         const docSnap = await getDoc(userRef);
         if (docSnap.exists()) {
           console.log("Document already exists");
+          setEntered(true);
+          setTimeout(() => {
+            setBg();
+            setTimeout(() => { setLoading(false); }, 20);
+          }, 185);
         } else {
           try {
             // Document doesn't exist, create it
@@ -68,6 +80,11 @@ const Login = ({ navigation }) => {
               ItensAli: ["chef", "", "", ""],
               ExpLevel: 50
             });
+            setEntered(true);
+            setTimeout(() => {
+              setBg();
+              setTimeout(() => { setLoading(false); }, 20);
+            }, 185);
             console.log("Document created successfully");
           } catch (error) {
             console.error("Error adding document: ", error);
@@ -119,6 +136,68 @@ const Login = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container} >
+
+      {Platform.OS === 'ios' ? (
+        <>
+          <Modal
+            visible={loading}
+            animationType="slide"
+            transparent={true}
+          >
+            <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', zIndex: 99, alignItems: 'center', backgroundColor: bg }} >
+              <View style={{ backgroundColor: "#FFF", height: 275, width: "100%", borderTopLeftRadius: 25, borderTopRightRadius: 25, alignItems: 'center' }} >
+                <View style={{ alignItems: 'center', width: "100%", height: "25%", justifyContent: 'center' }} >
+                  <Text style={{ textAlign: 'center', fontSize: 28, fontFamily: "FredokaBold", color: "#303030" }} >{entered ? ("Sucesso!") : ("Entrando...")}</Text>
+                </View>
+                <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'center' }} >
+                  {entered ? (
+                    <FontAwesome6 name="check" size={120} color="#fab151" />
+                  ) : (
+                    <ActivityIndicator color="#fab151" />
+                  )
+                  }
+                </View>
+
+              </View>
+            </View>
+          </Modal>
+        </>
+      ) : (
+        <>
+          <Modal
+            visible={loading}
+            animationType="fade"
+            transparent={true}
+            style={{ zIndex: 98 }}
+          >
+            <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', backgroundColor: "rgba(0,0,0,0.10)", zIndex: 98 }} ></View>
+          </Modal>
+          <Modal
+            visible={loading}
+            animationType="slide"
+            transparent={true}
+            style={{ zIndex: 99 }}
+          >
+            <View style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', zIndex: 99, alignItems: 'center' }} >
+              <View style={{ backgroundColor: "#FFF", height: 275, width: "100%", borderTopLeftRadius: 25, borderTopRightRadius: 25, alignItems: 'center' }} >
+                <View style={{ alignItems: 'center', width: "100%", height: "25%", justifyContent: 'center' }} >
+                  <Text allowFontScaling={false} style={{ textAlign: 'center', fontSize: 28, fontFamily: "FredokaBold", color: "#303030" }} >{entered ? ("Sucesso!") : ("Entrando...")}</Text>
+                </View>
+                <View style={{ alignItems: 'center', width: "100%", height: "75%", justifyContent: 'center' }} >
+                  {entered ? (
+                    <FontAwesome6 name="check" size={120} color="#fab151" />
+                  ) : (
+                    <ActivityIndicator size={90} color="#fab151" />
+                  )
+                  }
+                </View>
+
+              </View>
+            </View>
+          </Modal>
+        </>
+      )
+      }
       <Modal
         visible={problem}
         transparent={true}
