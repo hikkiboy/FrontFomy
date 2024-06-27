@@ -77,8 +77,7 @@ const Login = ({ navigation }) => {
               Gourmet: 0,
               Refeições: 0,
               ItensAli: ["chef", "", "", ""],
-              ExpLevel: 50,
-              PremiumAntes: false
+              ExpLevel: 50
             });
             setEntered(true);
             setTimeout(() => {

@@ -13,6 +13,7 @@ export default function Configs({ navigation, route }) {
 
     const [modalVisible, setModalVisible] = useState(false);
     const [premium, setPremium] = useState(route.params?.premium[0])
+    const [thanksAlert, setThanksAlert] = useState(false)
 
     const handleOpenModal = () => {
         setModalVisible(true);
@@ -29,6 +30,7 @@ export default function Configs({ navigation, route }) {
                 await updateDoc(userRef, {
                     Premium: true
                 }).then(() => {
+                    setThanksAlert(true)
                     setPremium(true)
                     console.log("updatou")
                 })
@@ -80,6 +82,23 @@ export default function Configs({ navigation, route }) {
         <SafeAreaView style={styles.container} >
 
             <ScrollView contentContainerStyle={styles.content} >
+
+                <Modal
+                    visible={thanksAlert}
+                    transparent={true}
+                    animationType='fade'
+                >
+                    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "rgba(0,0,0,0.2)", paddingHorizontal: 10 }} >
+                        <View style={{ alignItems: 'center', backgroundColor: '#FFF', borderRadius: 15, width: "100%", paddingVertical: 30, paddingHorizontal: 10 }} >
+                            <FontAwesome6 name="face-laugh" size={80} color={"#ED8A07"} />
+                            <Text allowFontScaling={false} style={{ fontSize: 25, color: "#ED8A07", fontFamily: "FredokaSemibold", marginBottom: 20, marginTop: 15, width: "100%", textAlign: 'center' }} >Muito obrigado!</Text>
+                            <Text allowFontScaling={false} style={{ fontSize: 21, color: "#505050", fontFamily: "FredokaMedium", marginBottom: 45, width: "100%", textAlign: 'center' }} >Você assinando premium nos ajuda a continuar a fazer o que gostamos!</Text>
+                            <TouchableOpacity activeOpacity={0.8} style={{ backgroundColor: "#FAB151", width: "100%", alignItems: 'center', justifyContent: 'center', borderRadius: 20, paddingVertical: 8, borderWidth: 6, borderBottomWidth: 9, borderColor: "#ED8A07" }} onPress={() => setThanksAlert(false)} >
+                                <Text allowFontScaling={false} style={{ fontSize: 24, fontFamily: "FredokaSemibold", color: "#303030" }} >Fechar</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </SafeAreaView>
+                </Modal>
 
                 <View style={styles.bgpref}>
                     <Text allowFontScaling={false} style={styles.title} >Conta</Text>
@@ -208,7 +227,7 @@ const styles = StyleSheet.create({
         borderColor: "#2985DB",
         backgroundColor: "#3B98EF",
         alignItems: 'center',
-        marginBottom: 30, 
+        marginBottom: 30,
         paddingVertical: 5
     },
     bgpremium: {
