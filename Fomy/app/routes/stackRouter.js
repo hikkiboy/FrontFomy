@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 //import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5, FontAwesome6 } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
 import { Image } from "react-native";
 
@@ -192,35 +192,35 @@ export function TabNavigatior() {
       <Tab.Screen name="Perfil" component={Profile} options={{
         headerShown: false,
         tabBarIcon: ({ focused }) => (
-          <Ionicons name="person-sharp" size={32} color={focused ? "#2985DB" : "#505050"} />
+          <FontAwesome6 name="user-large"  size={30} color={focused ? "#2985DB" : "#505050"} />
         )
       }} />
 
       <Tab.Screen name="Book" component={MainBook} options={{
         headerShown: false,
         tabBarIcon: ({ focused }) => (
-          <FontAwesome name="book" size={32} color={focused ? "#be48d5" : "#505050"} />
+          <FontAwesome6 name="book-bookmark" size={30} color={focused ? "#be48d5" : "#505050"} />
         )
       }} />
 
       <Tab.Screen name="Home" component={Home} options={{
         headerShown: false,
         tabBarIcon: ({ focused }) => (
-          <Ionicons name="home" size={32} color={focused ? "#70d872" : "#505050"} />
+          <FontAwesome6 name="house-chimney" size={32} color={focused ? "#70d872" : "#505050"} />
         )
       }} />
 
       <Tab.Screen name="Store" component={Store} options={{
         headerShown: false,
         tabBarIcon: ({ focused }) => (
-          <FontAwesome5 name="shopping-basket" size={31} color={focused ? "#FA787D" : "#505050"} />
+          <FontAwesome5 name="shopping-basket" size={33} color={focused ? "#FA787D" : "#505050"} />
         )
       }} />
 
       <Tab.Screen name="Closet" component={Closet} options={{
         headerShown: false,
         tabBarIcon: ({ focused }) => (
-          <Image source={require("../assets/closet-icon-2.png")} style={{ width: 29, height: 29, resizeMode: 'contain' }}  tintColor={focused ? "#FAB151" : "#505050"} />
+          <Image source={require("../assets/closet-icon-2.png")} style={{ width: 29.5, height: 29.5, resizeMode: 'contain' }}  tintColor={focused ? "#FAB151" : "#505050"} />
         )
       }} />
     </Tab.Navigator>
