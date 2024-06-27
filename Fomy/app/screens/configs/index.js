@@ -107,7 +107,7 @@ export default function Configs({ navigation, route }) {
                     <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} >
                         <TouchableOpacity style={{ flex: 1, width: '100%' }} onPress={() => setThanksAlert(false)} />
                         <View style={{ alignItems: 'center', backgroundColor: '#FFF', borderRadius: 15, width: "100%", paddingVertical: 30, paddingHorizontal: 10 }} >
-                            <FontAwesome6 name={happy ? "face-laugh" : "face-frown"} size={80} color={"#ED8A07"} />
+                            <FontAwesome6 name={loading && happy ? "face-laugh" : loading ? "face-frown" : happy ? "face-laugh-wink" : "face-sad-tear"} size={80} color={"#ED8A07"} />
                             <Text allowFontScaling={false} style={{ fontSize: 25, color: "#ED8A07", fontFamily: "FredokaSemibold", marginBottom: 20, marginTop: 15, width: "100%", textAlign: 'center' }} >{loading && happy ? "Comprando..." : loading ? "Cancelando..." : happy ? "Muito obrigado!" : "Poxa"}</Text>
                             {loading ? (<ActivityIndicator style={{ marginVertical: 33.7 }} size={90} color={"#fab151"} />) : (
                                 <>
