@@ -15,7 +15,7 @@ export default function AlterPassword({ navigation }) {
     useLayoutEffect(() => {
         navigation.setOptions({
             header: () => (
-                <SafeAreaView style={{ flex: 1, display: 'flex' }} >
+                <SafeAreaView style={{ flex: 1, display: 'flex', backgroundColor: '#FFF' }} >
                     <View style={{ width: "100%", height: 65, backgroundColor: "rgba(0,0,0,0.1)", borderRadius: 10 }} >
                         <View style={{ width: "100%", height: 55, backgroundColor: "#FFF", flexDirection: 'row', alignItems: 'center', borderRadius: 10 }} >
                             <TouchableOpacity activeOpacity={0.8} style={{ width: "8.5%", marginStart: 20 }} onPress={() => navigation.goBack()} ><FontAwesome size={25} color={"#303030"} name='arrow-left' /></TouchableOpacity>

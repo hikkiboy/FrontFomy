@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet, TextInput, Pressable, Modal } from "react-native"
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, Pressable, Modal, ActivityIndicator } from "react-native"
 import { app_auth, app_DB } from '../../../firebaseConfig'
 import { onAuthStateChanged } from "firebase/auth"
 import { collection, onSnapshot, documentId, where, query, updateDoc, doc } from "firebase/firestore"
@@ -14,6 +14,8 @@ export default function Configs({ navigation, route }) {
     const [modalVisible, setModalVisible] = useState(false);
     const [premium, setPremium] = useState(route.params?.premium[0])
     const [thanksAlert, setThanksAlert] = useState(false)
+    const [happy, setHappy] = useState(true)
+    const [loading, setLoading] = useState(true)
 
     const handleOpenModal = () => {
         setModalVisible(true);
@@ -24,13 +26,16 @@ export default function Configs({ navigation, route }) {
     };
 
     async function buyPremium() {
+        setLoading(true)
         if (!premium) {
             try {
+                setHappy(true)
+                setThanksAlert(true)
                 const userRef = doc(app_DB, 'Usuarios', app_auth.currentUser.uid)
                 await updateDoc(userRef, {
                     Premium: true
                 }).then(() => {
-                    setThanksAlert(true)
+                    setLoading(false)
                     setPremium(true)
                     console.log("updatou")
                 })
@@ -39,11 +44,14 @@ export default function Configs({ navigation, route }) {
             }
         } else {
             try {
+                setHappy(false)
+                setThanksAlert(true)
                 const userRef = doc(app_DB, 'Usuarios', app_auth.currentUser.uid)
 
                 await updateDoc(userRef, {
                     Premium: false
                 }).then(() => {
+                    setLoading(false)
                     setPremium(false)
                     console.log("updatou")
                 })
@@ -57,7 +65,7 @@ export default function Configs({ navigation, route }) {
     useLayoutEffect(() => {
         navigation.setOptions({
             header: () => (
-                <SafeAreaView style={{ flex: 1, display: 'flex' }} >
+                <SafeAreaView style={{ flex: 1, display: 'flex', backgroundColor: '#FFF' }} >
                     <View style={{ width: "100%", height: 65, backgroundColor: "rgba(0,0,0,0.1)", borderRadius: 10 }} >
                         <View style={{ width: "100%", height: 55, backgroundColor: "#FFF", flexDirection: 'row', alignItems: 'center', borderRadius: 10 }} >
                             <TouchableOpacity activeOpacity={0.8} style={{ width: "8.5%", marginStart: 20 }} onPress={() => navigation.goBack()} ><FontAwesome size={25} color={"#303030"} name='arrow-left' /></TouchableOpacity>
@@ -99,12 +107,16 @@ export default function Configs({ navigation, route }) {
                     <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} >
                         <TouchableOpacity style={{ flex: 1, width: '100%' }} onPress={() => setThanksAlert(false)} />
                         <View style={{ alignItems: 'center', backgroundColor: '#FFF', borderRadius: 15, width: "100%", paddingVertical: 30, paddingHorizontal: 10 }} >
-                            <FontAwesome6 name="face-laugh" size={80} color={"#ED8A07"} />
-                            <Text allowFontScaling={false} style={{ fontSize: 25, color: "#ED8A07", fontFamily: "FredokaSemibold", marginBottom: 20, marginTop: 15, width: "100%", textAlign: 'center' }} >Muito obrigado!</Text>
-                            <Text allowFontScaling={false} style={{ fontSize: 21, color: "#505050", fontFamily: "FredokaMedium", marginBottom: 45, width: "100%", textAlign: 'center' }} >Você assinando premium nos ajuda a continuar a fazer o que gostamos!</Text>
-                            <TouchableOpacity activeOpacity={0.8} style={{ backgroundColor: "#FAB151", width: "100%", alignItems: 'center', justifyContent: 'center', borderRadius: 20, paddingVertical: 8, borderWidth: 6, borderBottomWidth: 9, borderColor: "#ED8A07" }} onPress={() => setThanksAlert(false)} >
-                                <Text allowFontScaling={false} style={{ fontSize: 24, fontFamily: "FredokaSemibold", color: "#303030" }} >Fechar</Text>
-                            </TouchableOpacity>
+                            <FontAwesome6 name={happy ? "face-laugh" : "face-frown"} size={80} color={"#ED8A07"} />
+                            <Text allowFontScaling={false} style={{ fontSize: 25, color: "#ED8A07", fontFamily: "FredokaSemibold", marginBottom: 20, marginTop: 15, width: "100%", textAlign: 'center' }} >{loading && happy ? "Comprando..." : loading ? "Cancelando..." : happy ? "Muito obrigado!" : "Poxa"}</Text>
+                            {loading ? (<ActivityIndicator style={{ marginVertical: 33.7 }} size={90} color={"#fab151"} />) : (
+                                <>
+                                    <Text allowFontScaling={false} style={{ fontSize: 21, color: "#505050", fontFamily: "FredokaMedium", marginBottom: 45, width: "100%", textAlign: 'center' }} >{happy ? "Você assinando premium nos ajuda a continuar a fazer o que gostamos!" : "Você voltará a ver anúncios e não terá mais os benefícios premium"}</Text>
+                                    <TouchableOpacity activeOpacity={0.8} style={{ backgroundColor: "#FAB151", width: "100%", alignItems: 'center', justifyContent: 'center', borderRadius: 20, paddingVertical: 8, borderWidth: 6, borderBottomWidth: 9, borderColor: "#ED8A07" }} onPress={() => setThanksAlert(false)} >
+                                        <Text allowFontScaling={false} style={{ fontSize: 24, fontFamily: "FredokaSemibold", color: "#303030" }} >Fechar</Text>
+                                    </TouchableOpacity>
+                                </>
+                            )}
                         </View>
                     </SafeAreaView>
                 </Modal>
@@ -155,7 +167,7 @@ export default function Configs({ navigation, route }) {
 
             </ScrollView>
 
-        </SafeAreaView>
+        </SafeAreaView >
     )
 }
 

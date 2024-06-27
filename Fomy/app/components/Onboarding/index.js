@@ -245,6 +245,18 @@ const OnboardingItem = ({ item, navigation, index, x, size }) => {
                     <View style={styles.dotactive} />
                 </View>
             )}
+            {index == 0 ? (
+                <>
+                    <FontAwesome style={{ position: 'absolute', right: 25, bottom: 98 }} name="arrow-right" color={"#303030"} size={25} />
+                </>
+            ) : (
+                <>
+                    <FontAwesome style={{ position: 'absolute', left: 25, bottom: 98 }} name="arrow-left" color={"#303030"} size={25} />
+                    {index + 1 != size &&
+                        <FontAwesome style={{ position: 'absolute', right: 25, bottom: 98 }} name="arrow-right" color={"#303030"} size={25} />
+                    }
+                </>
+            )}
 
         </View>
 
